@@ -1,0 +1,31 @@
+// Checkout Label
+.ec-checkout-label {
+  position: relative;
+  padding-right: 45px;
+  width: 100%;
+  max-width: 100%;
+  min-height: 35px;
+  box-sizing: border-box;
+
+  @media (min-width: $breakpoint-sm-up) {
+    width: $desktop-max-width;
+  }
+
+  svg {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    display: block;
+    width: 35px;
+    height: 35px;
+  }
+
+  strong {
+    font-weight: bold;
+  }
+
+  small {
+    color: $font-color-label-secondary;
+  }
+}

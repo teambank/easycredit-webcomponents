@@ -1,0 +1,55 @@
+{
+  "name": "@ratenkaufbyeasycredit/easycredit-components",
+  "license": "MIT",
+  "version": "0.2.0",
+  "description": "Th ratenkauf by easyCredit Web Components are a set of web components to be universally used in e-commerce platforms like Magento or Shopware. The web components ease integration of ratenkauf by easyCredit installments payment solution by providing versatile web frontend elements for marketing and checkout.",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.js",
+  "es2015": "dist/esm/index.mjs",
+  "es2017": "dist/esm/index.mjs",
+  "types": "dist/types/components.d.ts",
+  "collection": "dist/collection/collection-manifest.json",
+  "collection:main": "dist/collection/index.js",
+  "unpkg": "dist/easycredit-components/easycredit-components.esm.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/netzkollektiv/easycredit-components"
+  },
+  "files": [
+    "dist/",
+    "loader/"
+  ],
+  "scripts": {
+    "build": "stencil build --docs",
+    "start": "stencil build --dev --watch --serve",
+    "test": "stencil test --spec --e2e",
+    "test.watch": "stencil test --spec --e2e --watchAll",
+    "generate": "stencil generate",
+    "github-pages-fix": "sed -i 's/src=\"\\//src=\"\\/ratenkaufbyeasycredit-components\\//g' docs/index.html; sed -i 's/href=\"\\//href=\"\\/ratenkaufbyeasycredit-components\\//g' docs/index.html;",
+    "storybook": "start-storybook -p 6006",
+    "storybook:build": "build-storybook",
+    "storybook:deploy": "source .env && rsync -rvz storybook-static/ $STORYBOOK_DEPLOY_DST"
+  },
+  "dependencies": {
+    "@stencil/core": "2.12.1",
+    "@stencil/sass": "^1.5.2",
+    "@stencil/store": "^1.5.0",
+    "@storybook/addon-docs": "^6.4.19",
+    "buffer": "^6.0.3",
+    "case": "^1.6.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.17.5",
+    "@storybook/addon-actions": "^6.4.19",
+    "@storybook/addon-essentials": "^6.4.19",
+    "@storybook/addon-links": "^6.4.19",
+    "@storybook/addons": "^6.4.19",
+    "@storybook/html": "^6.4.19",
+    "@storybook/theming": "^6.4.19",
+    "@types/jest": "^26.0.24",
+    "babel-loader": "^8.2.3",
+    "jest": "^26.6.3",
+    "jest-cli": "^26.6.3",
+    "puppeteer": "^10.0.0"
+  }
+}

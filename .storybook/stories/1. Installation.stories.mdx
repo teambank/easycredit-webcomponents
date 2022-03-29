@@ -1,0 +1,38 @@
+
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Getting Started/Installation" />
+
+<h1>ratenkauf by easyCredit Web Components</h1>
+
+<p>Die ratenkauf by easyCredit Web Components sind ein Set von Webkomponenten, die universell in E-Commerce-Plattformen wie Magento oder Shopware eingesetzt werden können. Die Webkomponenten erleichtern die Integration der ratenkauf by easyCredit Ratenzahlungslösung durch vielseitige Web-Frontend-Elemente für Marketing, Checkout und Händlerverwaltung.</p>
+
+<h2>Installation</h2>
+
+Zur Integration der Web Components in ein beliebiges System fügen Sie die folgenden Zeilen in den `<head>` Ihres Shops ein:
+
+```html
+<script type="module" src="/build/easycredit-components.esm.js"></script>
+<script nomodule src="/build/easycredit-components.js"></script>
+```
+Jetzt können Sie jede der Komponenten innerhalb der Website verwenden:
+
+```html
+<easycredit-widget amount="500" webshop-id="1.de.1234" />
+```
+
+<h3>In ein bestehendes JavaScript-Projekt installieren</h3>
+
+<p>Um die Komponenten in einem JavaScript-Projekt zu verwenden, installieren Sie das NPM-Package:</p>
+
+```bash
+npm install --save @ratenkaufbyeasycredit/easycredit-components
+# or
+yarn add @ratenkaufbyeasycredit/easycredit-components
+```
+
+Sie können die Komponenten nun importieren:
+
+```js
+import { EasyCreditWidget } from "@ratenkaufbyeasycredit/easycredit-components";
+```

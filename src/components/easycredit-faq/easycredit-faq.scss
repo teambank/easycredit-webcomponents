@@ -1,0 +1,75 @@
+// Setup
+.ec-faq {
+  // Typo
+  h1, h2, h3,
+  h4, h5, h6 {
+    // text-align: center;
+  }
+  h1 {
+    font-size: $font-size-heading-xxl;
+    line-height: $line-height-heading;
+  }
+  h2 {
+    font-size: $font-size-heading-lg;
+    line-height: $line-height-heading;
+  }
+  h3 {
+    font-size: $font-size-xl;
+    line-height: $line-height-heading;
+  }
+}
+
+// Sections
+.ec-faq {
+  easycredit-accordion-item {
+    [slot="title"] {
+      position: relative;
+      margin-bottom: 0;
+      padding: 17.5px 26px 15px;
+      font-size: $font-size-xl;
+      cursor: pointer;
+
+      &:after {
+        content: '';
+        display: block;
+        font-family: Officina;
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        width: 20px;
+        height: 20px;
+        transform: translateY(-50%);
+        transition: $transition;
+
+        @include background-svg($icon-arrow-down);
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+    }
+
+    display: block;
+    margin-top: 15px;
+    border: 2px solid $ec-gray-3;
+    border-radius: $border-radius-lg-xl;
+    transition: $transition;
+
+    div {
+      padding: 15px 26px 20px;
+      font-size: $font-size-lg;
+    }
+
+    &:hover,
+    &[open] {
+      border-color: transparent;
+      box-shadow: -3px 3px 13px rgb(0 0 0 / 11%);
+      transform: translateY(-1px);
+    }
+    &[open] {
+      [slot="title"] {
+        &:after {
+          transform: translateY(-50%) rotate(-180deg);
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,100 @@
+// Setup
+.ec-infopage {
+  padding: 30px;
+
+  // Typo
+  h1, h2, h3,
+  h4, h5, h6 {
+    text-align: left;
+  }
+  h1 {
+    font-size: $font-size-heading-xxl;
+    line-height: $line-height-heading;
+  }
+  h2 {
+    font-size: $font-size-heading-lg;
+    line-height: $line-height-heading;
+  }
+}
+
+$infpage-max-width: 650px;
+
+// Sections
+.ec-infopage {
+  section {
+    margin: 80px auto;
+    width: 100%;
+
+    &:first-child {
+      margin-top: 0;
+    }
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__logo {
+    margin: 0 auto 40px;
+
+    @extend .logo-ratenkauf;
+    width: 100%;
+    height: 55px;
+    max-width: $infpage-max-width;
+    background-position: right center;
+    background-size: 250px auto;
+  }
+
+  &__text {
+    max-width: $infpage-max-width;
+    text-align: left;
+    font-size: $font-size-xl;
+  }
+
+  &__video {
+    max-width: $infpage-max-width;
+
+    iframe {
+      display: block;
+      margin: 0 auto;
+    }
+  }
+
+  &__usp {
+    max-width: $infpage-max-width;
+
+    ul {
+      padding-left: 0;
+      list-style-type: none;
+    }
+
+    li {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      margin-bottom: 15px;
+      font-size: $font-size-lg;
+
+      &::before {
+        @include content-svg($icon-checkmark);
+        margin-right: 20px;
+        width: 41px;
+        height: 41px;
+      }
+    }
+  }
+
+  &__logo-secondary {
+    margin: 40px auto 0;
+
+    @extend .logo-finanzgruppe;
+    width: 100%;
+    height: 25px;
+    max-width: $infpage-max-width;
+    background-position: right center;
+    background-size: 195px auto;
+  }
+
+  &__faq {
+    max-width: $infpage-max-width;
+  }
+}

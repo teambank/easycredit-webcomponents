@@ -1,0 +1,201 @@
+.ec-box-listing {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 300px;
+
+    &__inner {
+        position: relative;
+        overflow: hidden;
+        background-color: $white;
+        box-shadow: $box-shadow;
+        border-radius: $border-radius-xl;
+    }
+
+    &__image,
+    &__content {
+        padding: 30px;
+        min-height: 415px;
+    }
+    &__image {
+        position: relative;
+        z-index: 4;
+        display: flex;
+        flex-direction: column;
+    }
+    &__image-logo {
+        margin-bottom: 40px;
+
+        @extend .logo-ratenkauf;
+        height: 35px;
+        background-position: left top;
+        background-size: 150px auto;
+    }
+    &__image-heading {
+        margin-bottom: 20px;
+        font-size: $font-size-heading-lg;
+        line-height: $line-height-heading;
+        font-weight: bold;
+        color: $ec-secondary;
+    }
+    &__image-product {
+        flex: 1 1 auto;
+        position: relative;
+        margin-left: -30px;
+        margin-right: -30px;
+        margin-bottom: -30px;
+        width: calc(100% + 60px);
+        @extend .image-default;
+
+        img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        &.empty {
+            img {
+                visibility: hidden;
+            }
+        }
+    }
+
+    &__content {
+        display: none;
+        background-color: $ec-secondary;
+        color: $white;
+    }
+    &__content-heading {
+        margin-bottom: 20px;
+        font-size: $font-size-heading-lg;
+        line-height: $line-height-heading;
+        font-weight: bold;
+    }
+    &__content-description {
+        font-size: $font-size-lg;
+        line-height: $line-height;
+    }
+
+    &__badge {
+        position: absolute;
+        right: -20px;
+        bottom: 50px;
+        z-index: 5;
+        display: flex;
+        flex-flow: row wrap;
+        padding: 8px 16px;
+        width: 190px;
+        transform: rotate(-8deg);
+
+        background-color: $ec-primary;
+        border-radius: $border-radius-xl;
+
+        font-size: $font-size;
+        line-height: $line-height;
+        font-weight: bold;
+        color: $white;
+    }
+
+    &__price {
+        position: absolute;
+        right: -40px;
+        bottom: 60px;
+        z-index: 5;
+        display: none;
+        flex-flow: row wrap;
+        padding: 12.5px;
+        width: 160px;
+
+        background-color: $ec-primary;
+        border-radius: $border-radius-xl;
+
+        font-size: $font-size;
+        line-height: $line-height;
+        color: $white;
+
+        &:after {
+            content: '';
+            display: block;
+            position: absolute;
+            top: 15px;
+            left: -59px;
+            z-index: 1001;
+            width: 60px;
+            height: 40px;
+
+            @include background-svg($bubble-arrow);
+            background-repeat: no-repeat;
+            background-size: contain;
+            transform: scaleX(-1);
+        }
+
+        &.active {
+            display: flex;
+        }
+    }
+    &__price-start {
+        width: 100%;
+        // margin-bottom: 3px;
+    }
+    &__price-per-month {
+        display: flex;
+        align-items: center;
+
+        span {
+            font-size: $font-size-heading-xl;
+            font-weight: bold;
+        }
+        .month {
+            font-size: $font-size;
+            line-height: $font-size * 1.15;
+            width: 100%;
+            margin-left: 7.5px;
+        }
+    }
+
+    &:hover {
+        .ec-box-listing__image,
+        .ec-box-listing__price {
+            display: none;
+        }
+
+        .ec-box-listing__content {
+            display: block;
+        }
+    }
+}
+
+@media(max-width: 1200px) {
+    .ec-box-listing {
+        &__image-heading {
+            font-size: $font-size-heading;
+
+            br {
+                display: none;
+            }
+        }
+
+        &__price {
+            right: -20px;
+        }
+    }
+}
+
+@media(max-width: 767px) {
+    .ec-box-listing {
+        &__price {
+            right: -10px;
+        }
+    }
+}
+
+@media(max-width: 479px) {
+    .ec-box-listing {
+        &__image-heading {
+            br {
+                display: block;
+            }
+        }
+    }
+}

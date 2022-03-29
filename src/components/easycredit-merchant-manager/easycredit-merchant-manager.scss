@@ -1,0 +1,180 @@
+@import '../../globals/functions';
+
+// Manager
+.easycredit-tx-manager {
+  background-color: $white;
+  border-radius: $border-radius-xl;
+  box-shadow: 0 0 25px rgba(0,0,0,.1);
+  padding: 30px 25px;
+  min-width: 200px;
+  width: 250px;
+  max-width: 100%;
+  font-family: $font-family;
+  font-size: $font-size-running;
+  color: $font-color;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: none;
+
+  user-select: none;  
+
+  &:before {
+    content: '';
+    margin-bottom: 15px;
+    display: block;
+    height: 25px;
+    background-color: transparent;
+    // background-image: url(./assets/img/ratenkauf-logo.svg);
+    @include background-svg($logo-ratenkauf);
+    background-position: left center;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+
+  strong,
+  label {
+    font-family: $font-family-bold;
+  }
+  label {
+    display: inline-block;
+    margin-bottom: 5px;
+  }
+
+  p {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: $font-size-running;
+    user-select: text;
+  }
+  p strong {
+    user-select:none;
+  }
+  p a, span a {
+    color: $ec-secondary;
+    font-weight: bold;
+  }
+  
+  .transaction-info {
+    p {
+      margin: 1em 0;
+    }
+  }
+
+  .progress-bar {
+    margin-bottom: 20px;
+    text-align: center;
+
+    .progress.light {
+      color: rgba($font-color,.5);
+    }
+    .progress.error {
+      color: rgba($error,1);
+    }
+  }
+
+  select,
+  input,
+  button {
+    display: inline-block;
+    margin-bottom: 10px;
+    padding: 1px 15px 0;
+    width: 100%;
+    max-width: 300px;
+    height: 35px;
+    box-sizing: border-box;
+    line-height: 32px;
+    background-color: transparent;
+    background-image: none;
+    border: 1px solid $ec-gray-border;
+    border-radius: $border-radius;
+    font-family: $font-family !important;
+    font-size: $font-size;
+    color: $font-color;
+  }
+  select {
+    // Reset
+    &#easycredit-merchant-status, &#easycredit-merchant-refund-reason {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+
+      &::-ms-expand {
+        display: none;
+      }
+    }
+
+    // background-image: url(./assets/img/icon-arrow-down.svg);
+    @include background-svg($icon-arrow-down);
+    background-position: right 10px center;
+    background-repeat: no-repeat;
+    background-size: 10px;
+    cursor: pointer;
+
+    &:disabled {
+      color: $font-color-disabled;
+    }
+  }
+  input {
+    &::-webkit-inner-spin-button {
+      display: none;
+    }
+    &::-webkit-calendar-picker-indicator {
+      color: transparent;
+      background: transparent;
+      margin-left: 10px;
+      margin-right: -5px;
+      padding: 0;
+      width: 10px;
+      // background-image: url(./assets/img/icon-arrow-down.svg);
+      @include background-svg($icon-arrow-down);
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: 10px;
+      cursor: pointer;
+    }
+
+    &:disabled {
+      color: $font-color-disabled;
+    }
+  }
+  button {
+    margin-bottom: 0;
+    background-color: $ec-secondary;
+    border: 0;
+    border-radius: 20px;
+    text-align: center;
+    font-family: $font-family-bold !important;
+    color: $white;
+    cursor: pointer;
+    transition: $transition;
+
+    &:hover {
+      background-color: darken($ec-secondary,5%);
+    }
+    &:disabled {
+      background-color:$ec-gray;
+    }
+  }
+  .amount {
+    input {
+      width: 120px;
+    }
+  }
+  .loading .spinner, &.loading .spinner {
+    // background-image: url(./assets/img/ratenkauf-icon.svg);
+    @include background-svg($ratenkauf-icon);
+
+    background-repeat: no-repeat;
+    background-position: center;
+    animation: 1.4s linear infinite both circle-linear--animation;
+    animation-delay: 0.3s;
+    visibility: visible;
+    min-width: 250px;
+    min-height: 50px;
+  }
+  .loading p, &.loading div, &.loading:before, &.loading span {
+    visibility:hidden;
+  }
+
+}
