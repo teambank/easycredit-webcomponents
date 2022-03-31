@@ -25,8 +25,7 @@
     display: block;
     height: 25px;
     background-color: transparent;
-    // background-image: url(./assets/img/ratenkauf-logo.svg);
-    @include background-svg($logo-ratenkauf);
+    background-image:url(https://ratenkaufbyeasycredit-components.netzkollektiv.com/easycredit-components/assets/ratenkauf-logo.svg);
     background-position: left center;
     background-repeat: no-repeat;
     background-size: contain;
