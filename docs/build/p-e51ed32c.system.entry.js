@@ -1,1 +1,0 @@
-System.register(["./p-6194c6b7.system.js"],(function(e){"use strict";var t;return{setters:[function(e){t=e.r}],execute:function(){var r=e("easycredit_base",function(){function e(e){t(this,e)}Object.defineProperty(e,"assetsDirs",{get:function(){return["assets"]},enumerable:false,configurable:true});return e}())}}}));

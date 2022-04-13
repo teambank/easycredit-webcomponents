@@ -1,8 +1,8 @@
 {
-  "name": "@ratenkaufbyeasycredit/easycredit-components",
+  "name": "@easycredit-ratenkauf/easycredit-components",
   "license": "MIT",
-  "version": "0.2.0",
-  "description": "Th ratenkauf by easyCredit Web Components are a set of web components to be universally used in e-commerce platforms like Magento or Shopware. The web components ease integration of ratenkauf by easyCredit installments payment solution by providing versatile web frontend elements for marketing and checkout.",
+  "version": "1.0.0",
+  "description": "The ratenkauf by easyCredit Web Components are a set of web components to be universally used in e-commerce platforms like Magento or Shopware. The web components ease integration of ratenkauf by easyCredit installments payment solution by providing versatile web frontend elements for marketing and checkout.",
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",
   "es2015": "dist/esm/index.mjs",
@@ -25,7 +25,6 @@
     "test": "stencil test --spec --e2e",
     "test.watch": "stencil test --spec --e2e --watchAll",
     "generate": "stencil generate",
-    "github-pages-fix": "sed -i 's/src=\"\\//src=\"\\/ratenkaufbyeasycredit-components\\//g' docs/index.html; sed -i 's/href=\"\\//href=\"\\/ratenkaufbyeasycredit-components\\//g' docs/index.html;",
     "storybook": "start-storybook -p 6006",
     "storybook:build": "build-storybook",
     "storybook:deploy": "source .env && rsync -rvz storybook-static/ $STORYBOOK_DEPLOY_DST"

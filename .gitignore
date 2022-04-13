@@ -4,7 +4,6 @@ loader/
 *~
 *.sw[mnpcod]
 *.log
-*.lock
 *.tmp
 *.tmp.*
 log.txt
@@ -19,6 +18,7 @@ log.txt
 node_modules/
 $RECYCLE.BIN/
 /storybook-static
+/docs/build
 
 .DS_Store
 Thumbs.db
