@@ -140,7 +140,11 @@ export class EasycreditCheckout {
 
         <ul class="ec-checkout__totals">
         <li>
-            <span>Zinsen</span>
+            <span>Kaufbetrag</span>
+            <span>{  formatCurrency(this.amount) }</span>
+        </li>
+        <li>
+            <span>+ Zinsen</span>
             <span>{  formatCurrency(this.selectedInstallment.totalInterest) }</span>
         </li>
         <li class="total">
