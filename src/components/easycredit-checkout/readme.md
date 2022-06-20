@@ -7,14 +7,13 @@
 
 ## Properties
 
-| Property       | Attribute        | Description | Type      | Default     |
-| -------------- | ---------------- | ----------- | --------- | ----------- |
-| `alert`        | `alert`          |             | `string`  | `undefined` |
-| `amount`       | `amount`         |             | `number`  | `undefined` |
-| `askForPrefix` | `ask-for-prefix` |             | `boolean` | `false`     |
-| `isActive`     | `is-active`      |             | `boolean` | `true`      |
-| `paymentPlan`  | `payment-plan`   |             | `string`  | `undefined` |
-| `webshopId`    | `webshop-id`     |             | `string`  | `undefined` |
+| Property      | Attribute      | Description | Type      | Default     |
+| ------------- | -------------- | ----------- | --------- | ----------- |
+| `alert`       | `alert`        |             | `string`  | `undefined` |
+| `amount`      | `amount`       |             | `number`  | `undefined` |
+| `isActive`    | `is-active`    |             | `boolean` | `true`      |
+| `paymentPlan` | `payment-plan` |             | `string`  | `undefined` |
+| `webshopId`   | `webshop-id`   |             | `string`  | `undefined` |
 
 
 ## Dependencies

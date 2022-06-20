@@ -14,10 +14,9 @@
       <nav>
         <h2>easyCredit Checkout</h2>
         <ul>
-          <li data-target="#ec-checkout-1">unberechnet (lang)</li>
-          <li data-target="#ec-checkout-2">unberechnet (kurz)</li>
-          <li data-target="#ec-checkout-3">berechnet</li>
-          <li data-target="#ec-checkout-4">Fehler</li>
+          <li data-target="#ec-checkout-1">unberechnet</li>
+          <li data-target="#ec-checkout-2">berechnet</li>
+          <li data-target="#ec-checkout-3">Fehler</li>
         </ul>
 
         <h2>easyCredit Widget</h2>
@@ -51,31 +50,17 @@
           <h1>easyCredit Checkout</h1>
 
           <div id="ec-checkout-1">
-            <h2>unberechnet, Prefix Abfrage</h2>
+            <h2>unberechnet</h2>
 
             <easycredit-checkout-label></easycredit-checkout-label>
             <easycredit-checkout
               webshop-id="2.de.9999.9999"
               amount="820.31"
               is-active="true"
-              prefix="HERR"
-              ask-for-prefix="true"
             />
           </div>
 
           <div id="ec-checkout-2">
-            <h2>unberechnet, keine Prefix Abfrage</h2>
-
-            <easycredit-checkout-label></easycredit-checkout-label>
-            <easycredit-checkout
-              webshop-id="2.de.9999.9999"
-              amount="200.31"
-              is-active="true"
-              prefix="HERR"
-            />
-          </div>
-
-          <div id="ec-checkout-3">
             <h2>berechnet</h2>
 
             <easycredit-checkout-label></easycredit-checkout-label>
@@ -87,7 +72,7 @@
             ></easycredit-checkout>
           </div>
 
-          <div id="ec-checkout-4">
+          <div id="ec-checkout-3">
             <h2>Fehler</h2>
 
             <easycredit-checkout-label></easycredit-checkout-label>

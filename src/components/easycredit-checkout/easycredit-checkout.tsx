@@ -14,10 +14,9 @@ export class EasycreditCheckout {
   @Prop() webshopId: string
   @Prop() alert: string
   @Prop() paymentPlan: string
-  @Prop() askForPrefix: boolean = false
 
   @State() privacyApprovalForm: string
-  @State() privacyCheckboxChecked: boolean = false
+  @State() acceptButtonClicked: boolean = false
 
   @State() totals = {
     interest: 0,
@@ -39,9 +38,17 @@ export class EasycreditCheckout {
     this.selectedInstallment = this.installments.find(i => i.numberOfInstallments == e.detail)
   }
 
+  @Listen('openModal')
+  openModalHandler () {
+    this.modal.open()
+  }
+
   async componentWillLoad () {
     if (this.amount > 0 && !this.alert && !this.paymentPlan) {
       await fetchInstallmentPlans(this.webshopId, this.amount).then((data) => {
+        if (!data) {
+          return
+        }
         const installment = data.installmentPlans.find(() => true)
         if (installment.errors) {
           this.alert = installment.errors.violations.find(()=>true).message
@@ -78,12 +85,12 @@ export class EasycreditCheckout {
   @Element() el: HTMLElement;
 
   onSubmit() {
+    this.acceptButtonClicked = true;
     this.el.dispatchEvent(new CustomEvent('submit', {
       bubbles    : true,
       cancelable : true,
       detail: {
-        numberOfInstallments: this.selectedInstallment.numberOfInstallments,
-        privacyCheckboxChecked: this.privacyCheckboxChecked
+        numberOfInstallments: this.selectedInstallment.numberOfInstallments
       }
     }))
   }
@@ -166,42 +173,10 @@ export class EasycreditCheckout {
     ])
   }
 
-  getPrefixFragment () {
-    if (true || !this.askForPrefix) {
-      return
-    }
-    /* 
-    return <div class="title">
-      <p><strong>Für ratenkauf by easyCredit bitte eine Anrede auswählen:</strong></p>
-      <div class="form-radio badges">
-        <span v-for="(label, key) in modal.prefix.options" :key="key">
-          <input
-              :id="'modalPrefix' + key"
-              v-model="modal.prefix.value"
-              class="form-check-input"
-              type="radio"
-              name="easycredit-prefix"
-              :value="key"
-              @change.stop=""
-          >
-          <label class="form-check-label" :for="'modalPrefix' + key">
-            { label }
-          </label>
-        </span>
-      </div>
-    </div>
-    */
-  }
-
-  handleCheckbox (e) {
-    this.privacyCheckboxChecked = e.target.checked
-  }
-
   getPrivacyFragment() {
     return <div class="privacy">
-      <p><strong>Bitte stimmen Sie der Datenübermittlung zu:</strong></p>
+      <p><strong>Mit Klick auf Akzeptieren stimmen Sie der Datenübermittlung zu:</strong></p>
       <div class="form-check">
-        <input id="modalAgreement" onInput={(e) => this.handleCheckbox(e)} class="form-check-input" type="checkbox" name="easycredit-agreement" value="1" />
         <label class="form-check-label" htmlFor="modalAgreement">
           <small>{ this.privacyApprovalForm }</small>
         </label>
@@ -211,14 +186,13 @@ export class EasycreditCheckout {
 
   getModalFragment () {
     return ([
-      <easycredit-modal ref={(el) => this.modal = el as HTMLEasycreditModalElement}>
+      <easycredit-modal ref={(el) => this.modal = el as HTMLEasycreditModalElement} onModalClosed={() => this.acceptButtonClicked = false }>
         <div slot="heading">Weiter zum Ratenkauf</div>
         <div slot="content">
-          {this.getPrefixFragment()}
           {this.getPrivacyFragment()}
 
           <div class="form-submit">
-            <button class="btn btn-primary" type="button" onClick={() => { this.onSubmit() }} disabled={!this.privacyCheckboxChecked}>
+            <button class={{ "btn": true, "btn-primary": true, "loading": this.acceptButtonClicked }} type="button" onClick={() => { this.onSubmit() }} disabled={this.acceptButtonClicked}>
               Akzeptieren
             </button>
           </div>

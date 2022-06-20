@@ -13,6 +13,7 @@ $ec-gray-border: rgba(0,0,0,0.2);
 $ec-backdrop: rgba(0,0,0,.3);
 $white: #fff;
 $error: #e90202;
+$ec-primary-blue: #002C5A;
 
 // - Font colors
 $font-color: #000;
@@ -145,6 +146,29 @@ $icon-arrow-down: '<svg width="10" height="5" viewBox="0 0 10 5" fill="none" xml
       pointer-events: none;
       background-color: rgba($ec-primary, .5) !important;
       color: $white;
+    }
+
+    &.loading {
+      display: inline-flex;
+      align-items: center;
+
+      @keyframes spinner-border {
+        to { transform: rotate(360deg); }
+      }
+
+      &:before {
+        content: '';
+        margin-top: -1px;
+        margin-right: 6px;
+        display: block;
+        width: 10px;
+        height: 10px;
+        border: 3px solid $white;
+        border-right-color: transparent !important;
+        border-radius: 50%;
+        -webkit-animation: spinner-border 1s linear infinite;
+        animation: spinner-border 1s linear infinite;
+      }
     }
   }
 
