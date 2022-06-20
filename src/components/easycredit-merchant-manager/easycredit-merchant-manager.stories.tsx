@@ -11,7 +11,8 @@ Um die Transaktionen abrufen zu können, müssen für den Merchant Manager die E
 
         <script>
     window.ratenkaufbyeasycreditOrderManagementConfig = {
-        endpoints: {  // {transactionId} is automatically replaced with the current tx-id
+        endpoints: {  // {transactionId} is automatically replaced with the tx-id or tx-id's (list)
+            list: 'api/transactions/{transactionId}',
             get: 'api/transaction/{transactionId}', 
             capture: 'api/transaction/{transactionId}/capture',
             refund: 'api/transaction/{transactionId}/refund'
