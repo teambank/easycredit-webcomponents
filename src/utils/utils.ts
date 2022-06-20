@@ -19,9 +19,15 @@ export function formatDate (dateString) {
 }
 
 export function formatDatetime(dateString) {
-  if (dateString) {
-    return new Date(dateString).toLocaleDateString('de-DE', {year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit'})
-  } 
+  if (!dateString) {
+    return
+  }
+
+  var params: Intl.DateTimeFormatOptions = {year: "numeric", month: '2-digit', day: '2-digit'};
+  if (dateString.match( /^\d{4}-\d{2}-\d{2}Z/ )) {
+    params = {...params, ... {hour: '2-digit', minute: '2-digit'}}
+  }
+  return new Date(dateString).toLocaleDateString('de-DE', params)
 }
 
 export function fetchInstallmentPlans (webshopId: string, amount: number) {
@@ -139,5 +145,5 @@ export async function refundTransaction (txId: string, data) {
 export function youngerThanOneDay (date) {
   const oneDay = 24 * 60 * 60 * 1000 // in ms
   let parsed = Date.parse(date)
-  return !isNaN(parsed) || parsed > (Date.now() - oneDay)
+  return !isNaN(parsed) && parsed > (Date.now() - oneDay)
 }
