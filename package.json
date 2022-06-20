@@ -30,7 +30,7 @@
     "storybook:deploy": "source .env && rsync -rvz storybook-static/ $STORYBOOK_DEPLOY_DST"
   },
   "dependencies": {
-    "@stencil/core": "2.12.1",
+    "@stencil/core": "^2.16.1",
     "@stencil/sass": "^1.5.2",
     "@stencil/store": "^1.5.0",
     "@storybook/addon-docs": "^6.4.19",

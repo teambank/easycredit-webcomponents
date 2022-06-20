@@ -15,6 +15,14 @@
 | `show`           | `show`            |             | `boolean` | `undefined`    |
 
 
+## Events
+
+| Event         | Description | Type               |
+| ------------- | ----------- | ------------------ |
+| `modalClosed` |             | `CustomEvent<any>` |
+| `modalOpened` |             | `CustomEvent<any>` |
+
+
 ## Methods
 
 ### `close() => Promise<void>`
@@ -53,12 +61,14 @@ Type: `Promise<void>`
 ### Used by
 
  - [easycredit-checkout](../easycredit-checkout)
+ - [easycredit-express-button](../easycredit-express-button)
  - [easycredit-widget](../easycredit-widget)
 
 ### Graph
 ```mermaid
 graph TD;
   easycredit-checkout --> easycredit-modal
+  easycredit-express-button --> easycredit-modal
   easycredit-widget --> easycredit-modal
   style easycredit-modal fill:#f9f,stroke:#333,stroke-width:4px
 ```
