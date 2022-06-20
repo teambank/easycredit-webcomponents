@@ -1,4 +1,4 @@
-import { Component, h, Element, Method, Prop, Watch } from '@stencil/core';
+import { Component, h, Element, Method, Prop, Watch, Event, EventEmitter } from '@stencil/core';
 
 @Component({
   tag: 'easycredit-modal',
@@ -23,6 +23,7 @@ export class EasycreditModal {
 
   @Method() async close() {
     this.isOpen = false
+    this.modalClosed.emit();
   }
 
   @Method() async open() {
@@ -32,6 +33,9 @@ export class EasycreditModal {
       (el as any).src = (el as any).dataset.src
     })
   }
+
+  @Event() modalOpened: EventEmitter;
+  @Event() modalClosed: EventEmitter;
 
   @Method() async toggle () {
     (this.isOpen) ? this.close() : this.open()
