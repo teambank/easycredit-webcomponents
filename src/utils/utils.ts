@@ -162,14 +162,18 @@ export async function fetchTransaction (txId: string, reload: Boolean = false) {
   if (txId === '') {
     return Promise.reject()
   }
-  if (transactionLoader == null) {
-    var transactionsStore: {[key: string]: any} = []
-    transactionLoader = new Loader(fetchTransactions, transactionsStore)
+
+  if (typeof getConfig().endpoints.list !== 'undefined') {
+    if (transactionLoader == null) {
+      var transactionsStore: {[key: string]: any} = []
+      transactionLoader = new Loader(fetchTransactions, transactionsStore)
+    }
+    if (reload) {
+      transactionLoader.remove(txId)
+    }
+    return transactionLoader.load(txId)
   }
-  if (reload) {
-    transactionLoader.remove(txId)
-  }
-  return transactionLoader.load(txId)
+  return fetchSingleTransaction(txId) // legacy behavior
 }
 
 export async function captureTransaction (txId: string, data) {

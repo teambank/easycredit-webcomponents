@@ -16,7 +16,7 @@ export class Loader {
   async load (id): Promise<any> {
     return new Promise(async (resolve, reject) => {
       this.requestedIds.push(id)
-      process.nextTick(async () => {
+      Promise.resolve().then(async () => {
 
         let missingIds = this.requestedIds.filter(_id => this.queuedIds.indexOf(_id) === -1)
         this.requestedIds = []
@@ -30,7 +30,7 @@ export class Loader {
           this.store = {... this.store, ... items }
           resolve(this.store[id])
         } catch (e) {
-          reject()
+          reject(e)
         }
       })
     })
