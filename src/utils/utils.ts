@@ -53,15 +53,13 @@ export function fetchAllInstallmentPlans (webshopId: string, amounts: number[]) 
     }
   })
 
-  const options = {
+  const options = getOptions({
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json; charset=utf-8'
-    },
     body: JSON.stringify({
       "articles": articles
     })
-  }
+  })
+
   return fetch(uri, options)
     .then((response) => {
       if (response.ok) { 
@@ -82,7 +80,7 @@ export function fetchAllInstallmentPlans (webshopId: string, amounts: number[]) 
 }
 
 export function fetchAgreement (webshopId: string) {
-  return fetch('https://ratenkauf.easycredit.de/api/payment/v3/webshop/' + webshopId).then((response) => {
+  return fetch('https://ratenkauf.easycredit.de/api/payment/v3/webshop/' + webshopId, getOptions({})).then((response) => {
     if (response.ok) { 
      return response.json();
     }
@@ -94,7 +92,8 @@ const defaultConfig = {
   request_config: {
     headers: {
       'Content-Type': 'application/json; charset=utf-8',
-      'Authorization': 'Basic ' + btoa('2.de.9999.9999:a123456')
+      'Authorization': 'Basic ' + btoa('2.de.9999.9999:a123456'),
+      'X-Webcomponents-User-Agent' : 'EasyCreditRatenkaufWebComponents/1.0.0'
     }
   },
   endpoints: {
