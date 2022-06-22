@@ -92,7 +92,6 @@ const defaultConfig = {
   request_config: {
     headers: {
       'Content-Type': 'application/json; charset=utf-8',
-      'Authorization': 'Basic ' + btoa('2.de.9999.9999:a123456'),
       'X-Webcomponents-User-Agent' : 'EasyCreditRatenkaufWebComponents/1.0.0'
     }
   },

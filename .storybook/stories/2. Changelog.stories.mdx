@@ -1,0 +1,37 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Getting Started/Changelog" />
+
+# Changelog
+
+## 1.1.0
+
+- Update von StencilJs auf v2.16.1
+
+#### `<easycredit-checkout />`
+
+-  bei Klick auf Akzeptieren erhält der Nutzer visuelles Feedback
+- die Auswahl der Anrede wurde entfernt
+- die Zustimmungserklärung muss nun nicht mehr aktiv bestätigt werden (Checkbox entfernt)
+
+#### `<easycredit-merchant-manager />`
+
+- der Betrag wird mit zwei Dezimalstellen angezeigt
+- Datumsangaben ohne Zeit werden nun als reines Datum formatiert dargestellt
+- zwischen nicht verfügbar & noch nicht verfügbar wird nun korrekt unterschieden
+
+#### `<easycredit-modal />`
+
+- das Modal erhielt einen höheren z-index, damit es andere Elemente leichter überlagert
+
+#### `<easycredit-widget />`, `<easycredit-merchant-manager />`, `<easycredit-merchant-status-widget />`
+
+- die Komponenten  unterstützen nun automatisches Batch-Loading und können so bei guter Performance auch mehrfach innerhalb einer Seite eingesetzt werden.
+
+### Upgrade Notes
+
+- für das Batch-Loading muss in <em>window.ratenkaufbyeasycreditOrderManagementConfig</em> die Eigenschaft <em>list</em> mit entsprechendem Endpunkt gesetzt werden.
+
+## 1.0.0
+    
+- erstes Release
