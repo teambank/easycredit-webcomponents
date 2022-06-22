@@ -89,6 +89,7 @@ export class EasycreditCheckout {
     this.el.dispatchEvent(new CustomEvent('submit', {
       bubbles    : true,
       cancelable : true,
+      composed: true,
       detail: {
         numberOfInstallments: this.selectedInstallment.numberOfInstallments
       }
