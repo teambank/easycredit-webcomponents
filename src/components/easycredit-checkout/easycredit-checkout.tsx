@@ -43,6 +43,11 @@ export class EasycreditCheckout {
     this.modal.open()
   }
 
+  @Listen('closeModal')
+  closeModalHandler () {
+    this.modal.close()
+  }
+
   async componentWillLoad () {
     if (this.amount > 0 && !this.alert && !this.paymentPlan) {
       await fetchInstallmentPlans(this.webshopId, this.amount).then((data) => {
