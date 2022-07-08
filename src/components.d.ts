@@ -63,7 +63,6 @@ export namespace Components {
     interface EasycreditCheckout {
         "alert": string;
         "amount": number;
-        "askForPrefix": boolean;
         "isActive": boolean;
         "paymentPlan": string;
         "webshopId": string;
@@ -109,6 +108,18 @@ export namespace Components {
          */
         "webshopId": string;
     }
+}
+export interface EasycreditAccordionItemCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLEasycreditAccordionItemElement;
+}
+export interface EasycreditCheckoutInstallmentsCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLEasycreditCheckoutInstallmentsElement;
+}
+export interface EasycreditModalCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLEasycreditModalElement;
 }
 declare global {
     interface HTMLEasycreditAccordionElement extends Components.EasycreditAccordion, HTMLStencilElement {
@@ -241,11 +252,11 @@ declare namespace LocalJSX {
         /**
           * triggered when the content of the accordion item changes
          */
-        "onContentChanged"?: (event: CustomEvent<any>) => void;
+        "onContentChanged"?: (event: EasycreditAccordionItemCustomEvent<any>) => void;
         /**
           * triggered when the accordion item is opened
          */
-        "onOpenEvent"?: (event: CustomEvent<any>) => void;
+        "onOpenEvent"?: (event: EasycreditAccordionItemCustomEvent<any>) => void;
         /**
           * accordion item is open or opening (css transition)
          */
@@ -271,14 +282,13 @@ declare namespace LocalJSX {
     interface EasycreditCheckout {
         "alert"?: string;
         "amount"?: number;
-        "askForPrefix"?: boolean;
         "isActive"?: boolean;
         "paymentPlan"?: string;
         "webshopId"?: string;
     }
     interface EasycreditCheckoutInstallments {
         "installments"?: any;
-        "onSelectedInstallment"?: (event: CustomEvent<string>) => void;
+        "onSelectedInstallment"?: (event: EasycreditCheckoutInstallmentsCustomEvent<string>) => void;
         "rows"?: number;
         "showMoreButtonText"?: string;
     }
@@ -303,6 +313,8 @@ declare namespace LocalJSX {
         "isOpen"?: boolean;
         "loading"?: boolean;
         "loadingMessage"?: string;
+        "onModalClosed"?: (event: EasycreditModalCustomEvent<any>) => void;
+        "onModalOpened"?: (event: EasycreditModalCustomEvent<any>) => void;
         "show"?: boolean;
     }
     interface EasycreditWidget {
