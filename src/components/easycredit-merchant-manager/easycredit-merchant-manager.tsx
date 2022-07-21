@@ -41,7 +41,7 @@ export class EasycreditMerchantStatusWidget {
     fetchTransaction(this.txId, reload).then((transaction) => {
         if (transaction) {
           this.tx = transaction
-          this.amount = this.tx.orderDetails.currentOrderValue
+          this.amount = parseFloat(this.tx.orderDetails.currentOrderValue)
         }
         this.loading = false
     }).catch((e) => {
@@ -79,7 +79,7 @@ export class EasycreditMerchantStatusWidget {
     try {
       if (this.status === 'REFUND') {
         await refundTransaction(this.tx.transactionId, {
-          value: this.amount
+          value: parseFloat(this.amount)
         })
       } else if (this.status === 'CAPTURE') {
         await captureTransaction(this.tx.transactionId, {
@@ -205,7 +205,7 @@ export class EasycreditMerchantStatusWidget {
                 name="easycredit-merchant[amount]"
                 type="number"
                 onInput={(e) => this.amount = (e.target as HTMLInputElement).value }
-                value={this.amount.toFixed(2)}
+                value={this.amount}
                 min="0.01"
                 max={ this.tx.orderDetails.currentOrderValue.toFixed(2) }
               /> € / { formatCurrency(this.tx.orderDetails.currentOrderValue) }
