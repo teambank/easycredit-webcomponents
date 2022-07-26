@@ -98,6 +98,7 @@ export class EasycreditMerchantStatusWidget {
     }
     await this.loadTransaction(true)
     this.loading = false
+    this.status = null;
   }
 
   getProgressBarFragment () {
@@ -177,7 +178,7 @@ export class EasycreditMerchantStatusWidget {
             onInput={(e) => this.status = (e.target as HTMLSelectElement).value }
             name="easycredit-merchant[status]"
           >
-            <option value="">Bitte wählen ...</option>
+            <option value="" selected={this.status === ''}>Bitte wählen ...</option>
             { this.canShip() &&  <option value="CAPTURE">Lieferung</option> }
             { this.canRefund() && <option value="REFUND">Rückabwicklung</option> }
           </select>
