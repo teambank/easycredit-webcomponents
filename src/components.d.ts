@@ -80,6 +80,9 @@ export namespace Components {
     }
     interface EasycreditInfopage {
     }
+    interface EasycreditLogo {
+        "alt": string;
+    }
     interface EasycreditMerchantManager {
         "date": string;
         "txId": string;
@@ -194,6 +197,12 @@ declare global {
         prototype: HTMLEasycreditInfopageElement;
         new (): HTMLEasycreditInfopageElement;
     };
+    interface HTMLEasycreditLogoElement extends Components.EasycreditLogo, HTMLStencilElement {
+    }
+    var HTMLEasycreditLogoElement: {
+        prototype: HTMLEasycreditLogoElement;
+        new (): HTMLEasycreditLogoElement;
+    };
     interface HTMLEasycreditMerchantManagerElement extends Components.EasycreditMerchantManager, HTMLStencilElement {
     }
     var HTMLEasycreditMerchantManagerElement: {
@@ -231,6 +240,7 @@ declare global {
         "easycredit-checkout-label": HTMLEasycreditCheckoutLabelElement;
         "easycredit-faq": HTMLEasycreditFaqElement;
         "easycredit-infopage": HTMLEasycreditInfopageElement;
+        "easycredit-logo": HTMLEasycreditLogoElement;
         "easycredit-merchant-manager": HTMLEasycreditMerchantManagerElement;
         "easycredit-merchant-status-widget": HTMLEasycreditMerchantStatusWidgetElement;
         "easycredit-modal": HTMLEasycreditModalElement;
@@ -300,6 +310,9 @@ declare namespace LocalJSX {
     }
     interface EasycreditInfopage {
     }
+    interface EasycreditLogo {
+        "alt"?: string;
+    }
     interface EasycreditMerchantManager {
         "date"?: string;
         "txId"?: string;
@@ -340,6 +353,7 @@ declare namespace LocalJSX {
         "easycredit-checkout-label": EasycreditCheckoutLabel;
         "easycredit-faq": EasycreditFaq;
         "easycredit-infopage": EasycreditInfopage;
+        "easycredit-logo": EasycreditLogo;
         "easycredit-merchant-manager": EasycreditMerchantManager;
         "easycredit-merchant-status-widget": EasycreditMerchantStatusWidget;
         "easycredit-modal": EasycreditModal;
@@ -362,6 +376,7 @@ declare module "@stencil/core" {
             "easycredit-checkout-label": LocalJSX.EasycreditCheckoutLabel & JSXBase.HTMLAttributes<HTMLEasycreditCheckoutLabelElement>;
             "easycredit-faq": LocalJSX.EasycreditFaq & JSXBase.HTMLAttributes<HTMLEasycreditFaqElement>;
             "easycredit-infopage": LocalJSX.EasycreditInfopage & JSXBase.HTMLAttributes<HTMLEasycreditInfopageElement>;
+            "easycredit-logo": LocalJSX.EasycreditLogo & JSXBase.HTMLAttributes<HTMLEasycreditLogoElement>;
             "easycredit-merchant-manager": LocalJSX.EasycreditMerchantManager & JSXBase.HTMLAttributes<HTMLEasycreditMerchantManagerElement>;
             "easycredit-merchant-status-widget": LocalJSX.EasycreditMerchantStatusWidget & JSXBase.HTMLAttributes<HTMLEasycreditMerchantStatusWidgetElement>;
             "easycredit-modal": LocalJSX.EasycreditModal & JSXBase.HTMLAttributes<HTMLEasycreditModalElement>;
