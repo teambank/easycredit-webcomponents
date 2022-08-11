@@ -4,13 +4,35 @@ import { Meta } from "@storybook/addon-docs/blocks";
 
 # Changelog
 
+## 1.2.0
+
+- Update von StencilJs auf v2.17.1
+
+#### `<easycredit-logo />`
+
+- die Komponente wurde hinzugefügt
+
+#### `<easycredit-checkout />`
+
+- die Komponente reagiert nun auf das Event `closeModal`
+- das Submit-Event wird nun über den ShadowDOM hinaus propagiert
+
+#### `<easycredit-modal />`
+
+- das Modal triggert das Event `modalClosed`, wenn es geschlossen wird
+
+#### `<easycredit-merchant-manager />`
+
+- das Verhalten des Formulars zum Melden der Lieferung / Rückabwicklung wurde optimiert
+- die minimale Breite wurde reduziert
+
 ## 1.1.0
 
 - Update von StencilJs auf v2.16.1
 
 #### `<easycredit-checkout />`
 
--  bei Klick auf Akzeptieren erhält der Nutzer visuelles Feedback
+- bei Klick auf Akzeptieren erhält der Nutzer visuelles Feedback
 - die Auswahl der Anrede wurde entfernt
 - die Zustimmungserklärung muss nun nicht mehr aktiv bestätigt werden (Checkbox entfernt)
 
