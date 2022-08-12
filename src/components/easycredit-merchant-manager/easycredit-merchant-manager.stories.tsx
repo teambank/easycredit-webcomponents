@@ -33,7 +33,7 @@ Das Objekt request_config entspricht dabei der init-Option von fetch(resource [,
   },
   argTypes: {
     txId: {
-      description: 'die Transaktions-ID der ratenkauf by easyCredit Zahlung'
+      description: 'die Transaktions-ID der easyCredit-Ratenkauf Zahlung'
     },
     date: {
       description: 'Bestelldatum, verwendet zur Unterscheidung zwischen "nicht verfügbar" und "noch nicht verfügbar". Der Wert muss von Date.parse() geparst werden können.'

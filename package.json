@@ -25,11 +25,12 @@
     "test": "stencil test --spec --e2e",
     "test.watch": "stencil test --spec --e2e --watchAll",
     "generate": "stencil generate",
-    "storybook": "start-storybook -p 6006",
-    "storybook:build": "build-storybook",
+    "storybook": "start-storybook -s ./dist -p 6006",
+    "storybook:build": "build-storybook -s ./dist",
     "storybook:deploy": "source .env && rsync -rvz storybook-static/ $STORYBOOK_DEPLOY_DST"
   },
   "dependencies": {
+    "@open-wc/webpack-import-meta-loader": "^0.4.7",
     "@stencil/core": "^2.16.1",
     "@stencil/sass": "^1.5.2",
     "@stencil/store": "^1.5.0",

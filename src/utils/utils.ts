@@ -207,3 +207,56 @@ export function youngerThanOneDay (date) {
   let parsed = Date.parse(date)
   return !isNaN(parsed) && parsed > (Date.now() - oneDay)
 }
+
+const defaultBaseUrl = 'https://ratenkauf.easycredit.de/api/resource/webcomponents/v3'
+
+function getConfiguredBaseUrl () {
+  return window && typeof (window as any).easycreditRatenkaufWebComponentsBaseUrl == 'string' ? 
+  (window as any).easycreditRatenkaufWebComponentsBaseUrl :
+  null
+}
+
+function getDocumentSrc () {
+  // @ts-ignore
+  var isIE = window.document.documentMode ? true : false;
+  if (isIE) {
+    return
+  }
+
+  let currentScript = (document.currentScript as HTMLScriptElement);
+  if (typeof currentScript !== 'undefined' && currentScript !== null) {
+    return currentScript.src
+  }
+
+  let metaUri = import.meta;
+  return metaUri.url
+}
+
+function getBaseUrl (): URL {
+  var baseUrl = defaultBaseUrl
+  if (getDocumentSrc()) {
+    baseUrl = getDocumentSrc()
+  }
+  return new URL(baseUrl)
+}
+export function getAssetUrl (file: String) {
+  if (getConfiguredBaseUrl()) {
+      return getConfiguredBaseUrl() + file 
+  }
+
+  return getBaseUrl().origin + file
+}
+
+export function applyAssetsUrl (component) {
+
+  const baseUrl = getBaseUrl()
+  const defaultUrl = new URL(defaultBaseUrl)
+  if (defaultUrl.origin === baseUrl.origin) {
+    return
+  }
+
+  (component as any).style = (component as any)
+    .style
+    .split(defaultUrl.href)
+    .join((getConfiguredBaseUrl()) ? getConfiguredBaseUrl() : baseUrl.origin)
+}

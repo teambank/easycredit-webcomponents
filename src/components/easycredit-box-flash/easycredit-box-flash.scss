@@ -1,254 +1,163 @@
 .ec-box-flash {
     position: fixed;
     right: 30px;
-    bottom: -215px;
+    bottom: 0;
     z-index: 1001;
-    width: 390px;
-    height: 270px;
-    cursor: pointer;
-    transition: $transition-slow;
 
+    width: 300px;
+    height: auto;
+    cursor: pointer;
+    transition: transform .15s ease;
+    transform: translateY(100%) translateY(-44px);
+
+    &__close,
+    &__content,
+    &__image {
+        display: none;
+    }
     &.active {
         bottom: 0;
-    }
+        transform: translateY(0);
 
-    &__close {
-        position: absolute;
-        right: 10px;
-        top: 10px;
-        width: 10px;
-        height: 10px;
-        opacity: 0;
-        cursor: pointer;
-        transition: $transition-slow;
+        .ec-box-flash__inner {
+            background: $white;
+        }
 
-        @include background-svg($icon-close-white);
-        background-position: center;
-        background-size: contain;
-        background-repeat: no-repeat;
-    }
-    &.active {
-        .ec-box-flash__close {
-            opacity: 1;
+        .ec-box-flash__preview {
+            display: none;
+        }
+
+        .ec-box-flash__close,
+        .ec-box-flash__content,
+        .ec-box-flash__image {
+            display: block; 
         }
     }
 
     &__inner {
         position: relative;
-        right: 0;
-        bottom: 0;
         display: flex;
-        flex-flow: row nowrap;
+        flex-flow: column;
         width: 100%;
         height: 100%;
-        transition: $transition-slow;
-        background-color: $ec-secondary;
-        border-radius: $border-radius-xl $border-radius-xl 0 0;
+        overflow: hidden;
+
+        background-color: $ec-darkblue;
+        border-radius: $border-radius-xxl $border-radius-xxl 0 0;
         box-shadow: $box-shadow;
         color: $white;
     }
 
-    &__image {
-        flex: 0 0 120px;
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        width: 120px;
-        background-color: $white;
-        border-top-left-radius: $border-radius-xl;
-    }
-    &__image-logo {
-        transition: $transition-slow;
-        text-align: center;
-
-        @extend .logo-ratenkauf;
-        height: 55px;
-        background-position: center;
-        background-size: 95px auto;
-    }
-    &.active {
-        .ec-box-flash__image-logo {
-            // height: 60px;
-        }
-    }
-    &__image-product {
-        flex: 1 1 auto;
-        text-align: center;
-        @extend .image-default;
-
-        img {
-            display: block;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        &.empty {
-            img {
-                visibility: hidden;
-            }
-        }
-    }
-    &__image-logo-secondary {
-        text-align: center;
-
-        @extend .logo-finanzgruppe;
-        height: 35px;
-        background-position: center;
-        background-size: 74px auto;
-    }
-
-    &__price {
+    &__close {
         position: absolute;
-        left: -115px;
-        top: 60px;
-        z-index: 5;
-        display: flex;
-        flex-flow: row wrap;
-        padding: 12.5px;
-        width: 160px;
+        right: 20px;
+        top: 20px;
+        width: 9px;
+        height: 9px;
+        cursor: pointer;
 
-        background-color: $ec-primary;
-        border-radius: $border-radius-xl;
-
-        font-size: $font-size-sm;
-        line-height: $line-height;
-
-        &:after {
-            content: '';
-            display: block;
-            position: absolute;
-            top: 15px;
-            right: -74px;
-            z-index: 1001;
-            width: 75px;
-            height: 45px;
-
-            @include background-svg($bubble-arrow);
-            background-repeat: no-repeat;
-            background-size: contain;
-        }
+        @include background-svg($icon-close-blue);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
     }
-    &__price-start {
-        width: 100%;
-        // margin-bottom: 3px;
-    }
-    &__price-per-month {
+
+    &__preview {
+        flex: 0 0 44px;
+
         display: flex;
+        flex-flow: row nowrap;
         align-items: center;
+        justify-content: center;
+        padding: 0 10px;
+        height: 44px;
+        box-sizing: border-box;
+    }
+    &__preview-logo {
+        margin-right: 10px;
+
+        @extend .logo-ratenkauf-white;
+        height: 20px;
+        width: 42px;
+    }
+    &__preview-heading {
+        font-size: $font-size;
+        line-height: $line-height-heading;
+        font-weight: bold;
 
         span {
-            font-size: $font-size-heading-xl;
-            font-weight: bold;
-        }
-        .month {
-            font-size: $font-size;
-            line-height: $font-size * 1.15;
-            width: 100%;
-            margin-left: 7.5px;
+            color: $ec-primary;
         }
     }
 
     &__content {
         flex: 1 1 100%;
-        padding: 20px 25px 25px;
+
+        padding: 30px;
         width: 100%;
         box-sizing: border-box;
-        transition: $transition-slow;
-    }
-    &.active {
-        .ec-box-flash__content {
-            padding-top: 25px;
-        }
+
+        background: $white;
+        color: $font-color;
     }
     &__content-heading {
-        margin-bottom: 20px;
-        font-size: $font-size-md;
-        line-height: 1em;
-        font-weight: bold;
+        margin-bottom: 10px;
 
-        &:last-child {
-            margin-bottom: 0;
-        }
+        font-size: $font-size-heading-lg;
+        line-height: $line-height-heading;
+        font-weight: bold;
     }
     &__content-description {
-        margin-bottom: 20px;
-        font-size: $font-size-sm;
+        margin-bottom: 10px;
+
+        font-size: $font-size-xs;
         line-height: $line-height;
     }
-    &__content-fine-print {
-        font-size: $font-size-lg * 1.5;
-        line-height: $line-height;
+    &__content-button {
+        margin-bottom: 15px;
     }
-}
+    &__content-logo-finanzgruppe {
+        @extend .logo-finanzgruppe;
+        width: 100%;
+        background-position: right center;
+    }
+    .ec__circle-badge {
+        z-index: 2;
+        right: -5px;
+        bottom: 105px;
+    }
 
-@media(max-width: 520px) {
-    .ec-box-flash {
-        width: 340px;
-        height: 360px;
-        bottom: -315px;
-        right: 15px;
+    &__image {
+        flex: 0 0 190px;
 
-        &.active {
-            .easycredit-box-flash-inner {
-                .easycredit-box-flash-image {
-                    .easycredit-box-flash-image-logo {
-                        margin-top: 25px;
-                    }
-                }
-            }
-        }
+        @extend .image-default;
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        height: 190px;
 
-        &__image {
-            flex-basis: 150px;
-            width: 150px;
-        }
-        &__image-logo {
-            margin-top: 12.5px;
-
-            img {
-                width: 85px;
-            }
-        }
-        &__image-product {
-            margin-top: -10px;
-            overflow: hidden;
-        }
-        &__image-logo-secondary {
-            margin-top: 15px;
-        }
-
-        &__price {
-            position: relative;
+        &:after {
+            content: '';
+            position: absolute;
             top: 0;
-            left: 10px;
-            margin-top: 15px;
-            width: calc(100% - 45px);
-            font-size: $font-size-xs;
+            left: 0;
+            z-index: 0;
 
-            &:after {
-                top: auto;
-                bottom: -34px;
-                right: auto;
-                left: 20px;
-                background-size: 35px;
-            }
+            display: block;
+            width: 100%;
+            height: 100%;
+            background-color: $overlay-darken;
         }
+    }
+    &__image-logo {
+        position: absolute;
+        right: 25px;
+        bottom: 20px;
+        z-index: 1;
 
-        &__content {
-            padding: 6.5px 20px 25px;
-        }
-        &.active {
-            .ec-box-flash__content {
-                padding-top: 20px;
-            }
-        }
-        &__content-heading {
-            margin-bottom: 15px;
-            line-height: 1.2em;
-        }
-        &__content-description {
-            margin-bottom: 15px;
-        }
+        @extend .logo-ratenkauf-white;
+        height: 29px;
+        width: 60px;
+        background-position: right center;
     }
 }

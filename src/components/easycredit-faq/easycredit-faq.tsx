@@ -11,18 +11,18 @@ export class EasycreditFaq {
   render() { 
     return ([
       <div class="ec-faq">
-        <h2>FAQ - ratenkauf by easyCredit</h2>
+        <h2>FAQ - easyCredit-Ratenkauf</h2>
 
         <easycredit-accordion>
             <easycredit-accordion-item>
-                <h3 slot="title">Was ist der ratenkauf by easyCredit?</h3>
+                <h3 slot="title">Was ist der easyCredit-Ratenkauf?</h3>
                 <div>
-                    Mit dem ratenkauf by easyCredit haben Sie die Möglichkeit, bequem und einfach per Raten zu zahlen. 
+                    Mit dem easyCredit-Ratenkauf haben Sie die Möglichkeit, bequem und einfach per Raten zu zahlen. 
                     Sie entscheiden, wie viel Sie zahlen wollen und genießen somit größte Flexibilität bei der Realisierung Ihrer Wünsche.
                 </div>
             </easycredit-accordion-item>
             <easycredit-accordion-item>
-                <h3 slot="title">Wer kann den ratenkauf by easyCredit abschließen?</h3>
+                <h3 slot="title">Wer kann den easyCredit-Ratenkauf abschließen?</h3>
                 <div>
                     Wenn Sie über ein regelmäßiges monatliches Einkommen verfügen können, prüft die TeamBank gerne ihren individuellen Wunsch.
                 </div>
@@ -30,13 +30,13 @@ export class EasycreditFaq {
             <easycredit-accordion-item>
                 <h3 slot="title">Welche Unterlagen sind für die Bestellung notwendig?</h3>
                 <div>
-                    Die Entscheidung, ob ein ratenkauf by easyCredit möglich ist, erhalten Sie sofort im Rahmen des Bestellprozesses. Eine nachgelagerte Prüfung ist nicht mehr notwendig, sodass Sie auch keinerlei Unterlagen einreichen müssen.
+                    Die Entscheidung, ob ein easyCredit-Ratenkauf möglich ist, erhalten Sie sofort im Rahmen des Bestellprozesses. Eine nachgelagerte Prüfung ist nicht mehr notwendig, sodass Sie auch keinerlei Unterlagen einreichen müssen.
                 </div>
             </easycredit-accordion-item>
             <easycredit-accordion-item>
-                <h3 slot="title">Welche Finanzierungsbeträge sind beim ratenkauf by easyCredit möglich?</h3>
+                <h3 slot="title">Welche Finanzierungsbeträge sind beim easyCredit-Ratenkauf möglich?</h3>
                 <div>
-                    Sie können Einkäufe zwischen 200,- Euro bis 10.000,- Euro bequem und einfach durch den ratenkauf by easyCredit abwickeln.
+                    Sie können Einkäufe zwischen 200,- Euro bis 10.000,- Euro bequem und einfach durch den easyCredit-Ratenkauf abwickeln.
                 </div>
             </easycredit-accordion-item>
             <easycredit-accordion-item>
@@ -84,7 +84,7 @@ export class EasycreditFaq {
             <easycredit-accordion-item>
                 <h3 slot="title">Was ist das easyCredit-Kundenportal?</h3>
                 <div>
-                    Bei Zahlung mit ratenkauf by easyCredit erhalten Sie automatisch die Zugangsdaten zu Ihrem persönlichen easyCredit-Kundenportal. Hierin können Sie Ihre Ratenkäufe verwalten, Änderungen Ihrer persönlichen Daten vornehmen, Aufträge erteilen oder auch selbst ausführen. Weiter dient dieses Online-Portal als Ihr persönliches Postfach, in welches alle relevanten Dokumente zu Ihrem Ratenkauf eingestellt werden und jederzeit einsehbar sind.
+                    Bei Zahlung mit easyCredit-Ratenkauf erhalten Sie automatisch die Zugangsdaten zu Ihrem persönlichen easyCredit-Kundenportal. Hierin können Sie Ihre Ratenkäufe verwalten, Änderungen Ihrer persönlichen Daten vornehmen, Aufträge erteilen oder auch selbst ausführen. Weiter dient dieses Online-Portal als Ihr persönliches Postfach, in welches alle relevanten Dokumente zu Ihrem Ratenkauf eingestellt werden und jederzeit einsehbar sind.
                 </div>
             </easycredit-accordion-item>
         </easycredit-accordion>

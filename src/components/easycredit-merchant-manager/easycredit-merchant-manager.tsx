@@ -1,5 +1,6 @@
 import { Component, Prop, State, h } from '@stencil/core';
 import { formatCurrency, formatDatetime, fetchTransaction, refundTransaction, captureTransaction, youngerThanOneDay } from '../../utils/utils';
+import { applyAssetsUrl } from '../../utils/utils';
 
 @Component({
   tag: 'easycredit-merchant-manager',
@@ -7,7 +8,7 @@ import { formatCurrency, formatDatetime, fetchTransaction, refundTransaction, ca
   shadow: true,
 })
 
-export class EasycreditMerchantStatusWidget {
+export class EasycreditMerchantManager {
 
   @State() tx: any = null
   @State() loading: boolean = false
@@ -30,6 +31,10 @@ export class EasycreditMerchantStatusWidget {
     'ORDER' : 'Bestellung',
     'CAPTURE' : 'Lieferung',
     'REFUND' : 'Rückabwicklung'
+  }
+
+  connectedCallback() {
+    applyAssetsUrl(EasycreditMerchantManager)
   }
 
   async componentWillLoad () {

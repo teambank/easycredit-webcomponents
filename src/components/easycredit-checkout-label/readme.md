@@ -9,7 +9,7 @@
 
 | Property | Attribute | Description | Type     | Default                             |
 | -------- | --------- | ----------- | -------- | ----------------------------------- |
-| `label`  | `label`   |             | `string` | `'ratenkauf by easyCredit'`         |
+| `label`  | `label`   |             | `string` | `'easyCredit-Ratenkauf'`            |
 | `slogan` | `slogan`  |             | `string` | `'Ganz entspannt in Raten zahlen.'` |
 
 

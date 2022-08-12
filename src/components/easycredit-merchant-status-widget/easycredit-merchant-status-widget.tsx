@@ -1,5 +1,6 @@
 import { Component, Prop, State, h } from '@stencil/core';
 import { fetchTransaction, youngerThanOneDay } from '../../utils/utils';
+import { applyAssetsUrl } from '../../utils/utils';
 
 @Component({
   tag: 'easycredit-merchant-status-widget',
@@ -16,6 +17,10 @@ export class EasycreditMerchantStatusWidget {
   @Prop() date: string
   @Prop() isManager: boolean
 
+  connectedCallback() {
+    applyAssetsUrl(EasycreditMerchantStatusWidget)
+  }
+
   async componentWillLoad () {
     this.loading = true
     fetchTransaction(this.txId).then((transaction) => {
@@ -25,7 +30,6 @@ export class EasycreditMerchantStatusWidget {
       console.error(e)
       this.loading = false
     })
-
   }
 
   getStatusLabel () {

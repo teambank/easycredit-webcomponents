@@ -1,5 +1,6 @@
 .ec-box-modal {
     display: none;
+
     position: fixed;
     z-index: 1001;
     top: 0;
@@ -33,157 +34,110 @@
         display: flex;
         flex-flow: row nowrap;
         margin: 0;
-        width: 700px;
+        width: 600px;
         max-width: 90vw;
+        overflow: hidden;
 
-        background-color: $ec-secondary;
+        background-color: $white;
         border-radius: $border-radius-xxl;
         box-shadow: $box-shadow;
 
-        color: $white;
+        color: $font-color;
     }
-
     &__close {
         position: absolute;
-        top: 20px;
-        right: 20px;
+        top: 21px;
+        right: 21px;
         cursor: pointer;
+        z-index: 5;
 
-        @include background-svg($icon-close-white);
-        background-size: contain;
-        background-repeat:no-repeat;
-        width:16px;
-        height:16px;
+        @include background-svg($icon-close-blue);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 9px;
+        width: 27px;
+        height: 27px;
     }
 
     &__image {
         flex: 0 0 50%;
+
+        position: relative;
         display: flex;
         flex-direction: column;
-        padding: 55px 0 25px;
+        justify-content: flex-end;
+        padding: 30px;
         width: 50%;
-        background: $white;
-        border-radius: $border-radius-xxl 0 0 $border-radius-xxl;
-
-        > * {
-            width: 100%;
-        }
-    }
-    &__image-logo {
-        margin-bottom: 20px;
-
-        @extend .logo-ratenkauf;
-        height: 29px;
-        background-position: center top;
-        background-size: 130px auto;
-    }
-    &__image-heading {
-        margin-bottom: 25px;
-        padding: 0 30px;
         box-sizing: border-box;
-        text-align: center;
-        font-size: $font-size-heading-lg;
-        line-height: $line-height-heading;
-        font-weight: bold;
-        color: $ec-secondary;
-    }
-    &__image-product {
-        flex: 1 1 auto;
-        @extend .image-default;
+        overflow: hidden;
 
-        img {
+        @extend .image-default;
+        background-color: $white;
+
+        &:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 0;
+
             display: block;
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            background-color: $overlay-darken;
         }
 
-        &.empty {
-            img {
-                visibility: hidden;
+        > div {
+            z-index: 2;
+
+            &.ec-box-modal__image-logo {
+                z-index: 4;
+            }
+
+            &.circle {
+                z-index: 1;
             }
         }
     }
-    &__image-logo-secondary {
-        margin: 25px auto 0;
+    &__image-logo {
+        margin-bottom: auto;
 
-        @extend .logo-finanzgruppe;
-        height: 12px;
-        background-position: center top;
-        background-size: 101px auto;
+        @extend .logo-ratenkauf-white;
+        width: 100%;
+        height: 47.5px;
     }
 
     &__content {
         flex: 1 1 100%;
-        padding: 50px;
+
+        position: relative;
+        padding: 40px;
         width: 100%;
+        box-sizing: border-box;
     }
     &__content-heading {
-        margin-bottom: 20px;
-        font-size: $font-size-heading-sm;
-        line-height: $line-height-heading;
+        margin-bottom: 15px;
+        font-size: $font-size-heading-xxl;
+        line-height: $line-height-heading-sm;
         font-weight: bold;
-
-        &:last-child {
-            margin-bottom: 0;
-        }
     }
     &__content-description {
+        margin-bottom: 15px;
+        font-size: $font-size-sm;
+        line-height: $line-height;
+    }
+    &__content-button {
         margin-bottom: 30px;
-        font-size: $font-size;
-        line-height: $line-height;
     }
-    &__content-fine-print {
-        font-size: $font-size-xxs;
-        line-height: $line-height;
+    &__content-logo-finanzgruppe {
+        @extend .logo-finanzgruppe;
+        margin-left: auto;
     }
 
-    &__price {
-        position: relative;
-        display: inline-flex;
-        flex-flow: row wrap;
-        margin-bottom: 20px;
-        padding: 12px 15px;;
-        width: 200px;
-        max-width: 100%;
-
-        background-color: $ec-primary;
-        border-radius: $border-radius-xl;
-
-        font-size: $font-size;
-
-        &:after {
-            content: '';
-            display: block;
-            position: absolute;
-            left: -90px;
-            width: 105px;
-            height: 55px;
-            z-index: 1001;
-
-            @include background-svg($bubble-arrow);
-            background-repeat: no-repeat;
-            background-size: contain;
-            transform: scaleX(-1);
-        }
-    }
-    &__price-start {
-        width: 100%;
-    }
-    &__price-per-month {
-        display: flex;
-        align-items: flex-start;
-
-        span {
-            font-size: $font-size-heading-xxl;
-            font-weight: bold;
-        }
-        .month {
-            font-size: $font-size-lg;
-            line-height: $font-size * 1.15;
-            width: 100%;
-            margin-left: 10px;
-        }
+    .ec__circle-badge {
+        top: 210px;
+        left: -80px;
+        z-index: 5;
     }
 }
 
@@ -196,43 +150,35 @@
         }
 
         &__close {
-            -webkit-filter: grayscale(1);
-            filter: brightness(0%);
+            @include background-svg($icon-close-white);
         }
 
         &__image {
             flex-basis: 100%;
-            display: flex;
-            flex-flow: row wrap;
-            padding: 40px 0 20px;
-            width: 100%;
-            border-bottom-left-radius: 0;
-            border-top-right-radius: $border-radius-xxl;
-        }
-        &__image-logo {
-            margin-bottom: 20px;
-        }
-        &__image-heading {
-            margin-bottom: 20px;
-            padding: 0 30px;
-        }
-        &__image-product {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 15px;
-            height: 150px;
 
-            img {
-                object-fit: contain;
+            width: 100%;
+            height: 220px;
+
+            .circle {
+                width: $circle-width-33;
             }
-        }
-        &__image-logo-secondary {
-            margin-top: 30px;
+            .circle-secondary {
+                width: $circle-width-33-secondary;
+            }
         }
 
         &__content {
-            width: 100%;
             padding: 30px;
+        }
+        &__content-heading {
+            font-size: $font-size-heading-xl;
+            line-height: $line-height-heading;
+        }
+
+        .ec__circle-badge {
+            left: auto;
+            right: 30px;
+            top: -65px;
         }
     }
 }

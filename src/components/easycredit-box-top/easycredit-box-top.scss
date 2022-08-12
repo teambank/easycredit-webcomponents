@@ -3,111 +3,146 @@
     top: 0;
     left: 0;
     z-index: 1001;
+
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
     height: 50px;
     overflow-x: hidden;
-    background: $ec-secondary;
+
+    background-color: $ec-darkblue;
     box-shadow: $box-shadow;
     transition: $transition-slow;
     color: $white;
 
-    &.orange {
-        background: $ec-primary;
-    }
-
     &__slider {
         position: relative;
-        height: 100%;
         width: 100%;
+        height: 100%;
     }
 
     &__slide {
         position: absolute;
         width: 100%;
         height: 100%;
-        -webkit-animation: slideOut 1s forwards;
-        -webkit-animation-delay: 0;
-        animation: slideOut 1s forwards;
-        animation-delay: 0;
-
-        &.slide-1 {
-            transform: translateX(100%);
-        }
-
-        &.slide-2 {
-            transform: translateX(100%);
-        }
-
-        &.active {
-            display: block;
-            -webkit-animation: slideIn 1s forwards;
-            -webkit-animation-delay: 0;
-            animation: slideIn 1s forwards;
-            animation-delay: 0;
-            transform: translateX(-100%);
-
-            @-webkit-keyframes slideOut {
-                0% {transform: translateX(-100%);}
-                100% {transform: translateX(0);}
-            }
-            @keyframes slideIn {
-                0% {transform: translateX(-100%);}
-                100% {transform: translateX(0%);}
-            }
-            @-webkit-keyframes slideOut {
-                0% {transform: translateX(0%);}
-                100% {transform: translateX(100%);}
-            }
-            @keyframes slideOut {
-                0% {transform: translateX(0%);}
-                100% {transform: translateX(100%);}
-            }
-        }
     }
 
     &__content {
+        position: relative;
         display: flex;
         align-items: center;
         justify-content: center;
+
+        margin: 0 auto; 
+        padding-right: 0 30px;
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        overflow: hidden;
     }
     &__content-logo {
-        display: flex;
-        align-items: center;
-        margin-right: 30px;
-        padding: 0 15px;
-        height: 50px;
-        background-color: $ec-gray;
+        margin-right: 20px;
 
-        @extend .logo-ratenkauf;
-        width: 125px;
-        background-position: center;
-        background-size: 95px auto;
+        @extend .logo-ratenkauf-white;
+        height: 24px;
+        width: 51px;
     }
     &__content-text {
-        font-size: $font-size;
-        line-height: $line-height;
+        text-align: center;
+        font-size: $font-size-md;
+        line-height: $line-height-heading;
         font-weight: bold;
+
+        span {
+            &.secondary {
+                font-size: $font-size-sm;
+                font-weight: normal;
+                color: $ec-primary;
+            }
+        }
+    }
+
+    .ec__circle-badge {
+        margin-left: 20px;
+
+        position: relative;
+        top: 0; 
+        right: 0;
     }
 }
 
+@media(min-width: 768px) {
+    .ec-box-top {
+        &__slide {
+            &.slide-2 {
+                display: none;
+            }
+        }
+    }
+}
 @media(max-width: 767px) {
     .ec-box-top {
-        position: fixed;
-        top: 0;
-
-        &.scrolled {
-            top: -100px;
-        }
-
         &__content {
             padding-left: 15px;
             padding-right: 15px;
         }
-        &__content-logo {
-            margin-right: 20px;
+        &__content-text {
+            span {
+                font-size: $font-size-sm;
+            }
+        }
+
+        &__slide {
+            &.slide-1 {
+                .ec-box-top__content-text {
+                    .secondary {
+                        display: none;
+                    }
+                }
+
+                .ec__circle-badge {
+                    display: none;
+                }
+            }
+
+            -webkit-animation: slideOut 1s forwards;
+            -webkit-animation-delay: 0;
+            animation: slideOut 1s forwards;
+            animation-delay: 0;
+
+            &.slide-1 {
+                transform: translateX(100%);
+            }
+            &.slide-2 {
+                transform: translateX(100%);
+            }
+
+            &.active {
+                display: block;
+                -webkit-animation: slideIn 1s forwards;
+                -webkit-animation-delay: 0;
+                animation: slideIn 1s forwards;
+                animation-delay: 0;
+                transform: translateX(-100%);
+
+                @-webkit-keyframes slideIn {
+                    0% {transform: translateX(-100%);}
+                    100% {transform: translateX(0);}
+                }
+                @keyframes slideIn {
+                    0% {transform: translateX(-100%);}
+                    100% {transform: translateX(0%);}
+                }
+                @-webkit-keyframes slideOut {
+                    0% {transform: translateX(0%);}
+                    100% {transform: translateX(100%);}
+                }
+                @keyframes slideOut {
+                    0% {transform: translateX(0%);}
+                    100% {transform: translateX(100%);}
+                }
+            }
         }
     }
 }
