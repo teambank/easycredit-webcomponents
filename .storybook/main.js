@@ -8,5 +8,12 @@ module.exports = {
     "@storybook/addon-links",
     "@storybook/addon-essentials",
   ],
-  "framework": "@storybook/html"
+  "framework": "@storybook/html",
+  "webpackFinal": async (config, { configType }) => {
+    config.module.rules.push({
+      test: /\.js$/,
+      loader: require.resolve('@open-wc/webpack-import-meta-loader'),
+    })
+    return config
+  }
 }

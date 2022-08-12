@@ -23,7 +23,7 @@
     list-style: none;
     padding: 16px 15px 16px 64px;
     background-color: $ec-secondary;
-    border-radius: $border-radius-lg;
+    border-radius: $border-radius-xl;
     font-size: $font-size-sm;
     font-weight: bold;
     color: $white;
@@ -87,7 +87,7 @@
     border-width: 0 2px;
     border-style: solid;
     border-color: $ec-gray-2;
-    border-radius: $border-radius-lg $border-radius-lg 0 0;
+    border-radius: $border-radius-xl $border-radius-xl 0 0;
 
     input {
       display:none;
@@ -118,8 +118,8 @@
 
     &.last {
       border-bottom: 2px solid $ec-gray-2;
-      border-bottom-left-radius: $border-radius-lg;
-      border-bottom-right-radius: $border-radius-lg;
+      border-bottom-left-radius: $border-radius-xl;
+      border-bottom-right-radius: $border-radius-xl;
 
       li {
         &:last-child {
@@ -131,7 +131,7 @@
     &.actions {
       margin-bottom: 10px;
       border-bottom-width: 2px;
-      border-radius: 0 0 $border-radius-lg $border-radius-lg;
+      border-radius: 0 0 $border-radius-xl $border-radius-xl;
 
       li {
         &:last-child {
@@ -220,7 +220,7 @@
     list-style: none;
     padding: 16px 15px;
     background-color: $ec-gray;
-    border-radius: $border-radius-lg;
+    border-radius: $border-radius-xl;
     color: $font-color;
 
     li {
@@ -253,5 +253,12 @@
     .ec-checkout__small-print {
       margin-top: 10px;
     }
+  }
+
+  // Rules for IE10 and above
+  @media all and (-ms-high-contrast:none) {
+    easycredit-checkout-installments { display: none; }
+    .ec-checkout__totals { display: none; }
+    .ec-checkout__small-print { display: none; }
   }
 }

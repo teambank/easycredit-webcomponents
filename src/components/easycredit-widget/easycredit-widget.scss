@@ -4,23 +4,23 @@
 
 easycredit-modal {
   .ec-modal {
-    width: 700px;
-    height: 670px;
+    width: 800px;
+    height: 700px;
   }
 }
 
 .ec-widget {
   position: relative;
   display: block;
-  padding: 15px 15px 15px 67.5px;
-  width: 350px;
+  padding: 15px 15px 15px 77.5px;
+  width: 300px;
   max-width: 100%;
   box-sizing: border-box;
 
   background-color: $white;
 
   font-family: $font-family;
-  font-size: $font-size;
+  font-size: $font-size-xs;
   line-height: $line-height;
   color: $font-color;
   -webkit-text-size-adjust: none;
@@ -31,28 +31,38 @@ easycredit-modal {
   -webkit-box-shadow: $box-shadow;
   box-shadow: $box-shadow;
 
-  svg {
+  &__logo {
     position: absolute;
-    left: 17.5px;
+    left: 15px;
     top: 50%;
     transform: translateY(-50%);
-    display: block;
-    width: 35px;
-    height: 35px;
-  }
 
-  a {
-    display: inline-block;
-    margin-left: 5px;
-    cursor: pointer;
-    text-decoration: underline !important;
+    @extend .logo-ratenkauf;
+    display: block;
+    width: 50px;
+    height: 24px;
   }
 
   span {
     em {
       font-weight: bold;
       font-style: normal;
-      color: $link-color;
+      color: $ec-primary;
+    }
+  }
+
+  a {
+    display: inline-block;
+    margin-left: 5px;
+
+    cursor: pointer;
+    text-decoration: underline !important;
+    font-weight: bold;
+    color: $font-color;
+
+    &:hover {
+      color: $font-color !important;
+      text-decoration: none !important;
     }
   }
 }

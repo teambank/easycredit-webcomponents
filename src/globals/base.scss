@@ -1,25 +1,29 @@
 @import 'functions';
 
+$ec-base-url: 'https://ratenkauf.easycredit.de/api/resource/webcomponents/v3';
 // Variables
 // - Colors
-$ec-primary: #ff6700;
-$ec-primary-dark: #F06100;
-$ec-secondary: #0066b3;
-$ec-blue: hwb(198 0% 12%);
-$ec-gray: #f2f2f2;
-$ec-gray-2: #E5E5E5;
-$ec-gray-3: #E6E6E6;
+$ec-primary: #F37122;
+$ec-secondary: #0066B3;
+$ec-darkblue: #002C5A;
+$ec-gray: #E5EAEE;
+$ec-gray-2: #E5EAEE;
+$ec-gray-3: #E5EAEE;
 $ec-gray-border: rgba(0,0,0,0.2);
 $ec-backdrop: rgba(0,0,0,.3);
 $white: #fff;
+$black: #000;
 $error: #e90202;
-$ec-primary-blue: #002C5A;
+
+$overlay-orange: rgba($ec-primary, 0.1);
+$overlay-blue: rgba($ec-secondary, 0.1);
+$overlay-darken: rgba($black, 0.2);
 
 // - Font colors
-$font-color: #000;
+$font-color: $ec-darkblue;
 $font-color-disabled: rgba($font-color,0.4);
 // $font-color-label: #4B4B4B;
-$font-color-label-secondary: #7F7F7F; // equal to rgba($font-color,.5)
+$font-color-label-secondary: #8096AD; // equal to rgba($font-color,.5)
 $link-color: $ec-secondary;
 
 // - Breakpoints
@@ -33,24 +37,27 @@ $desktop-max-width: 400px;
 $font-family: Arial, Helvetica, sans-serif;
 $font-family-bold: Arial, Helvetica, sans-serif;
 
-$font-size-heading-xxl: 40px;
-$font-size-heading-xl: 32px;
-$font-size-heading-lg: 28px;
-$font-size-heading: 24px;
-$font-size-heading-sm: 20px;
+$font-size-heading-xxl: 46px;
+$font-size-heading-xl: 30px;
+$font-size-heading-lg: 25px;
+$font-size-heading: 20px;
+$font-size-heading-sm: 16px;
 
 $font-size-xl: 18px;
 $font-size-lg: 16px;
-$font-size-md: 15x;
+$font-size-md: 15px; 
 $font-size: 14px;
 $font-size-sm: 13px;
 $font-size-xs: 12px;
 $font-size-xxs: 10px;
+$font-size-xxxs: 7px;
 $font-size-running: 13px;
 
-$line-height: 1.4;
+$line-height: 1.5;
 $line-height-lg: 1.6;
-$line-height-heading: 1.3;
+$line-height-heading: 1.2;
+$line-height-heading-sm: 1.1;
+$line-height-heading-lg: 1.25;
 
 // - Border
 $border-radius: 3px;
@@ -67,13 +74,24 @@ $transition-timing: cubic-bezier(0.73, 0.32, 0.14, 0.99);
 // - Box shadows
 $box-shadow: 0 0 25px rgba(0,0,0,.1);
 
+// - Circles
+$circle-width-100: 100%;
+$circle-width-66: 66%;
+$circle-width-33: 33%;
+$circle-width-100-secondary: calc(100% * 0.33);
+$circle-width-66-secondary: calc(100% * 0.66 * 0.33);
+$circle-width-33-secondary: calc(100% * 0.33 * 0.33);
+
 // Images
-$ratenkauf-icon: '<svg width="46" height="46" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><path d="M46 23c0 12.703-10.297 23-23 23S0 35.703 0 23 10.297 0 23 0s23 10.297 23 23" fill="#005DA9"/><path fill="#EC6608" d="M19.12 22.58L12 16v21h22z"/><path d="M25.734 8h-6.469C15.252 8 12 11.283 12 15.333V30c0-4.05 3.252-7.333 7.265-7.333l6.47-.002c4.012 0 7.265-3.283 7.265-7.332C33 11.283 29.747 8 25.734 8" fill="#FFF"/></g></svg>';
-$icon-arrow-down: '<svg width="20" height="13" xmlns="http://www.w3.org/2000/svg"><path d="M19.799 2.4l-9.9 9.899L0 2.399 2.121.28 9.9 8.055 17.678.278z" fill="#000" fill-rule="evenodd"/></svg>';
+$ratenkauf-icon: '<svg id="easyCredit" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><defs><style>.cls-1{fill:#0066b3;}.cls-2{fill:#fff;}</style></defs><circle class="cls-1" cx="60" cy="60" r="60"/><path class="cls-2" d="M96.1094,50.91c-2.3081-.7851-6.5437-1.6761-13.6446-1.6761a26.2577,26.2577,0,0,0-17.5583,6.6105,5.791,5.791,0,0,1-1.7742,1.0521,38.9812,38.9812,0,0,1-13.86,2.03h-.1375c-4.679,0-7.6152-.7852-9.3306-2.19-1.57-1.2995-2.2179-3.2308-2.1-5.9551H68.6121l.0982-.4476a48.708,48.708,0,0,0,1.209-8.1926c0-6.3634-2.1274-11.3173-5.8136-14.6737s-8.8437-5.0718-14.8142-5.0718c-10.0883,0-16.9222,4.0747-21.22,9.5078A28.96,28.96,0,0,0,22.05,49.34,20.1865,20.1865,0,0,0,28.11,64.1984c3.9959,3.8235,9.8606,6.171,17.4285,6.171A90.6105,90.6105,0,0,0,56.4,69.7412,28.2979,28.2979,0,0,0,55.4346,77c0,6.0491,2.0414,11.1916,5.888,14.87,3.9256,3.7528,9.5544,5.7352,16.2512,5.7352A42.613,42.613,0,0,0,87.36,96.3683l1.311-.3376,2.9323-14.1321L87.6777,83.72a20.3115,20.3115,0,0,1-8.479,1.7272,9.2547,9.2547,0,0,1-6.28-1.9629c-1.5232-1.3621-2.2965-3.4388-2.2965-6.1789a18.9209,18.9209,0,0,1,3.4621-10.587,12.1231,12.1231,0,0,1,10.0175-5.3152A27.9356,27.9356,0,0,1,93.13,62.64l2.3119.7851L97.95,51.5267ZM38.8618,41.5518a10.7482,10.7482,0,0,1,10.6259-7.7137,6.2237,6.2237,0,0,1,5.4092,2.3868,9.5837,9.5837,0,0,1,1.5191,5.3269Z"/></svg>';
+$icon-close-blue: '<svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L10 10M1 10L10 1" stroke="#002C5A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+$icon-close-white: '<svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L10 10M1 10L10 1" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 $icon-checkmark: '<svg width="41" height="41" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="20.78" cy="20.42" r="20" fill="#0066B3"/><path d="M29.5 15.45c-.11-.08-.39-.31-.83-.7-.42-.4-.69-.64-.82-.75a.42.42 0 00-.39-.11.53.53 0 00-.4.15l-1.32 1.49A815.49 815.49 0 0020 21.86l-1.29 1.4-.78-.62a97.04 97.04 0 01-3.6-2.9L13.4 19a.52.52 0 00-.43-.11.37.37 0 00-.31.15l-.75.82-.54.63c-.1.1-.16.23-.16.39.03.16.1.27.2.35l.93.98c.63.62 1.32 1.33 2.07 2.1.78.76 1.5 1.48 2.15 2.15.65.66 1.02 1 1.1 1.06.13.13.3.25.54.35.24.08.48.1.74.08.3-.03.53-.08.7-.16.19-.08.35-.18.48-.3l1.56-1.85a1050.07 1050.07 0 007.85-9.45c.1-.13.14-.26.12-.39a.63.63 0 00-.16-.35z" fill="#fff"/></svg>';
-$icon-close-white: '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="#fff" fill-rule="evenodd"><rect transform="matrix(.707107 -.707107 .707107 .707107 -1.659484 5.620414)" x="-1.293" y="4.741" width="12.931" height="1" rx=".5"/><rect transform="matrix(.707107 .707107 -.707107 .707107 5.655414 -1.694484)" x="-1.293" y="4.741" width="12.931" height="1" rx=".5"/></svg>';
-$bubble-arrow: '<svg width="42" height="31" viewBox="0 0 42 31" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M0.0555573 0.162781L42 30.8605L0.0555573 9.93022V0.162781Z" fill="#FF6700"/></svg>';
 $icon-arrow-down: '<svg width="10" height="5" viewBox="0 0 10 5" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.08124 0.186267C1.63183 -0.134742 1.00728 -0.0306508 0.686267 0.418762C0.365258 0.868174 0.469349 1.49272 0.918762 1.81373L2.08124 0.186267ZM9.08124 1.81373C9.53065 1.49272 9.63474 0.868174 9.31373 0.418762C8.99272 -0.0306508 8.36817 -0.134742 7.91876 0.186267L9.08124 1.81373ZM4.85469 3.39621L4.27345 4.20994L4.85469 3.39621ZM0.918762 1.81373L4.27345 4.20994L5.43593 2.58247L2.08124 0.186267L0.918762 1.81373ZM5.72655 4.20994L9.08124 1.81373L7.91876 0.186267L4.56407 2.58247L5.72655 4.20994ZM4.27345 4.20994C4.70808 4.52039 5.29193 4.52038 5.72655 4.20994L4.56407 2.58247C4.82484 2.39621 5.17515 2.39621 5.43593 2.58247L4.27345 4.20994Z" fill="black"/></svg>';
+
+// - Circle Images
+$circle-primary: '<svg width="330" height="331" viewBox="0 0 330 331" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M165 330.846C256.127 330.846 330 256.973 330 165.846C330 74.7186 256.127 0.845581 165 0.845581C73.873 0.845581 0 74.7186 0 165.846C0 256.973 73.873 330.846 165 330.846ZM165 248.346C210.563 248.346 247.5 211.409 247.5 165.846C247.5 120.282 210.563 83.3456 165 83.3456C119.437 83.3456 82.5 120.282 82.5 165.846C82.5 211.409 119.437 248.346 165 248.346Z" fill="#{$ec-primary}"/></svg>';
+$circle-secondary: '<svg width="330" height="331" viewBox="0 0 330 331" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M165 330.846C256.127 330.846 330 256.973 330 165.846C330 74.7186 256.127 0.845581 165 0.845581C73.873 0.845581 0 74.7186 0 165.846C0 256.973 73.873 330.846 165 330.846ZM165 248.346C210.563 248.346 247.5 211.409 247.5 165.846C247.5 120.282 210.563 83.3456 165 83.3456C119.437 83.3456 82.5 120.282 82.5 165.846C82.5 211.409 119.437 248.346 165 248.346Z" fill="#{$ec-secondary}"/></svg>';
 
 // App
 :host {
@@ -112,7 +130,7 @@ $icon-arrow-down: '<svg width="10" height="5" viewBox="0 0 10 5" fill="none" xml
   .btn {
     display: inline-block;
     padding: 10px 20px;
-    background-color: $ec-blue;
+    background-color: $ec-secondary;
     border: 0;
     border-radius: 20px;
     transition: all 0.1s $transition-timing;
@@ -133,7 +151,12 @@ $icon-arrow-down: '<svg width="10" height="5" viewBox="0 0 10 5" fill="none" xml
       color: $white !important;
 
       &.btn-primary {
-        background-color: $ec-primary-dark !important;
+        background-color: $ec-primary !important;
+      }
+    }
+    &:hover {
+      &.btn-primary {
+        background-color: darken($ec-primary,5%) !important;
       }
     }
     &:active,
@@ -291,29 +314,186 @@ $icon-arrow-down: '<svg width="10" height="5" viewBox="0 0 10 5" fill="none" xml
 
 // Logos
 .logo-ratenkauf {
-  background-image:url(https://ratenkaufbyeasycredit-components.netzkollektiv.com/easycredit-components/assets/ratenkauf-logo.svg);
-  background-position: center;
+  background-image: url(#{$ec-base-url}/easycredit-components/assets/ratenkauf-logo.svg);
+  background-position: left center;
   background-repeat: no-repeat;
   background-size: contain;
-  width: 238px;
-  height: 53px;
+  width: 84px;
+  height: 40px;
   max-width: 100%;
+}
+.logo-ratenkauf-white {
+  @extend .logo-ratenkauf;
+  background-image: url(#{$ec-base-url}/easycredit-components/assets/ratenkauf-logo-white.svg);
 }
 
 .logo-finanzgruppe {
-  background-image:url(https://ratenkaufbyeasycredit-components.netzkollektiv.com/easycredit-components/assets/logo-finanzgruppe.svg);
-  background-position: center;
-  background-size: contain;
+  background-image: url(#{$ec-base-url}/easycredit-components/assets/logo-finanzgruppe.svg);
+  background-position: left center;
   background-repeat: no-repeat;
-  width: 232px;
-  height: 26px;
+  background-size: contain;
+  width: 120px;
+  height: 14px;
   max-width: 100%;
 }
+.logo-finanzgruppe-white {
+  @extend .logo-finanzgruppe;
+  background-image: url(#{$ec-base-url}/easycredit-components/assets/logo-finanzgruppe-white.svg);
+}
 
+// Content Images
 .image-default {
   background-color: $ec-gray;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  background-image: url(https://ratenkaufbyeasycredit-components.netzkollektiv.com/easycredit-components/assets/motiv-online-bubble-landscape-700x467.jpg);
+  background-image: url(#{$ec-base-url}/easycredit-components/assets/motiv-online-floor.jpg);
+}
+
+// Circles
+@keyframes circle-rotation {
+  from {
+    transform: rotate(240deg);
+    opacity: 0;
+  }
+  to {
+    transform: rotate(360deg);
+    opacity: 1;
+  }
+}
+@keyframes circle-rotation-out {
+  from {
+    transform: rotate(360deg);
+    opacity: 1;
+  }
+  to {
+    transform: rotate(240deg);
+    opacity: 0;
+  }
+}
+.circle {
+  position: absolute;
+  z-index: 1;
+  box-sizing: border-box;
+  background: transparent;
+  overflow: hidden;
+  -webkit-animation-name: circle-rotation;
+  -webkit-animation-duration: 1s;
+  animation-name: circle-rotation;
+  animation-duration: 1s;
+
+  width: $circle-width-66;
+  bottom: 0;
+  left: 0;
+  -webkit-transform-origin: bottom left;
+  transform-origin: bottom left;
+
+  &:before {
+    content: '';
+    display: block;
+    width: 100%;
+    padding-bottom: 100%;
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    display: block;
+    width: 200%;
+    height: 200%;
+    box-sizing: border-box;
+    border-radius: 100%;
+
+    top: 0;
+    right: 0;
+    @include background-svg($circle-primary);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+
+  &.circle-secondary {
+    width: $circle-width-66-secondary;
+    bottom: auto;
+    left: auto;
+    top: 0;
+    right: 0;
+    -webkit-transform-origin: top right;
+    transform-origin: top right;
+
+    &:after {
+      top: auto;
+      right: auto;
+      bottom: 0;
+      left: 0;
+      @include background-svg($circle-secondary);
+    }
+  }
+}
+
+// Circle Badges
+.ec__circle-badge {
+  position: absolute;
+  bottom: 115px;
+  right: 25px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-content: center;
+  padding: 20px;
+  width: 100px;
+  height: 100px;
+  box-sizing: border-box;
+  transform: rotate(10deg);
+
+  background-color: $ec-secondary;
+  border-radius: 100%;
+
+  text-align: center;
+  font-size: 11px;
+  color: $white;
+
+  span {
+      font-size: $font-size-heading-lg;
+      font-weight: bold;
+  }
+
+  &.ec__circle-badge-orange {
+    background-color: $ec-primary;
+    color: $font-color;
+
+    span {
+      color: $white,
+    }
+  }
+
+  &.ec__circle-badge-sm {
+    width: 80px;
+    height: 80px;
+    font-size: 9px;
+
+    span {
+      font-size: $font-size-heading;
+    }
+  }
+
+  &.ec__circle-badge-xs {
+    width: 60px;
+    height: 60px;
+    font-size: $font-size-xxxs;
+
+    span {
+      font-size: $font-size;
+    }
+  }
+
+  @media(max-width: 767px) {
+    width: 80px;
+    height: 80px;
+    font-size: 10px;
+
+    span {
+      font-size: $font-size-xl;
+    }
+  }
 }

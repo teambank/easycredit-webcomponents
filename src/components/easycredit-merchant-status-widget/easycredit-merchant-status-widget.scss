@@ -36,7 +36,7 @@
   }
 
   &.loading span.logo {
-    animation: 1.4s linear infinite both circle-linear--animation;
+    animation: 1.4s linear 0.5s infinite both circle-linear--animation;
   }
 
 }

@@ -6,7 +6,7 @@ export default {
     docs: {
       description: {
         component:
-          "Das Logo vereinfacht die Einbindung des ratenkauf by easyCredit Logos und kann statt eines img-Tags eingesetzt werden",
+          "Das Logo vereinfacht die Einbindung des easyCredit-Ratenkauf Logos und kann statt eines img-Tags eingesetzt werden",
       }
     }    
   },
