@@ -243,6 +243,9 @@ export function getAssetUrl (file: String) {
   if (getConfiguredBaseUrl()) {
       return getConfiguredBaseUrl() + file 
   }
+  if (new URL(defaultBaseUrl).origin === getBaseUrl().origin) {
+    return defaultBaseUrl + file
+  }
 
   return getBaseUrl().origin + file
 }
