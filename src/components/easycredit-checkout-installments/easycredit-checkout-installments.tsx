@@ -2,7 +2,8 @@ import { Component, Prop, State, Listen, Watch, Event, EventEmitter, h } from '@
 import { formatCurrency } from '../../utils/utils';
 
 @Component({
-  tag: 'easycredit-checkout-installments'
+  tag: 'easycredit-checkout-installments',
+  styleUrl: 'easycredit-checkout-installments.scss'
 })
 
 export class EasycreditCheckoutInstallments {

@@ -63,7 +63,7 @@ export class EasycreditAccordionItem {
     this.mutationObserver.observe(this.element, this.mutationObserverConfig);
   }
 
-  componentDidLoad() {
+  componentDidRender() {
     this.calculateHeight();
   }
 
