@@ -19,10 +19,6 @@ export class EasycreditAccordion {
     }
   }
 
-  async componentWillLoad () {
-    this.getAccordionItem(0).openItem()
-  }
-
   /**
    * Open an accordion item
    * @param index 

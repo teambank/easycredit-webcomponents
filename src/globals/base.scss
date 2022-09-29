@@ -15,6 +15,9 @@ $white: #fff;
 $black: #000;
 $error: #e90202;
 
+$ec-primary-btn-hover: darken($ec-primary, 10%);
+$ec-secondary-btn-hover: darken($ec-secondary, 10%);
+
 $overlay-orange: rgba($ec-primary, 0.1);
 $overlay-blue: rgba($ec-secondary, 0.1);
 $overlay-darken: rgba($black, 0.2);
@@ -339,6 +342,17 @@ $circle-secondary: '<svg width="330" height="331" viewBox="0 0 330 331" fill="no
 .logo-finanzgruppe-white {
   @extend .logo-finanzgruppe;
   background-image: url(#{$ec-base-url}/easycredit-components/assets/logo-finanzgruppe-white.svg);
+}
+
+// Logo Icons
+.logo-finanzgruppe-icon {
+  background-image: url(#{$ec-base-url}/easycredit-components/assets/logo-finanzgruppe-icon.svg);
+  background-position: left center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 21.5px;
+  height: 15px;
+  max-width: 100%;
 }
 
 // Content Images
