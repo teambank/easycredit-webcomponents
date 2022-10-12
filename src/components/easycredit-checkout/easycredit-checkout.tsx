@@ -149,7 +149,7 @@ export class EasycreditCheckout {
     }
 
     return ([<div class="ec-checkout__body" /* :class="bodyClasses" */ >
-        <easycredit-checkout-installments installments={JSON.stringify(this.installments)} /* v-model="selectedInstalment" :instalments="instalments" */ />
+        <easycredit-checkout-installments-slider installments={JSON.stringify(this.installments)} /* v-model="selectedInstalment" :instalments="instalments" */ />
 
         <ul class="ec-checkout__totals">
         <li>
