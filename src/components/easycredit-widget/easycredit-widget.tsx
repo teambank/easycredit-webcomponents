@@ -1,4 +1,4 @@
-import { Component, Prop, State, h } from '@stencil/core';
+import { Component, Prop, State, Watch, h } from '@stencil/core';
 import { formatAmount, fetchInstallmentPlans } from '../../utils/utils';
 import { applyAssetsUrl } from '../../utils/utils';
 
@@ -16,17 +16,54 @@ export class EasycreditWidget {
   /**
    * Financing Amount
    */
-  @Prop() amount: number
+  @Prop({ mutable: true }) amount: number
 
   /**
    * Show if out of range 
    */
-  // @Prop() extended: boolean = true
+  @Prop({ mutable: true }) extended: boolean = true
 
   modal!: HTMLEasycreditModalElement;
 
   @State() installments
-  @State() isValid: boolean
+  @State() isValid: boolean = false
+
+  @Watch('amount') 
+  onAmountChanged(amount: number, oldAmount: number) {
+    if (amount !== oldAmount) {
+      fetchInstallmentPlans(this.webshopId, amount).then((data) => {
+        this.isValid = true
+        this.installments = data
+      }).catch(e => {
+        console.error(e)
+      })
+    }
+  }
+
+  connectedCallback() {
+    applyAssetsUrl(EasycreditWidget)
+  }
+  
+  componentWillLoad() {
+    this.onAmountChanged(this.amount, 0);
+  }
+
+  getInstallmentPlan() {
+    if (!this.installments || !this.installments.installmentPlans) {
+      return null
+    }
+    return this.installments.installmentPlans
+      .find(() => true)
+  }
+
+  getMinimumInstallment() {
+    if (!this.getInstallmentPlan().plans) {
+      return
+    }
+    return this.getInstallmentPlan().plans
+      .sort((a,b) => b.numberOfInstallments - a.numberOfInstallments)
+      .find(() => true)
+  }
 
   private getLinkText(): string {
     return 'Mehr Infos'
@@ -34,15 +71,21 @@ export class EasycreditWidget {
 
   private getInstallmentText(): string {
     if (!this.installments) {
-      return ''
+      return
     }
     if (this.amount < this.installments.minFinancingAmount) {
+      if (!this.extended) {
+        return
+      }
       return <span>
           Finanzieren ab&nbsp;
           <em>{this.installments.minFinancingAmount.toLocaleString('de-DE', {maximumFractionDigits: 0})} &euro; Bestellwert</em>
       </span>
     }
     if (this.amount > this.installments.maxFinancingAmount) {
+      if (!this.extended) {
+        return
+      }
       return <span>
         Finanzieren bis&nbsp;
         <em>{this.installments.maxFinancingAmount.toLocaleString('de-DE', {maximumFractionDigits: 0})} &euro; Bestellwert</em>
@@ -55,37 +98,10 @@ export class EasycreditWidget {
     
   }
 
-  connectedCallback() {
-    applyAssetsUrl(EasycreditWidget)
-  }
-  
-  componentWillLoad() {
-    this.isValid = false
-    fetchInstallmentPlans(this.webshopId, this.amount).then((data) => {
-      this.isValid = true
-      this.installments = data
-    }).catch(e => {
-      console.error(e)
-    })
-  }
-
-  getInstallmentPlan() {
-    if (!this.installments) {
-      return null
-    }
-    return this.installments.installmentPlans
-      .find(() => true)
-  }
-
-  getMinimumInstallment() {
-    return this.getInstallmentPlan().plans
-    .sort((a,b) => b.numberOfInstallments - a.numberOfInstallments)
-    .find(() => true)
-  }
-
   render() { 
     return ([
       this.isValid &&
+      this.getInstallmentText() &&
       <div class="ec-widget">
         {this.getInstallmentText()} mit easyCredit-Ratenkauf. 
         <a class="ec-widget__link" onClick={() => this.modal.open() }>{this.getLinkText()}</a>
