@@ -9,6 +9,7 @@
 
 | Property         | Attribute         | Description | Type      | Default        |
 | ---------------- | ----------------- | ----------- | --------- | -------------- |
+| `iframeFull`     | `iframe-full`     |             | `boolean` | `false`        |
 | `isOpen`         | `is-open`         |             | `boolean` | `false`        |
 | `loading`        | `loading`         |             | `boolean` | `false`        |
 | `loadingMessage` | `loading-message` |             | `string`  | `'Loading...'` |
@@ -21,6 +22,7 @@
 | ------------- | ----------- | ------------------ |
 | `modalClosed` |             | `CustomEvent<any>` |
 | `modalOpened` |             | `CustomEvent<any>` |
+| `modalSubmit` |             | `CustomEvent<any>` |
 
 
 ## Methods
@@ -36,6 +38,16 @@ Type: `Promise<void>`
 
 
 ### `open() => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `submit() => Promise<void>`
 
 
 
@@ -61,12 +73,14 @@ Type: `Promise<void>`
 ### Used by
 
  - [easycredit-checkout](../easycredit-checkout)
+ - [easycredit-express-button](../easycredit-express-button)
  - [easycredit-widget](../easycredit-widget)
 
 ### Graph
 ```mermaid
 graph TD;
   easycredit-checkout --> easycredit-modal
+  easycredit-express-button --> easycredit-modal
   easycredit-widget --> easycredit-modal
   style easycredit-modal fill:#f9f,stroke:#333,stroke-width:4px
 ```

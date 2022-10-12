@@ -1,0 +1,135 @@
+.ec-checkout {
+    &__instalments {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        border-width: 0 2px;
+        border-style: solid;
+        border-color: $ec-gray-2;
+        border-radius: $border-radius-xl $border-radius-xl 0 0;
+
+        input {
+        display:none;
+        }
+
+        &.base {
+        border-top-width: 2px;
+        }
+
+        &.extended {
+        transition: all .35s ease;
+        border-radius: 0;
+
+        &.collapsing {
+            height: auto !important;
+        }
+
+        &.collapsed,
+        &.collapsing {
+            overflow: hidden;
+        }
+
+        &.collapsed:not(.collapsing),
+        &.collapsing:not(.collapsed) {
+            max-height: 0 !important;
+        }
+        }
+
+        &.last {
+        border-bottom: 2px solid $ec-gray-2;
+        border-bottom-left-radius: $border-radius-xl;
+        border-bottom-right-radius: $border-radius-xl;
+
+        li {
+            &:last-child {
+            border-bottom: 0;
+            }
+        }
+        }
+
+        &.actions {
+        margin-bottom: 10px;
+        border-bottom-width: 2px;
+        border-radius: 0 0 $border-radius-xl $border-radius-xl;
+
+        li {
+            &:last-child {
+            border-bottom: 0;
+            }
+        }
+        }
+
+        &.payment-plan {
+        margin-top: 5px;
+        border-top-width: 2px;
+        border-radius: $border-radius-lg;
+        margin-bottom: 10px;
+
+        label {
+            cursor: default;
+        }
+        }
+
+        li {
+        height: 40px;
+        border-bottom: 2px solid $ec-gray-2;
+
+        label {
+            position: relative;
+            top: -2px;
+            z-index: 1;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 0;
+            margin-left: -2px;
+            margin-right: -2px;
+            padding: 0 15px;
+            height: 40px;
+
+            border-width: 2px;
+            border-style: solid;
+            border-color: transparent;
+            border-radius: $border-radius-lg;
+            cursor: pointer;
+            transition: color .1s $transition-timing, background-color .1s $transition-timing, border-color .1s $transition-timing;
+
+            line-height: 2;
+            font-weight: bold;
+            color: $font-color;
+        }
+
+        &:hover {
+            background-color: rgba($ec-secondary,.01);
+
+            input:not(:checked) + label/*,
+            &:not(.is-active) label*/ {
+            color: rgba($font-color,.6);
+            }
+        }
+
+        input:checked + label,
+        &.is-selected label/*,
+        &.is-active label*/ {
+            background-color: $ec-secondary;
+            border-color: $ec-secondary;
+            color: $white;
+        }
+
+        &.more {
+            display: flex;
+            align-items: center;
+            padding: 0 12.5px;
+            height: 38px;
+            cursor: pointer;
+            line-height: 2;
+            color: $link-color;
+
+            &:hover {
+            color: rgba($link-color,.7);
+            }
+        }
+        }
+    }
+}
