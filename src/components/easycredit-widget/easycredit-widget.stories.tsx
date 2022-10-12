@@ -10,12 +10,20 @@ export default {
       }
     }    
   },
-  argTypes: {},
+  argTypes: {
+    amount: {
+      description: 'der zu finanzierende Betrag für den die Rate angezeigt werden soll, üblicherweise der Produktpreis'
+    },
+    extended: {
+      description: 'bestimmt, ob das Widget außerhalb der Betragsgrenzen angezeigt wird (optional)'
+    }
+  }
 };
 
 let args = {
   webshopId: '2.de.9999.9999',
-  amount: 500
+  amount: 500,
+  extended: true
 }
 const Template = (args) => `<easycredit-widget ${buildAttributes(args).join(' ')} />`;
 
@@ -33,4 +41,11 @@ export const WidgetAbove = Template.bind({});
 WidgetAbove.storyName = 'oberhalb Betragsgrenze (12.000 EUR)'
 WidgetAbove.args = { ... args, ... {
   amount: 12000
+}}
+
+export const WidgetExtended = Template.bind({});
+WidgetExtended.storyName = 'außerhalb Betragsgrenze, nicht anzeigen'
+WidgetExtended.args = { ... args, ... {
+  amount: 12000,
+  extended: false
 }}

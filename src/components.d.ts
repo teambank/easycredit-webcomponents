@@ -107,6 +107,10 @@ export namespace Components {
          */
         "amount": number;
         /**
+          * Show if out of range
+         */
+        "extended": boolean;
+        /**
           * Webshop Id
          */
         "webshopId": string;
@@ -335,6 +339,10 @@ declare namespace LocalJSX {
           * Financing Amount
          */
         "amount"?: number;
+        /**
+          * Show if out of range
+         */
+        "extended"?: boolean;
         /**
           * Webshop Id
          */
