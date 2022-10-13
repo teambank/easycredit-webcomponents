@@ -27,7 +27,8 @@
     "generate": "stencil generate",
     "storybook": "start-storybook -s ./dist -p 6006",
     "storybook:build": "build-storybook -s ./dist",
-    "storybook:deploy": "source .env && rsync -rvz storybook-static/ $STORYBOOK_DEPLOY_DST"
+    "storybook:deploy": "source .env && rsync -rvz storybook-static/ $STORYBOOK_DEPLOY_DST",
+    "release" : "yarn build && (cd dist; tar czvf ../easycredit-ratenkauf-webcomponents-$(npm pkg get version | sed 's/\"//g').tar.gz .)"
   },
   "dependencies": {
     "@open-wc/webpack-import-meta-loader": "^0.4.7",
