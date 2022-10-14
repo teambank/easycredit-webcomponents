@@ -13,6 +13,7 @@ export class EasycreditCheckoutInstallmentsSlider {
   @State() _installments
   @State() selectedInstallmentAmount: number
   @State() selectedInstallmentValue: number
+  @State() selectingInstallment: boolean
 
   @Listen('selectedInstallment')
   selectedInstallmentHandler(e) {
@@ -49,8 +50,24 @@ export class EasycreditCheckoutInstallmentsSlider {
   }
 
   onInstallmentSelect (e) {
-    let t = e.target as HTMLInputElement;
-    this.selectedInstallment.emit(t.value)
+    let t = e.target as HTMLInputElement
+    let rounded = Math.round(Number(t.value) * 1)
+
+    this.selectedInstallment.emit(rounded.toString())
+  }
+  onInstallmentSelectStart () {
+    this.selectingInstallment = true
+  }
+  onInstallmentSelectStop (e) {
+    this.selectingInstallment = false
+
+    let t = e.target as HTMLInputElement
+    let rounded = Math.round(Number(t.value) * 1)
+
+    setTimeout( () => {
+      this.installmentsSlider.value = rounded.toString()
+      this.setInstallmentSliderBG()
+    }, 250)
   }
   onInstallmentDecrease () {
     let newValue = Number(this.installmentsSlider.value) - 1
@@ -83,13 +100,9 @@ export class EasycreditCheckoutInstallmentsSlider {
       return
     }
     return <div class="ec-checkout__instalments-slider">
-      <div class="ec-checkout__header">
-        <div class="ec-checkout__logo"></div>
-      </div>
- 
       <h3>Ihre monatliche Wunschrate</h3>
 
-      <div class="ec-checkout__slider-price">
+      <div class={{'ec-checkout__slider-price': true, 'selecting': this.selectingInstallment}}>
         { formatCurrency(this.selectedInstallmentAmount) }
       </div>
 
@@ -103,8 +116,11 @@ export class EasycreditCheckoutInstallmentsSlider {
           type="range"
           min="0"
           max={this._installments.length - 1}
+          step="0.01"
           value="0"
           onInput={(e) => this.onInstallmentSelect(e) }
+          onMouseDown={() => this.onInstallmentSelectStart() }
+          onMouseUp={(e) => this.onInstallmentSelectStop(e) }
           ref={(el) => this.installmentsSlider = el as HTMLInputElement}
         />
         <input
@@ -120,7 +136,7 @@ export class EasycreditCheckoutInstallmentsSlider {
         value={ this.selectedInstallmentValue }
       />
 
-      <div class="ec-checkout__rates">
+      <div class={{'ec-checkout__rates': true, 'selecting': this.selectingInstallment}}>
         in { this.selectedInstallmentValue } Raten
       </div>
     </div>
