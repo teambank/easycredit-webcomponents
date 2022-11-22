@@ -23,7 +23,8 @@ export default {
 let args = {
   webshopId: '2.de.9999.9999',
   amount: 500,
-  extended: true
+  extended: true,
+  displayType: ''
 }
 const Template = (args) => `<easycredit-widget ${buildAttributes(args).join(' ')} />`;
 

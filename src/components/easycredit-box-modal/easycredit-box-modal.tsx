@@ -37,7 +37,7 @@ export class EasycreditBoxModal {
 
   backgroundSrc() {
     if (!this.src) {
-      return getAssetUrl('/easycredit-components/assets/motiv-online-floor.jpg')
+      return getAssetUrl('/easycredit-components/assets/motiv-leyla.jpg')
     } else {
       return this.src
     }

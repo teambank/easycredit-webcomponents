@@ -120,6 +120,10 @@ export namespace Components {
          */
         "amount": number;
         /**
+          * Display Type (e.g. clean -> without shadow)
+         */
+        "displayType": string;
+        /**
           * Show if out of range
          */
         "extended": boolean;
@@ -379,6 +383,10 @@ declare namespace LocalJSX {
           * Financing Amount
          */
         "amount"?: number;
+        /**
+          * Display Type (e.g. clean -> without shadow)
+         */
+        "displayType"?: string;
         /**
           * Show if out of range
          */

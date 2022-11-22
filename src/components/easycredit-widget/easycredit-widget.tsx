@@ -19,6 +19,11 @@ export class EasycreditWidget {
   @Prop({ mutable: true }) amount: number
 
   /**
+   * Display Type (e.g. clean -> without shadow)
+   */
+   @Prop() displayType: string
+
+   /**
    * Show if out of range 
    */
   @Prop({ mutable: true }) extended: boolean = true
@@ -102,7 +107,7 @@ export class EasycreditWidget {
     return ([
       this.isValid &&
       this.getInstallmentText() &&
-      <div class="ec-widget">
+      <div class={{'ec-widget': true, 'clean': this.displayType === 'clean'}}>
         {this.getInstallmentText()} mit easyCredit-Ratenkauf. 
         <a class="ec-widget__link" onClick={() => this.modal.open() }>{this.getLinkText()}</a>
 

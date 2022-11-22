@@ -33,6 +33,11 @@ easycredit-modal {
   -webkit-box-shadow: $box-shadow;
   box-shadow: $box-shadow;
 
+  &.clean {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
+
   &__logo {
     position: absolute;
     left: 15px;

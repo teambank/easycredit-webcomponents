@@ -28,20 +28,20 @@
     "storybook": "start-storybook -s ./dist -p 6006",
     "storybook:build": "build-storybook -s ./dist",
     "storybook:deploy": "source .env && rsync -rvz storybook-static/ $STORYBOOK_DEPLOY_DST",
-    "release" : "yarn build && (cd dist; tar czvf ../easycredit-ratenkauf-webcomponents-$(npm pkg get version | sed 's/\"//g').tar.gz .)"
+    "release": "yarn build && (cd dist; tar czvf ../easycredit-ratenkauf-webcomponents-$(npm pkg get version | sed 's/\"//g').tar.gz .)"
   },
   "dependencies": {
     "@open-wc/webpack-import-meta-loader": "^0.4.7",
     "@stencil/core": "^2.16.1",
     "@stencil/sass": "^1.5.2",
     "@stencil/store": "^1.5.0",
-    "@storybook/addon-docs": "^6.5.12",
     "buffer": "^6.0.3",
     "case": "^1.6.3",
     "storybook": "^6.5.12"
   },
   "devDependencies": {
     "@babel/core": "^7.17.5",
+    "@storybook/addon-docs": "^6.5.12",
     "@storybook/addon-actions": "^6.5.12",
     "@storybook/addon-essentials": "^6.5.12",
     "@storybook/addon-links": "^6.5.12",
