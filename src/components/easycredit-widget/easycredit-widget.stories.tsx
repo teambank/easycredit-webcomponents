@@ -6,7 +6,7 @@ export default {
     docs: {
       description: {
         component:
-          "Die Widget-Komponente wird typischerweise auf der Produktdetailseite gezeigt, kann aber auch im Warenkorb [oder in der Produktübersicht] integriert werden. Sie berechnet die günstigstmögliche Rate mit der ein Produkt mit einem bestimmten Preis finanziert werden kann. Bei Klick auf \"mehr Infos\" öffnet sich der Ratenrechner mit weiteren Details zur Finanzierung. Liegt der Produktpreis außerhalb der möglichen Finanzierungsbeträge weist das Widget [auf Wunsch] auf den minimal oder maximal möglichen Finanzierungsbetrag hin.",
+          "Die Widget-Komponente wird typischerweise auf der Produktdetailseite gezeigt, kann aber auch im Warenkorb oder in der Produktübersicht integriert werden. Sie berechnet die günstigstmögliche Rate mit der ein Produkt mit einem bestimmten Preis finanziert werden kann. Bei Klick auf \"mehr Infos\" öffnet sich der Ratenrechner mit weiteren Details zur Finanzierung. Liegt der Produktpreis außerhalb der möglichen Finanzierungsbeträge weist das Widget auf Wunsch auf den minimal oder maximal möglichen Finanzierungsbetrag hin.",
       }
     }    
   },
@@ -49,4 +49,11 @@ WidgetExtended.storyName = 'außerhalb Betragsgrenze, nicht anzeigen'
 WidgetExtended.args = { ... args, ... {
   amount: 12000,
   extended: false
+}}
+
+export const WidgetDisplayTypeClean = Template.bind({});
+WidgetDisplayTypeClean.storyName = 'alternative Darstellungsvariante, displayType: clean'
+WidgetDisplayTypeClean.args = { ... args, ... {
+  amount: 500,
+  displayType: 'clean'
 }}
