@@ -10,7 +10,15 @@ export default {
       }
     }    
   },
-  argTypes: {},
+  argTypes: {
+    label: {
+      description: 'Titel'
+    },
+    slogan: {
+      description: 'Untertitel'
+    }
+
+  },
 };
 
 

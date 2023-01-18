@@ -11,6 +11,9 @@ export default {
     }    
   },
   argTypes: {
+    webshopId: {
+      description: 'die Kennung des Webshops'
+    },
     amount: {
       description: 'der zu finanzierende Betrag für den die Rate angezeigt werden soll, üblicherweise der Produktpreis'
     },
@@ -28,7 +31,16 @@ let args = {
 }
 const Template = (args) => `<easycredit-widget ${buildAttributes(args).join(' ')} />`;
 
-export const WidgetNormal = Template.bind({});
+const TemplateFirst = (args) => {
+  return `
+  <label>Finanzierungsbetrag:</label>
+  <input type="number" onKeyup="this.parentElement.querySelector('easycredit-widget').setAttribute('amount', this.value);" />
+  <br /><br />
+
+  ` + Template(args)
+}
+
+export const WidgetNormal = TemplateFirst.bind({});
 WidgetNormal.storyName = 'Standard'
 WidgetNormal.args = args
 
@@ -51,9 +63,11 @@ WidgetExtended.args = { ... args, ... {
   extended: false
 }}
 
+/*
 export const WidgetDisplayTypeClean = Template.bind({});
 WidgetDisplayTypeClean.storyName = 'alternative Darstellungsvariante, displayType: clean'
 WidgetDisplayTypeClean.args = { ... args, ... {
   amount: 500,
   displayType: 'clean'
 }}
+*/

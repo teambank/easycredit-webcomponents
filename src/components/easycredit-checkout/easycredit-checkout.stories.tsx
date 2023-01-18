@@ -12,7 +12,30 @@ Sobald der Kunde die PaymentPage durchlaufen hat, zeigt das Widget die vom Kunde
       }
     }    
   },
-  argTypes: {},
+  argTypes: {
+    webshopId: {
+      description: "die Kennung des Webshops",
+    },
+    amount: {
+      description: "der zu finanzierende Betrag für den die Ratenauswahl angezeigt werden soll",
+    },
+    isActive: {
+      description: "blendet das komplette Element ein oder aus",
+    },
+    alert: {
+      description: "ist dieses Attribut gesetzt, wird der Inhalt dieses Attributs als Meldung angezeigt",
+    },
+    paymentPlan: {
+      description: "erwartet das JSON-formatierte TransactionSummary-Objekt (siehe GET /api/payment/v3/transaction/{technicalTransactionId}))'",
+    },
+    submit: {
+      action: 'submit',
+      table: {
+        category: "Events",
+      },
+      description: "Wird ausgelöst bei Klick auf 'Akzeptieren'",
+    }
+  },
 };
 
 let args = {
@@ -23,9 +46,26 @@ let args = {
     paymentPlan: ''
 }
 
-const Template = (args) => `<easycredit-checkout ${buildAttributes(args).join(' ')} />`
+const Template = (args) => {
+  delete args.submit;
+  return `
+    <easycredit-checkout ${buildAttributes(args).join(' ')} />
+  `
+}
 
-export const CheckoutInitial = Template.bind({})
+const TemplateExample = (args) => {
+  return Template(args) + `
+  <script>
+  document.querySelector('easycredit-checkout').addEventListener('submit',function() {
+    // window.location.href = 'https://shopurl/easycredit/start';
+    // or
+    // document.querySelector('form.my-form').submit();
+  });
+  </script>
+  `
+}
+
+export const CheckoutInitial = TemplateExample.bind({})
 CheckoutInitial.storyName = 'initial'
 CheckoutInitial.args = args
 
