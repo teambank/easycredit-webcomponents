@@ -70,6 +70,10 @@ export class EasycreditWidget {
       .find(() => true)
   }
 
+  clickHandler(e: MouseEvent): void {
+    e.preventDefault();
+  }
+
   private getLinkText(): string {
     return 'Mehr Infos'
   }
@@ -110,7 +114,7 @@ export class EasycreditWidget {
     return ([
       this.isValid &&
       this.getInstallmentText() &&
-      <div class={{'ec-widget': true, 'clean': this.displayType === 'clean'}}>
+      <div class={{'ec-widget': true, 'clean': this.displayType === 'clean'}} onClick={this.clickHandler}>
         {this.getInstallmentText()} mit easyCredit-Ratenkauf. 
         <a class="ec-widget__link" onClick={() => this.modal.open() }>{this.getLinkText()}</a>
 
