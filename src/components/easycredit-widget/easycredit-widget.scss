@@ -31,6 +31,16 @@
     box-shadow: none;
   }
 
+  &.layout-small {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 10px;
+
+    .ec-widget__brand-name {
+      display: none;
+    }
+  }
+
   &__logo {
     position: absolute;
     left: 15px;

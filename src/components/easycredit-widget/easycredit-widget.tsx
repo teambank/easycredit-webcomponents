@@ -21,19 +21,21 @@ export class EasycreditWidget {
   /**
    * Display Type (e.g. clean -> without shadow)
    */
-   @Prop() displayType: string
+  @Prop() displayType: string
 
-   /**
-   * Show if out of range 
+  /**
+   * Show if out of range
    */
   @Prop({ mutable: true }) extended: boolean = true
 
   modal!: HTMLEasycreditModalElement;
+  widgetElement!: HTMLElement;
 
   @State() installments
   @State() isValid: boolean = false
+  @State() widgetLayout: string = ''
 
-  @Watch('amount') 
+  @Watch('amount')
   onAmountChanged(amount: number, oldAmount: number) {
     if (amount !== oldAmount) {
       fetchInstallmentPlans(this.webshopId, amount).then((data) => {
@@ -54,6 +56,7 @@ export class EasycreditWidget {
   }
 
   componentDidRender() {
+    this.setWidgetLayout();
     this.moveModal();
   }
 
@@ -121,6 +124,13 @@ export class EasycreditWidget {
     }
   }
 
+  setWidgetLayout(): void {
+    if ( !this.widgetElement ) {
+      return;
+    }
+    this.widgetLayout = this.widgetElement.getBoundingClientRect().width < 251 ? 'small' : '';
+  }
+
   getModalFragment () {
     return ([
       <easycredit-modal ref={(el) => this.modal = el as HTMLEasycreditModalElement} size="payment">
@@ -134,8 +144,13 @@ export class EasycreditWidget {
       this.isValid &&
       this.getInstallmentText() &&
       <div class="ec-widget-container">
-        <div class={{'ec-widget': true, 'clean': this.displayType === 'clean'}}>
-          {this.getInstallmentText()} mit easyCredit-Ratenkauf.
+        <div class={{
+          'ec-widget': true,
+          ['layout-' + this.widgetLayout]: this.widgetLayout !== '',
+          'clean': this.displayType === 'clean'
+        }} ref={(el) => this.widgetElement = el as HTMLElement} onClick={this.clickHandler}>
+          {this.getInstallmentText()}
+          <span class="ec-widget__brand-name"> mit easyCredit-Ratenkauf.</span>
           <a class="ec-widget__link" onClick={() => this.modal.open() }>{this.getLinkText()}</a>
 
           <div class="ec-widget__logo"></div>
