@@ -53,6 +53,10 @@ export class EasycreditWidget {
     this.onAmountChanged(this.amount, 0);
   }
 
+  componentDidRender() {
+    this.moveModal();
+  }
+
   getInstallmentPlan() {
     if (!this.installments || !this.installments.installmentPlans) {
       return null
@@ -68,6 +72,14 @@ export class EasycreditWidget {
     return this.getInstallmentPlan().plans
       .sort((a,b) => b.numberOfInstallments - a.numberOfInstallments)
       .find(() => true)
+  }
+
+  moveModal(): void {
+    var target = document.querySelector('body');
+
+    if (target && this.modal) {
+      target.insertBefore(this.modal, target.lastChild);
+    }
   }
 
   clickHandler(e: MouseEvent): void {
@@ -107,24 +119,30 @@ export class EasycreditWidget {
         <em>{formatAmount(this.getMinimumInstallment().installment)} &euro; / Monat</em>
       </span>
     }
-    
+  }
+
+  getModalFragment () {
+    return ([
+      <easycredit-modal ref={(el) => this.modal = el as HTMLEasycreditModalElement} size="payment">
+          <iframe data-src={this.getInstallmentPlan()?.url} slot="content"></iframe>
+      </easycredit-modal>
+    ])
   }
 
   render() { 
     return ([
       this.isValid &&
       this.getInstallmentText() &&
-      <div class={{'ec-widget': true, 'clean': this.displayType === 'clean'}} onClick={this.clickHandler}>
-        {this.getInstallmentText()} mit easyCredit-Ratenkauf. 
-        <a class="ec-widget__link" onClick={() => this.modal.open() }>{this.getLinkText()}</a>
+      <div class="ec-widget-container">
+        <div class={{'ec-widget': true, 'clean': this.displayType === 'clean'}}>
+          {this.getInstallmentText()} mit easyCredit-Ratenkauf.
+          <a class="ec-widget__link" onClick={() => this.modal.open() }>{this.getLinkText()}</a>
 
-        <div class="ec-widget__logo"></div>
-      </div>,
-      <easycredit-modal ref={(el) => this.modal = el as HTMLEasycreditModalElement}>
-        <span slot="content">
-          <iframe data-src={this.getInstallmentPlan()?.url}></iframe> 
-        </span>
-      </easycredit-modal>
+          <div class="ec-widget__logo"></div>
+        </div>
+
+        { this.getModalFragment() }
+      </div>
     ])
   }
 }

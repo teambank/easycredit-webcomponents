@@ -2,14 +2,6 @@
   display: block;
 }
 
-easycredit-modal {
-  .ec-modal {
-    width: 800px;
-    height: 700px;
-    background-color:#e5f0f7;
-  }
-}
-
 .ec-widget {
   position: relative;
   display: block;
@@ -25,6 +17,7 @@ easycredit-modal {
   font-size: $font-size-xs;
   line-height: $line-height;
   color: $font-color;
+  text-decoration: none;
   -webkit-text-size-adjust: none;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

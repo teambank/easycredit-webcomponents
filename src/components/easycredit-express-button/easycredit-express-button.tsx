@@ -184,7 +184,7 @@ export class EasycreditExpressButton {
 
   getCheckoutModalFragment () {
     return ([
-      <easycredit-modal class={{ "ec-express-button__modal__checkout": true }} ref={(el) => this.checkoutModal = el as HTMLEasycreditModalElement}>
+      <easycredit-modal class={{ "ec-express-button__modal__checkout": true }} ref={(el) => this.checkoutModal = el as HTMLEasycreditModalElement} size="small">
         <span slot="heading">Weiter zum Ratenkauf</span>
         <div slot="content">
           <p><strong>Mit Klick auf Akzeptieren stimmen Sie der Datenübermittlung zu:</strong></p>
@@ -201,10 +201,8 @@ export class EasycreditExpressButton {
     }
 
     return ([
-      <easycredit-modal class={{ "ec-express-button__modal__payment": true }} ref={(el) => this.paymentModal = el as HTMLEasycreditModalElement} iframe-full={true}>
-        <div slot="content">
-          <iframe src={this.redirectUrl} style={{ 'height': '100%', 'width': '100%', 'border': 'none' }}></iframe>
-        </div>
+      <easycredit-modal class={{ "ec-express-button__modal__payment": true }} ref={(el) => this.paymentModal = el as HTMLEasycreditModalElement} size="full">
+        <iframe src={this.redirectUrl} slot="content" class="iframe-full"></iframe>
       </easycredit-modal>
     ])
   }
@@ -237,7 +235,7 @@ export class EasycreditExpressButton {
           <div>Mehr zu <strong>easyCredit-Ratenkauf</strong></div>
         </a>
 
-        <easycredit-modal class={{ "ec-express-button__modal__infopage": true }} ref={(el) => this.infopageModal = el as HTMLEasycreditModalElement}>
+        <easycredit-modal class={{ "ec-express-button__modal__infopage": true }} ref={(el) => this.infopageModal = el as HTMLEasycreditModalElement} size="infopage">
           <easycredit-infopage slot="content" />
         </easycredit-modal>
       </div>

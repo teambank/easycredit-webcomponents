@@ -9,11 +9,11 @@
 
 | Property         | Attribute         | Description | Type      | Default        |
 | ---------------- | ----------------- | ----------- | --------- | -------------- |
-| `iframeFull`     | `iframe-full`     |             | `boolean` | `false`        |
 | `isOpen`         | `is-open`         |             | `boolean` | `false`        |
 | `loading`        | `loading`         |             | `boolean` | `false`        |
 | `loadingMessage` | `loading-message` |             | `string`  | `'Loading...'` |
 | `show`           | `show`            |             | `boolean` | `undefined`    |
+| `size`           | `size`            |             | `string`  | `''`           |
 
 
 ## Events

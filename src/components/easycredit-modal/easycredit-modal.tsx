@@ -2,7 +2,8 @@ import { Component, h, Element, Method, Prop, Watch, Event, EventEmitter, State 
 
 @Component({
   tag: 'easycredit-modal',
-  styleUrl: 'easycredit-modal.scss'
+  styleUrl: 'easycredit-modal.scss',
+  shadow: true,
 })
 export class EasycreditModal {
 
@@ -12,7 +13,7 @@ export class EasycreditModal {
   @Prop() loadingMessage: string = 'Loading...'
   @Prop() show: boolean
   @Prop({ mutable: true }) isOpen = false
-  @Prop() iframeFull: boolean = false
+  @Prop() size: string = ''
 
   @State() hasHeadingSlot: boolean = false
   @State() submittable: boolean = false
@@ -93,11 +94,17 @@ export class EasycreditModal {
 
   render() {
     return ([
-        <div class={{'ec-modal': true, 'show': this.isOpen, 'iframe-full': this.iframeFull}}>
+        <div class={{
+          'ec-modal': true,
+          'show': this.isOpen,
+          ['size-' + this.size]: this.size !== ''
+        }}>
             <div class="close" onClick={() => this.close()}></div>
 
             { this.getHeadingFragment() }
-            <slot name="content" />
+            <div class="content">
+              <slot name="content" />
+            </div>
 
             { this.getSubmitButtonFragment() }
         </div>,

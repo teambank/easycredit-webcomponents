@@ -16,28 +16,6 @@
     100% {
     }
 }
-@keyframes modal {
-    0% {
-        width: 500px;
-        height: 350px;
-    }
-    50% {
-        width: 500px;
-        height: 95vh;
-    }
-    100% {
-    }
-}
-@keyframes modal-content {
-    0% {
-        opacity: 0;
-    }
-    50% {
-        opacity: 0;
-    }
-    100% {
-    }
-}
 
 .ec-express-button {
     --bg-color: #{$ec-primary};
@@ -171,56 +149,6 @@
 
             .financing {
                 padding-left: 10px;
-            }
-        }
-    }
-
-    &__modal__infopage {
-        .ec-modal {
-            padding: 50px 0;
-
-            @media (min-width: $breakpoint-sm-up) {
-                width: 60vw;
-                height: 90vh;
-            }
-
-            @media (max-width: $breakpoint-sm-down) {
-                height: 90vh;
-            }
-        }
-    }
-    &__modal__checkout {
-        .ec-modal {
-            @media (min-width: $breakpoint-sm-up) {
-                width: 500px;
-                height: 350px;
-            }
-        }
-    }
-    &__modal__payment {
-        .ec-modal {
-            @media (min-width: $breakpoint-sm-up) {
-                width: 95vw;
-                max-width: 95vw;
-                height: 95vh;
-                max-height: 95vw;
-
-                animation-name: modal;
-                animation-duration: 1s;
-
-                [slot="content"] {
-                    animation-name: modal-content;
-                    animation-duration: 1.5s;
-                }
-            }
-
-            @media (max-width: $breakpoint-sm-down) {
-                height: 90vh;
-
-                [slot="content"] {
-                    animation-name: modal-content;
-                    animation-duration: .5s;
-                }
             }
         }
     }
