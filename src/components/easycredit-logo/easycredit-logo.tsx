@@ -17,7 +17,7 @@ export class EasycreditLogo {
 
   render() { 
     return ([
-      <img src={getAssetUrl('/easycredit-components/assets/ratenkauf-logo.svg')} alt={this.alt} />
+      <img src={getAssetUrl('/easycredit-components/assets/ratenkauf-logo.svg')} alt={this.alt} class="ec-logo" />
     ])
   }
 }
