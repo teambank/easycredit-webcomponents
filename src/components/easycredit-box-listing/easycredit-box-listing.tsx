@@ -11,6 +11,13 @@ export class EasycreditBoxListing {
 
   @Prop() src: string
 
+  listingElement!: HTMLElement
+  descTextDefault: string = 'Der easyCredit-Ratenkauf bietet Ihnen die Möglichkeit hier im Online-Shop bequem und einfach in Raten zu zahlen. Direkt von zu Hause und ganz ohne Risiko. Denn zuerst erhalten Sie Ihre Bestellung und bezahlen später in Ihren Wunschraten.'
+  descTextDefaultShort: string = 'Der easyCredit-Ratenkauf bietet Ihnen die Möglichkeit hier im Online-Shop bequem und einfach in Raten zu zahlen. Direkt von zu Hause und ganz ohne Risiko.'
+
+  @State() listingLayout: string = ''
+  @State() descText: string = this.descTextDefault
+
   @State() isOpen = false
   @Method() async toggle () {
     this.isOpen = !this.isOpen
@@ -18,6 +25,24 @@ export class EasycreditBoxListing {
 
   connectedCallback() {
     applyAssetsUrl(EasycreditBoxListing)
+  }
+
+  componentDidRender() {
+    this.setListingLayout();
+    this.setDescText();
+  }
+
+  setListingLayout(): void {
+    if ( !this.listingElement ) {
+      return;
+    }
+    this.listingLayout = this.listingElement.getBoundingClientRect().height < 400 ? 'small' : '';
+  }
+
+  private setDescText(): void {
+    if ( this.listingLayout === 'small' ) {
+      this.descText = this.descTextDefaultShort;
+    }
   }
 
   backgroundSrc() {
@@ -30,7 +55,10 @@ export class EasycreditBoxListing {
 
   render() { 
     return ([
-        <div class="ec-box-listing"> 
+        <div class={{
+          'ec-box-listing': true,
+          ['layout-' + this.listingLayout]: this.listingLayout !== '',
+        }} ref={(el) => this.listingElement = el as HTMLElement}>
             <div class="ec-box-listing__image" style={{backgroundImage: `url(${this.backgroundSrc()})`}}>
                 <div class="circle"></div>
                 <div class="circle circle-secondary"></div>
@@ -56,7 +84,7 @@ export class EasycreditBoxListing {
                 </div>
 
                 <div class="ec-box-listing__content-description">
-                    Der easyCredit-Ratenkauf bietet Ihnen die Möglichkeit hier im Online-Shop bequem und einfach in Raten zu zahlen. Direkt von zu Hause und ganz ohne Risiko. Denn zuerst erhalten Sie Ihre Bestellung und bezahlen später in Ihren Wunschraten.
+                    { this.descText }
                 </div>
 
                 <div class="ec-box-listing__content-button">

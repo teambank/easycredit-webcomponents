@@ -105,12 +105,12 @@ export namespace Components {
     }
     interface EasycreditModal {
         "close": () => Promise<void>;
-        "iframeFull": boolean;
         "isOpen": boolean;
         "loading": boolean;
         "loadingMessage": string;
         "open": () => Promise<void>;
         "show": boolean;
+        "size": string;
         "submit": () => Promise<void>;
         "toggle": () => Promise<void>;
     }
@@ -369,7 +369,6 @@ declare namespace LocalJSX {
         "txId"?: string;
     }
     interface EasycreditModal {
-        "iframeFull"?: boolean;
         "isOpen"?: boolean;
         "loading"?: boolean;
         "loadingMessage"?: string;
@@ -377,6 +376,7 @@ declare namespace LocalJSX {
         "onModalOpened"?: (event: EasycreditModalCustomEvent<any>) => void;
         "onModalSubmit"?: (event: EasycreditModalCustomEvent<any>) => void;
         "show"?: boolean;
+        "size"?: string;
     }
     interface EasycreditWidget {
         /**
