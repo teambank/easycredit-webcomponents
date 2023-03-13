@@ -1,4 +1,4 @@
-import { Component, Prop, State, Element, Listen, h } from '@stencil/core';
+import { Component, Prop, State, Element, Listen, Watch, h } from '@stencil/core';
 import { fetchInstallmentPlans, applyAssetsUrl} from '../../utils/utils';
 
 @Component({
@@ -77,6 +77,17 @@ export class EasycreditExpressButton {
   @Listen('openModal')
   openModalHandler () {
     this.checkoutModal.open()
+  }
+
+  @Watch('amount')
+  onAmountChanged(amount: number, oldAmount: number) {
+    if (amount !== oldAmount) {
+      fetchInstallmentPlans(this.webshopId, amount).then((data) => {
+        this.installments = data
+      }).catch(e => {
+        console.error(e)
+      })
+    }
   }
 
   componentDidLoad () {
@@ -199,6 +210,10 @@ export class EasycreditExpressButton {
   }
 
   render() {
+    if (this.alert) {
+        return;
+    }
+
     return ([
       <div class="ec-express-button" style={{ opacity: this.buttonOpacity }}>
         <div class={{ "ec-express-button__btn": true, "blue": this.bgBlue, "full-width": this.fullWidth }} style={{ width: this.buttonWidth }}>

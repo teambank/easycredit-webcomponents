@@ -96,10 +96,13 @@ export class EasycreditWidget {
         <em>{this.installments.maxFinancingAmount.toLocaleString('de-DE', {maximumFractionDigits: 0})} &euro; Bestellwert</em>
       </span>
     }
-    return <span>
-      Finanzieren ab&nbsp;
-      <em>{formatAmount(this.getMinimumInstallment().installment)} &euro; / Monat</em>
-    </span>
+
+    if (this.getMinimumInstallment()) {
+      return <span>
+        Finanzieren ab&nbsp;
+        <em>{formatAmount(this.getMinimumInstallment().installment)} &euro; / Monat</em>
+      </span>
+    }
     
   }
 
