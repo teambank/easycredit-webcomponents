@@ -165,7 +165,7 @@ export class EasycreditExpressButton {
     },1000)
   }
 
-  @Listen('modalSubmit')
+  @Listen('modalSubmit', { target: 'body' })
   modalSubmitHandler() {
     if (this.redirectUrl) {
       this.paymentModal.open();

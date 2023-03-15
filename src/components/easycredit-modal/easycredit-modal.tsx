@@ -26,6 +26,16 @@ export class EasycreditModal {
   componentWillLoad() {
     this.hasHeadingSlot = !!this.element.querySelector('[slot="heading"]')
     this.submittable = !!this.element.querySelector('[slot="button"]')
+
+    this.moveModal();
+  }
+
+  moveModal(): void {
+    var target = document.querySelector('body');
+
+    if (target && this.element) {
+      target.insertBefore(this.element, target.lastChild);
+    }
   }
 
   handleKeydown (e) {

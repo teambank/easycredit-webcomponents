@@ -89,8 +89,8 @@ export class EasycreditCheckout {
 
   @Element() el: HTMLElement;
 
-  onSubmit() {
-    this.acceptButtonClicked = true;
+  @Listen('modalSubmit', { target: 'body' })
+  modalSubmitHandler() {
     this.el.dispatchEvent(new CustomEvent('submit', {
       bubbles    : true,
       cancelable : true,
@@ -196,13 +196,8 @@ export class EasycreditCheckout {
         <div slot="heading">Weiter zum Ratenkauf</div>
         <div slot="content">
           {this.getPrivacyFragment()}
-
-          <div class="form-submit">
-            <button class={{ "btn": true, "btn-primary": true, "loading": this.acceptButtonClicked }} type="button" onClick={() => { this.onSubmit() }} disabled={this.acceptButtonClicked}>
-              Akzeptieren
-            </button>
-          </div>
         </div>
+        <span slot="button">Akzeptieren</span>
       </easycredit-modal>
     ])
   }

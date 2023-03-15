@@ -57,7 +57,6 @@ export class EasycreditWidget {
 
   componentDidRender() {
     this.setWidgetLayout();
-    this.moveModal();
   }
 
   getInstallmentPlan() {
@@ -75,14 +74,6 @@ export class EasycreditWidget {
     return this.getInstallmentPlan().plans
       .sort((a,b) => b.numberOfInstallments - a.numberOfInstallments)
       .find(() => true)
-  }
-
-  moveModal(): void {
-    var target = document.querySelector('body');
-
-    if (target && this.modal) {
-      target.insertBefore(this.modal, target.lastChild);
-    }
   }
 
   clickHandler(e: MouseEvent): void {
