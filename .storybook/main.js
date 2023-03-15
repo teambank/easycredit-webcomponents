@@ -15,5 +15,6 @@ module.exports = {
       loader: require.resolve('@open-wc/webpack-import-meta-loader'),
     })
     return config
-  }
+  },
+  staticDirs: ['../dist']
 }

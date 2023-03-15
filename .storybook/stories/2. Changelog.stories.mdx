@@ -4,6 +4,25 @@ import { Meta } from "@storybook/addon-docs/blocks";
 
 # Changelog
 
+## 1.2.5
+
+- Update von StencilJs auf v3.1.0
+- der Support für ältere Browser wurde aus der Dokumentation entfernt und wird in Zukunft vollständig entfernt werden (nomodule, deprecated)
+- die Dokumentation wurde um die Komponenten-Events und Beispiele deren Nutzung erweitert
+
+#### `<easycredit-modal />`
+
+- das Modal wird automatisch auf Ebene des `body` verschoben um Seiteneffekte mit Sidebars o.Ä zu vermeiden
+
+#### `<easycredit-box-listing />`
+
+- die Listing Box passt sich nun automatisch an den verfügbaren Platz an und zeigt bei geringen Platzverhältnissen einen verkürzten Text an
+
+#### `<easycredit-widget />`
+
+- das Widget reagiert nicht mehr auf Klick-Events, um das Öffnen des Linkziels zu vermeiden, wenn es innerhalb eines Elements verwendet wird
+- das Widget reagiert nun auf Betragsänderungen mit setAttribute, ein damit in Zusammenhang stehender Fehler wurde behoben
+
 ## 1.2.4
 
 #### `<easycredit-modal />`, `<easycredit-box-flash />`, `<easycredit-box-listing  />`
