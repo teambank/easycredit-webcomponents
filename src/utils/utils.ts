@@ -79,6 +79,35 @@ export function fetchAllInstallmentPlans (webshopId: string, amounts: number[]) 
     })
 }
 
+export function fetchSingleInstallmentPlan (webshopId: string, amount: number, opts: object = {}) {
+  let uri = 'https://ratenkauf.easycredit.de/api/ratenrechner/v3/webshop/{{webshopId}}/installmentplans'
+    .replace('{{webshopId}}', webshopId)
+
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8'
+    },
+    body: JSON.stringify({
+      "articles": [{
+        "identifier": "single",
+        "price": amount,
+        ...opts
+      }]
+    })
+  }
+  return fetch(uri, options)
+    .then((response) => {
+      if (response.ok) {
+      return response.json()
+      }
+      return Promise.reject(response)
+    })
+    .then((response) => {
+      return response
+    })
+}
+
 export function fetchAgreement (webshopId: string) {
   return fetch('https://ratenkauf.easycredit.de/api/payment/v3/webshop/' + webshopId, getOptions({})).then((response) => {
     if (response.ok) { 

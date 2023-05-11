@@ -7,13 +7,14 @@
 
 ## Properties
 
-| Property      | Attribute      | Description | Type      | Default     |
-| ------------- | -------------- | ----------- | --------- | ----------- |
-| `alert`       | `alert`        |             | `string`  | `undefined` |
-| `amount`      | `amount`       |             | `number`  | `undefined` |
-| `isActive`    | `is-active`    |             | `boolean` | `true`      |
-| `paymentPlan` | `payment-plan` |             | `string`  | `undefined` |
-| `webshopId`   | `webshop-id`   |             | `string`  | `undefined` |
+| Property           | Attribute           | Description                      | Type      | Default     |
+| ------------------ | ------------------- | -------------------------------- | --------- | ----------- |
+| `alert`            | `alert`             |                                  | `string`  | `undefined` |
+| `amount`           | `amount`            |                                  | `number`  | `undefined` |
+| `disableFlexprice` | `disable-flexprice` | Disable Flexprice in calculation | `boolean` | `false`     |
+| `isActive`         | `is-active`         |                                  | `boolean` | `true`      |
+| `paymentPlan`      | `payment-plan`      |                                  | `string`  | `undefined` |
+| `webshopId`        | `webshop-id`        |                                  | `string`  | `undefined` |
 
 
 ## Dependencies

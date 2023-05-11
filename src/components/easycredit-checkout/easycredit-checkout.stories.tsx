@@ -81,3 +81,12 @@ CheckoutError.args = args
 CheckoutError.args = { ... args, ... {
     alert: 'Es ist ein Fehler aufgetreten.'
 }}
+
+/*
+export const CheckoutWithoutFlexprice = Template.bind({})
+CheckoutWithoutFlexprice.storyName = 'ohne Zins-Flex'
+CheckoutWithoutFlexprice.args = args
+CheckoutWithoutFlexprice.args = { ... args, ... {
+    disableFlexprice: true
+}}
+*/

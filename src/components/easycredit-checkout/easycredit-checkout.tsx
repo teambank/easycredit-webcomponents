@@ -1,5 +1,5 @@
 import { Component, Prop, State, Listen, Element, h } from '@stencil/core';
-import { formatCurrency, fetchInstallmentPlans, fetchAgreement } from '../../utils/utils';
+import { formatCurrency, fetchInstallmentPlans, fetchSingleInstallmentPlan, fetchAgreement } from '../../utils/utils';
 
 @Component({
   tag: 'easycredit-checkout',
@@ -14,6 +14,11 @@ export class EasycreditCheckout {
   @Prop() webshopId: string
   @Prop() alert: string
   @Prop() paymentPlan: string
+
+  /**
+   * Disable Flexprice in calculation
+   */
+  @Prop() disableFlexprice: boolean = false
 
   @State() privacyApprovalForm: string
   @State() acceptButtonClicked: boolean = false
@@ -50,7 +55,12 @@ export class EasycreditCheckout {
 
   async componentWillLoad () {
     if (this.amount > 0 && !this.alert && !this.paymentPlan) {
-      await fetchInstallmentPlans(this.webshopId, this.amount).then((data) => {
+
+      const fetchPlans = (this.disableFlexprice) ?
+        fetchSingleInstallmentPlan.bind(this, this.webshopId, this.amount, { 'withoutFlexprice': true }) :
+        fetchInstallmentPlans.bind(this, this.webshopId, this.amount)
+
+      await fetchPlans().then((data) => {
         if (!data) {
           return
         }

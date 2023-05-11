@@ -63,6 +63,10 @@ export namespace Components {
     interface EasycreditCheckout {
         "alert": string;
         "amount": number;
+        /**
+          * Disable Flexprice in calculation
+         */
+        "disableFlexprice": boolean;
         "isActive": boolean;
         "paymentPlan": string;
         "webshopId": string;
@@ -119,6 +123,10 @@ export namespace Components {
           * Financing Amount
          */
         "amount": number;
+        /**
+          * Disable Flexprice in calculation
+         */
+        "disableFlexprice": boolean;
         /**
           * Display Type (e.g. clean -> without shadow)
          */
@@ -327,6 +335,10 @@ declare namespace LocalJSX {
     interface EasycreditCheckout {
         "alert"?: string;
         "amount"?: number;
+        /**
+          * Disable Flexprice in calculation
+         */
+        "disableFlexprice"?: boolean;
         "isActive"?: boolean;
         "paymentPlan"?: string;
         "webshopId"?: string;
@@ -383,6 +395,10 @@ declare namespace LocalJSX {
           * Financing Amount
          */
         "amount"?: number;
+        /**
+          * Disable Flexprice in calculation
+         */
+        "disableFlexprice"?: boolean;
         /**
           * Display Type (e.g. clean -> without shadow)
          */

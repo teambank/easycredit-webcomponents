@@ -1,5 +1,5 @@
 import { Component, Prop, State, Watch, h } from '@stencil/core';
-import { formatAmount, fetchInstallmentPlans } from '../../utils/utils';
+import { formatAmount, fetchInstallmentPlans, fetchSingleInstallmentPlan } from '../../utils/utils';
 import { applyAssetsUrl } from '../../utils/utils';
 
 @Component({
@@ -28,6 +28,11 @@ export class EasycreditWidget {
    */
   @Prop({ mutable: true }) extended: boolean = true
 
+  /**
+   * Disable Flexprice in calculation
+   */
+  @Prop({ mutable: true }) disableFlexprice: boolean = false
+
   modal!: HTMLEasycreditModalElement;
   widgetElement!: HTMLElement;
 
@@ -38,7 +43,12 @@ export class EasycreditWidget {
   @Watch('amount')
   onAmountChanged(amount: number, oldAmount: number) {
     if (amount !== oldAmount) {
-      fetchInstallmentPlans(this.webshopId, amount).then((data) => {
+
+      const fetchPlans = (this.disableFlexprice) ?
+        fetchSingleInstallmentPlan.bind(this, this.webshopId, this.amount, { 'withoutFlexprice': true }) :
+        fetchInstallmentPlans.bind(this, this.webshopId, this.amount)
+
+      fetchPlans().then((data) => {
         this.isValid = true
         this.installments = data
       }).catch(e => {

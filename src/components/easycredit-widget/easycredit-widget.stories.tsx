@@ -71,3 +71,10 @@ WidgetDisplayTypeClean.args = { ... args, ... {
   displayType: 'clean'
 }}
 */
+
+export const WidgetWithoutFlexprice = Template.bind({});
+WidgetWithoutFlexprice.storyName = 'Berechnung ohne Zins-Flex'
+WidgetWithoutFlexprice.args = { ... args, ... {
+  amount: 500,
+  disableFlexprice: true
+}}
