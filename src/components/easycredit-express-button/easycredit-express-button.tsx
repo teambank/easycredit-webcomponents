@@ -10,7 +10,7 @@ import { fetchInstallmentPlans, applyAssetsUrl} from '../../utils/utils';
 export class EasycreditExpressButton {
 
   @Prop() webshopId: string
-  @Prop() amount: number = 0
+  @Prop() amount: number
   @Prop() alert: string
   @Prop() redirectUrl: string
 
@@ -32,8 +32,7 @@ export class EasycreditExpressButton {
 
   /*
   @Listen('resize', { target: 'window' })
-  handleResize() {
-    this.renderButton()
+
   }
   */
 
@@ -49,28 +48,7 @@ export class EasycreditExpressButton {
 
   async componentWillLoad () {
     if (this.amount > 0 && !this.alert) {
-      await fetchInstallmentPlans(this.webshopId, this.amount).then((data) => {
-        if (!data) {
-          return
-        }
-        const installment = data.installmentPlans.find(() => true)
-        if (installment.errors) {
-          this.alert = installment.errors.violations.find(()=>true).message
-          if (installment.errors.title === 'INVALID_PRICE') {
-            this.alert = `Der Finanzierungbetrag liegt außerhalb der zulässigen Beträge (${data.minFinancingAmount} € - ${data.maxFinancingAmount} €)`
-          }
-          return
-        }
-
-        this.installments = installment.plans.reverse()
-        this.example = installment.example
-      }).catch(e => {
-        console.error(e)
-      })
-
-      if (this.alert) {
-        return
-      }
+      this.onAmountChanged(this.amount, null);
     }
   }
 
@@ -81,10 +59,14 @@ export class EasycreditExpressButton {
 
   @Watch('amount')
   onAmountChanged(amount: number, oldAmount: number) {
-    if (amount !== oldAmount) {
+    if (!amount) {
+        this.installments = null
+    }
+    if (amount !== oldAmount && amount > 0) {
       fetchInstallmentPlans(this.webshopId, amount).then((data) => {
         this.installments = data
       }).catch(e => {
+        this.installments = null
         console.error(e)
       })
     }
@@ -212,6 +194,14 @@ export class EasycreditExpressButton {
 
   render() {
     if (this.alert) {
+        return;
+    }
+    if (
+        this.installments && (
+          this.amount < this.installments.minFinancingAmount ||
+          this.amount > this.installments.maxFinancingAmount
+        )
+    ) {
         return;
     }
 
