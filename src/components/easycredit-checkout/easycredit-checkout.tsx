@@ -99,7 +99,6 @@ export class EasycreditCheckout {
 
   @Element() el: HTMLElement;
 
-  @Listen('modalSubmit', { target: 'body' })
   modalSubmitHandler() {
     this.el.dispatchEvent(new CustomEvent('submit', {
       bubbles    : true,
@@ -202,7 +201,11 @@ export class EasycreditCheckout {
 
   getModalFragment () {
     return ([
-      <easycredit-modal ref={(el) => this.modal = el as HTMLEasycreditModalElement} onModalClosed={() => this.acceptButtonClicked = false }>
+      <easycredit-modal
+          ref={(el) => this.modal = el as HTMLEasycreditModalElement}
+          onModalClosed={() => this.acceptButtonClicked = false }
+          onModalSubmit={() => this.modalSubmitHandler()}
+      >
         <div slot="heading">Weiter zum Ratenkauf</div>
         <div slot="content">
           {this.getPrivacyFragment()}

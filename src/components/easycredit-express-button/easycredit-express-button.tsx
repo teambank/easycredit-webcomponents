@@ -165,7 +165,6 @@ export class EasycreditExpressButton {
     },1000)
   }
 
-  @Listen('modalSubmit', { target: 'body' })
   modalSubmitHandler() {
     if (this.redirectUrl) {
       this.paymentModal.open();
@@ -184,7 +183,11 @@ export class EasycreditExpressButton {
 
   getCheckoutModalFragment () {
     return ([
-      <easycredit-modal class={{ "ec-express-button__modal__checkout": true }} ref={(el) => this.checkoutModal = el as HTMLEasycreditModalElement} size="small">
+      <easycredit-modal class={{ "ec-express-button__modal__checkout": true }}
+          ref={(el) => this.checkoutModal = el as HTMLEasycreditModalElement}
+          onModalSubmit={() => this.modalSubmitHandler()}
+          size="small"
+      >
         <span slot="heading">Weiter zum Ratenkauf</span>
         <div slot="content">
           <p><strong>Mit Klick auf Akzeptieren stimmen Sie der Datenübermittlung zu:</strong></p>
