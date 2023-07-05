@@ -214,6 +214,13 @@ export class EasycreditExpressButton {
     if (this.alert) {
         return;
     }
+    if (
+        !this.installments ||
+        this.amount < this.installments.minFinancingAmount ||
+        this.amount > this.installments.maxFinancingAmount
+    ) {
+        return;
+    }
 
     return ([
       <div class="ec-express-button" style={{ opacity: this.buttonOpacity }}>
