@@ -83,11 +83,8 @@ export function fetchSingleInstallmentPlan (webshopId: string, amount: number, o
   let uri = 'https://ratenkauf.easycredit.de/api/ratenrechner/v3/webshop/{{webshopId}}/installmentplans'
     .replace('{{webshopId}}', webshopId)
 
-  const options = {
+  const options = getOptions({
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json; charset=utf-8'
-    },
     body: JSON.stringify({
       "articles": [{
         "identifier": "single",
@@ -95,7 +92,7 @@ export function fetchSingleInstallmentPlan (webshopId: string, amount: number, o
         ...opts
       }]
     })
-  }
+  })
   return fetch(uri, options)
     .then((response) => {
       if (response.ok) {
@@ -116,6 +113,45 @@ export function fetchAgreement (webshopId: string) {
     return Promise.reject(response); 
   })
 }
+
+function getPersistentOptions (data) {
+  let options;
+  try {
+    options = JSON.parse(window.localStorage.getItem('easycredit-components'))
+  } catch (e) {
+    options = {}
+  }
+
+  if (data.webshopId) {
+    options.webshopId = data.webshopId
+  }
+  if (!options.id) {
+    options.id = Math.random().toString(16).slice(2)
+  }
+  window.localStorage.setItem('easycredit-components', JSON.stringify(options))
+  return options
+}
+
+export async function sendFeedback (_callee, feedback) {
+  let options = getOptions({
+    method: 'POST',
+    body: JSON.stringify({
+      component: _callee.constructor.name,
+      amount: _callee.amount,
+      page_title: document.title,
+      url: window.location.href,
+      ...getPersistentOptions(_callee),
+      ...feedback,
+    })
+  });
+  return fetch('https://ratenkauf.easycredit.de/api/webcomponents/v3/feedback', options).then((response) => {
+    if (response.ok) {
+     return true
+    }
+    return Promise.reject(response)
+  })
+}
+
 
 const defaultConfig = {
   request_config: {

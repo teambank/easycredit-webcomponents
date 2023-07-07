@@ -1,5 +1,5 @@
 import { Component, Method, Prop, h } from '@stencil/core';
-import { applyAssetsUrl, getAssetUrl } from '../../utils/utils';
+import { applyAssetsUrl, getAssetUrl, sendFeedback } from '../../utils/utils';
 
 @Component({
   tag: 'easycredit-box-flash',
@@ -14,10 +14,15 @@ export class EasycreditBoxFlash {
 
   @Method() async toggle () {
     this.isOpen = !this.isOpen
+    sendFeedback(this, { action: (this.isOpen) ? 'open' : 'close' })
   }
 
   connectedCallback() {
     applyAssetsUrl(EasycreditBoxFlash)
+  }
+
+  componentDidLoad () {
+    sendFeedback(this, { action: 'componentDidLoad' })
   }
 
   backgroundSrc() {

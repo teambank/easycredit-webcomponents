@@ -1,5 +1,5 @@
 import { Component, Prop, State, Listen, Watch, Event, EventEmitter, h } from '@stencil/core';
-import { formatCurrency } from '../../utils/utils';
+import { formatCurrency, sendFeedback } from '../../utils/utils';
 
 @Component({
   tag: 'easycredit-checkout-installments',
@@ -64,6 +64,7 @@ export class EasycreditCheckoutInstallments {
   }
 
   toggleList () {
+    sendFeedback(this, { action: 'showMore' })
     this.collapsing = !this.collapsing;
     setTimeout(() => this.collapsing = !this.collapsing, 350);
     setTimeout(() => this.collapsed = !this.collapsed, 350);
@@ -77,6 +78,7 @@ export class EasycreditCheckoutInstallments {
   onInstallmentSelect (e) {
     let t = e.target as HTMLInputElement; 
     this.selectedInstallment.emit(t.value)
+    sendFeedback(this, { action: 'selectInstallment', numberOfInstallments: t.value })
   }
 
   getInstallmentFragment (installment: any) {

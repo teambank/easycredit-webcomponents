@@ -1,4 +1,5 @@
 import { Component, Host, Listen, h, Element, Method } from '@stencil/core';
+import { sendFeedback } from '../../utils/utils';
 
 @Component({
   tag: 'easycredit-accordion',
@@ -17,6 +18,7 @@ export class EasycreditAccordion {
         children[i].closeItem();
       }
     }
+    sendFeedback(this, {action: 'open', item: this.getAccordionItem(event.detail.index).querySelector('h3').textContent })
   }
 
   /**
