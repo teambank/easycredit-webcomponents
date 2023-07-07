@@ -1,5 +1,5 @@
 import { Component, Prop, State, Element, Listen, Watch, h } from '@stencil/core';
-import { fetchInstallmentPlans, applyAssetsUrl} from '../../utils/utils';
+import { fetchInstallmentPlans, applyAssetsUrl, sendFeedback } from '../../utils/utils';
 
 @Component({
   tag: 'easycredit-express-button',
@@ -55,6 +55,7 @@ export class EasycreditExpressButton {
   @Listen('openModal')
   openModalHandler () {
     this.checkoutModal.open()
+    sendFeedback(this, { action: 'openCheckoutModal' })
   }
 
   @Watch('amount')
@@ -73,6 +74,7 @@ export class EasycreditExpressButton {
   }
 
   componentDidLoad () {
+    sendFeedback(this, { action: 'componentDidLoad' })
     this.renderButton()
   }
   componentDidUpdate () {
@@ -148,6 +150,7 @@ export class EasycreditExpressButton {
   }
 
   modalSubmitHandler() {
+    sendFeedback(this, { action: 'submit' })
     if (this.redirectUrl) {
       this.paymentModal.open();
       this.checkoutModal.close();
@@ -192,6 +195,12 @@ export class EasycreditExpressButton {
     ])
   }
 
+  openInfopageModal () {
+    this.infopageModal.open()
+    sendFeedback(this, { action: 'openInfopageModal' })
+
+  }
+
   render() {
     if (this.alert) {
         return;
@@ -209,7 +218,7 @@ export class EasycreditExpressButton {
       <div class="ec-express-button" style={{ opacity: this.buttonOpacity }}>
         <div class={{ "ec-express-button__btn": true, "blue": this.bgBlue, "full-width": this.fullWidth }} style={{ width: this.buttonWidth }}>
           <a class="ec-express-button__btn__main"
-            onClick={() => this.checkoutModal.open()}
+            onClick={() => this.openModalHandler()}
             onMouseEnter={() => this.onMouseEnter()}
             onMouseLeave={() => this.onMouseLeave()}
           >
@@ -223,7 +232,7 @@ export class EasycreditExpressButton {
           { this.getPaymentModalFragment() }
         </div>
 
-        <a class="ec-express-button__link" target="_blank" style={{ width: this.buttonWidth }} onClick={() => this.infopageModal.open()}>
+        <a class="ec-express-button__link" target="_blank" style={{ width: this.buttonWidth }} onClick={() => this.openInfopageModal() }>
           <div class="icon"></div>
           <div>Mehr zu <strong>easyCredit-Ratenkauf</strong></div>
         </a>

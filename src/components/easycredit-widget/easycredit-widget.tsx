@@ -1,6 +1,6 @@
 import { Component, Prop, State, Watch, h } from '@stencil/core';
 import { formatAmount, fetchInstallmentPlans, fetchSingleInstallmentPlan } from '../../utils/utils';
-import { applyAssetsUrl } from '../../utils/utils';
+import { applyAssetsUrl, sendFeedback } from '../../utils/utils';
 
 @Component({
   tag: 'easycredit-widget',
@@ -65,6 +65,10 @@ export class EasycreditWidget {
     this.onAmountChanged(this.amount, 0);
   }
 
+  componentDidLoad () {
+    sendFeedback(this, { action: 'componentDidLoad' })
+  }
+
   componentDidRender() {
     this.setWidgetLayout();
   }
@@ -125,6 +129,11 @@ export class EasycreditWidget {
     }
   }
 
+  openModal (): void {
+    sendFeedback(this, { action: 'openModal' }); 
+    this.modal.open()
+  }
+
   setWidgetLayout(): void {
     if ( !this.widgetElement ) {
       return;
@@ -152,7 +161,7 @@ export class EasycreditWidget {
         }} ref={(el) => this.widgetElement = el as HTMLElement} onClick={this.clickHandler}>
           {this.getInstallmentText()}
           <span class="ec-widget__brand-name"> mit easyCredit-Ratenkauf.</span>
-          <a class="ec-widget__link" onClick={() => this.modal.open() }>{this.getLinkText()}</a>
+          <a class="ec-widget__link" onClick={() => this.openModal() }>{this.getLinkText()}</a>
 
           <div class="ec-widget__logo"></div>
         </div>

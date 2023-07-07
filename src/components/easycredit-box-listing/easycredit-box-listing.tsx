@@ -1,5 +1,5 @@
 import { Component, Method, Prop, State, h } from '@stencil/core';
-import { applyAssetsUrl, getAssetUrl } from '../../utils/utils';
+import { applyAssetsUrl, getAssetUrl, sendFeedback } from '../../utils/utils';
 
 @Component({
   tag: 'easycredit-box-listing',
@@ -25,6 +25,10 @@ export class EasycreditBoxListing {
 
   connectedCallback() {
     applyAssetsUrl(EasycreditBoxListing)
+  }
+
+  componentDidLoad () {
+    sendFeedback(this, { action: 'componentDidLoad' })
   }
 
   componentDidRender() {

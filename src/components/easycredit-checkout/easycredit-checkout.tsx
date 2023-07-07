@@ -1,5 +1,5 @@
 import { Component, Prop, State, Listen, Element, h } from '@stencil/core';
-import { formatCurrency, fetchInstallmentPlans, fetchSingleInstallmentPlan, fetchAgreement } from '../../utils/utils';
+import { formatCurrency, fetchInstallmentPlans, fetchSingleInstallmentPlan, fetchAgreement, sendFeedback } from '../../utils/utils';
 
 @Component({
   tag: 'easycredit-checkout',
@@ -97,9 +97,14 @@ export class EasycreditCheckout {
     }
   }
 
+  componentDidLoad () {
+    sendFeedback(this, { action: 'componentDidLoad' })
+  }
+
   @Element() el: HTMLElement;
 
   modalSubmitHandler() {
+    sendFeedback(this, { action: 'submit' })
     this.el.dispatchEvent(new CustomEvent('submit', {
       bubbles    : true,
       cancelable : true,

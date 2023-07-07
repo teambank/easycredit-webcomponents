@@ -1,5 +1,5 @@
 import { Component, h } from '@stencil/core';
-import { applyAssetsUrl } from '../../utils/utils';
+import { applyAssetsUrl, sendFeedback } from '../../utils/utils';
 
 @Component({
   tag: 'easycredit-infopage',
@@ -11,6 +11,10 @@ export class EasycreditInfopage {
 
   connectedCallback() {
     applyAssetsUrl(EasycreditInfopage)
+  }
+
+  componentDidLoad () {
+    sendFeedback(this, { action: 'componentDidLoad' })
   }
 
   render() { 
