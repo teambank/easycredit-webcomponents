@@ -3,12 +3,8 @@ import { sass } from '@stencil/sass';
 
 export const config: Config = {
   namespace: 'easycredit-components',
-  buildEs5: true,
+  buildEs5: true, //'prod',
   extras: {
-    cssVarsShim: true,
-    dynamicImportShim: true,
-    shadowDomShim: true,
-    safari10: true,
     scriptDataOpts: true,
     appendChildSlotFix: false,
     cloneNodeFix: false,
