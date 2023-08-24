@@ -118,7 +118,9 @@ function getPersistentOptions (data) {
   let options;
   try {
     options = JSON.parse(window.localStorage.getItem('easycredit-components'))
-  } catch (e) {
+  } catch (e) {}
+
+  if (Object.prototype.toString.call(options) !== '[object Object]') {
     options = {}
   }
 
