@@ -14,7 +14,7 @@ export class EasycreditInfopage {
   }
 
   componentDidLoad () {
-    sendFeedback(this, { action: 'componentDidLoad' })
+    sendFeedback(this, { component: 'EasycreditInfopage', action: 'componentDidLoad' })
   }
 
   render() { 

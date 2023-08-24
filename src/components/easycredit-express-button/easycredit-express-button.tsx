@@ -55,7 +55,7 @@ export class EasycreditExpressButton {
   @Listen('openModal')
   openModalHandler () {
     this.checkoutModal.open()
-    sendFeedback(this, { action: 'openCheckoutModal' })
+    sendFeedback(this, { component: 'EasycreditExpressButton', action: 'openCheckoutModal' })
   }
 
   @Watch('amount')
@@ -74,7 +74,7 @@ export class EasycreditExpressButton {
   }
 
   componentDidLoad () {
-    sendFeedback(this, { action: 'componentDidLoad' })
+    sendFeedback(this, { component: 'EasycreditExpressButton', action: 'componentDidLoad' })
     this.renderButton()
   }
   componentDidUpdate () {
@@ -150,7 +150,7 @@ export class EasycreditExpressButton {
   }
 
   modalSubmitHandler() {
-    sendFeedback(this, { action: 'submit' })
+    sendFeedback(this, { component: 'EasycreditExpressButton', action: 'submit' })
     if (this.redirectUrl) {
       this.paymentModal.open();
       this.checkoutModal.close();
@@ -197,7 +197,7 @@ export class EasycreditExpressButton {
 
   openInfopageModal () {
     this.infopageModal.open()
-    sendFeedback(this, { action: 'openInfopageModal' })
+    sendFeedback(this, { component: 'EasycreditExpressButton', action: 'openInfopageModal' })
 
   }
 

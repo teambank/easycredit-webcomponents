@@ -138,7 +138,6 @@ export async function sendFeedback (_callee, feedback) {
   let options = getOptions({
     method: 'POST',
     body: JSON.stringify({
-      component: _callee.constructor.name,
       amount: _callee.amount,
       page_title: document.title,
       url: window.location.href,

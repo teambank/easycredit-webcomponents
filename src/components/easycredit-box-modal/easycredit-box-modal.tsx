@@ -27,7 +27,7 @@ export class EasycreditBoxModal {
   }
 
   componentDidLoad () {
-    sendFeedback(this, { action: 'componentDidLoad' })
+    sendFeedback(this, { component: 'EasycreditBoxModal', action: 'componentDidLoad' })
   }
 
   isSnoozed() {

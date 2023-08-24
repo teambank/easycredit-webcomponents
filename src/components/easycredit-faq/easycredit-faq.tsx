@@ -10,7 +10,7 @@ import { sendFeedback } from '../../utils/utils';
 export class EasycreditFaq {
 
   componentDidLoad () {
-    sendFeedback(this, { action: 'componentDidLoad' })
+    sendFeedback(this, { component: 'EasycreditFaq', action: 'componentDidLoad' })
   }
   
   render() { 

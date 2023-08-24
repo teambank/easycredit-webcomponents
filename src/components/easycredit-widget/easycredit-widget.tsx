@@ -66,7 +66,7 @@ export class EasycreditWidget {
   }
 
   componentDidLoad () {
-    sendFeedback(this, { action: 'componentDidLoad' })
+    sendFeedback(this, { component: 'EasycreditWidget', action: 'componentDidLoad' })
   }
 
   componentDidRender() {
@@ -130,7 +130,7 @@ export class EasycreditWidget {
   }
 
   openModal (): void {
-    sendFeedback(this, { action: 'openModal' }); 
+    sendFeedback(this, { component: 'EasycreditWidget', action: 'openModal' }); 
     this.modal.open()
   }
 

@@ -64,7 +64,7 @@ export class EasycreditCheckoutInstallments {
   }
 
   toggleList () {
-    sendFeedback(this, { action: 'showMore' })
+    sendFeedback(this, { component: 'EasycreditCheckoutInstallments', action: 'showMore' })
     this.collapsing = !this.collapsing;
     setTimeout(() => this.collapsing = !this.collapsing, 350);
     setTimeout(() => this.collapsed = !this.collapsed, 350);
@@ -78,7 +78,7 @@ export class EasycreditCheckoutInstallments {
   onInstallmentSelect (e) {
     let t = e.target as HTMLInputElement; 
     this.selectedInstallment.emit(t.value)
-    sendFeedback(this, { action: 'selectInstallment', numberOfInstallments: t.value })
+    sendFeedback(this, { component: 'EasycreditCheckoutInstallments', action: 'selectInstallment', numberOfInstallments: t.value })
   }
 
   getInstallmentFragment (installment: any) {

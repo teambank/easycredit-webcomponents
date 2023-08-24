@@ -28,7 +28,7 @@ export class EasycreditBoxListing {
   }
 
   componentDidLoad () {
-    sendFeedback(this, { action: 'componentDidLoad' })
+    sendFeedback(this, { component: 'EasycreditBoxListing', action: 'componentDidLoad' })
   }
 
   componentDidRender() {

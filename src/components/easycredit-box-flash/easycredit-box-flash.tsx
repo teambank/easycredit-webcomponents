@@ -14,7 +14,7 @@ export class EasycreditBoxFlash {
 
   @Method() async toggle () {
     this.isOpen = !this.isOpen
-    sendFeedback(this, { action: (this.isOpen) ? 'open' : 'close' })
+    sendFeedback(this, { component: 'EasycreditBoxFlash', action: (this.isOpen) ? 'open' : 'close' })
   }
 
   connectedCallback() {
@@ -22,7 +22,7 @@ export class EasycreditBoxFlash {
   }
 
   componentDidLoad () {
-    sendFeedback(this, { action: 'componentDidLoad' })
+    sendFeedback(this, { component: 'EasycreditBoxFlash', action: 'componentDidLoad' })
   }
 
   backgroundSrc() {

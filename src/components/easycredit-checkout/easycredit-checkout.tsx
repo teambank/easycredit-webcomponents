@@ -98,13 +98,13 @@ export class EasycreditCheckout {
   }
 
   componentDidLoad () {
-    sendFeedback(this, { action: 'componentDidLoad' })
+    sendFeedback(this, { component: 'EasycreditCheckout', action: 'componentDidLoad' })
   }
 
   @Element() el: HTMLElement;
 
   modalSubmitHandler() {
-    sendFeedback(this, { action: 'submit' })
+    sendFeedback(this, { component: 'EasycreditCheckout', action: 'submit' })
     this.el.dispatchEvent(new CustomEvent('submit', {
       bubbles    : true,
       cancelable : true,

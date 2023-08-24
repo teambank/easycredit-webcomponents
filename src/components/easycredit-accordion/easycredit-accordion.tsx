@@ -18,7 +18,7 @@ export class EasycreditAccordion {
         children[i].closeItem();
       }
     }
-    sendFeedback(this, {action: 'open', item: this.getAccordionItem(event.detail.index).querySelector('h3').textContent })
+    sendFeedback(this, { component: 'EasycreditAccordion', action: 'open', item: this.getAccordionItem(event.detail.index).querySelector('h3').textContent })
   }
 
   /**
