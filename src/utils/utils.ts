@@ -43,7 +43,7 @@ export function fetchInstallmentPlans (webshopId: string, amount: number) {
 }
 
 export function fetchAllInstallmentPlans (webshopId: string, amounts: number[]) {
-  let uri = 'https://ratenkauf.easycredit.de/api/ratenrechner/v3/webshop/{{webshopId}}/installmentplans'
+  let url = getApiUrl('/api/ratenrechner/v3/webshop/{{webshopId}}/installmentplans')
     .replace('{{webshopId}}', webshopId)
 
   const articles = amounts.map(amount => {
@@ -60,7 +60,7 @@ export function fetchAllInstallmentPlans (webshopId: string, amounts: number[]) 
     })
   })
 
-  return fetch(uri, options)
+  return fetch(url, options)
     .then((response) => {
       if (response.ok) { 
         return response.json().then(data => {
@@ -80,7 +80,7 @@ export function fetchAllInstallmentPlans (webshopId: string, amounts: number[]) 
 }
 
 export function fetchSingleInstallmentPlan (webshopId: string, amount: number, opts: object = {}) {
-  let uri = 'https://ratenkauf.easycredit.de/api/ratenrechner/v3/webshop/{{webshopId}}/installmentplans'
+  let url = getApiUrl('/api/ratenrechner/v3/webshop/{{webshopId}}/installmentplans')
     .replace('{{webshopId}}', webshopId)
 
   const options = getOptions({
@@ -93,7 +93,7 @@ export function fetchSingleInstallmentPlan (webshopId: string, amount: number, o
       }]
     })
   })
-  return fetch(uri, options)
+  return fetch(url, options)
     .then((response) => {
       if (response.ok) {
       return response.json()
@@ -106,7 +106,9 @@ export function fetchSingleInstallmentPlan (webshopId: string, amount: number, o
 }
 
 export function fetchAgreement (webshopId: string) {
-  return fetch('https://ratenkauf.easycredit.de/api/payment/v3/webshop/' + webshopId, getOptions({})).then((response) => {
+  const url = getApiUrl('/api/payment/v3/webshop/{{webshopId}}')
+    .replace('{{webshopId}}', webshopId)
+  return fetch(url, getOptions({})).then((response) => {
     if (response.ok) { 
      return response.json();
     }
@@ -145,7 +147,7 @@ export async function sendFeedback (_callee, feedback) {
       ...feedback,
     })
   });
-  return fetch('https://ratenkauf.easycredit.de/api/webcomponents/v3/feedback', options).then((response) => {
+  return fetch(getApiUrl('/api/webcomponents/v3/feedback'), options).then((response) => {
     if (response.ok) {
      return true
     }
@@ -153,6 +155,9 @@ export async function sendFeedback (_callee, feedback) {
   })
 }
 
+function getApiUrl (path) {
+  return getConfig().apiBaseUrl + path;
+}
 
 const defaultConfig = {
   request_config: {
@@ -161,6 +166,7 @@ const defaultConfig = {
       'X-Webcomponents-User-Agent' : 'EasyCreditRatenkaufWebComponents/1.0.0'
     }
   },
+  apiBaseUrl: 'https://ratenkauf.easycredit.de',
   endpoints: {
     list: 'https://partner.easycredit-ratenkauf.de/api/merchant/v3/transaction?tId={transactionId}',
     get: 'https://partner.easycredit-ratenkauf.de/api/merchant/v3/transaction/{transactionId}',
@@ -172,6 +178,9 @@ const defaultConfig = {
 function getConfig () {
   if (window && typeof (window as any).ratenkaufbyeasycreditOrderManagementConfig !== 'undefined') {
     return (window as any).ratenkaufbyeasycreditOrderManagementConfig
+  }
+  if (window && typeof (window as any).easycreditRatenkaufWebComponentsConfig !== 'undefined') {
+    return (window as any).easycreditRatenkaufWebComponentsConfig
   }
   return defaultConfig
 }
@@ -187,8 +196,8 @@ export async function fetchSingleTransaction (txId: string) {
   if (txId === '') {
     return Promise.reject()
   }
-  let uri = getConfig().endpoints.get.replace('{transactionId}', txId)
-  return fetch(uri, getOptions({ 
+  let url = getConfig().endpoints.get.replace('{transactionId}', txId)
+  return fetch(url, getOptions({
     method: 'GET' 
   }))
   .then((response) => {
@@ -205,8 +214,8 @@ export async function fetchSingleTransaction (txId: string) {
 var transactionLoader: Loader
 
 const fetchTransactions = async (txIds: Array<Number>) => {
-  let uri = getConfig().endpoints.list.replace('{transactionId}', txIds.join(','))
-  return fetch(uri, getOptions({
+  let url = getConfig().endpoints.list.replace('{transactionId}', txIds.join(','))
+  return fetch(url, getOptions({
     method: 'GET'
   }))
   .then((response) => {
@@ -241,8 +250,8 @@ export async function fetchTransaction (txId: string, reload: Boolean = false) {
 }
 
 export async function captureTransaction (txId: string, data) {
-  let uri = getConfig().endpoints.capture.replace('{transactionId}', txId)
-  return fetch(uri, getOptions({ 
+  let url = getConfig().endpoints.capture.replace('{transactionId}', txId)
+  return fetch(url, getOptions({
       method: 'POST', 
       body: JSON.stringify(data)
     }))
@@ -255,8 +264,8 @@ export async function captureTransaction (txId: string, data) {
 }
 
 export async function refundTransaction (txId: string, data) {
-  let uri = getConfig().endpoints.refund.replace('{transactionId}', txId)
-  return fetch(uri, getOptions({ 
+  let url = getConfig().endpoints.refund.replace('{transactionId}', txId)
+  return fetch(url, getOptions({
     method: 'POST', 
     body: JSON.stringify(data)
   }))
@@ -277,7 +286,7 @@ export function youngerThanOneDay (date) {
 const defaultBaseUrl = 'https://ratenkauf.easycredit.de/api/resource/webcomponents/v3'
 
 function getConfiguredBaseUrl () {
-  return window && typeof (window as any).easycreditRatenkaufWebComponentsBaseUrl == 'string' ? 
+  return window && typeof (window as any).easycreditRatenkaufWebComponentsBaseUrl == 'string' ?
   (window as any).easycreditRatenkaufWebComponentsBaseUrl :
   null
 }
@@ -305,9 +314,10 @@ function getBaseUrl (): URL {
   }
   return new URL(baseUrl)
 }
+
 export function getAssetUrl (file: String) {
   if (getConfiguredBaseUrl()) {
-      return getConfiguredBaseUrl() + file 
+      return getConfiguredBaseUrl() + file
   }
   if (new URL(defaultBaseUrl).origin === getBaseUrl().origin) {
     return defaultBaseUrl + file
