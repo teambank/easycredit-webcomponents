@@ -31,7 +31,7 @@
     "release": "yarn build && (cd dist; tar czvf ../easycredit-ratenkauf-webcomponents-$(npm pkg get version | sed 's/\"//g').tar.gz .)"
   },
   "dependencies": {
-    "@babel/plugin-proposal-optional-chaining": "^7.21.0",
+    "@babel/plugin-transform-optional-chaining": "^7.23.4",
     "@open-wc/webpack-import-meta-loader": "^0.4.7",
     "@stencil/core": "^4.17.1",
     "@stencil/sass": "^3.0.11",

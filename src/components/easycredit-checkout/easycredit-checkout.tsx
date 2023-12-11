@@ -1,5 +1,29 @@
-import { Component, Prop, State, Listen, Element, h } from '@stencil/core';
+import { Component, Prop, State, Listen, Element, Watch, h } from '@stencil/core';
 import { formatCurrency, fetchInstallmentPlans, fetchSingleInstallmentPlan, fetchAgreement, sendFeedback, addErrorHandler } from '../../utils/utils';
+
+enum METHODS {
+  INSTALLMENT_PAYMENT = 'INSTALLMENT_PAYMENT',
+  BILL_PAYMENT = 'BILL_PAYMENT'
+}
+
+type WebshopInfo = {
+  availability: boolean,
+  billPaymentActive: boolean,
+  declarationOfConsent: string,
+  flexprice: boolean,
+  illustrativeExample: string,
+  installmentPaymentActive: boolean
+  interestRate: number,
+  maxBillingValue: number,
+  maxFinancingAmount: number,
+  maxInstallmentValue: number,
+  minBillingValue: number,
+  minFinancingAmount: number,
+  minInstallmentValue: number,
+  privacyApprovalForm: string,
+  productDetails: string,
+  testMode: boolean
+};
 
 @Component({
   tag: 'easycredit-checkout',
@@ -10,18 +34,18 @@ import { formatCurrency, fetchInstallmentPlans, fetchSingleInstallmentPlan, fetc
 export class EasycreditCheckout {
 
   @Prop() isActive: boolean = true
-  @Prop() amount: number
+  @Prop({ mutable: true }) amount: number
   @Prop() webshopId: string
   @Prop() alert: string
   @Prop() paymentPlan: string
+  @Prop() method: string = METHODS.INSTALLMENT_PAYMENT
 
   /**
    * Disable Flexprice in calculation
    */
   @Prop() disableFlexprice: boolean = false
 
-  @State() privacyApprovalForm: string
-  @State() acceptButtonClicked: boolean = false
+  @State() submitButtonClicked: boolean = false
 
   @State() totals = {
     interest: 0,
@@ -35,6 +59,7 @@ export class EasycreditCheckout {
   }
   @State() example
   @State() submitDisabled = false
+  @State() webshopInfo: WebshopInfo = null
 
   modal!: HTMLEasycreditModalElement;
 
@@ -79,17 +104,14 @@ export class EasycreditCheckout {
         console.error(e)
       })
 
-      if (this.alert) {
+      /* if (this.alert) {
         return
-      }
+      } */
 
       fetchAgreement(this.webshopId).then(data => {
-        this.privacyApprovalForm = data.privacyApprovalForm
+        this.webshopInfo = data
+        this.validateAmount()
 
-        if (this.amount < data.minFinancingAmount
-          || this.amount > data.maxFinancingAmount
-        ) {
-        }
       }).catch(e => {
         console.error(e)
         this.alert = 'Es ist ein Fehler aufgetreten.'
@@ -97,9 +119,39 @@ export class EasycreditCheckout {
     }
   }
 
+  @Watch('amount') watchAmountHandler() {
+    this.validateAmount()
+  }
+
+  validateAmount () {
+    const info = this.webshopInfo
+    if (!info) {
+      return
+    }
+
+    if (this.method === METHODS.INSTALLMENT_PAYMENT) {
+       if (
+          this.amount < info.minInstallmentValue ||
+          this.amount > info.maxInstallmentValue
+        ) {
+          this.alert = `Der Finanzierungbetrag liegt außerhalb der zulässigen Beträge (${info.minFinancingAmount} € - ${info.maxFinancingAmount} €)`
+          return
+       }
+    } else if (this.method === METHODS.BILL_PAYMENT) {
+      if (
+        this.amount < info.minBillingValue || 
+        this.amount > info.maxBillingValue
+      ) {
+          this.alert = `Der Bestellwert liegt außerhalb der zulässigen Beträge (${info.minBillingValue} € - ${info.maxBillingValue} €)`
+          return
+       }
+    }
+    this.alert = null
+  }
+
   @Element() el: HTMLElement;
 
-  modalSubmitHandler() {
+  submitHandler() {
     sendFeedback(this, { component: 'EasycreditCheckout', action: 'submit' })
     this.acceptButtonClicked = true
 
@@ -158,14 +210,12 @@ export class EasycreditCheckout {
     </div>
   }
 
-  getCheckoutFragment () {
+  getCheckoutInstallmentFragment () {
     if (this.alert) {
-      return <div class="ec-checkout__alert">
-        { this.alert }
-      </div>
+      return
     }
-
-    return ([<div class="ec-checkout__body" /* :class="bodyClasses" */ >
+    
+    return ([<div class="ec-checkout__body">
         <easycredit-checkout-installments installments={JSON.stringify(this.installments)} /* v-model="selectedInstalment" :instalments="instalments" */ />
 
         <ul class="ec-checkout__totals">
@@ -184,7 +234,7 @@ export class EasycreditCheckout {
         </ul>
 
         <div class="ec-checkout__actions form-submit">
-          <button type="button" class="btn btn-primary" onClick={() => this.modal.open()} /* disabled={this.submitDisabled} */ >
+          <button type="button" class="btn btn-primary" onClick={() => this.modal.open()}>
               Weiter zum Ratenkauf
           </button>
         </div>
@@ -196,27 +246,58 @@ export class EasycreditCheckout {
     ])
   }
 
-  getPrivacyFragment() {
-    return <div class="privacy">
-      <p><strong>Mit Klick auf Akzeptieren stimmen Sie der Datenübermittlung zu:</strong></p>
+  getCheckoutBillPaymentFragment () {
+    if (this.alert) {
+      return
+    }
+
+    return ([<div class="ec-checkout__body">
+
+        <div>
+          Heute bestellen<br />
+          in 30 Tagen bezahlen
+        </div>
+
+        <ul class="ec-checkout__totals">
+        <li class="total">
+            <span>Gesamtbetrag</span>
+            <span>{ formatCurrency(this.amount) }</span>
+        </li>
+        </ul>
+
+        {this.getPrivacyFragment({intro: false})}
+
+        <div class="ec-checkout__actions form-submit">
+          <button type="button" class={{'btn': true, 'btn-primary': true, "loading": this.submitButtonClicked}} onClick={() => this.submitHandler()}>
+              Weiter zum Rechnungskauf
+          </button>
+        </div>
+
+    </div>])
+  }
+
+  getPrivacyFragment({intro = true}) { 
+    const html = <div class="privacy">
+      { intro && <p><strong>Mit Klick auf Akzeptieren stimmen Sie der Datenübermittlung zu:</strong></p> }
       <div class="form-check">
         <label class="form-check-label" htmlFor="modalAgreement">
-          <small>{ this.privacyApprovalForm }</small>
+          <small>{ this.webshopInfo?.privacyApprovalForm }</small>
         </label>
       </div>
-    </div>    
+    </div>
+    return html
   }
 
   getModalFragment () {
     return ([
       <easycredit-modal
           ref={(el) => this.modal = el as HTMLEasycreditModalElement}
-          onModalClosed={() => this.acceptButtonClicked = false }
-          onModalSubmit={() => this.modalSubmitHandler()}
+          onModalClosed={() => this.submitButtonClicked = false }
+          onModalSubmit={() => this.submitHandler()}
       >
         <div slot="heading">Weiter zum Ratenkauf</div>
         <div slot="content">
-          {this.getPrivacyFragment()}
+          {this.getPrivacyFragment({})}
         </div>
         <span slot="button">Akzeptieren</span>
       </easycredit-modal>
@@ -236,7 +317,13 @@ export class EasycreditCheckout {
           {
             !this.getPaymentPlan() &&
             <div class="ec-checkout-wrapper">
-              { this.getCheckoutFragment() }
+              { this.alert &&
+                <div class="ec-checkout__alert">
+                  { this.alert }
+                </div>
+              }
+              { this.method === METHODS.INSTALLMENT_PAYMENT && this.getCheckoutInstallmentFragment() }
+              { this.method === METHODS.BILL_PAYMENT && this.getCheckoutBillPaymentFragment() }
             </div>
           }
         </div>

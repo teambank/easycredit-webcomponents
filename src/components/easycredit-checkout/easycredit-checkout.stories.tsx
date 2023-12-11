@@ -31,6 +31,10 @@ Sobald der Kunde die PaymentPage durchlaufen hat, zeigt das Widget die vom Kunde
     paymentPlan: {
       description: "erwartet das JSON-formatierte TransactionSummary-Objekt (siehe GET /api/payment/v3/transaction/{technicalTransactionId}))'",
     },
+    method: {
+      options: ['INSTALLMENT_PAYMENT', 'BILL_PAYMENT'],
+      control: { type: 'radio' },
+    },
     submit: {
       action: 'submit',
       table: {
@@ -46,7 +50,8 @@ let args = {
     amount: 820.31,
     isActive: true,
     alert: '',
-    paymentPlan: ''
+    paymentPlan: '',
+    method: 'BILL_PAYMENT'
 }
 
 const Template = (args) => {
