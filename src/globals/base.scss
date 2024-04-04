@@ -322,8 +322,8 @@ $circle-secondary: '<svg width="330" height="331" viewBox="0 0 330 331" fill="no
 }
 
 // Logos
-.logo-ratenkauf {
-  background-image: url(#{$ec-base-url}/easycredit-components/assets/ratenkauf-logo.svg);
+.logo-easycredit {
+  background-image: url(#{$ec-base-url}/easycredit-components/assets/easycredit-logo.svg);
   background-position: left center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -331,9 +331,17 @@ $circle-secondary: '<svg width="330" height="331" viewBox="0 0 330 331" fill="no
   height: 40px;
   max-width: 100%;
 }
+.logo-ratenkauf {
+  @extend .logo-easycredit;
+  background-image: url(#{$ec-base-url}/easycredit-components/assets/ratenkauf-logo.svg);
+}
 .logo-ratenkauf-white {
-  @extend .logo-ratenkauf;
+  @extend .logo-easycredit;
   background-image: url(#{$ec-base-url}/easycredit-components/assets/ratenkauf-logo-white.svg);
+}
+.logo-rechnungskauf {
+  @extend .logo-easycredit;
+  background-image: url(#{$ec-base-url}/easycredit-components/assets/easycredit-logo.svg);
 }
 
 .logo-finanzgruppe {
