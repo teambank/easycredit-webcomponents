@@ -7,10 +7,11 @@
 
 ## Properties
 
-| Property | Attribute | Description | Type     | Default                             |
-| -------- | --------- | ----------- | -------- | ----------------------------------- |
-| `label`  | `label`   |             | `string` | `'easyCredit-Ratenkauf'`            |
-| `slogan` | `slogan`  |             | `string` | `'Ganz entspannt in Raten zahlen.'` |
+| Property | Attribute | Description | Type     | Default                 |
+| -------- | --------- | ----------- | -------- | ----------------------- |
+| `label`  | `label`   |             | `string` | `undefined`             |
+| `method` | `method`  |             | `string` | `"INSTALLMENT_PAYMENT"` |
+| `slogan` | `slogan`  |             | `string` | `undefined`             |
 
 
 ----------------------------------------------

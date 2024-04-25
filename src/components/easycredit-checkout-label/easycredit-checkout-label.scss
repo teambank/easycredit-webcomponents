@@ -17,7 +17,13 @@
     top: 50%;
     transform: translateY(-50%);
 
-    @extend .logo-ratenkauf;
+    &-installment {
+      @extend .logo-ratenkauf;
+    }
+    &-bill {
+      @extend .logo-rechnungskauf;
+    }
+
     display: block;
     width: 60px;
     height: 29px;
