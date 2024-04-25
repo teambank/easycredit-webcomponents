@@ -252,10 +252,6 @@ export class EasycreditCheckout {
     }
 
     return ([<div class="ec-checkout__body">
-        <div class="ec-checkout__sandbox">
-          Zahlungsart ist im Testmodus <div class="icon"></div>
-        </div>
-
         <div class="ec-checkout__timeline">
           <div class="ec-checkout__animation-information">
             <span>Heute<br />bestellen</span>

@@ -214,30 +214,6 @@
     }
   }
 
-  &__sandbox {
-    background: $success;
-    color: $white;
-    border-radius: $border-radius-lg;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 10px;
-    padding: 2px 10px;
-    font-size: $font-size-xs;
-    line-height: $line-height;
-    font-weight: bold;
-
-    .icon {
-      @include background-svg($icon-info);
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: contain;
-      width: 12px;
-      height: 12px;
-      margin-left: 5px;
-    }
-  }
-
   &__timeline {
     border-radius: $border-radius-xl;
     border: 2px solid $ec-gray;
