@@ -1,5 +1,5 @@
 import { Component, Prop, State, Element, Listen, Watch, h } from '@stencil/core';
-import { fetchInstallmentPlans, applyAssetsUrl, sendFeedback } from '../../utils/utils';
+import { fetchInstallmentPlans, applyAssetsUrl, sendFeedback, addErrorHandler } from '../../utils/utils';
 
 @Component({
   tag: 'easycredit-express-button',
@@ -155,6 +155,10 @@ export class EasycreditExpressButton {
       this.paymentModal.open();
       this.checkoutModal.close();
     } else {
+      addErrorHandler(this, () => {
+        alert('Leider ist eine Zahlung mit easyCredit derzeit nicht möglich. Bitte verwenden Sie eine andere Zahlungsart oder wenden Sie sich an den Händler.')
+        this.checkoutModal.close()
+      })
       this.el.dispatchEvent(new CustomEvent('submit', {
         bubbles    : true,
         cancelable : true,

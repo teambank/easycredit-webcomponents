@@ -1,5 +1,5 @@
 import { Component, Prop, State, Listen, Element, h } from '@stencil/core';
-import { formatCurrency, fetchInstallmentPlans, fetchSingleInstallmentPlan, fetchAgreement, sendFeedback } from '../../utils/utils';
+import { formatCurrency, fetchInstallmentPlans, fetchSingleInstallmentPlan, fetchAgreement, sendFeedback, addErrorHandler } from '../../utils/utils';
 
 @Component({
   tag: 'easycredit-checkout',
@@ -105,6 +105,13 @@ export class EasycreditCheckout {
 
   modalSubmitHandler() {
     sendFeedback(this, { component: 'EasycreditCheckout', action: 'submit' })
+    this.acceptButtonClicked = true
+
+    addErrorHandler(this, () => {
+      this.alert = 'Leider ist eine Zahlung mit easyCredit derzeit nicht möglich. Bitte verwenden Sie eine andere Zahlungsart oder wenden Sie sich an den Händler.'
+      this.modal.close()
+    })
+
     this.el.dispatchEvent(new CustomEvent('submit', {
       bubbles    : true,
       cancelable : true,
