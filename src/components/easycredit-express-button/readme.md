@@ -10,7 +10,7 @@
 | Property      | Attribute      | Description | Type      | Default     |
 | ------------- | -------------- | ----------- | --------- | ----------- |
 | `alert`       | `alert`        |             | `string`  | `undefined` |
-| `amount`      | `amount`       |             | `number`  | `0`         |
+| `amount`      | `amount`       |             | `number`  | `undefined` |
 | `bgBlue`      | `bg-blue`      |             | `boolean` | `false`     |
 | `fullWidth`   | `full-width`   |             | `boolean` | `false`     |
 | `redirectUrl` | `redirect-url` |             | `string`  | `undefined` |

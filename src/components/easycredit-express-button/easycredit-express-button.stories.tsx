@@ -18,11 +18,13 @@ export default {
       description: 'die Kennung des Webshops'
     },
     amount: {
-      defaultValue: { summary: "299" },
       description: 'der zu finanzierende Betrag, für den der Express-Button angezeigt werden soll. Ist der Betrag außerhalb der erlaubten Betragsgrenzen, wird der Button ausgeblendet.'
     },
     fullWidth: {
-      defaultValue: { summary: "false" },
+      table: {
+        defaultValue: { summary: "false" },
+        category: "optional",
+      },
       description: "Zeigt den Button über 100% der zur Verfügung stehenden Breite an."
     },
     submit: {

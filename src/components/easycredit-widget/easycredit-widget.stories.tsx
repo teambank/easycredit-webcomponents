@@ -18,7 +18,28 @@ export default {
       description: 'der zu finanzierende Betrag für den die Rate angezeigt werden soll, üblicherweise der Produktpreis'
     },
     extended: {
-      description: 'bestimmt, ob das Widget außerhalb der Betragsgrenzen angezeigt wird (optional)'
+      description: 'bestimmt, ob das Widget außerhalb der Betragsgrenzen angezeigt wird (optional)',
+      defaultValue: 'false',
+      table: {
+        category: 'optional',
+        defaultValue: { summary: 'true' }
+      }
+    },
+    displayType: {
+      description: 'mit dieser Option kann eine alternative Darstellungsvariante gewählt werden',
+      control: 'radio',
+      options: ['normal', 'clean', 'minimal'],
+      table: {
+        category: 'optional',
+        defaultValue: { summary: 'normal' },
+      }
+    },
+    disableFlexprice: {
+      description: 'wenn diese Option gesetzt ist, wird die Zins-Flexibilisierung bei der Berechnung nicht berücksichtigt',
+      table: {
+        category: 'optional',
+        defaultValue: { summary: 'false' },
+      }
     }
   }
 };
@@ -27,7 +48,8 @@ let args = {
   webshopId: '2.de.9999.9999',
   amount: 500,
   extended: true,
-  displayType: ''
+  displayType: '',
+  disableFlexprice: false
 }
 const Template = (args) => `<easycredit-widget ${buildAttributes(args).join(' ')} />`;
 
@@ -63,14 +85,19 @@ WidgetExtended.args = { ... args, ... {
   extended: false
 }}
 
-/*
 export const WidgetDisplayTypeClean = Template.bind({});
 WidgetDisplayTypeClean.storyName = 'alternative Darstellungsvariante, displayType: clean'
 WidgetDisplayTypeClean.args = { ... args, ... {
   amount: 500,
   displayType: 'clean'
 }}
-*/
+
+export const WidgetDisplayTypeMinimal = Template.bind({});
+WidgetDisplayTypeMinimal.storyName = 'alternative Darstellungsvariante, displayType: minimal'
+WidgetDisplayTypeMinimal.args = { ... args, ... {
+  amount: 500,
+  displayType: 'minimal'
+}}
 
 export const WidgetWithoutFlexprice = Template.bind({});
 WidgetWithoutFlexprice.storyName = 'Berechnung ohne Zins-Flex'

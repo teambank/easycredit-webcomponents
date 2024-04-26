@@ -21,6 +21,9 @@ Sobald der Kunde die PaymentPage durchlaufen hat, zeigt das Widget die vom Kunde
     },
     isActive: {
       description: "blendet das komplette Element ein oder aus",
+      table: {
+        defaultValue: { summary: 'true' }
+      }
     },
     alert: {
       description: "ist dieses Attribut gesetzt, wird der Inhalt dieses Attributs als Meldung angezeigt",
