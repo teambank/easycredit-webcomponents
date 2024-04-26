@@ -1,0 +1,37 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Getting Started/Configuration" />
+
+<h1>Konfiguration</h1>
+
+Die Komponenten können für Integrations- und Testzwecke über eine globale Variable konfiguriert werden.
+
+```html
+<script>
+window.easycreditRatenkaufWebComponentsConfig = {
+
+    // Das Objekt `request_config` entspricht dem `options`-Parameter von `fetch(resource [, options])`, 
+    // siehe https://developer.mozilla.org/en-US/docs/Web/API/fetch
+
+    request_config: {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + Context.api.authToken.access
+        }
+    },
+
+    // Basis-URL für API-Aufrufe
+
+    apiBaseUrl: 'https://ratenkauf.easycredit.de',
+
+    // definierte Proxy-Endpoints für Merchant-API, Authentifizierung i.V.m. request_config
+
+    endpoints: {  // {transactionId} is automatically replaced with the tx-id or tx-id's (list)
+        list: 'api/transactions/{transactionId}',
+        get: 'api/transaction/{transactionId}',
+        capture: 'api/transaction/{transactionId}/capture',
+        refund: 'api/transaction/{transactionId}/refund'
+    }
+}
+</script>
+```

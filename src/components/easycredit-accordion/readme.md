@@ -11,6 +11,12 @@
 
 close an accordion item
 
+#### Parameters
+
+| Name    | Type     | Description |
+| ------- | -------- | ----------- |
+| `index` | `number` |             |
+
 #### Returns
 
 Type: `Promise<void>`
@@ -20,6 +26,12 @@ Type: `Promise<void>`
 ### `open(index: number) => Promise<void>`
 
 Open an accordion item
+
+#### Parameters
+
+| Name    | Type     | Description |
+| ------- | -------- | ----------- |
+| `index` | `number` |             |
 
 #### Returns
 
