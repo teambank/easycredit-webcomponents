@@ -7,12 +7,14 @@ on:
 
 jobs:
   release:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - name: Run script file
       id: build-release
       run: |
+         corepack enable
+         yarn set version berry
          yarn
          yarn release
          
