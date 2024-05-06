@@ -1,7 +1,7 @@
 {
   "name": "@easycredit-ratenkauf/easycredit-components",
   "license": "MIT",
-  "version": "1.2.8",
+  "version": "1.2.9",
   "description": "The easyCredit-Ratenkauf Web Components are a set of web components to be universally used in e-commerce platforms like Magento or Shopware. The web components ease integration of easyCredit-Ratenkauf installments payment solution by providing versatile web frontend elements for marketing and checkout.",
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",
