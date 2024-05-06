@@ -21,10 +21,6 @@ export class EasycreditBoxFlash {
     applyAssetsUrl(EasycreditBoxFlash)
   }
 
-  componentDidLoad () {
-    sendFeedback(this, { component: 'EasycreditBoxFlash', action: 'componentDidLoad' })
-  }
-
   backgroundSrc() {
     if (!this.src) {
       return getAssetUrl('/easycredit-components/assets/motiv-leyla.jpg')

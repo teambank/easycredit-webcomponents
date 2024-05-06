@@ -1,5 +1,5 @@
 import { Component, Method, Prop, h } from '@stencil/core';
-import { applyAssetsUrl, getAssetUrl, sendFeedback } from '../../utils/utils';
+import { applyAssetsUrl, getAssetUrl } from '../../utils/utils';
 
 @Component({
   tag: 'easycredit-box-modal',
@@ -24,10 +24,6 @@ export class EasycreditBoxModal {
         this.isOpen = true
       }, this.delay)
     }
-  }
-
-  componentDidLoad () {
-    sendFeedback(this, { component: 'EasycreditBoxModal', action: 'componentDidLoad' })
   }
 
   isSnoozed() {

@@ -1,5 +1,4 @@
 import { Component, h } from '@stencil/core';
-import { sendFeedback } from '../../utils/utils';
 
 @Component({
   tag: 'easycredit-faq',
@@ -9,10 +8,6 @@ import { sendFeedback } from '../../utils/utils';
 
 export class EasycreditFaq {
 
-  componentDidLoad () {
-    sendFeedback(this, { component: 'EasycreditFaq', action: 'componentDidLoad' })
-  }
-  
   render() { 
     return ([
       <div class="ec-faq">

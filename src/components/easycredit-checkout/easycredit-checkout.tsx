@@ -97,10 +97,6 @@ export class EasycreditCheckout {
     }
   }
 
-  componentDidLoad () {
-    sendFeedback(this, { component: 'EasycreditCheckout', action: 'componentDidLoad' })
-  }
-
   @Element() el: HTMLElement;
 
   modalSubmitHandler() {

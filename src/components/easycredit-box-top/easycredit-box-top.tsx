@@ -1,5 +1,5 @@
 import { Component, State, h } from '@stencil/core';
-import { applyAssetsUrl, sendFeedback } from '../../utils/utils';
+import { applyAssetsUrl } from '../../utils/utils';
 
 @Component({
   tag: 'easycredit-box-top',
@@ -24,10 +24,6 @@ export class EasycreditBoxTop {
     document.addEventListener('scroll', () => {
       this.isScrolled = (window.scrollY >= 50)
     })
-  }
-
-  componentDidLoad () {
-    sendFeedback(this, { component: 'EasycreditBoxTop', action: 'componentDidLoad' })
   }
 
   render() { 

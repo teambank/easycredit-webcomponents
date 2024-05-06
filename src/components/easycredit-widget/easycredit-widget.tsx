@@ -65,10 +65,6 @@ export class EasycreditWidget {
     this.onAmountChanged(this.amount, 0);
   }
 
-  componentDidLoad () {
-    sendFeedback(this, { component: 'EasycreditWidget', action: 'componentDidLoad' })
-  }
-
   componentDidRender() {
     this.setWidgetLayout();
   }

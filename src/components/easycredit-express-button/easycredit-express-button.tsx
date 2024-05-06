@@ -75,7 +75,6 @@ export class EasycreditExpressButton {
 
   componentDidLoad () {
     this.renderButton()
-    sendFeedback(this, { component: 'EasycreditExpressButton', action: 'componentDidLoad' })
   }
   componentDidUpdate () {
     this.setButtonTextWidth()
