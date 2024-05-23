@@ -1,7 +1,7 @@
 import { Loader } from './loader'
 
 export function addErrorHandler(component, callback) {
-  let time = 4
+  let time = 10
 
   let timeout = window.setTimeout(() => {
     console.error('No event handler handled the submit event of <easycredit-checkout> within ' + time + ' seconds. Please check the integration.')
@@ -10,22 +10,9 @@ export function addErrorHandler(component, callback) {
     callback()
   }, time * 1000)
 
-  // check for any request or page unload to determine if any event handler was reacting on the button click
-  var observer = new PerformanceObserver(function (batch) {
-    if (batch.getEntries()
-      .filter(entry => (entry as PerformanceResourceTiming).initiatorType === 'xmlhttprequest' || (entry as PerformanceResourceTiming).initiatorType === 'fetch')
-      .filter(entry => !entry.name.match(/\/api\/webcomponents\/v3\/feedback/))
-      .length > 0
-    ) {
-      window.clearTimeout(timeout)
-      observer.disconnect()
-    }
-  });
-  observer.observe({ type: 'resource' });
-
-  window.onbeforeunload = function () {
+  window.addEventListener("beforeunload", function () {
     window.clearTimeout(timeout)
-  }
+  });
 }
 
 export function formatAmount(amount: number): string {
