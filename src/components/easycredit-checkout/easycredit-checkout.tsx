@@ -153,8 +153,8 @@ export class EasycreditCheckout {
 
   submitHandler() {
     sendFeedback(this, { component: 'EasycreditCheckout', action: 'submit' })
-    this.acceptButtonClicked = true
 
+    this.submitButtonClicked = true
     addErrorHandler(this, () => {
       this.alert = 'Leider ist eine Zahlung mit easyCredit derzeit nicht möglich. Bitte verwenden Sie eine andere Zahlungsart oder wenden Sie sich an den Händler.'
       this.modal.close()
@@ -304,7 +304,7 @@ export class EasycreditCheckout {
         {this.getPrivacyFragment({intro: false})}
 
         <div class="ec-checkout__actions form-submit">
-          <button type="button" class={{'btn': true, 'btn-primary': true, "loading": this.submitButtonClicked}} onClick={() => this.submitHandler()}>
+        <button type="button" class={{ 'btn': true, 'btn-primary': true, "loading": this.submitButtonClicked }} disabled={this.submitButtonClicked} onClick={() => this.submitHandler()}>
             Weiter zum Rechnungskauf
           </button>
         </div>
