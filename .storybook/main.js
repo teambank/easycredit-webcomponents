@@ -8,7 +8,9 @@ module.exports = {
     "@storybook/addon-essentials",
     "@chromatic-com/storybook",
     "@storybook/addon-interactions",
-    "@chromatic-com/storybook"
+    "@chromatic-com/storybook",
+    "@storybook/addon-mdx-gfm",
+    "@storybook/addon-webpack5-compiler-swc"
   ],
   "framework": {
     name: "@storybook/html-webpack5",
@@ -32,7 +34,5 @@ module.exports = {
     return config;
   },
   staticDirs: ['../dist'],
-  docs: {
-    autodocs: true
-  }
+  docs: {}
 };
