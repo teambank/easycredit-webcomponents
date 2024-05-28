@@ -7,11 +7,11 @@
 
 ## Properties
 
-| Property | Attribute | Description | Type     | Default                 |
-| -------- | --------- | ----------- | -------- | ----------------------- |
-| `label`  | `label`   |             | `string` | `undefined`             |
-| `method` | `method`  |             | `string` | `"INSTALLMENT_PAYMENT"` |
-| `slogan` | `slogan`  |             | `string` | `undefined`             |
+| Property      | Attribute      | Description | Type                                  | Default               |
+| ------------- | -------------- | ----------- | ------------------------------------- | --------------------- |
+| `label`       | `label`        |             | `string`                              | `undefined`           |
+| `paymentType` | `payment-type` |             | `METHODS.BILL \| METHODS.INSTALLMENT` | `METHODS.INSTALLMENT` |
+| `slogan`      | `slogan`       |             | `string`                              | `undefined`           |
 
 
 ----------------------------------------------

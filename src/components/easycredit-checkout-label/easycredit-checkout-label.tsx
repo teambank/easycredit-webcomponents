@@ -1,5 +1,6 @@
 import { Component, Prop, h } from '@stencil/core';
 import { applyAssetsUrl } from '../../utils/utils';
+import { METHODS } from '../../types';
 
 @Component({
   tag: 'easycredit-checkout-label',
@@ -11,19 +12,19 @@ export class EasycreditCheckoutLabel {
 
   @Prop({ mutable: true }) label: string
   @Prop({ mutable: true }) slogan: string
-  @Prop({ mutable: true}) method: string = "INSTALLMENT_PAYMENT";
+  @Prop({ mutable: true}) paymentType: METHODS = METHODS.INSTALLMENT
 
   connectedCallback() {
     applyAssetsUrl(EasycreditCheckoutLabel)
   }
 
   componentWillLoad() {
-    if (this.method === 'INSTALLMENT_PAYMENT') {
+    if (this.paymentType === METHODS.INSTALLMENT) {
       this.label ??= 'easyCredit-Ratenkauf'
       this.slogan ??= 'Ganz entspannt in Raten zahlen.'
-    } else if (this.method === 'BILL_PAYMENT') {
+    } else if (this.paymentType === METHODS.BILL) {
       this.label ??= 'easyCredit-Rechnung'
-      this.slogan ??= 'Jetzt kaufen, in 30 Tagen bezahlen.'
+      this.slogan ??= 'Erst kaufen, in 30 Tagen bezahlen.'
     }
   }
 
@@ -37,8 +38,8 @@ export class EasycreditCheckoutLabel {
 
           <div class={{
             'ec-checkout-label__logo' : true,
-            'ec-checkout-label__logo-installment': this.method === 'INSTALLMENT_PAYMENT',
-            'ec-checkout-label__logo-bill': this.method === 'BILL_PAYMENT'
+            'ec-checkout-label__logo-installment': this.paymentType ===  METHODS.INSTALLMENT,
+            'ec-checkout-label__logo-bill': this.paymentType === METHODS.BILL
           }}></div>
         </div>
       </div>

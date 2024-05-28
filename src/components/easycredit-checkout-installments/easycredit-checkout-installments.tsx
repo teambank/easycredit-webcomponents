@@ -17,6 +17,8 @@ export class EasycreditCheckoutInstallments {
   @State() _installments
   @State() selectedInstallmentValue: number
 
+  installmentsBase!: HTMLElement;
+
   @Listen('selectedInstallment')
   selectedInstallmentHandler(e) {
     this.selectedInstallmentValue = e.detail
@@ -24,10 +26,11 @@ export class EasycreditCheckoutInstallments {
 
   @Watch('installments')
   parseInstallmentsProp(newValue: string) {
-    if (newValue) this._installments = JSON.parse(newValue);
+    if (newValue) {
+      this._installments = JSON.parse(newValue)
+        .sort((a,b) => a.installment - b.installment) 
+    }
   }
-
-  installmentsBase!: HTMLElement;
 
   async componentWillLoad () {
     this.parseInstallmentsProp(this.installments);

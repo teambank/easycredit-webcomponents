@@ -1,4 +1,5 @@
 import { buildAttributes } from '../../../.storybook/helpers'
+import { METHODS } from '../../types';
 
 export default {
   title: "Checkout/Label",
@@ -11,18 +12,33 @@ export default {
     }    
   },
   argTypes: {
+    paymentType: {
+      table: {
+        defaultValue: { summary: "INSTALLMENT" },
+        category: "optional",
+      },
+      description: 'Zahlungsart',
+      options: [METHODS.INSTALLMENT, METHODS.BILL],
+      control: { type: 'radio' },
+    },
     label: {
+      table: {
+        category: "optional",
+      },
       description: 'Titel'
     },
     slogan: {
+      table: {
+        category: "optional",
+      },
       description: 'Untertitel'
     }
-
   },
 };
 
 
 let args = {
+  paymentType: METHODS.INSTALLMENT,
   label: '',
   slogan: ''
 }

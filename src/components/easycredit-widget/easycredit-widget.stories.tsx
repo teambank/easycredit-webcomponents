@@ -1,4 +1,5 @@
 import { buildAttributes } from '../../../.storybook/helpers'
+import { METHODS } from '../../types';
 
 export default {
   title: "Marketing/Widget",
@@ -16,6 +17,13 @@ export default {
     },
     amount: {
       description: 'der zu finanzierende Betrag für den die Rate angezeigt werden soll, üblicherweise der Produktpreis'
+    },
+    paymentTypes: {
+      description: 'die zu berücksichtigenden Zahlungsmethoden, als komma-getrennte Liste',
+      table: {
+        defaultValue: { summary: 'INSTALLMENT,BILL' },
+      },
+       control: 'check', options: [METHODS.INSTALLMENT, METHODS.BILL]
     },
     extended: {
       description: 'bestimmt, ob das Widget außerhalb der Betragsgrenzen angezeigt wird (optional)',
@@ -67,9 +75,9 @@ WidgetNormal.storyName = 'Standard'
 WidgetNormal.args = args
 
 export const WidgetBelow = Template.bind({});
-WidgetBelow.storyName = 'unterhalb Betragsgrenze (99 EUR)'
+WidgetBelow.storyName = 'unterhalb Betragsgrenze (49 EUR)'
 WidgetBelow.args = { ... args, ... {
-  amount: 99
+  amount: 49
 }}
 
 export const WidgetAbove = Template.bind({});
@@ -105,3 +113,17 @@ WidgetWithoutFlexprice.args = { ... args, ... {
   amount: 500,
   disableFlexprice: true
 }}
+
+export const WidgetBillPayment = Template.bind({});
+WidgetBillPayment.storyName = 'Rechnungskauf'
+WidgetBillPayment.args = {
+  ...args,
+  paymentTypes: METHODS.BILL
+}
+
+export const WidgetInstallmentPayment = Template.bind({});
+WidgetInstallmentPayment.storyName = 'Ratenkauf'
+WidgetInstallmentPayment.args = {
+  ...args,
+  paymentTypes: METHODS.INSTALLMENT
+}

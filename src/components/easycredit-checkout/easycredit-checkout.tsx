@@ -1,29 +1,8 @@
 import { Component, Prop, State, Listen, Element, Watch, h } from '@stencil/core';
-import { formatCurrency, fetchInstallmentPlans, fetchSingleInstallmentPlan, fetchAgreement, sendFeedback, addErrorHandler } from '../../utils/utils';
-
-enum METHODS {
-  INSTALLMENT_PAYMENT = 'INSTALLMENT_PAYMENT',
-  BILL_PAYMENT = 'BILL_PAYMENT'
-}
-
-type WebshopInfo = {
-  availability: boolean,
-  billPaymentActive: boolean,
-  declarationOfConsent: string,
-  flexprice: boolean,
-  illustrativeExample: string,
-  installmentPaymentActive: boolean
-  interestRate: number,
-  maxBillingValue: number,
-  maxFinancingAmount: number,
-  maxInstallmentValue: number,
-  minBillingValue: number,
-  minFinancingAmount: number,
-  minInstallmentValue: number,
-  privacyApprovalForm: string,
-  productDetails: string,
-  testMode: boolean
-};
+import { formatCurrency, fetchInstallmentPlans, getWebshopInfo, sendFeedback, addErrorHandler } from '../../utils/utils';
+import { validateAmount, Caps } from '../../utils/validation';
+import { InstallmentPlan, InstallmentPlans, METHODS } from '../../types';
+import state from '../../stores/general'
 
 @Component({
   tag: 'easycredit-checkout',
@@ -38,34 +17,22 @@ export class EasycreditCheckout {
   @Prop() webshopId: string
   @Prop() alert: string
   @Prop() paymentPlan: string
-  @Prop() method: string = METHODS.INSTALLMENT_PAYMENT
-
-  /**
-   * Disable Flexprice in calculation
-   */
+  @Prop() paymentType: METHODS = METHODS.INSTALLMENT
   @Prop() disableFlexprice: boolean = false
 
+  @State() isInitialized: boolean = false
   @State() submitButtonClicked: boolean = false
-
-  @State() totals = {
-    interest: 0,
-    total: 0
-  }
-  @State() installments
-  @State() selectedInstallment = {
-    totalInterest: 0,
-    totalValue: 0,
-    numberOfInstallments: 0
-  }
-  @State() example
+  @State() installmentPlans: InstallmentPlans = null
+  @State() selectedInstallment: InstallmentPlan = null
   @State() submitDisabled = false
-  @State() webshopInfo: WebshopInfo = null
 
   modal!: HTMLEasycreditModalElement;
 
+  caps: Caps
+
   @Listen('selectedInstallment')
   selectedInstallmentHandler(e) {
-    this.selectedInstallment = this.installments.find(i => i.numberOfInstallments == e.detail)
+    this.selectedInstallment = this.installmentPlans.plans.find(i => i.numberOfInstallments == e.detail)
   }
 
   @Listen('openModal')
@@ -78,75 +45,37 @@ export class EasycreditCheckout {
     this.modal.close()
   }
 
+  isEnabled(type: METHODS) {
+    return this.caps.isEnabled(type)
+  }
+
   async componentWillLoad () {
+    this.caps = new Caps(this.paymentType)
+
     if (this.amount > 0 && !this.alert && !this.paymentPlan) {
 
-      const fetchPlans = (this.disableFlexprice) ?
-        fetchSingleInstallmentPlan.bind(this, this.webshopId, this.amount, { 'withoutFlexprice': true }) :
-        fetchInstallmentPlans.bind(this, this.webshopId, this.amount)
+      try {
+        await getWebshopInfo(this.webshopId)
+        validateAmount(this.amount, this.paymentType)
 
-      await fetchPlans().then((data) => {
-        if (!data) {
-          return
-        }
-        const installment = data.installmentPlans.find(() => true)
-        if (installment.errors) {
-          this.alert = installment.errors.violations.find(()=>true).message
-          if (installment.errors.title === 'INVALID_PRICE') {
-            this.alert = `Der Finanzierungbetrag liegt außerhalb der zulässigen Beträge (${data.minFinancingAmount} € - ${data.maxFinancingAmount} €)`
-          }
-          return
+        if (this.isEnabled(METHODS.INSTALLMENT)) {
+          const opts = this.disableFlexprice ? { 'withoutFlexprice': this.disableFlexprice } : {}
+          this.installmentPlans = await fetchInstallmentPlans(this.webshopId, this.amount, opts)
         }
 
-        this.installments = installment.plans.reverse()
-        this.example = installment.example
-      }).catch(e => {
-        console.error(e)
-      })
-
-      /* if (this.alert) {
-        return
-      } */
-
-      fetchAgreement(this.webshopId).then(data => {
-        this.webshopInfo = data
-        this.validateAmount()
-
-      }).catch(e => {
-        console.error(e)
-        this.alert = 'Es ist ein Fehler aufgetreten.'
-      })
+      } catch (error) {
+        this.alert = error.message ?? 'Es ist ein Fehler aufgetreten.'
+      }
     }
+    this.isInitialized = true
   }
 
   @Watch('amount') watchAmountHandler() {
-    this.validateAmount()
-  }
-
-  validateAmount () {
-    const info = this.webshopInfo
-    if (!info) {
-      return
+    try {
+      validateAmount(this.amount, this.paymentType)
+    } catch (error) {
+        this.alert = error.message ?? 'Es ist ein Fehler aufgetreten.'
     }
-
-    if (this.method === METHODS.INSTALLMENT_PAYMENT) {
-       if (
-          this.amount < info.minInstallmentValue ||
-          this.amount > info.maxInstallmentValue
-        ) {
-          this.alert = `Der Finanzierungbetrag liegt außerhalb der zulässigen Beträge (${info.minFinancingAmount} € - ${info.maxFinancingAmount} €)`
-          return
-       }
-    } else if (this.method === METHODS.BILL_PAYMENT) {
-      if (
-        this.amount < info.minBillingValue ||
-        this.amount > info.maxBillingValue
-      ) {
-          this.alert = `Der Bestellwert liegt außerhalb der zulässigen Beträge (${info.minBillingValue} € - ${info.maxBillingValue} €)`
-          return
-       }
-    }
-    this.alert = null
   }
 
   @Element() el: HTMLElement;
@@ -165,7 +94,8 @@ export class EasycreditCheckout {
       cancelable : true,
       composed: true,
       detail: {
-        numberOfInstallments: this.selectedInstallment.numberOfInstallments
+        paymentType: this.paymentType,
+        ...(this.selectedInstallment?.numberOfInstallments && { numberOfInstallments: this.selectedInstallment?.numberOfInstallments })
       }
     }))
   }
@@ -187,7 +117,7 @@ export class EasycreditCheckout {
     return false
   }
 
-  getPaymentPlanFragment () {
+  getInstallmentPaymentPlanFragment () {
     if (!this.getPaymentPlan()) {
       return null
     }
@@ -210,38 +140,29 @@ export class EasycreditCheckout {
     </div>
   }
 
+  getBillPaymentPlanFragment () {
+    if (!this.getPaymentPlan()) {
+      return null
+    }
+    return <easycredit-checkout-bill-payment-timeline />
+  }
+
   getCheckoutInstallmentFragment () {
     if (this.alert) {
       return
     }
 
     return ([<div class="ec-checkout__body">
-        <easycredit-checkout-installments installments={JSON.stringify(this.installments)} /* v-model="selectedInstalment" :instalments="instalments" */ />
-
-        <ul class="ec-checkout__totals">
-        <li>
-            <span>Kaufbetrag</span>
-            <span>{  formatCurrency(this.amount) }</span>
-        </li>
-        <li>
-            <span>+ Zinsen</span>
-            <span>{  formatCurrency(this.selectedInstallment.totalInterest) }</span>
-        </li>
-        <li class="total">
-            <span>Gesamtbetrag</span>
-            <span>{ formatCurrency(this.selectedInstallment.totalValue) }</span>
-        </li>
-        </ul>
-
-        <div class="ec-checkout__actions form-submit">
-          <button type="button" class="btn btn-primary" onClick={() => this.modal.open()}>
-              Weiter zum Ratenkauf
-          </button>
-        </div>
-
-        <p class="ec-checkout__small-print">
-          <small innerHTML={this.example} />
-        </p>
+        <easycredit-checkout-installments installments={JSON.stringify(this.installmentPlans.plans)} />
+        <easycredit-checkout-totals amount={this.amount} selectedInstallment={this.selectedInstallment} installmentPlans={this.installmentPlans}>
+          <div slot="actions">
+            <div class="ec-checkout__actions form-submit">
+              <button type="button" class="btn btn-primary" onClick={() => this.modal.open()}>
+                Weiter zum Ratenkauf
+              </button>
+            </div>
+          </div>
+        </easycredit-checkout-totals>
       </div>
     ])
   }
@@ -252,54 +173,11 @@ export class EasycreditCheckout {
     }
 
     return ([<div class="ec-checkout__body">
-        <div class="ec-checkout__timeline">
-          <div class="ec-checkout__animation-information">
-            <span>Heute<br />bestellen</span>
-            <span>in <strong>30 Tagen</strong><br />bezahlen</span>
+        <easycredit-checkout-bill-payment-timeline />
+        <easycredit-checkout-totals amount={this.amount}>
+          <div slot="actions">
           </div>
-
-          <div class="ec-checkout__animation">
-            <span class="ec-checkout__animation-start"></span>
-            <span class="ec-checkout__animation-bullets">
-              <span class="ec-checkout__animation-bullet" style={{ '--bullet-index': '0' }}></span>
-              <span class="ec-checkout__animation-bullet" style={{ '--bullet-index': '1' }}></span>
-              <span class="ec-checkout__animation-bullet" style={{ '--bullet-index': '2' }}></span>
-              <span class="ec-checkout__animation-bullet" style={{ '--bullet-index': '3' }}></span>
-              <span class="ec-checkout__animation-bullet" style={{ '--bullet-index': '4' }}></span>
-              <span class="ec-checkout__animation-bullet" style={{ '--bullet-index': '5' }}></span>
-              <span class="ec-checkout__animation-bullet" style={{ '--bullet-index': '6' }}></span>
-              <span class="ec-checkout__animation-bullet" style={{ '--bullet-index': '7' }}></span>
-              <span class="ec-checkout__animation-bullet" style={{ '--bullet-index': '8' }}></span>
-              <span class="ec-checkout__animation-bullet" style={{ '--bullet-index': '9' }}></span>
-              <span class="ec-checkout__animation-bullet" style={{ '--bullet-index': '10' }}></span>
-              <span class="ec-checkout__animation-bullet" style={{ '--bullet-index': '11' }}></span>
-              <span class="ec-checkout__animation-bullet" style={{ '--bullet-index': '12' }}></span>
-              <span class="ec-checkout__animation-bullet" style={{ '--bullet-index': '13' }}></span>
-              <span class="ec-checkout__animation-bullet" style={{ '--bullet-index': '14' }}></span>
-              <span class="ec-checkout__animation-bullet" style={{ '--bullet-index': '15' }}></span>
-              <span class="ec-checkout__animation-bullet" style={{ '--bullet-index': '16' }}></span>
-              <span class="ec-checkout__animation-bullet" style={{ '--bullet-index': '17' }}></span>
-              <span class="ec-checkout__animation-bullet" style={{ '--bullet-index': '18' }}></span>
-              <span class="ec-checkout__animation-bullet" style={{ '--bullet-index': '19' }}></span>
-              <span class="ec-checkout__animation-bullet" style={{ '--bullet-index': '20' }}></span>
-              <span class="ec-checkout__animation-bullet" style={{ '--bullet-index': '21' }}></span>
-              <span class="ec-checkout__animation-bullet" style={{ '--bullet-index': '22' }}></span>
-              <span class="ec-checkout__animation-bullet" style={{ '--bullet-index': '23' }}></span>
-            </span>
-            <span class="ec-checkout__animation-end"></span>
-          </div>
-
-          <div class="ec-checkout__information">
-            <div class="icon"></div> Ihre Ware wird direkt versandt.
-          </div>
-        </div>
-
-        <ul class="ec-checkout__totals">
-        <li class="total">
-            <span>Gesamtbetrag</span>
-            <span>{ formatCurrency(this.amount) }</span>
-        </li>
-        </ul>
+        </easycredit-checkout-totals>
 
         {this.getPrivacyFragment({intro: false})}
 
@@ -317,7 +195,7 @@ export class EasycreditCheckout {
       { intro && <p><strong>Mit Klick auf Akzeptieren stimmen Sie der Datenübermittlung zu:</strong></p> }
       <div class="form-check">
         <label class="form-check-label" htmlFor="modalAgreement">
-          <small>{ this.webshopInfo?.privacyApprovalForm }</small>
+          <small>{ state.webshopInfo?.privacyApprovalForm }</small>
         </label>
       </div>
     </div>
@@ -341,14 +219,15 @@ export class EasycreditCheckout {
   }
 
   render() {
-    if (!this.isActive) {
+    if (!this.isInitialized || !this.isActive) {
       return null
     }
 
     return ([
       <div class="ec-checkout-container">
         <div class="ec-checkout">
-          { this.getPaymentPlan() && this.getPaymentPlanFragment() }
+          { this.isEnabled(METHODS.INSTALLMENT) && this.getPaymentPlan() && this.getInstallmentPaymentPlanFragment() }
+          { this.isEnabled(METHODS.BILL) && this.getPaymentPlan() && this.getBillPaymentPlanFragment() }
 
           {
             !this.getPaymentPlan() &&
@@ -358,8 +237,8 @@ export class EasycreditCheckout {
                   { this.alert }
                 </div>
               }
-              { this.method === METHODS.INSTALLMENT_PAYMENT && this.getCheckoutInstallmentFragment() }
-              { this.method === METHODS.BILL_PAYMENT && this.getCheckoutBillPaymentFragment() }
+              { this.isEnabled(METHODS.INSTALLMENT) && this.getCheckoutInstallmentFragment() }
+              { this.isEnabled(METHODS.BILL) && this.getCheckoutBillPaymentFragment() }
             </div>
           }
         </div>

@@ -1,0 +1,48 @@
+
+.ec-checkout {
+  &__totals {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    list-style: none;
+    padding: 16px 15px;
+    background-color: $ec-gray;
+    border-radius: $border-radius-xl;
+    color: $font-color;
+
+    li {
+      display: flex;
+      justify-content: space-between;
+      padding: 2px 0;
+
+      &.total {
+        font-weight: bold;
+      }
+    }
+  }
+
+  &__actions {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  &__small-print {
+    margin-top: 20px;
+    margin-bottom: 0;
+    color: rgba($font-color, .5);
+  }
+}
+
+  // Rules for IE10 and above
+  @media all and (-ms-high-contrast:none) {
+    easycredit-checkout-installments {
+      display: none;
+    }
+
+    .ec-checkout__totals {
+      display: none;
+    }
+
+    .ec-checkout__small-print {
+      display: none;
+    }
+  }

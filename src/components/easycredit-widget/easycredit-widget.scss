@@ -9,7 +9,7 @@
 .ec-widget {
   position: relative;
   display: block;
-  padding: 15px 15px 15px 77.5px;
+  padding: 15px;
   width: 300px;
   max-width: 100%;
   box-sizing: border-box;
@@ -78,7 +78,7 @@
     top: 50%;
     transform: translateY(-50%);
 
-    @extend .logo-ratenkauf;
+    @extend .logo-easycredit;
     display: block;
     width: 50px;
     height: 24px;
@@ -88,13 +88,12 @@
     em {
       font-weight: bold;
       font-style: normal;
-      color: $ec-primary;
+      /*color: $ec-primary;*/
     }
   }
 
   a {
     display: inline-block;
-    margin-left: 5px;
 
     cursor: pointer;
     text-decoration: underline !important;
