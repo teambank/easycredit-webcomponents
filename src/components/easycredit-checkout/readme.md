@@ -7,15 +7,15 @@
 
 ## Properties
 
-| Property           | Attribute           | Description                      | Type                                  | Default               |
-| ------------------ | ------------------- | -------------------------------- | ------------------------------------- | --------------------- |
-| `alert`            | `alert`             |                                  | `string`                              | `undefined`           |
-| `amount`           | `amount`            |                                  | `number`                              | `undefined`           |
-| `disableFlexprice` | `disable-flexprice` | Disable Flexprice in calculation | `boolean`                             | `false`               |
-| `isActive`         | `is-active`         |                                  | `boolean`                             | `true`                |
-| `paymentPlan`      | `payment-plan`      | Payment Plan is set as property  | `string`                              | `undefined`           |
-| `paymentType`      | `payment-type`      |                                  | `METHODS.BILL \| METHODS.INSTALLMENT` | `METHODS.INSTALLMENT` |
-| `webshopId`        | `webshop-id`        |                                  | `string`                              | `undefined`           |
+| Property           | Attribute           | Description | Type                                  | Default               |
+| ------------------ | ------------------- | ----------- | ------------------------------------- | --------------------- |
+| `alert`            | `alert`             |             | `string`                              | `undefined`           |
+| `amount`           | `amount`            |             | `number`                              | `undefined`           |
+| `disableFlexprice` | `disable-flexprice` |             | `boolean`                             | `false`               |
+| `isActive`         | `is-active`         |             | `boolean`                             | `true`                |
+| `paymentPlan`      | `payment-plan`      |             | `string`                              | `undefined`           |
+| `paymentType`      | `payment-type`      |             | `METHODS.BILL \| METHODS.INSTALLMENT` | `METHODS.INSTALLMENT` |
+| `webshopId`        | `webshop-id`        |             | `string`                              | `undefined`           |
 
 
 ## Dependencies

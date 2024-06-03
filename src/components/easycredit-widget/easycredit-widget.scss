@@ -8,11 +8,50 @@
 
 .ec-widget {
   position: relative;
-  display: block;
-  padding: 15px;
+  display: flex;
+  padding: 0 0 0 10px;
   width: 300px;
   max-width: 100%;
   box-sizing: border-box;
+
+  >svg {
+    align-self: center;
+    margin-right: 7.5px;
+    flex: 0 0 22.5px;
+    width: 22.5px;
+    height: 22.5px;
+  }
+
+  >span {
+    display: inline-block;
+    padding: 6.5px 0;
+  }
+
+  &__cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+    flex: 0 0 23px;
+    width: 23px;
+
+    border-left: 1px solid rgba($ec-darkblue,0.1);
+    cursor: pointer;
+
+    &:hover {
+      margin-bottom: -1px;
+      margin-right: -0.5px;
+      background: $white linear-gradient(to right, rgba($ec-darkblue,0.05)0%, rgba($ec-darkblue,0) 10%, $white 100%);
+      border-top-right-radius: $border-radius-xl;
+      border-bottom-right-radius: $border-radius-xl;
+    }
+
+    svg {
+      flex: 0 0 9px;
+      width: 9px;
+      height: 9px;
+    }
+  }
 
   background-color: $white;
 
@@ -36,7 +75,6 @@
   }
 
   &.minimal {
-    display: flex;
     align-items: flex-start;
     padding: 0;
     width: auto;
@@ -45,7 +83,6 @@
     box-shadow: none;
 
     svg {
-      margin-right: 7.5px;
       flex: 0 0 20px;
       width: 20px;
       height: 20px;
@@ -72,37 +109,28 @@
     }
   }
 
-  &__logo {
-    position: absolute;
-    left: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-
-    @extend .logo-easycredit;
-    display: block;
-    width: 50px;
-    height: 24px;
-  }
-
   span {
     em {
       font-weight: bold;
       font-style: normal;
-      /*color: $ec-primary;*/
     }
-  }
 
-  a {
-    display: inline-block;
+    a {
+      display: inline-block;
 
-    cursor: pointer;
-    text-decoration: underline !important;
-    font-weight: bold;
-    color: $font-color;
+      cursor: pointer;
+      text-decoration: underline !important;
+      font-weight: bold;
+      color: $font-color;
 
-    &:hover {
-      color: $font-color !important;
-      text-decoration: none !important;
+      &:hover {
+        color: $font-color !important;
+        text-decoration: none !important;
+      }
+    }
+
+    &.ec-widget__separator {
+      color: rgba($font-color,0.4);
     }
   }
 }

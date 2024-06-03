@@ -65,14 +65,8 @@ export namespace Components {
     interface EasycreditCheckout {
         "alert": string;
         "amount": number;
-        /**
-          * Disable Flexprice in calculation
-         */
         "disableFlexprice": boolean;
         "isActive": boolean;
-        /**
-          * Payment Plan is set as property
-         */
         "paymentPlan": string;
         "paymentType": METHODS;
         "webshopId": string;
@@ -100,15 +94,11 @@ export namespace Components {
     interface EasycreditExpressButton {
         "amount": number;
         "fullWidth": boolean;
-        /**
-          * Payment Types
-         */
         "paymentTypes": string;
         "redirectUrl": string;
         "webshopId": string;
     }
     interface EasycreditExpressButtonSingle {
-        "alert": string;
         "amount": number;
         "bgBlue": boolean;
         "fullWidth": boolean;
@@ -143,29 +133,11 @@ export namespace Components {
         "toggle": () => Promise<void>;
     }
     interface EasycreditWidget {
-        /**
-          * Financing Amount
-         */
         "amount": number;
-        /**
-          * Disable Flexprice in calculation
-         */
         "disableFlexprice": boolean;
-        /**
-          * Display Type (e.g. clean -> without shadow)
-         */
         "displayType": string;
-        /**
-          * Show if out of range
-         */
         "extended": boolean;
-        /**
-          * Payment Types
-         */
         "paymentTypes": string;
-        /**
-          * Webshop Id
-         */
         "webshopId": string;
     }
 }
@@ -435,14 +407,8 @@ declare namespace LocalJSX {
     interface EasycreditCheckout {
         "alert"?: string;
         "amount"?: number;
-        /**
-          * Disable Flexprice in calculation
-         */
         "disableFlexprice"?: boolean;
         "isActive"?: boolean;
-        /**
-          * Payment Plan is set as property
-         */
         "paymentPlan"?: string;
         "paymentType"?: METHODS;
         "webshopId"?: string;
@@ -471,15 +437,11 @@ declare namespace LocalJSX {
     interface EasycreditExpressButton {
         "amount"?: number;
         "fullWidth"?: boolean;
-        /**
-          * Payment Types
-         */
         "paymentTypes"?: string;
         "redirectUrl"?: string;
         "webshopId"?: string;
     }
     interface EasycreditExpressButtonSingle {
-        "alert"?: string;
         "amount"?: number;
         "bgBlue"?: boolean;
         "fullWidth"?: boolean;
@@ -514,29 +476,11 @@ declare namespace LocalJSX {
         "size"?: string;
     }
     interface EasycreditWidget {
-        /**
-          * Financing Amount
-         */
         "amount"?: number;
-        /**
-          * Disable Flexprice in calculation
-         */
         "disableFlexprice"?: boolean;
-        /**
-          * Display Type (e.g. clean -> without shadow)
-         */
         "displayType"?: string;
-        /**
-          * Show if out of range
-         */
         "extended"?: boolean;
-        /**
-          * Payment Types
-         */
         "paymentTypes"?: string;
-        /**
-          * Webshop Id
-         */
         "webshopId"?: string;
     }
     interface IntrinsicElements {

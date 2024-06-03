@@ -19,6 +19,7 @@ $success: #77D400;
 
 $ec-primary-btn-hover: darken($ec-primary, 10%);
 $ec-secondary-btn-hover: darken($ec-secondary, 10%);
+$ec-darkblue-btn-hover: lighten($ec-darkblue, 10%);
 
 $overlay-orange: rgba($ec-primary, 0.1);
 $overlay-blue: rgba($ec-secondary, 0.1);
@@ -56,7 +57,7 @@ $font-size-md: 15px;
 $font-size: 14px;
 $font-size-sm: 13px;
 $font-size-xs: 12px;
-$font-size-xxs: 10px;
+$font-size-xxs: 11px;
 $font-size-xxxs: 7px;
 $font-size-running: 13px;
 
@@ -69,9 +70,10 @@ $line-height-heading-lg: 1.25;
 // - Border
 $border-radius: 3px;
 $border-radius-lg: 5px;
-$border-radius-lg-xl: 8px;
+$border-radius-lg-xl: 7.5px;
 $border-radius-xl: 10px;
 $border-radius-xxl: 15px;
+$border-radius-xxxl: 30px;
 
 // - Transitions
 $transition-slow: all .35s ease;
@@ -79,7 +81,7 @@ $transition: all 0.15s ease-in-out;
 $transition-timing: cubic-bezier(0.73, 0.32, 0.14, 0.99);
 
 // - Box shadows
-$box-shadow: 0 0 25px rgba(0,0,0,.1);
+$box-shadow: 0 1px 2.5px rgba($ec-darkblue,0.2);
 
 // - Circles
 $circle-width-100: 100%;
@@ -321,6 +323,13 @@ $circle-secondary: '<svg width="330" height="331" viewBox="0 0 330 331" fill="no
   }
 }
 
+// Headings
+.h3 {
+  font-size: $font-size-heading-xl;
+  line-height: $line-height-heading;
+  font-weight: bold;
+}
+
 // Logos
 .logo-easycredit {
   background-image: url(#{$ec-base-url}/easycredit-components/assets/easycredit-logo.svg);
@@ -528,5 +537,94 @@ $circle-secondary: '<svg width="330" height="331" viewBox="0 0 330 331" fill="no
     span {
       font-size: $font-size-xl;
     }
+  }
+}
+
+// Cols
+.row {
+  display: flex;
+
+  .col {
+    flex: 0 0 50%;
+    box-sizing: border-box;
+  }
+}
+
+// Express Buttons Checkout Modal
+.ec-express-button__modal__checkout {
+  .col {
+    padding: 40px 40px 60px;
+
+    &.col-method {
+      position: relative;
+      overflow: hidden;
+      background-color: $ec-darkblue;
+      color: $white;
+
+      > :not(.circle) {
+        position: relative;
+        z-index: 1;
+      }
+
+      .logo {
+        display: block;
+        margin-bottom: 40px;
+        width: 100px;
+        height: 48px;
+      }
+      .circle {
+        z-index: 0;
+        width: $circle-width-66;
+
+        &:after {
+          @include background-svg($circle-secondary);
+        }
+      }
+      .circle-secondary {
+        width: $circle-width-66-secondary;
+
+        &:after {
+          @include background-svg($circle-primary);
+        }
+      }
+
+      .switch {
+        display: inline-block;
+        margin-bottom: 20px;
+
+        border: 3px solid $ec-gray;
+        border-radius: $border-radius-xxxl;
+        background-color: $ec-gray;
+
+        button {
+          padding: 6px 15px;
+
+          border: 0;
+          border-radius: $border-radius-xxxl;
+          background-color: $ec-gray;
+          cursor: pointer;
+          font-size: $font-size-xs;
+          font-weight: bold;
+
+          &.active {
+            background-color: $ec-darkblue;
+            color: $white;
+          }
+        }
+      }
+    }
+    &.col-agreement {
+      padding: 60px 50px 100px;
+
+      span[slot="heading"] {
+        @extend .h3;
+      }
+    }
+  }
+
+  &::part(submit) {
+    position: absolute;
+    right: 60px;
+    bottom: 40px;
   }
 }

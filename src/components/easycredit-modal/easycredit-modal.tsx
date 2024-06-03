@@ -83,7 +83,7 @@ export class EasycreditModal {
       return
     }
     return ([
-      <div class="form-submit">
+      <div class="form-submit" part="submit">
         <button class={{ "btn": true, "btn-primary": true, "loading": this.submitButtonClicked }} type="button" onClick={() => { this.submit() }} disabled={this.submitButtonClicked}>
           <slot name="button">Absenden</slot>
         </button>

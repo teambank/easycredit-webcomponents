@@ -1,9 +1,11 @@
 .ec-checkout {
   &__timeline {
-      border-radius: $border-radius-xl;
-      border: 2px solid $ec-gray;
-      padding: 20px 5px 5px 5px;
-      margin-bottom: 10px;
+    margin-bottom: 10px;
+    padding: 20px 5px 5px 5px;
+
+    background-color: $white;
+    border-radius: $border-radius-xl;
+    border: 2px solid $ec-gray;
   }
 
   &__animation-information {

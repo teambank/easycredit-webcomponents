@@ -7,13 +7,13 @@
 
 ## Properties
 
-| Property       | Attribute       | Description   | Type      | Default         |
-| -------------- | --------------- | ------------- | --------- | --------------- |
-| `amount`       | `amount`        |               | `number`  | `undefined`     |
-| `fullWidth`    | `full-width`    |               | `boolean` | `false`         |
-| `paymentTypes` | `payment-types` | Payment Types | `string`  | `'INSTALLMENT'` |
-| `redirectUrl`  | `redirect-url`  |               | `string`  | `undefined`     |
-| `webshopId`    | `webshop-id`    |               | `string`  | `undefined`     |
+| Property       | Attribute       | Description | Type      | Default         |
+| -------------- | --------------- | ----------- | --------- | --------------- |
+| `amount`       | `amount`        |             | `number`  | `undefined`     |
+| `fullWidth`    | `full-width`    |             | `boolean` | `false`         |
+| `paymentTypes` | `payment-types` |             | `string`  | `'INSTALLMENT'` |
+| `redirectUrl`  | `redirect-url`  |             | `string`  | `undefined`     |
+| `webshopId`    | `webshop-id`    |             | `string`  | `undefined`     |
 
 
 ## Dependencies

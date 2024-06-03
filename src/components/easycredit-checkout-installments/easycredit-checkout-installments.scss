@@ -3,6 +3,7 @@
         margin: 0;
         padding: 0;
         list-style: none;
+        background-color: $white;
         border-width: 0 2px;
         border-style: solid;
         border-color: $ec-gray-2;
@@ -91,7 +92,7 @@
             border-width: 2px;
             border-style: solid;
             border-color: transparent;
-            border-radius: $border-radius-lg;
+            border-radius: $border-radius-lg-xl;
             cursor: pointer;
             transition: color .1s $transition-timing, background-color .1s $transition-timing, border-color .1s $transition-timing;
 

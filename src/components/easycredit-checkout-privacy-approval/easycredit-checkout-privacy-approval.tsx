@@ -27,7 +27,7 @@ export class EasycreditCheckoutPrivacyApproval {
             {/*<p><strong>Mit Klick auf Akzeptieren stimmen Sie der Datenübermittlung zu:</strong></p>*/}
             <div class="form-check">
                 <label class="form-check-label" htmlFor="modalAgreement">
-                  <small>{ state.webshopInfo.privacyApprovalForm }</small>
+                  { state.webshopInfo.privacyApprovalForm }
                 </label>
             </div>
         </div>
