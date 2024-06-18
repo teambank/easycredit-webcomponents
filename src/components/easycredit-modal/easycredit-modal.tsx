@@ -18,6 +18,7 @@ export class EasycreditModal {
   @State() hasHeadingSlot: boolean = false
   @State() submittable: boolean = false
   @State() submitButtonClicked: boolean = false
+  @State() elementHeight: number = 0
 
   @Event() modalOpened: EventEmitter;
   @Event() modalClosed: EventEmitter;
@@ -38,6 +39,16 @@ export class EasycreditModal {
     }
   }
 
+  setElementHeight(): void {
+    setTimeout(() => {
+      this.elementHeight = this.element.querySelector<HTMLElement>('[slot="content"] .col-method .container').offsetHeight;
+    }, 100)
+    setTimeout(() => {
+      this.elementHeight = this.element.querySelector<HTMLElement>('[slot="content"] .col-method .container').offsetHeight;
+    }, 500)
+    // console.log('Set height: ' + this.elementHeight);
+  }
+
   handleKeydown (e) {
     if (e.key == "Escape") {
       this.close()
@@ -51,6 +62,8 @@ export class EasycreditModal {
     this.element.querySelectorAll('[data-src]').forEach((el) => {
       (el as any).src = (el as any).dataset.src
     })
+
+    this.setElementHeight();
   }
 
   @Method() async close() {
@@ -59,6 +72,8 @@ export class EasycreditModal {
     this.isOpen = false
     this.submitButtonClicked = false
     this.modalClosed.emit();
+
+    this.setElementHeight();
   }
 
   @Method() async toggle () {
@@ -108,11 +123,13 @@ export class EasycreditModal {
           'ec-modal': true,
           'show': this.isOpen,
           ['size-' + this.size]: this.size !== ''
+        }} style={{
+          'height': this.elementHeight + 'px'
         }}>
             <div class="close" onClick={() => this.close()}></div>
 
             { this.getHeadingFragment() }
-            <div class="content">
+            <div class="content" onClick={() => this.setElementHeight()}>
               <slot name="content" />
             </div>
 

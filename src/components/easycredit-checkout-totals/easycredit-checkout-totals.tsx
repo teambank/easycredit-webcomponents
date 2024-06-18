@@ -65,6 +65,7 @@ export class EasycreditCheckoutTotals {
         <slot name="actions" />
 
         {this.installmentPlans &&
+        this.amount !== this.selectedInstallment.totalValue &&
           <p class="ec-checkout__small-print">
             <small innerHTML={this.installmentPlans.example} />
           </p>        

@@ -60,6 +60,8 @@
     overflow-x: hidden;
     overflow-y: auto;
 
+    transition: $transition-slow;
+
     background-color: $white;
     border-radius: $border-radius-xxxl;
     box-shadow: $box-shadow;
@@ -129,7 +131,7 @@
 
         @media (min-width: $breakpoint-sm-up) {
             width: 800px;
-            max-height: 650px;
+            height: 650px;
         }
     }
     &.size-payment {

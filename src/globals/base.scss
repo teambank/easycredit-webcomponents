@@ -545,64 +545,101 @@ $circle-secondary: '<svg width="330" height="331" viewBox="0 0 330 331" fill="no
   display: flex;
 
   .col {
-    flex: 0 0 50%;
+    flex: 0 0 100%;
+    width: 100%;
     box-sizing: border-box;
+
+    @media (min-width: $breakpoint-sm-up) {
+      flex-basis: 50%;
+      width: 50%;
+    }
   }
 }
 
 // Express Buttons Checkout Modal
 .ec-express-button__modal__checkout {
+  .checkout-modal-wrapper,
+  [slot="content"] {
+    height: 100%;
+  }
+
   .col {
-    padding: 40px 40px 60px;
+    overflow: hidden auto;
+
+    .container {
+      padding: 40px 40px 60px;
+    }
 
     &.col-method {
-      position: relative;
-      overflow: hidden;
-      background-color: $ec-darkblue;
       color: $white;
 
-      > :not(.circle) {
+      > :not(.background) {
         position: relative;
         z-index: 1;
+      }
+
+      .background {
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 0;
+        width: 100%;
+        height: 100%;
+
+        @media (min-width: $breakpoint-sm-up) {
+          width: 50%;
+        }
+
+        overflow: hidden;
+        background-color: $ec-darkblue;
+
+        .circle {
+          width: $circle-width-66;
+  
+          &:after {
+            @include background-svg($circle-secondary);
+          }
+        }
+        .circle-secondary {
+          width: $circle-width-66-secondary;
+  
+          &:after {
+            @include background-svg($circle-primary);
+          }
+        }
       }
 
       .logo {
         display: block;
         margin-bottom: 40px;
         width: 100px;
-        height: 48px;
-      }
-      .circle {
-        z-index: 0;
-        width: $circle-width-66;
-
-        &:after {
-          @include background-svg($circle-secondary);
-        }
-      }
-      .circle-secondary {
-        width: $circle-width-66-secondary;
-
-        &:after {
-          @include background-svg($circle-primary);
-        }
+        height: auto;
       }
 
       .switch {
-        display: inline-block;
+        display: inline-flex;
+        flex-wrap: nowrap;
         margin-bottom: 20px;
 
         border: 3px solid $ec-gray;
         border-radius: $border-radius-xxxl;
         background-color: $ec-gray;
 
+        max-width: 100%;
+        overflow: hidden;
+
         button {
+          flex: 1 1 auto;
           padding: 6px 15px;
 
           border: 0;
           border-radius: $border-radius-xxxl;
           background-color: $ec-gray;
           cursor: pointer;
+
+          text-overflow: ellipsis;
+          overflow: hidden;
+
           font-size: $font-size-xs;
           font-weight: bold;
 
@@ -614,7 +651,9 @@ $circle-secondary: '<svg width="330" height="331" viewBox="0 0 330 331" fill="no
       }
     }
     &.col-agreement {
-      padding: 60px 50px 100px;
+      .container {
+        padding: 60px 50px 100px;
+      }
 
       span[slot="heading"] {
         @extend .h3;
@@ -626,5 +665,16 @@ $circle-secondary: '<svg width="330" height="331" viewBox="0 0 330 331" fill="no
     position: absolute;
     right: 60px;
     bottom: 40px;
+  }
+}
+:host(.ec-express-button__modal__checkout) {
+  .ec-modal {
+    height: 0;
+    min-height: 0;
+    overflow: hidden;
+
+    .content {
+      height: 100%;
+    }
   }
 }

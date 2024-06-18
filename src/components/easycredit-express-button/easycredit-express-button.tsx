@@ -100,41 +100,48 @@ export class EasycreditExpressButton {
               <div slot="content">
                   <div class="checkout-modal-wrapper row">
                       <div class="col col-method">
-                          { this.getLogo() }
-                          <div class="circle"></div>
-                          <div class="circle circle-secondary"></div>
+                          <div class="container">
+                              { this.getLogo() }
 
-                          {
-                            this.isEnabled(METHODS.INSTALLMENT) &&
-                            this.isEnabled(METHODS.BILL) &&
-                            <div class="switch">
-                                <button onClick={() => this.switchPaymentType(METHODS.INSTALLMENT)}
-                                  class={{ 'active': this.selectedPaymentType === METHODS.INSTALLMENT }} >Ratenkauf</button>
-                                <button onClick={() => this.switchPaymentType(METHODS.BILL)}
-                                  class={{ 'active': this.selectedPaymentType === METHODS.BILL }}>Rechnungskauf</button>
-                            </div>
-                          }
+                              {
+                                this.isEnabled(METHODS.INSTALLMENT) &&
+                                this.isEnabled(METHODS.BILL) &&
+                                <div class="switch">
+                                    <button onClick={() => this.switchPaymentType(METHODS.INSTALLMENT)}
+                                      class={{ 'active': this.selectedPaymentType === METHODS.INSTALLMENT }} >Ratenkauf</button>
+                                    <button onClick={() => this.switchPaymentType(METHODS.BILL)}
+                                      class={{ 'active': this.selectedPaymentType === METHODS.BILL }}>Rechnungskauf</button>
+                                </div>
+                              }
 
-                          {this.selectedPaymentType === METHODS.INSTALLMENT &&
-                              <easycredit-checkout-installments installments={JSON.stringify(this.installmentPlans.plans)} rows={3} />
-                          }
-                          {this.selectedPaymentType === METHODS.BILL &&
-                              <easycredit-checkout-bill-payment-timeline></easycredit-checkout-bill-payment-timeline>
-                          }
+                              {this.selectedPaymentType === METHODS.INSTALLMENT &&
+                                  <easycredit-checkout-installments installments={JSON.stringify(this.installmentPlans.plans)} rows={3} />
+                              }
+                              {this.selectedPaymentType === METHODS.BILL &&
+                                  <easycredit-checkout-bill-payment-timeline></easycredit-checkout-bill-payment-timeline>
+                              }
 
-                          <easycredit-checkout-totals amount={this.amount} selectedInstallment={this.selectedInstallment} installmentPlans={this.installmentPlans}></easycredit-checkout-totals>
+                              <easycredit-checkout-totals amount={this.amount} selectedInstallment={this.selectedInstallment} installmentPlans={this.installmentPlans}></easycredit-checkout-totals>
+                          </div>
+
+                          <div class="background">
+                            <div class="circle"></div>
+                            <div class="circle circle-secondary"></div>
+                          </div>
                       </div>
 
                       <div class="col col-agreement">
-                          {this.selectedPaymentType === METHODS.INSTALLMENT &&
-                              <span slot="heading">Weiter zum Ratenkauf</span>
-                          }
-                          {this.selectedPaymentType === METHODS.BILL &&
-                              <span slot="heading">Weiter zum Rechnungskauf</span>
-                          }
+                          <div class="container">
+                              {this.selectedPaymentType === METHODS.INSTALLMENT &&
+                                  <span slot="heading">Weiter zum Ratenkauf</span>
+                              }
+                              {this.selectedPaymentType === METHODS.BILL &&
+                                  <span slot="heading">Weiter zum Rechnungskauf</span>
+                              }
 
-                          <p><strong>Mit Klick auf Akzeptieren stimmen Sie der Datenübermittlung zu:</strong></p>
-                          <easycredit-checkout-privacy-approval slot="content" webshop-id={this.webshopId} />
+                              <p><strong>Mit Klick auf Akzeptieren stimmen Sie der Datenübermittlung zu:</strong></p>
+                              <easycredit-checkout-privacy-approval slot="content" webshop-id={this.webshopId} />
+                          </div>
                       </div>
                   </div>
               </div>

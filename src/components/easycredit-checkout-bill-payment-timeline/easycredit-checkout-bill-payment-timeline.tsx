@@ -3,8 +3,7 @@ import { Component, h } from '@stencil/core';
 
 @Component({
     tag: 'easycredit-checkout-bill-payment-timeline',
-    styleUrl: 'easycredit-checkout-bill-payment-timeline.scss',
-    shadow: true,
+    styleUrl: 'easycredit-checkout-bill-payment-timeline.scss'
 })
 
 export class EasycreditCheckoutBillPaymentTimeline {
