@@ -1,0 +1,54 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Getting Started/Hinweise für Entwickler" />
+
+<h1>Hinweise für Entwickler</h1>
+
+
+<h2>Warten auf Komponenten-Initialisierung mit onHydrated</h2>
+
+Um die Komponenten und deren Methoden ansprechen zu können, muss die jeweilige Komponente initialisiert sein. StencilJS fügt hierzu der Komponente die Klasse `hydrated` hinzu. Ist die Klasse nicht gesetzt, ist das HTML-Element zwar in der Seite enthalten aber hat noch keine Funktion. Um festzustellen, ob eine Komponente bereits angesprochen werden kann, kann der folgende Callback verwendet werden:
+
+```html
+<script>
+    var onHydrated = function (selector, cb) {
+        if (!document.querySelector(selector)) {
+            return
+        }
+        
+        window.setTimeout(function() {
+            if (!document.querySelector(selector).classList.contains('hydrated')) {
+                return onHydrated(selector, cb);
+            }
+            cb();
+        }, 50)
+    }
+</script>
+```
+
+<h3>Verwendungsbeispiel von onHydrated</h3>
+
+[Plugin für Shopware 5](https://github.com/teambank/ratenkaufbyeasycredit-plugin-shopware-5/blob/2f511d8983180dd9e4d95b10440858ce450c6944/src/Frontend/NetzkollektivEasyCredit/Views/frontend/_public/src/js/easycredit.js#L167)
+[Plugin für Shopware 6]()
+[Plugin für Magento 2]()
+[Plugin für wooCommerce]()
+
+```html
+<script>
+    var watchForSelector = function (selector, cb) {
+        var observer = new MutationObserver(function(mutations) { 
+            mutations.forEach(function(mutation) {
+                mutation.addedNodes.forEach(function(node) {  
+                    if (node.nodeType !== 1) { 
+                        return; 
+                    }
+                    if (el = node.querySelector(selector)) {
+                        cb();
+                    }
+                });
+            });
+        });
+        observer.observe(document, { subtree: true, childList: true });        
+    }
+</script>
+```

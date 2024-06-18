@@ -27,7 +27,8 @@
     "generate": "stencil generate",
     "storybook": "storybook dev -p 6006",
     "storybook:build": "storybook build ./dist",
-    "storybook:deploy": "source .env && rsync -rvz storybook-static/ $STORYBOOK_DEPLOY_DST",
+    "storybook:deploy": "bash -c \"source .env && rsync -rvz storybook-static/ $STORYBOOK_DEPLOY_DST\"",
+    "storybook:deploy:clear-cache": "bash -c \"source .env && env && curl -X DELETE \"https://api.cloudflare.com/client/v4/zones/708da8a58a29a3e65af33fa56a1bf7d9/purge_cache\" -H \"Authorization: Bearer $CF_BEARER\" -H \"Content-Type: application/json\" --data '{\"purge_everything\":true}\"",
     "release": "yarn build && (cd dist; tar czvf ../easycredit-ratenkauf-webcomponents-$(npm pkg get version | sed 's/\"//g').tar.gz .)"
   },
   "dependencies": {
@@ -39,6 +40,7 @@
     "@storybook/addon-essentials": "^8.1.2",
     "@storybook/addon-interactions": "^8.1.2",
     "@storybook/addon-links": "^8.1.2",
+    "@storybook/web-components": "^8.1.9",
     "buffer": "^6.0.3",
     "case": "^1.6.3",
     "stencil-fragment": "^1.0.1",

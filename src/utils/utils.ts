@@ -210,7 +210,7 @@ const defaultConfig = {
   request_config: {
     headers: {
       'Content-Type': 'application/json; charset=utf-8',
-      'X-Webcomponents-User-Agent' : 'EasyCreditRatenkaufWebComponents/1.0.0'
+      'X-Webcomponents-User-Agent' : 'EasyCreditWebComponents/2.0.0'
     }
   },
   apiBaseUrl: 'https://ratenkauf.easycredit.de',

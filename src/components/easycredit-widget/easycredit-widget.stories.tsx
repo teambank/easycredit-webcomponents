@@ -1,5 +1,6 @@
 import { buildAttributes } from '../../../.storybook/helpers'
 import { METHODS } from '../../types';
+import type { Story } from '@storybook/web-components';
 
 export default {
   title: "Marketing/Widget",
@@ -74,14 +75,49 @@ export const WidgetNormal = TemplateFirst.bind({});
 WidgetNormal.storyName = 'Standard'
 WidgetNormal.args = args
 
+export const WidgetBillPayment = Template.bind({});
+WidgetBillPayment.storyName = 'nur Rechnungskauf';
+WidgetBillPayment.args = {
+  ...args,
+  paymentTypes: METHODS.BILL,
+};
+
+export const WidgetInstallmentPayment = Template.bind({});
+WidgetInstallmentPayment.storyName = 'nur Ratenkauf';
+WidgetInstallmentPayment.args = {
+  ...args,
+  paymentTypes: METHODS.INSTALLMENT,
+};
+
+export const WidgetBelowInstallments = Template.bind({});
+WidgetBelowInstallments.storyName = 'Grenzdarstellung (50 - 199 EUR)';
+WidgetBelowInstallments.args = {
+  ...args,
+  ...{
+    amount: 198,
+  },
+};
+
+export const WidgetAboveBill = Template.bind({});
+WidgetAboveBill.storyName = 'Grenzdarstellung (5001 - 9999 EUR)';
+WidgetAboveBill.args = {
+  ...args,
+  ...{
+    amount: 6000,
+  },
+};
+
 export const WidgetBelow = Template.bind({});
-WidgetBelow.storyName = 'unterhalb Betragsgrenze (49 EUR)'
-WidgetBelow.args = { ... args, ... {
-  amount: 49
-}}
+WidgetBelow.storyName = 'Grenzdarstellung (< 50 EUR)';
+WidgetBelow.args = {
+  ...args,
+  ...{
+    amount: 49,
+  },
+};
 
 export const WidgetAbove = Template.bind({});
-WidgetAbove.storyName = 'oberhalb Betragsgrenze (12.000 EUR)'
+WidgetAbove.storyName = 'Grenzdarstellung (> 10.000 EUR)';
 WidgetAbove.args = { ... args, ... {
   amount: 12000
 }}
@@ -94,36 +130,22 @@ WidgetExtended.args = { ... args, ... {
 }}
 
 export const WidgetDisplayTypeClean = Template.bind({});
-WidgetDisplayTypeClean.storyName = 'alternative Darstellungsvariante, displayType: clean'
+WidgetDisplayTypeClean.storyName = 'displayType: clean'
 WidgetDisplayTypeClean.args = { ... args, ... {
   amount: 500,
   displayType: 'clean'
 }}
 
 export const WidgetDisplayTypeMinimal = Template.bind({});
-WidgetDisplayTypeMinimal.storyName = 'alternative Darstellungsvariante, displayType: minimal'
+WidgetDisplayTypeMinimal.storyName = 'displayType: minimal'
 WidgetDisplayTypeMinimal.args = { ... args, ... {
   amount: 500,
   displayType: 'minimal'
 }}
 
 export const WidgetWithoutFlexprice = Template.bind({});
-WidgetWithoutFlexprice.storyName = 'Berechnung ohne Zins-Flex'
+WidgetWithoutFlexprice.storyName = 'ohne Zins-Flex'
 WidgetWithoutFlexprice.args = { ... args, ... {
   amount: 500,
   disableFlexprice: true
 }}
-
-export const WidgetBillPayment = Template.bind({});
-WidgetBillPayment.storyName = 'Rechnungskauf'
-WidgetBillPayment.args = {
-  ...args,
-  paymentTypes: METHODS.BILL
-}
-
-export const WidgetInstallmentPayment = Template.bind({});
-WidgetInstallmentPayment.storyName = 'Ratenkauf'
-WidgetInstallmentPayment.args = {
-  ...args,
-  paymentTypes: METHODS.INSTALLMENT
-}

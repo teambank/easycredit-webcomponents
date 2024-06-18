@@ -6,7 +6,7 @@ export default {
     parameters: {
         docs: {
             description: {
-                component: 'Der Express Button für den easyCredit-Ratenkauf kann auf Produktseiten oder im Warenkorb integriert werden, um direkt von dort aus aus den Bezahlvorgang zu starten.',
+                component: 'Der Express Button für easyCredit kann auf Produktseiten oder im Warenkorb integriert werden, um direkt von dort aus aus den Bezahlvorgang zu starten.',
             }
         }
     },
