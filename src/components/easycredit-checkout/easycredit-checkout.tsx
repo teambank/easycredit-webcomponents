@@ -74,7 +74,10 @@ export class EasycreditCheckout {
           return
         }
 
-        this.installments = installment.plans.reverse()
+        let plans = installment.plans
+        plans.sort((a,b) => parseFloat(a.installment) - parseFloat(b.installment))
+
+        this.installments = plans
         this.example = installment.example
       }).catch(e => {
         console.error(e)
