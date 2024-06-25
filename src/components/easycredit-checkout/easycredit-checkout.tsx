@@ -1,5 +1,6 @@
 import { Component, Prop, State, Listen, Element, h } from '@stencil/core';
 import { formatCurrency, fetchInstallmentPlans, fetchSingleInstallmentPlan, fetchAgreement, sendFeedback, addErrorHandler } from '../../utils/utils';
+import { getVariant } from '../../utils/split-test';
 
 @Component({
   tag: 'easycredit-checkout',
@@ -94,6 +95,10 @@ export class EasycreditCheckout {
         console.error(e)
         this.alert = 'Es ist ein Fehler aufgetreten.'
       })
+
+      getVariant()
+      sendFeedback(this, { component: 'EasycreditCheckout', action: 'view' });
+
     }
   }
 
@@ -165,23 +170,47 @@ export class EasycreditCheckout {
       </div>
     }
 
-    return ([<div class="ec-checkout__body" /* :class="bodyClasses" */ >
-        <easycredit-checkout-installments installments={JSON.stringify(this.installments)} /* v-model="selectedInstalment" :instalments="instalments" */ />
+    const variant = getVariant()
 
-        <ul class="ec-checkout__totals">
-        <li>
-            <span>Kaufbetrag</span>
-            <span>{  formatCurrency(this.amount) }</span>
-        </li>
-        <li>
-            <span>+ Zinsen</span>
-            <span>{  formatCurrency(this.selectedInstallment.totalInterest) }</span>
-        </li>
-        <li class="total">
-            <span>Gesamtbetrag</span>
-            <span>{ formatCurrency(this.selectedInstallment.totalValue) }</span>
-        </li>
-        </ul>
+    return ([
+      <div class="ec-checkout__body" /* :class="bodyClasses" */ >
+        {variant !== 'usp'
+          ? <easycredit-checkout-installments
+            installments={JSON.stringify(this.installments)}
+            /* v-model="selectedInstalment" :instalments="instalments" */
+          />
+          : null
+        }
+        {variant !== 'usp'
+          ? <ul class="ec-checkout__totals">
+            <li>
+                <span>Kaufbetrag</span>
+                <span>{  formatCurrency(this.amount) }</span>
+            </li>
+            <li>
+                <span>+ Zinsen</span>
+                <span>{  formatCurrency(this.selectedInstallment.totalInterest) }</span>
+            </li>
+            <li class="total">
+                <span>Gesamtbetrag</span>
+                <span>{ formatCurrency(this.selectedInstallment.totalValue) }</span>
+            </li>
+          </ul>
+          : null
+        }
+
+        {variant === 'combined'
+          ? <div class="h4">Ihre Vorteile</div>
+          : null
+        }
+        {variant === 'usp' || variant === 'combined'
+          ? <ul class="ec-checkout__usp" >
+            <li><strong>30 Tage</strong> nach Lieferung zahlen</li>
+            <li>Flexible monatliche Wunschrate</li>
+            <li>Kostenfreie Ratenanpassung & Sondertilgung</li>
+          </ul>
+          : null
+        }
 
         <div class="ec-checkout__actions form-submit">
           <button type="button" class="btn btn-primary" onClick={() => this.modal.open()} /* disabled={this.submitDisabled} */ >
@@ -189,9 +218,12 @@ export class EasycreditCheckout {
           </button>
         </div>
 
-        <p class="ec-checkout__small-print">
-          <small innerHTML={this.example} />
-        </p>
+        {variant !== 'usp'
+          ? <p class="ec-checkout__small-print">
+            <small innerHTML={this.example} />
+          </p>
+          : null
+        }
       </div>
     ])
   }

@@ -144,7 +144,7 @@ export function fetchAgreement (webshopId: string) {
   })
 }
 
-function getPersistentOptions (data) {
+export function getPersistentOptions (data) {
   let options;
   try {
     options = JSON.parse(window.localStorage.getItem('easycredit-components'))
@@ -156,6 +156,9 @@ function getPersistentOptions (data) {
 
   if (data.webshopId) {
     options.webshopId = data.webshopId
+  }
+  if (data.variant) {
+    options.variant = data.variant;
   }
   if (!options.id) {
     options.id = Math.random().toString(16).slice(2)

@@ -74,7 +74,7 @@ $infpage-max-width: 650px;
       font-size: $font-size-lg;
 
       &::before {
-        @include content-svg($icon-checkmark);
+        @include content-svg($icon-checkmark-circle-lg);
         margin-right: 20px;
         width: 41px;
         height: 41px;

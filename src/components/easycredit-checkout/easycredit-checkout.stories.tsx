@@ -46,7 +46,7 @@ let args = {
     amount: 820.31,
     isActive: true,
     alert: '',
-    paymentPlan: ''
+    paymentPlan: '',
 }
 
 const Template = (args) => {
