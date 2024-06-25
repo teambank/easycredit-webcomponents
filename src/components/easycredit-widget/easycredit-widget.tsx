@@ -89,7 +89,7 @@ export class EasycreditWidget {
       return
     }
     return this.getInstallmentPlan().plans
-      .sort((a,b) => b.numberOfInstallments - a.numberOfInstallments)
+      .sort((a,b) => parseFloat(a.installment) - parseFloat(b.installment))
       .find(() => true)
   }
 

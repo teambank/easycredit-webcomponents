@@ -28,7 +28,7 @@ export class EasycreditCheckoutInstallments {
   parseInstallmentsProp(newValue: string) {
     if (newValue) {
       this._installments = JSON.parse(newValue)
-        .sort((a,b) => a.installment - b.installment) 
+        .sort((a,b) => parseFloat(a.installment) - parseFloat(b.installment))
     }
   }
 
