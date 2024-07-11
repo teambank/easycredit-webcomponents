@@ -2,7 +2,7 @@ import { Component, Prop, h, State, Listen, Element, Watch } from '@stencil/core
 import { fetchInstallmentPlans, getWebshopInfo, sendFeedback, addErrorHandler } from '../../utils/utils'
 import { Caps } from '../../utils/validation';
 import { InstallmentPlan, InstallmentPlans, METHODS } from '../../types';
-// import { validateAmount } from '../../utils/validation';
+import { validateAmount } from '../../utils/validation';
 
 @Component({
   tag: 'easycredit-express-button',
@@ -64,6 +64,17 @@ export class EasycreditExpressButton {
 
   isEnabled(type: METHODS) {
     return this.caps.isEnabled(type)
+  }
+
+  isValid(type: METHODS) {
+    let valid;
+    try {
+      validateAmount(this.amount, type)
+      valid = true
+    } catch (e) {
+      valid = false
+    }
+    return this.isEnabled(type) && valid
   }
 
   async componentWillLoad() {
@@ -199,6 +210,9 @@ export class EasycreditExpressButton {
   }
 
   render () {
+    if (!this.isValid(METHODS.INSTALLMENT) && !this.isValid(METHODS.BILL)) {
+      return;
+    }
     return [
       <div class="ec-express-button">
         {this.isEnabled(METHODS.INSTALLMENT) &&
