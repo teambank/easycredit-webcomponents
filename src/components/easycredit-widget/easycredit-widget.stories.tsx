@@ -1,6 +1,5 @@
 import { buildAttributes } from '../../../.storybook/helpers'
 import { METHODS } from '../../types';
-import type { Story } from '@storybook/web-components';
 
 export default {
   title: "Marketing/Widget",
