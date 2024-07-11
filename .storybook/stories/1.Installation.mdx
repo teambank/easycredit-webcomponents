@@ -11,7 +11,11 @@ import { Meta } from '@storybook/blocks';
 Zur Integration der Web Components in ein beliebiges System fügen Sie die folgenden Zeilen in den `<head>` Ihres Shops ein:
 
 ```html
-<script type="module" src="https://ratenkauf.easycredit.de/api/resource/webcomponents/v3/easycredit-components/easycredit-components.esm.js"></script>
+// Pre-Release zur Entwicklung
+<script type="module" src="https://invoice.easycredit-ratenkauf-webcomponents.pages.dev/easycredit-components/easycredit-components.esm.js" defer></script>
+
+// endgültige URL bei Release der Komponenten
+<!-- script type="module" src="https://ratenkauf.easycredit.de/api/resource/webcomponents/v3/easycredit-components/easycredit-components.esm.js"></script -->
 ```
 
 Jetzt können Sie jede der Komponenten innerhalb der Website verwenden:
@@ -19,6 +23,8 @@ Jetzt können Sie jede der Komponenten innerhalb der Website verwenden:
 ```html
 <easycredit-widget amount="500" webshop-id="1.de.1234" />
 ```
+
+Die Komponenten werden bei Einbindung nicht vollständig geladen, sondern erst bei Einfügen in die Seite asynchron nachgeladen. Dadurch ist der entstehende Overhead durch die Einbindung zu vernachlässigen.
 
 <h3>In ein bestehendes JavaScript-Projekt installieren</h3>
 
