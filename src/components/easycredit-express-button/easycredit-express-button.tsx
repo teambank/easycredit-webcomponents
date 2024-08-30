@@ -191,8 +191,10 @@ export class EasycreditExpressButton {
   clickHandler = (event: CustomEvent) => {
       event.preventDefault();
       event.stopPropagation();
-      
-      this.switchPaymentType(event.detail as METHODS) 
+
+      if ( event.detail !== this.selectedPaymentType ) {
+        this.switchPaymentType(event.detail as METHODS)
+      }
       this.checkoutModal.open()
   }
 
