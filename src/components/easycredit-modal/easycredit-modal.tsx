@@ -18,7 +18,7 @@ export class EasycreditModal {
   @State() hasHeadingSlot: boolean = false
   @State() submittable: boolean = false
   @State() submitButtonClicked: boolean = false
-  @State() elementHeight: number = 0
+  @State() elementHeight: number = null
 
   @Event() modalOpened: EventEmitter;
   @Event() modalClosed: EventEmitter;
@@ -40,13 +40,20 @@ export class EasycreditModal {
   }
 
   setElementHeight(): void {
-    setTimeout(() => {
-      this.elementHeight = this.element.querySelector<HTMLElement>('[slot="content"] .col-method .container').offsetHeight;
-    }, 100)
-    setTimeout(() => {
-      this.elementHeight = this.element.querySelector<HTMLElement>('[slot="content"] .col-method .container').offsetHeight;
-    }, 500)
-    // console.log('Set height: ' + this.elementHeight);
+    if ( this.size === 'checkout' ) {
+      if ( this.elementHeight === null ) {
+        this.elementHeight = 0;
+      }
+      var checkoutModalContentContainer = this.element.querySelector<HTMLElement>('[slot="content"] .ec-col-method .ec-container');
+
+      setTimeout(() => {
+        this.elementHeight = checkoutModalContentContainer.offsetHeight;
+      }, 100)
+      setTimeout(() => {
+        this.elementHeight = checkoutModalContentContainer.offsetHeight;
+      }, 500)
+      console.log('Set height: ' + this.elementHeight);
+    }
   }
 
   handleKeydown (e) {

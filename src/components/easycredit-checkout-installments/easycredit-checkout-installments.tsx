@@ -3,7 +3,8 @@ import { formatCurrency, sendFeedback } from '../../utils/utils';
 
 @Component({
   tag: 'easycredit-checkout-installments',
-  styleUrl: 'easycredit-checkout-installments.scss'
+  styleUrl: 'easycredit-checkout-installments.scss',
+  shadow: true
 })
 
 export class EasycreditCheckoutInstallments {

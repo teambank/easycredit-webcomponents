@@ -21,6 +21,7 @@
 ### Depends on
 
 - [easycredit-modal](../easycredit-modal)
+- [easycredit-logo](../easycredit-logo)
 - [easycredit-checkout-installments](../easycredit-checkout-installments)
 - [easycredit-checkout-bill-payment-timeline](../easycredit-checkout-bill-payment-timeline)
 - [easycredit-checkout-totals](../easycredit-checkout-totals)
@@ -32,6 +33,7 @@
 ```mermaid
 graph TD;
   easycredit-express-button --> easycredit-modal
+  easycredit-express-button --> easycredit-logo
   easycredit-express-button --> easycredit-checkout-installments
   easycredit-express-button --> easycredit-checkout-bill-payment-timeline
   easycredit-express-button --> easycredit-checkout-totals

@@ -60,8 +60,8 @@ export class EasycreditBoxListing {
           ['layout-' + this.listingLayout]: this.listingLayout !== '',
         }} ref={(el) => this.listingElement = el as HTMLElement}>
             <div class="ec-box-listing__image" style={{backgroundImage: `url(${this.backgroundSrc()})`}}>
-                <div class="circle"></div>
-                <div class="circle circle-secondary"></div>
+                <div class="ec-circle"></div>
+                <div class="ec-circle ec-circle-secondary"></div>
 
                 <div class="ec-box-listing__image-logo"></div>
 

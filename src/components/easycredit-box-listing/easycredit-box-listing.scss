@@ -42,7 +42,7 @@
                 z-index: 4;
             }
 
-            &.circle {
+            &.ec-circle {
                 z-index: 1;
             }
         }
@@ -118,7 +118,7 @@
             opacity: 1;
         }
 
-        .circle {
+        .ec-circle {
             animation-name: circle-rotation-out;
             animation-duration: 1s;
             opacity: 0;

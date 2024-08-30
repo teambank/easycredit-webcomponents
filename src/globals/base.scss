@@ -408,7 +408,7 @@ $circle-secondary: '<svg width="330" height="331" viewBox="0 0 330 331" fill="no
     opacity: 0;
   }
 }
-.circle {
+.ec-circle {
   position: absolute;
   z-index: 1;
   box-sizing: border-box;
@@ -449,7 +449,7 @@ $circle-secondary: '<svg width="330" height="331" viewBox="0 0 330 331" fill="no
     background-size: contain;
   }
 
-  &.circle-secondary {
+  &.ec-circle-secondary {
     width: $circle-width-66-secondary;
     bottom: auto;
     left: auto;
@@ -541,16 +541,19 @@ $circle-secondary: '<svg width="330" height="331" viewBox="0 0 330 331" fill="no
 }
 
 // Cols
-.row {
-  display: flex;
+.ec-row {
+  display: block;
 
-  .col {
-    flex: 0 0 100%;
-    width: 100%;
+  .ec-col {
+    padding: 0;
     box-sizing: border-box;
+  }
 
-    @media (min-width: $breakpoint-sm-up) {
-      flex-basis: 50%;
+  @media (min-width: $breakpoint-sm-up) {
+    display: flex;
+
+    .ec-col {
+      flex: 0 0 50%;
       width: 50%;
     }
   }
@@ -563,22 +566,34 @@ $circle-secondary: '<svg width="330" height="331" viewBox="0 0 330 331" fill="no
     height: 100%;
   }
 
-  .col {
-    overflow: hidden auto;
+  .checkout-modal-wrapper {
+    @media (max-width: $breakpoint-sm-down) {
+      overflow: hidden auto;
+    }
+  }
 
-    .container {
+  .ec-col {
+    @media (min-width: $breakpoint-sm-up) {
+      overflow: hidden auto;
+    }
+
+    .ec-container {
       padding: 40px 40px 60px;
     }
 
-    &.col-method {
+    &.ec-col-method {
       color: $white;
 
       > :not(.background) {
         position: relative;
         z-index: 1;
       }
+      @media (max-width: $breakpoint-sm-down) {
+        position: relative;
+        z-index: 1;
+      }
 
-      .background {
+      .ec-background {
         position: absolute;
         left: 0;
         top: 0;
@@ -593,14 +608,14 @@ $circle-secondary: '<svg width="330" height="331" viewBox="0 0 330 331" fill="no
         overflow: hidden;
         background-color: $ec-darkblue;
 
-        .circle {
+        .ec-circle {
           width: $circle-width-66;
   
           &:after {
             @include background-svg($circle-secondary);
           }
         }
-        .circle-secondary {
+        .ec-circle-secondary {
           width: $circle-width-66-secondary;
   
           &:after {
@@ -609,14 +624,12 @@ $circle-secondary: '<svg width="330" height="331" viewBox="0 0 330 331" fill="no
         }
       }
 
-      .logo {
+      .ec-logo-wrapper {
         display: block;
         margin-bottom: 40px;
-        width: 100px;
-        height: auto;
       }
 
-      .switch {
+      .ec-switch {
         display: inline-flex;
         flex-wrap: nowrap;
         margin-bottom: 20px;
@@ -641,7 +654,9 @@ $circle-secondary: '<svg width="330" height="331" viewBox="0 0 330 331" fill="no
           overflow: hidden;
 
           font-size: $font-size-xs;
+          line-height: normal;
           font-weight: bold;
+          color: $font-color;
 
           &.active {
             background-color: $ec-darkblue;
@@ -650,13 +665,18 @@ $circle-secondary: '<svg width="330" height="331" viewBox="0 0 330 331" fill="no
         }
       }
     }
-    &.col-agreement {
-      .container {
+    &.ec-col-agreement {
+      .ec-container {
         padding: 60px 50px 100px;
       }
 
       span[slot="heading"] {
         @extend .h3;
+      }
+
+      p {
+        margin-top: 1em;
+        margin-bottom: 1em;
       }
     }
   }
