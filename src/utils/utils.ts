@@ -1,5 +1,5 @@
 import { Loader } from './loader'
-import { InstallmentPlans } from '../types'
+import { InstallmentPlans, InstallmentPlansContainer } from '../types'
 
 export function addErrorHandler(component, callback) {
   let time = 10
@@ -14,6 +14,7 @@ export function addErrorHandler(component, callback) {
   window.addEventListener("beforeunload", function () {
     window.clearTimeout(timeout)
   });
+  return timeout;
 }
 
 export function formatAmount(amount: number): string {
@@ -142,13 +143,7 @@ export function fetchWebshopInfo (webshopId: string) {
   })
 }
 
-export async function fetchInstallmentPlans(webshopId: string, amount: number, opts: object = {}): Promise<InstallmentPlans> {
-
-  const fetchPlans = (opts) ?
-      fetchSingleInstallmentPlan.bind(this, webshopId, amount, opts) :
-      fetchMultiInstallmentPlans.bind(this, webshopId, amount)
-
-    const data = await fetchPlans()
+export const validateInstallmentPlans = (data): InstallmentPlans => {
     if (!data) {
       throw new Error()
     }
@@ -161,6 +156,15 @@ export async function fetchInstallmentPlans(webshopId: string, amount: number, o
       throw new Error(alert)
     }
     return installmentPlans
+}
+
+export async function fetchInstallmentPlans(webshopId: string, amount: number, opts: object = {}): Promise<InstallmentPlansContainer> {
+
+  const fetchPlans = (opts) ?
+      fetchSingleInstallmentPlan.bind(this, webshopId, amount, opts) :
+      fetchMultiInstallmentPlans.bind(this, webshopId, amount)
+
+    return await fetchPlans()
 }
 
 function getPersistentOptions (data) {

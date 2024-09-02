@@ -43,8 +43,9 @@ export class EasycreditWidget {
 
     if (amount !== oldAmount) {
       try {
-        const opts = this.disableFlexprice ? { 'withoutFlexprice': this.disableFlexprice } : {}
-        this.installmentPlans = await fetchInstallmentPlans(this.webshopId, this.amount, opts)
+        const opts = this.disableFlexprice ? { 'withoutFlexprice': this.disableFlexprice } : null
+        const installmentPlans = await fetchInstallmentPlans(this.webshopId, this.amount, opts);
+        this.installmentPlans = installmentPlans.installmentPlans?.find(() => true)
         this.isValid = true
       } catch (e) {
         this.installmentPlans = null
@@ -78,7 +79,7 @@ export class EasycreditWidget {
   }
 
   getInstallmentPlan() {
-    if (!this.installmentPlans || !this.installmentPlans.plans) {
+    if (!this.installmentPlans) {
       return null
     }
     return this.installmentPlans
@@ -133,7 +134,7 @@ export class EasycreditWidget {
     if (this.getMinimumInstallment()) {
       return <span>
         Finanzieren ab&nbsp;
-        <a class="ec-widget__link" onClick={() => this.openModal()}><em>{formatAmount(this.getMinimumInstallment().installment)} &euro; / Monat</em></a>
+        <a class="ec-widget__link" onClick={() => this.openModal(METHODS.INSTALLMENT)}><em>{formatAmount(this.getMinimumInstallment().installment)} &euro; / Monat</em></a>
       </span>
     }
   }
@@ -153,7 +154,7 @@ export class EasycreditWidget {
         return
       }
       return <span>
-        mit <a class="ec-widget__link" onClick={() => this.openModal()}>Rechnung</a> bezahlen ab {info.minBillingValue.toLocaleString('de-DE', { maximumFractionDigits: 0 })} &euro;
+        mit <a class="ec-widget__link" onClick={() => this.openModal(METHODS.BILL)}>Rechnung</a> bezahlen ab {info.minBillingValue.toLocaleString('de-DE', { maximumFractionDigits: 0 })} &euro;
       </span>  
     }
       
@@ -162,18 +163,20 @@ export class EasycreditWidget {
         return
       }
       return <span>
-        mit <a class="ec-widget__link" onClick={() => this.openModal()}>Rechnung</a> bezahlen bis {info.maxBillingValue.toLocaleString('de-DE', { maximumFractionDigits: 0 })} &euro;
+        mit <a class="ec-widget__link" onClick={() => this.openModal(METHODS.BILL)}>Rechnung</a> bezahlen bis {info.maxBillingValue.toLocaleString('de-DE', { maximumFractionDigits: 0 })} &euro;
       </span>      
     }
 
     const firstLetter = this.getInstallmentText() ? 'h' : 'H'
     return <span>
-      {firstLetter}eute bestellen, in <a class="ec-widget__link" onClick={() => this.openModal()}>30 Tagen</a> zahlen
+      {firstLetter}eute bestellen, in <a class="ec-widget__link" onClick={() => this.openModal(METHODS.BILL)}>30 Tagen</a> zahlen
     </span>
   }
 
-  openModal (): void {
+  openModal (paymentType?: METHODS): void {
     sendFeedback(this, { component: 'EasycreditWidget', action: 'openModal' }); 
+
+    this.modal.querySelector('iframe').dataset.src = this.getModalUrl(paymentType);
     this.modal.open()
   }
 
@@ -184,10 +187,35 @@ export class EasycreditWidget {
     this.widgetLayout = this.widgetElement.getBoundingClientRect().width < 251 ? 'small' : '';
   }
 
+  getModalUrl (paymentType?: METHODS) {
+    let url = new URL('https://ratenkauf.easycredit.de/widget/app/#/ratenwunsch');
+
+    const params = {
+      bestellwert: this.amount,
+      shopKennung: '2.de.7387.2', //this.webshopId,
+      paymentSwitchPossible: this.paymentTypes.split(',').length > 1,
+      ohneZinsflex: this.disableFlexprice 
+    }
+
+    Object.entries(params).forEach(([key, value]) => {
+      url.searchParams.append(key, String(value));
+    });
+
+    if (!paymentType) {
+      const info = state.webshopInfo
+      paymentType = this.amount >= info.minInstallmentValue && this.amount <= info.maxInstallmentValue ? METHODS.INSTALLMENT : METHODS.BILL;
+    }
+    if (this.isEnabled(paymentType)) {
+      url.searchParams.append('paymentType', paymentType + '_PAYMENT');
+    }
+    return url.origin + url.pathname + url.hash + url.search;
+  }
+
   getModalFragment () {
+    //const url = this.getInstallmentPlan()?.url ?? this.getDefaultModalUrl()
     return ([
       <easycredit-modal ref={(el) => this.modal = el as HTMLEasycreditModalElement} size="payment">
-          <iframe data-src={this.getInstallmentPlan()?.url} slot="content"></iframe>
+          <iframe slot="content"></iframe>
       </easycredit-modal>
     ])
   }

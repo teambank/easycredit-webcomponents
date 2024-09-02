@@ -1,5 +1,5 @@
 import { Component, Prop, h, State, Listen, Element, Watch } from '@stencil/core'
-import { fetchInstallmentPlans, getWebshopInfo, sendFeedback, addErrorHandler } from '../../utils/utils'
+import { fetchInstallmentPlans,validateInstallmentPlans, getWebshopInfo, sendFeedback, addErrorHandler } from '../../utils/utils'
 import { Caps } from '../../utils/validation';
 import { InstallmentPlan, InstallmentPlans, METHODS } from '../../types';
 import { validateAmount } from '../../utils/validation';
@@ -49,7 +49,8 @@ export class EasycreditExpressButton {
     }
     if (amount !== oldAmount && amount > 0) {
       try {
-        this.installmentPlans = await fetchInstallmentPlans(this.webshopId, this.amount)
+        const installmentPlans = await fetchInstallmentPlans(this.webshopId, this.amount)
+        this.installmentPlans = validateInstallmentPlans(installmentPlans)
       } catch (e) {
         this.installmentPlans = null
         console.error(e)

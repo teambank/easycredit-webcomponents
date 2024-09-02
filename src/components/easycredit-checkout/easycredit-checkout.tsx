@@ -1,5 +1,5 @@
 import { Component, Prop, State, Listen, Element, Watch, h } from '@stencil/core';
-import { formatCurrency, fetchInstallmentPlans, getWebshopInfo, sendFeedback, addErrorHandler } from '../../utils/utils';
+import { formatCurrency, fetchInstallmentPlans, validateInstallmentPlans, getWebshopInfo, sendFeedback, addErrorHandler } from '../../utils/utils';
 import { validateAmount, Caps } from '../../utils/validation';
 import { InstallmentPlan, InstallmentPlans, METHODS } from '../../types';
 import state from '../../stores/general'
@@ -59,8 +59,9 @@ export class EasycreditCheckout {
         validateAmount(this.amount, this.paymentType)
 
         if (this.isEnabled(METHODS.INSTALLMENT)) {
-          const opts = this.disableFlexprice ? { 'withoutFlexprice': this.disableFlexprice } : {}
-          this.installmentPlans = await fetchInstallmentPlans(this.webshopId, this.amount, opts)
+          const opts = this.disableFlexprice ? { 'withoutFlexprice': this.disableFlexprice } : null
+          const installmentPlans = await fetchInstallmentPlans(this.webshopId, this.amount, opts)
+          this.installmentPlans = validateInstallmentPlans(installmentPlans)
         }
 
       } catch (error) {

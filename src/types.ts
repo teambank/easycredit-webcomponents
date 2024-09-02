@@ -36,6 +36,11 @@ export interface InstallmentPlans {
     url: string,
     errors?: InstallmentError
 }
+export interface InstallmentPlansContainer {
+    installmentPlans: Array<InstallmentPlans>,
+    maxFinancingAmount: number,
+    minFinancingAmount: number
+}
 export enum METHODS {
     INSTALLMENT = 'INSTALLMENT',
     BILL = 'BILL'
