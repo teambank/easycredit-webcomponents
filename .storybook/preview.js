@@ -11,9 +11,9 @@ export const parameters = {
   },
   viewMode: 'docs',
   docs: {
-    source: {
-      state: 'open',
-     },
+    canvas: {
+      sourceState: 'shown'
+    }
   }
 }
 export const tags = ['autodocs'];
