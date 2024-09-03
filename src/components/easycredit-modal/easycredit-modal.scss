@@ -125,9 +125,20 @@
         }
     }
     &.size-payment {
-        width: 800px;
-        height: 700px;
-        background-color: #e5f0f7;
+        width: 499px; // ensures display of payment terminal with mobile layout
+        height: 900px;
+        background-color: $ec-lightblue;
+
+        @media (max-width: $breakpoint-sm-down) {
+            width: 100vw;
+            height: calc(100vh - 30px);
+
+            ::slotted(iframe) {
+                left: 50%;
+                transform: translate(-50%,0);
+                max-width: 499px;
+            }
+        }
     }
     &.size-infopage {
         padding: 50px 0;

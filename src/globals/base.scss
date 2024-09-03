@@ -6,6 +6,7 @@ $ec-base-url: 'https://ratenkauf.easycredit.de/api/resource/webcomponents/v3';
 $ec-primary: #F37122;
 $ec-secondary: #0066B3;
 $ec-darkblue: #002C5A;
+$ec-lightblue: #e5f0f7;
 $ec-gray: #E5EAEE;
 $ec-gray-2: #E5EAEE;
 $ec-gray-3: #E5EAEE;
@@ -30,6 +31,8 @@ $font-color-label-secondary: #8096AD; // equal to rgba($font-color,.5)
 $link-color: $ec-secondary;
 
 // - Breakpoints
+$breakpoint-xs-down: 499px;
+$breakpoint-xs-up: 500px;
 $breakpoint-sm-down: 767px;
 $breakpoint-sm-up: 768px;
 
