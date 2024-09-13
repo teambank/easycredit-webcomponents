@@ -29,7 +29,7 @@ jobs:
       with:
         tag_name: ${{ github.ref }}
         release_name: v${{ github.ref }}
-        body: "For a detailed overview of changes, please check out our [Changelog](https://netzkollektiv.com/docs/easycredit-ratenkauf-components/?path=%2Fdocs%2Fgetting-started-changelog--page)"
+        body: "For a detailed overview of changes, please check out our [Changelog](https://netzkollektiv.com/docs/easycredit-ratenkauf-components/?path=/docs/getting-started-changelog--docs)"
         draft: true
         prerelease: false
     - name: Upload Release Asset
