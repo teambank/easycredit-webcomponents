@@ -20,7 +20,8 @@ export default {
         paymentTypes: {
             description: 'die zu berücksichtigenden Zahlungsmethoden, als komma-getrennte Liste',
             table: {
-                defaultValue: { summary: 'INSTALLMENT,BILL' },
+                defaultValue: { summary: [] },
+                category: "optional",
             },
             control: 'check', options: [METHODS.INSTALLMENT, METHODS.BILL]
         },
@@ -44,9 +45,9 @@ export default {
 let args = {
     webshopId: '2.de.9999.9999',
     amount: 299,
-    // bgBlue: false,
     fullWidth: false,
     // redirectUrl: 'https://easycredit-ratenkauf.de/'
+    paymentTypes: ''
 }
 
 const Template = (args) => {
@@ -68,8 +69,12 @@ const Template = (args) => {
   `;
 }
 
+export const ExpressButtonNormal = Template.bind({});
+ExpressButtonNormal.storyName = 'Standard'
+ExpressButtonNormal.args = args
+
 export const ExpressButtonBoth = Template.bind({});
-ExpressButtonBoth.storyName = 'beide Zahlungsarten'
+ExpressButtonBoth.storyName = 'beide Zahlarten'
 ExpressButtonBoth.args = {
   ...args, ... {
     paymentTypes: [METHODS.BILL,METHODS.INSTALLMENT].join(',')

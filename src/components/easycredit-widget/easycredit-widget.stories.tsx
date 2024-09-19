@@ -74,6 +74,13 @@ export const WidgetNormal = TemplateFirst.bind({});
 WidgetNormal.storyName = 'Standard'
 WidgetNormal.args = args
 
+export const WidgetFull = Template.bind({});
+WidgetFull.storyName = 'beide Zahlarten';
+WidgetFull.args = {
+  ...args,
+  paymentTypes: `${METHODS.BILL},${METHODS.INSTALLMENT}`
+};
+
 export const WidgetBillPayment = Template.bind({});
 WidgetBillPayment.storyName = 'nur Rechnungskauf';
 WidgetBillPayment.args = {

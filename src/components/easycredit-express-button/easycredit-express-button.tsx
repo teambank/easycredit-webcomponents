@@ -13,7 +13,7 @@ import { validateAmount } from '../../utils/validation';
 export class EasycreditExpressButton {
   @Prop() webshopId: string
   @Prop({ mutable: true }) amount: number
-  @Prop({ mutable: true }) paymentTypes: string = 'INSTALLMENT'
+  @Prop({ mutable: true }) paymentTypes: string = METHODS.INSTALLMENT
   @Prop() fullWidth: boolean = false
   @Prop() redirectUrl: string
 

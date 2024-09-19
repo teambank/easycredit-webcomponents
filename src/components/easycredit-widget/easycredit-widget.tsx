@@ -16,7 +16,7 @@ export class EasycreditWidget {
   @Prop() webshopId: string
   @Prop({ mutable: true }) amount: number
   @Prop() displayType: string
-  @Prop({ mutable: true }) paymentTypes: string = 'BILL,INSTALLMENT'
+  @Prop({ mutable: true }) paymentTypes: string = METHODS.INSTALLMENT
   @Prop({ mutable: true }) extended: boolean = true
   @Prop({ mutable: true }) disableFlexprice: boolean = false
 
