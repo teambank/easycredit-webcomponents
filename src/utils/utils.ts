@@ -127,7 +127,6 @@ import state from '../stores/general';
 export async function getWebshopInfo(webshopId: string) {
   if (!state.webshopInfo) {
     state.webshopInfo = await fetchWebshopInfo(webshopId)
-    state.webshopInfo.billPaymentActive = true
   }
   return state.webshopInfo
 }
