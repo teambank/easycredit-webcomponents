@@ -1,10 +1,42 @@
 import { Meta } from "@storybook/blocks";
 
-<Meta title="Getting Started/Configuration" />
+<Meta title="Getting Started/Konfiguration" />
 
 <h1>Konfiguration</h1>
 
-Die Komponenten können für Integrations- und Testzwecke über eine globale Variable konfiguriert werden.
+Die Komponenten können für Integrations- und Testzwecke über eine globale Variable konfiguriert werden. 
+Dies ist hilfreich, um Authorisierungsdetails an die API zu übergeben oder bestimmte andere benötigte 
+Header für die Anfragen zu setzen. Auch die Basis-URL der API kann hier zu Testzwecken verändert werden. 
+
+<h2>Endpunkte für Merchant-Komponenten</h2>
+
+Typischerweise interagieren die Merchant-Komponenten mit einer (zu erstellenden) API des Shop-Systems, 
+die als Proxy fungiert und die easyCredit-API anspricht. Dies ist sinnvoll, damit Zugangsdaten im Backend 
+nicht offengelegt werden. Moderne Shop-Systeme kommunizieren ohnehin bereits über eine API mit dem Backend-System, 
+so dass ein entsprechender Auth-Token oft auch für die erweiterte API verwendet werden kann. Die Endpunkte hierfür 
+können mit der folgenden Konfiguration festgelegt werden:
+
+```html
+<script>
+window.easycreditRatenkaufWebComponentsConfig = {
+
+    // definierte Proxy-Endpoints für Merchant-API, Authentifizierung i.V.m. request_config
+
+    endpoints: {  // {transactionId} is automatically replaced with the tx-id or tx-id's (list)
+        list: 'api/transactions/{transactionId}',
+        get: 'api/transaction/{transactionId}',
+        capture: 'api/transaction/{transactionId}/capture',
+        refund: 'api/transaction/{transactionId}/refund'
+    },
+
+    [...]
+}
+</script>
+```
+
+<h2>Anpassung des Anfrage-Headers</h2>
+
+Im folgenden Beispiel ist gezeigt, wie der Anfrage-Header beeinflusst werden kann. In diesem Fall wird ein bereits existierender Bearer token vewrwendet um gegen die API zu authentifizieren:
 
 ```html
 <script>
@@ -20,18 +52,33 @@ window.easycreditRatenkaufWebComponentsConfig = {
         }
     },
 
+   [...]
+}
+</script>
+```
+<h2>Anpassung der Basis-URL zu Testzwecken</h2>
+
+Zu Testzwecken kann die Basis-URL für API-Anfragen angepasst werden. Dies ist für die Benutzung der Komponenten im Normalfall aber nicht notwendig.
+
+```html
+<script>
+window.easycreditRatenkaufWebComponentsConfig = {
+
     // Basis-URL für API-Aufrufe
 
     apiBaseUrl: 'https://ratenkauf.easycredit.de',
 
-    // definierte Proxy-Endpoints für Merchant-API, Authentifizierung i.V.m. request_config
-
-    endpoints: {  // {transactionId} is automatically replaced with the tx-id or tx-id's (list)
-        list: 'api/transactions/{transactionId}',
-        get: 'api/transaction/{transactionId}',
-        capture: 'api/transaction/{transactionId}/capture',
-        refund: 'api/transaction/{transactionId}/refund'
-    }
+    [...]
 }
 </script>
 ```
+
+<h2>Implementierungsbeispiele</h2>
+
+Unter den folgenden Links sind einige Implementierungsbeispiele der Konfiguration und der 
+Interaktion der Merchant-Komponenten zu finden:
+
+* [Implementierung in wooCommerce](https://github.com/teambank/ratenkaufbyeasycredit-plugin-woocommerce/blob/68f05a8c715af1ed557264ed926c3810944ed5c5/src/woocommerce-gateway-ratenkaufbyeasycredit/includes/order-management.php#L65C21-L65C38)
+* [Implementierung in Shopware 5](https://github.com/teambank/ratenkaufbyeasycredit-plugin-shopware-5/blob/2f511d8983180dd9e4d95b10440858ce450c6944/src/Frontend/NetzkollektivEasyCredit/Subscriber/BackendMerchant.php#L41)
+* [Implementierung in Shopware 6](https://github.com/teambank/ratenkaufbyeasycredit-plugin-shopware-6/blob/54a995bff40ac324fc047fa67002df6cb07d73a8/src/Resources/app/administration/src/module/easycredit-payment/component/easycredit-tx-widget/index.js#L37)
+* [Implementierung in Magento 2](https://github.com/teambank/ratenkaufbyeasycredit-plugin-magento-2/blob/d38f12f1d2dd4e14f5bc9dae2de922c3c28ecf03/Block/Adminhtml/Merchant/Config.php#L43)

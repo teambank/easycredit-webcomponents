@@ -3,7 +3,8 @@ import { formatCurrency, sendFeedback } from '../../utils/utils';
 
 @Component({
   tag: 'easycredit-checkout-installments',
-  styleUrl: 'easycredit-checkout-installments.scss'
+  styleUrl: 'easycredit-checkout-installments.scss',
+  shadow: true
 })
 
 export class EasycreditCheckoutInstallments {
@@ -17,6 +18,8 @@ export class EasycreditCheckoutInstallments {
   @State() _installments
   @State() selectedInstallmentValue: number
 
+  installmentsBase!: HTMLElement;
+
   @Listen('selectedInstallment')
   selectedInstallmentHandler(e) {
     this.selectedInstallmentValue = e.detail
@@ -24,10 +27,11 @@ export class EasycreditCheckoutInstallments {
 
   @Watch('installments')
   parseInstallmentsProp(newValue: string) {
-    if (newValue) this._installments = JSON.parse(newValue);
+    if (newValue) {
+      this._installments = JSON.parse(newValue)
+        .sort((a,b) => parseFloat(a.installment) - parseFloat(b.installment))
+    }
   }
-
-  installmentsBase!: HTMLElement;
 
   async componentWillLoad () {
     this.parseInstallmentsProp(this.installments);

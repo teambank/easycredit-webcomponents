@@ -1,5 +1,6 @@
 import { Component, h, State, Prop } from '@stencil/core';
-import { fetchAgreement } from '../../utils/utils';
+import { getWebshopInfo } from '../../utils/utils';
+import state from '../../stores/general';
 
 @Component({
   tag: 'easycredit-checkout-privacy-approval',
@@ -13,13 +14,12 @@ export class EasycreditCheckoutPrivacyApproval {
     @State() privacyApprovalForm: string
 
     async componentWillLoad () {
-          fetchAgreement(this.webshopId).then(data => {
-            this.privacyApprovalForm = data.privacyApprovalForm
-          }).catch(e => {
-            console.error(e)
-            // this.alert = 'Es ist ein Fehler aufgetreten.'
-          })
-        }
+      try {
+        getWebshopInfo(this.webshopId)
+      } catch (e) {
+        console.error(e)
+      }
+    }
 
     render () {
       return ([
@@ -27,7 +27,7 @@ export class EasycreditCheckoutPrivacyApproval {
             {/*<p><strong>Mit Klick auf Akzeptieren stimmen Sie der Datenübermittlung zu:</strong></p>*/}
             <div class="form-check">
                 <label class="form-check-label" htmlFor="modalAgreement">
-                  <small>{ this.privacyApprovalForm }</small>
+                  { state.webshopInfo.privacyApprovalForm }
                 </label>
             </div>
         </div>

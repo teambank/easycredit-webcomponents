@@ -1,0 +1,59 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Getting Started/Hinweise für Entwickler" />
+
+<h1>Hinweise für Entwickler</h1>
+
+
+<h2>Warten auf Komponenten-Initialisierung mit `whenDefined`</h2>
+
+Um die Komponenten und deren Methoden ansprechen zu können, muss das jeweilige Element definiert sein. Um festzustellen, ob eine Komponente bereits angesprochen werden kann, kann die Funktion `whenDefined` verwendet werden:
+
+```html
+<script>
+(async () => {
+    await customElements.whenDefined('easycredit-checkout');
+    const checkoutComponent = document.querySelector('easycredit-checkout')
+    if (checkoutComponent) {
+        checkoutComponent.addEventListener('submit',() => {
+            console.log('submit!');
+        })
+    }
+})();
+</script>
+```
+
+<h2>dynamisches Hinzufügen von EventHandlern</h2>
+
+Möglicherweise wird die Komponente nicht bereits beim Laden der Seite, sondern erst später durch JavaScript der Seite hinzugefügt oder aktualisiert. Um auf Veränderungen im DOM reagieren zu können, kann die folgende Funktion hilfreich sein:
+
+```html
+<script>
+const watchForSelector = function (selector, cb) {
+    const observer = new MutationObserver(function(mutations) { 
+        mutations.forEach(function(mutation) {
+            mutation.addedNodes.forEach(function(node) {  
+                if (node.nodeType !== Node.ELEMENT_NODE) {
+                    return;
+                }
+                if (node.tagName === selector.toUpperCase()) {
+                    return cb(node);
+                }
+                
+                const el = node.querySelector(selector);
+                if (el) {
+                    return cb(el);
+                }
+            });
+        });
+    });
+    observer.observe(document, { subtree: true, childList: true });
+}
+
+watchForSelector('easycredit-checkout', function(component) {
+    component.addEventListener('submit',() => {
+        console.log('submit!');
+    })
+})
+</script>
+```

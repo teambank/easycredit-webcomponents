@@ -1,0 +1,201 @@
+.ec-checkout {
+  &__timeline {
+    margin-bottom: 10px;
+    padding: 20px 5px 5px 5px;
+
+    background-color: $white;
+    border-radius: $border-radius-xl;
+    border: 2px solid $ec-gray;
+  }
+
+  &__animation-information {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      padding: 0 17px;
+      color: $ec-darkblue;
+
+      span {
+          font-size: $font-size;
+          line-height: $line-height;
+      }
+  }
+
+  &__animation {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      padding: 0 5px;
+      margin: 35px 6px;
+  }
+
+  @keyframes highlightBullet {
+
+      0%,
+      100% {
+          background: $ec-gray;
+      }
+
+      5% {
+          background: $ec-secondary;
+      }
+
+      10% {
+          background: $ec-gray;
+      }
+  }
+
+  @keyframes swapStartAfter {
+
+      0%,
+      7% {
+          background: $ec-secondary;
+          border: 2px solid $ec-secondary;
+      }
+
+      21% {
+          background: $white;
+          border: 2px solid $ec-secondary;
+      }
+
+      28% {
+          background: $white;
+          border: 2px solid $ec-secondary;
+      }
+
+      90% {
+          background: $white;
+          border: 2px solid $ec-secondary;
+      }
+
+      95%,
+      100% {
+          background: $ec-secondary;
+          border: 2px solid $ec-secondary;
+      }
+  }
+
+  @keyframes swapEndAfter {
+
+      0%,
+      7% {
+          background: $white;
+          border: 2px solid $ec-secondary;
+      }
+
+      21% {
+          background: $ec-secondary;
+      }
+
+      28% {
+          background: $ec-secondary;
+      }
+
+      90% {
+          background: $ec-secondary;
+      }
+
+      95%,
+      100% {
+          background: $white;
+          border: 2px solid $ec-secondary;
+      }
+  }
+
+  &__animation-bullets {
+      overflow: hidden;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+  }
+
+  &__animation-bullet {
+      min-width: 5px;
+      height: 5px;
+      border-radius: 5px;
+      margin-right: 7px;
+      background: $ec-gray;
+      animation: highlightBullet 5s linear infinite;
+      animation-delay: calc(var(--bullet-index) * 0.057s);
+  }
+
+  @media (max-width: 380px) {
+      &__animation-bullet:nth-last-child(-n+5) {
+          display: none;
+      }
+  }
+
+  &__animation-start {
+      min-width: 27px;
+      height: 27px;
+      border-radius: 27px;
+      background: $ec-gray;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      left: 0;
+      transition: background 0.3s ease, border-color 0.3s ease;
+
+      &:after {
+          content: "";
+          width: 13px;
+          height: 13px;
+          border-radius: 15px;
+          box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+          animation: swapStartAfter 5s linear infinite;
+          background: $ec-secondary;
+          border: 2px solid transparent;
+      }
+  }
+
+  &__animation-end {
+      min-width: 27px;
+      height: 27px;
+      border-radius: 27px;
+      background: $ec-gray;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      right: 0;
+      transition: background 0.3s ease, border-color 0.3s ease;
+
+      &:after {
+          content: "";
+          width: 13px;
+          height: 13px;
+          border-radius: 15px;
+          box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+          animation: swapEndAfter 5s linear infinite;
+          background: $white;
+          border: 2px solid $ec-secondary;
+      }
+  }
+
+  &__information {
+      background: $ec-darkblue;
+      color: $white;
+      text-align: center;
+      font-size: $font-size-sm;
+      line-height: $line-height;
+      font-weight: bold;
+      padding: 10px 15px;
+      border-radius: $border-radius-lg-xl;
+      align-items: center;
+      display: flex;
+      justify-content: center;
+
+      .icon {
+          @include background-svg($icon-shipping);
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: contain;
+          height: 25px;
+          width: 25px;
+          margin-right: 10px;
+      }
+  }
+}

@@ -5,6 +5,8 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { InstallmentPlan, InstallmentPlans, METHODS } from "./types";
+export { InstallmentPlan, InstallmentPlans, METHODS } from "./types";
 export namespace Components {
     interface EasycreditAccordion {
         /**
@@ -63,13 +65,13 @@ export namespace Components {
     interface EasycreditCheckout {
         "alert": string;
         "amount": number;
-        /**
-          * Disable Flexprice in calculation
-         */
         "disableFlexprice": boolean;
         "isActive": boolean;
         "paymentPlan": string;
+        "paymentType": METHODS;
         "webshopId": string;
+    }
+    interface EasycreditCheckoutBillPaymentTimeline {
     }
     interface EasycreditCheckoutInstallments {
         "installments": any;
@@ -78,17 +80,29 @@ export namespace Components {
     }
     interface EasycreditCheckoutLabel {
         "label": string;
+        "paymentType": METHODS;
         "slogan": string;
     }
     interface EasycreditCheckoutPrivacyApproval {
         "webshopId": string;
     }
+    interface EasycreditCheckoutTotals {
+        "amount": number;
+        "installmentPlans": InstallmentPlans;
+        "selectedInstallment": InstallmentPlan;
+    }
     interface EasycreditExpressButton {
-        "alert": string;
+        "amount": number;
+        "fullWidth": boolean;
+        "paymentTypes": string;
+        "redirectUrl": string;
+        "webshopId": string;
+    }
+    interface EasycreditExpressButtonSingle {
         "amount": number;
         "bgBlue": boolean;
         "fullWidth": boolean;
-        "redirectUrl": string;
+        "paymentType": METHODS;
         "webshopId": string;
     }
     interface EasycreditFaq {
@@ -97,6 +111,7 @@ export namespace Components {
     }
     interface EasycreditLogo {
         "alt": string;
+        "paymentType": METHODS;
     }
     interface EasycreditMerchantManager {
         "date": string;
@@ -119,25 +134,11 @@ export namespace Components {
         "toggle": () => Promise<void>;
     }
     interface EasycreditWidget {
-        /**
-          * Financing Amount
-         */
         "amount": number;
-        /**
-          * Disable Flexprice in calculation
-         */
         "disableFlexprice": boolean;
-        /**
-          * Display Type (e.g. clean -> without shadow)
-         */
         "displayType": string;
-        /**
-          * Show if out of range
-         */
         "extended": boolean;
-        /**
-          * Webshop Id
-         */
+        "paymentTypes": string;
         "webshopId": string;
     }
 }
@@ -148,6 +149,10 @@ export interface EasycreditAccordionItemCustomEvent<T> extends CustomEvent<T> {
 export interface EasycreditCheckoutInstallmentsCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLEasycreditCheckoutInstallmentsElement;
+}
+export interface EasycreditExpressButtonSingleCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLEasycreditExpressButtonSingleElement;
 }
 export interface EasycreditModalCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -214,6 +219,12 @@ declare global {
         prototype: HTMLEasycreditCheckoutElement;
         new (): HTMLEasycreditCheckoutElement;
     };
+    interface HTMLEasycreditCheckoutBillPaymentTimelineElement extends Components.EasycreditCheckoutBillPaymentTimeline, HTMLStencilElement {
+    }
+    var HTMLEasycreditCheckoutBillPaymentTimelineElement: {
+        prototype: HTMLEasycreditCheckoutBillPaymentTimelineElement;
+        new (): HTMLEasycreditCheckoutBillPaymentTimelineElement;
+    };
     interface HTMLEasycreditCheckoutInstallmentsElementEventMap {
         "selectedInstallment": string;
     }
@@ -243,11 +254,34 @@ declare global {
         prototype: HTMLEasycreditCheckoutPrivacyApprovalElement;
         new (): HTMLEasycreditCheckoutPrivacyApprovalElement;
     };
+    interface HTMLEasycreditCheckoutTotalsElement extends Components.EasycreditCheckoutTotals, HTMLStencilElement {
+    }
+    var HTMLEasycreditCheckoutTotalsElement: {
+        prototype: HTMLEasycreditCheckoutTotalsElement;
+        new (): HTMLEasycreditCheckoutTotalsElement;
+    };
     interface HTMLEasycreditExpressButtonElement extends Components.EasycreditExpressButton, HTMLStencilElement {
     }
     var HTMLEasycreditExpressButtonElement: {
         prototype: HTMLEasycreditExpressButtonElement;
         new (): HTMLEasycreditExpressButtonElement;
+    };
+    interface HTMLEasycreditExpressButtonSingleElementEventMap {
+        "buttonClicked": string;
+    }
+    interface HTMLEasycreditExpressButtonSingleElement extends Components.EasycreditExpressButtonSingle, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLEasycreditExpressButtonSingleElementEventMap>(type: K, listener: (this: HTMLEasycreditExpressButtonSingleElement, ev: EasycreditExpressButtonSingleCustomEvent<HTMLEasycreditExpressButtonSingleElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLEasycreditExpressButtonSingleElementEventMap>(type: K, listener: (this: HTMLEasycreditExpressButtonSingleElement, ev: EasycreditExpressButtonSingleCustomEvent<HTMLEasycreditExpressButtonSingleElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLEasycreditExpressButtonSingleElement: {
+        prototype: HTMLEasycreditExpressButtonSingleElement;
+        new (): HTMLEasycreditExpressButtonSingleElement;
     };
     interface HTMLEasycreditFaqElement extends Components.EasycreditFaq, HTMLStencilElement {
     }
@@ -313,10 +347,13 @@ declare global {
         "easycredit-box-modal": HTMLEasycreditBoxModalElement;
         "easycredit-box-top": HTMLEasycreditBoxTopElement;
         "easycredit-checkout": HTMLEasycreditCheckoutElement;
+        "easycredit-checkout-bill-payment-timeline": HTMLEasycreditCheckoutBillPaymentTimelineElement;
         "easycredit-checkout-installments": HTMLEasycreditCheckoutInstallmentsElement;
         "easycredit-checkout-label": HTMLEasycreditCheckoutLabelElement;
         "easycredit-checkout-privacy-approval": HTMLEasycreditCheckoutPrivacyApprovalElement;
+        "easycredit-checkout-totals": HTMLEasycreditCheckoutTotalsElement;
         "easycredit-express-button": HTMLEasycreditExpressButtonElement;
+        "easycredit-express-button-single": HTMLEasycreditExpressButtonSingleElement;
         "easycredit-faq": HTMLEasycreditFaqElement;
         "easycredit-infopage": HTMLEasycreditInfopageElement;
         "easycredit-logo": HTMLEasycreditLogoElement;
@@ -371,13 +408,13 @@ declare namespace LocalJSX {
     interface EasycreditCheckout {
         "alert"?: string;
         "amount"?: number;
-        /**
-          * Disable Flexprice in calculation
-         */
         "disableFlexprice"?: boolean;
         "isActive"?: boolean;
         "paymentPlan"?: string;
+        "paymentType"?: METHODS;
         "webshopId"?: string;
+    }
+    interface EasycreditCheckoutBillPaymentTimeline {
     }
     interface EasycreditCheckoutInstallments {
         "installments"?: any;
@@ -387,17 +424,30 @@ declare namespace LocalJSX {
     }
     interface EasycreditCheckoutLabel {
         "label"?: string;
+        "paymentType"?: METHODS;
         "slogan"?: string;
     }
     interface EasycreditCheckoutPrivacyApproval {
         "webshopId"?: string;
     }
+    interface EasycreditCheckoutTotals {
+        "amount"?: number;
+        "installmentPlans"?: InstallmentPlans;
+        "selectedInstallment"?: InstallmentPlan;
+    }
     interface EasycreditExpressButton {
-        "alert"?: string;
+        "amount"?: number;
+        "fullWidth"?: boolean;
+        "paymentTypes"?: string;
+        "redirectUrl"?: string;
+        "webshopId"?: string;
+    }
+    interface EasycreditExpressButtonSingle {
         "amount"?: number;
         "bgBlue"?: boolean;
         "fullWidth"?: boolean;
-        "redirectUrl"?: string;
+        "onButtonClicked"?: (event: EasycreditExpressButtonSingleCustomEvent<string>) => void;
+        "paymentType"?: METHODS;
         "webshopId"?: string;
     }
     interface EasycreditFaq {
@@ -406,6 +456,7 @@ declare namespace LocalJSX {
     }
     interface EasycreditLogo {
         "alt"?: string;
+        "paymentType"?: METHODS;
     }
     interface EasycreditMerchantManager {
         "date"?: string;
@@ -427,25 +478,11 @@ declare namespace LocalJSX {
         "size"?: string;
     }
     interface EasycreditWidget {
-        /**
-          * Financing Amount
-         */
         "amount"?: number;
-        /**
-          * Disable Flexprice in calculation
-         */
         "disableFlexprice"?: boolean;
-        /**
-          * Display Type (e.g. clean -> without shadow)
-         */
         "displayType"?: string;
-        /**
-          * Show if out of range
-         */
         "extended"?: boolean;
-        /**
-          * Webshop Id
-         */
+        "paymentTypes"?: string;
         "webshopId"?: string;
     }
     interface IntrinsicElements {
@@ -457,10 +494,13 @@ declare namespace LocalJSX {
         "easycredit-box-modal": EasycreditBoxModal;
         "easycredit-box-top": EasycreditBoxTop;
         "easycredit-checkout": EasycreditCheckout;
+        "easycredit-checkout-bill-payment-timeline": EasycreditCheckoutBillPaymentTimeline;
         "easycredit-checkout-installments": EasycreditCheckoutInstallments;
         "easycredit-checkout-label": EasycreditCheckoutLabel;
         "easycredit-checkout-privacy-approval": EasycreditCheckoutPrivacyApproval;
+        "easycredit-checkout-totals": EasycreditCheckoutTotals;
         "easycredit-express-button": EasycreditExpressButton;
+        "easycredit-express-button-single": EasycreditExpressButtonSingle;
         "easycredit-faq": EasycreditFaq;
         "easycredit-infopage": EasycreditInfopage;
         "easycredit-logo": EasycreditLogo;
@@ -482,10 +522,13 @@ declare module "@stencil/core" {
             "easycredit-box-modal": LocalJSX.EasycreditBoxModal & JSXBase.HTMLAttributes<HTMLEasycreditBoxModalElement>;
             "easycredit-box-top": LocalJSX.EasycreditBoxTop & JSXBase.HTMLAttributes<HTMLEasycreditBoxTopElement>;
             "easycredit-checkout": LocalJSX.EasycreditCheckout & JSXBase.HTMLAttributes<HTMLEasycreditCheckoutElement>;
+            "easycredit-checkout-bill-payment-timeline": LocalJSX.EasycreditCheckoutBillPaymentTimeline & JSXBase.HTMLAttributes<HTMLEasycreditCheckoutBillPaymentTimelineElement>;
             "easycredit-checkout-installments": LocalJSX.EasycreditCheckoutInstallments & JSXBase.HTMLAttributes<HTMLEasycreditCheckoutInstallmentsElement>;
             "easycredit-checkout-label": LocalJSX.EasycreditCheckoutLabel & JSXBase.HTMLAttributes<HTMLEasycreditCheckoutLabelElement>;
             "easycredit-checkout-privacy-approval": LocalJSX.EasycreditCheckoutPrivacyApproval & JSXBase.HTMLAttributes<HTMLEasycreditCheckoutPrivacyApprovalElement>;
+            "easycredit-checkout-totals": LocalJSX.EasycreditCheckoutTotals & JSXBase.HTMLAttributes<HTMLEasycreditCheckoutTotalsElement>;
             "easycredit-express-button": LocalJSX.EasycreditExpressButton & JSXBase.HTMLAttributes<HTMLEasycreditExpressButtonElement>;
+            "easycredit-express-button-single": LocalJSX.EasycreditExpressButtonSingle & JSXBase.HTMLAttributes<HTMLEasycreditExpressButtonSingleElement>;
             "easycredit-faq": LocalJSX.EasycreditFaq & JSXBase.HTMLAttributes<HTMLEasycreditFaqElement>;
             "easycredit-infopage": LocalJSX.EasycreditInfopage & JSXBase.HTMLAttributes<HTMLEasycreditInfopageElement>;
             "easycredit-logo": LocalJSX.EasycreditLogo & JSXBase.HTMLAttributes<HTMLEasycreditLogoElement>;

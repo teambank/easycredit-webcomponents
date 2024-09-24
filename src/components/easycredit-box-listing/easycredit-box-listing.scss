@@ -42,7 +42,7 @@
                 z-index: 4;
             }
 
-            &.circle {
+            &.ec-circle {
                 z-index: 1;
             }
         }
@@ -87,7 +87,7 @@
     }
     &__content-heading {
         margin-bottom: 15px;
-        font-size: $font-size-heading-sm;
+        font-size: $font-size-lg;
         line-height: $line-height-heading-lg;
         font-weight: bold;
     } 
@@ -118,7 +118,7 @@
             opacity: 1;
         }
 
-        .circle {
+        .ec-circle {
             animation-name: circle-rotation-out;
             animation-duration: 1s;
             opacity: 0;

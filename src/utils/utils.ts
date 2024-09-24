@@ -1,4 +1,5 @@
 import { Loader } from './loader'
+import { InstallmentPlans, InstallmentPlansContainer } from '../types'
 
 export function addErrorHandler(component, callback) {
   let time = 10
@@ -13,6 +14,7 @@ export function addErrorHandler(component, callback) {
   window.addEventListener("beforeunload", function () {
     window.clearTimeout(timeout)
   });
+  return timeout;
 }
 
 export function formatAmount(amount: number): string {
@@ -49,7 +51,7 @@ export function formatDatetime(dateString) {
 
 var installmentsLoader: Loader
 
-export function fetchInstallmentPlans (webshopId: string, amount: number) {
+export function fetchMultiInstallmentPlans (webshopId: string, amount: number) {
   if (installmentsLoader == null) {
     var installmentsStore: {[key: number]: any} = []
     installmentsLoader = new Loader(fetchAllInstallmentPlans.bind(this, webshopId), installmentsStore)
@@ -120,7 +122,16 @@ export function fetchSingleInstallmentPlan (webshopId: string, amount: number, o
     })
 }
 
-export function fetchAgreement (webshopId: string) {
+import state from '../stores/general';
+
+export async function getWebshopInfo(webshopId: string) {
+  if (!state.webshopInfo) {
+    state.webshopInfo = await fetchWebshopInfo(webshopId)
+  }
+  return state.webshopInfo
+}
+
+export function fetchWebshopInfo (webshopId: string) {
   const url = getApiUrl('/api/payment/v3/webshop/{{webshopId}}')
     .replace('{{webshopId}}', webshopId)
   return fetch(url, getOptions({})).then((response) => {
@@ -129,6 +140,30 @@ export function fetchAgreement (webshopId: string) {
     }
     return Promise.reject(response); 
   })
+}
+
+export const validateInstallmentPlans = (data): InstallmentPlans => {
+    if (!data) {
+      throw new Error()
+    }
+    const installmentPlans: InstallmentPlans = data.installmentPlans.find(() => true)
+    if (installmentPlans.errors) {
+      let alert = installmentPlans.errors.violations.find(() => true).message
+      if (installmentPlans.errors.title === 'INVALID_PRICE') {
+        alert = `Der Finanzierungbetrag liegt außerhalb der zulässigen Beträge (${data.minFinancingAmount} € - ${data.maxFinancingAmount} €)`
+      }
+      throw new Error(alert)
+    }
+    return installmentPlans
+}
+
+export async function fetchInstallmentPlans(webshopId: string, amount: number, opts: object = {}): Promise<InstallmentPlansContainer> {
+
+  const fetchPlans = (opts) ?
+      fetchSingleInstallmentPlan.bind(this, webshopId, amount, opts) :
+      fetchMultiInstallmentPlans.bind(this, webshopId, amount)
+
+    return await fetchPlans()
 }
 
 function getPersistentOptions (data) {
@@ -178,7 +213,7 @@ const defaultConfig = {
   request_config: {
     headers: {
       'Content-Type': 'application/json; charset=utf-8',
-      'X-Webcomponents-User-Agent' : 'EasyCreditRatenkaufWebComponents/1.0.0'
+      'X-Webcomponents-User-Agent' : 'EasyCreditWebComponents/2.0.0'
     }
   },
   apiBaseUrl: 'https://ratenkauf.easycredit.de',

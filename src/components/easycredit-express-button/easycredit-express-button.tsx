@@ -1,249 +1,272 @@
-import { Component, Prop, State, Element, Listen, Watch, h } from '@stencil/core';
-import { fetchInstallmentPlans, applyAssetsUrl, sendFeedback, addErrorHandler } from '../../utils/utils';
+import { Component, Prop, h, State, Listen, Element, Watch } from '@stencil/core'
+import { fetchInstallmentPlans,validateInstallmentPlans, getWebshopInfo, sendFeedback, addErrorHandler } from '../../utils/utils'
+import { Caps } from '../../utils/validation';
+import { InstallmentPlan, InstallmentPlans, METHODS } from '../../types';
+import { validateAmount } from '../../utils/validation';
 
 @Component({
   tag: 'easycredit-express-button',
   styleUrl: 'easycredit-express-button.scss',
-  shadow: true,
+  shadow: true
 })
 
 export class EasycreditExpressButton {
-
   @Prop() webshopId: string
-  @Prop() amount: number
-  @Prop() alert: string
+  @Prop({ mutable: true }) amount: number
+  @Prop({ mutable: true }) paymentTypes: string
+  @Prop() fullWidth: boolean = false
   @Prop() redirectUrl: string
 
-  @Prop() bgBlue: boolean = false
-  @Prop() fullWidth: boolean = false
-
-  @State() installments
-  @State() example
-
-  buttonTextDefault: string = 'Jetzt direkt in Raten zahlen'
-  buttonTextDefaultShort: string = 'Jetzt in Raten zahlen'
-  buttonTextHover: string = 'mit easyCredit-Ratenkauf'
-  @State() buttonTextTimeout = null
-
-  @State() buttonOpacity: string = '0'
   @State() buttonWidth: string = '100%'
-  @State() buttonText: string = this.buttonTextDefault
-  @State() buttonTextWidth: string = 'auto'
+  @State() selectedPaymentType: METHODS
+  @State() installmentPlans: InstallmentPlans = null
+  @State() selectedInstallment: InstallmentPlan = null
+  @State() paymentTypesEmpty: boolean = false
 
-  /*
-  @Listen('resize', { target: 'window' })
-
-  }
-  */
+  infopageModal!: HTMLEasycreditModalElement
+  checkoutModal!: HTMLEasycreditModalElement
+  paymentModal!: HTMLEasycreditModalElement
 
   @Element() el: HTMLElement;
 
-  checkoutModal!: HTMLEasycreditModalElement
-  infopageModal!: HTMLEasycreditModalElement
-  paymentModal!: HTMLEasycreditModalElement
+  caps: Caps
 
-  connectedCallback() {
-    applyAssetsUrl(EasycreditExpressButton)
-  }
-
-  async componentWillLoad () {
-    if (this.amount > 0 && !this.alert) {
-      this.onAmountChanged(this.amount, null);
-    }
+  @Listen('selectedInstallment', { target: 'window' })
+  selectedInstallmentHandler(e) {
+    this.selectedInstallment = this.installmentPlans.plans.find(i => i.numberOfInstallments == e.detail)
   }
 
   @Listen('openModal')
-  openModalHandler () {
+  openModalHandler() {
     this.checkoutModal.open()
     sendFeedback(this, { component: 'EasycreditExpressButton', action: 'openCheckoutModal' })
   }
 
   @Watch('amount')
-  onAmountChanged(amount: number, oldAmount: number) {
+  async onAmountChanged(amount: number, oldAmount: number) {
     if (!amount) {
-        this.installments = null
+        this.installmentPlans = null
+        return
     }
     if (amount !== oldAmount && amount > 0) {
-      fetchInstallmentPlans(this.webshopId, amount).then((data) => {
-        this.installments = data
-      }).catch(e => {
-        this.installments = null
+      try {
+        const installmentPlans = await fetchInstallmentPlans(this.webshopId, this.amount)
+        this.installmentPlans = validateInstallmentPlans(installmentPlans)
+      } catch (e) {
+        this.installmentPlans = null
         console.error(e)
-      })
-    }
-  }
-
-  componentDidLoad () {
-    this.renderButton()
-  }
-  componentDidUpdate () {
-    this.setButtonTextWidth()
-  }
-
-  async renderButton () {
-    await this.setButtonText()
-    await this.setButtonWidth()
-    await this.setButtonTextWidth()
-    this.buttonOpacity = '1'
-  }
-
-  getButtonTextWidth () {
-    var textFinancing: HTMLElement = this.el.shadowRoot.querySelector('.financing');
-    // var textRate: HTMLElement = this.el.shadowRoot.querySelector('.rate');
-
-    widthTotal = null;
-    if ( textFinancing ) {
-      var widthTotal = textFinancing.offsetWidth;
-    }
-
-    return widthTotal;
-  }
-  getButtonWidth () {
-    var button: HTMLElement = this.el.shadowRoot.querySelector('.ec-express-button__btn__main');
-    var logo: HTMLElement = this.el.shadowRoot.querySelector('.logo');
-    var textWidth = this.getButtonTextWidth();
-
-    widthTotal = null;
-    if ( button && logo && textWidth ) {
-      var widthTotal = parseInt(window.getComputedStyle(button, null).getPropertyValue('padding-left'), 10) + parseInt(window.getComputedStyle(button, null).getPropertyValue('padding-right'), 10) + logo.offsetWidth + textWidth;
-    }
-
-    return widthTotal;
-  }
-
-  setButtonText () {
-    var component: HTMLElement = this.el.shadowRoot.querySelector('.ec-express-button');
-    var buttonWidth = this.getButtonWidth();
-
-    if ( component && buttonWidth ) {
-      if ( component.offsetWidth < buttonWidth ) {
-        this.buttonText = this.buttonTextDefaultShort;
       }
     }
   }
-  setButtonWidth () {
-    var buttonWidth = this.getButtonWidth();
 
-    if ( buttonWidth ) {
-      this.buttonWidth = buttonWidth + 'px';
+  openInfopageModal() {
+    this.infopageModal.open()
+    sendFeedback(this, { component: 'EasycreditExpressButton', action: 'openInfopageModal' })
+  }
+
+  isEnabled(type: METHODS) {
+    return this.caps.isEnabled(type)
+  }
+
+  isValid(type: METHODS) {
+    let valid;
+    try {
+      validateAmount(this.amount, type)
+      valid = true
+    } catch (e) {
+      valid = false
     }
+    return this.isEnabled(type) && valid
   }
-  setButtonTextWidth () {
-    var textWidth = this.getButtonTextWidth();
 
-    if ( textWidth ) {
-      this.buttonTextWidth = textWidth + 'px';
+  async componentWillLoad() {
+    if (!this.paymentTypes) {
+      this.paymentTypes = METHODS.INSTALLMENT
+      this.paymentTypesEmpty = true
     }
+
+    this.caps = new Caps(this.paymentTypes)
+    
+    try {
+      //const opts = this.disableFlexprice ? { 'withoutFlexprice': this.disableFlexprice } : {}
+      await getWebshopInfo(this.webshopId)
+      // validateAmount(this.amount, this.method)
+    } catch (errorMessage) {
+      let alert = errorMessage ?? 'Es ist ein Fehler aufgetreten.'
+      console.error(alert)
+    }
+
+    this.onAmountChanged(this.amount, null);
   }
 
-  onMouseEnter () {
-    window.clearTimeout(this.buttonTextTimeout)
-
-    this.buttonText = this.buttonTextHover;
+  getInstallmentUspFragment () {
+    return ([<div class="ec-checkout__body">
+        <div class="h4">Ihre Vorteile</div>
+        <ul class="ec-usp" >
+          <li>Frühestens <strong>30 Tage</strong> nach Lieferung zahlen</li>
+          <li>Flexible monatliche Wunschrate</li>
+          <li>Kostenfreie Ratenanpassung & Sondertilgung</li>
+        </ul>
+      </div>
+    ])
   }
-  onMouseLeave () {
-    window.clearTimeout(this.buttonTextTimeout)
-    this.buttonTextTimeout = window.setTimeout(() => {
-      this.buttonText = this.buttonTextDefault;
-    },1000)
+
+  getCheckoutModalFragment() {
+      return ([
+          <easycredit-modal class={{ "ec-express-button__modal__checkout": true }}
+              ref={(el) => this.checkoutModal = el as HTMLEasycreditModalElement}
+              onModalSubmit={() => this.modalSubmitHandler()}
+              size="checkout"
+          >
+              <div slot="content">
+                  <div class="checkout-modal-wrapper ec-row">
+                      <div class="ec-col ec-col-method">
+                          <div class="ec-container">
+                              <easycredit-logo
+                                payment-type={METHODS.INSTALLMENT}
+                              ></easycredit-logo>
+
+                              {
+                                this.isEnabled(METHODS.INSTALLMENT) &&
+                                this.isEnabled(METHODS.BILL) &&
+                                <div class="ec-switch">
+                                    <button onClick={() => this.switchPaymentType(METHODS.INSTALLMENT)}
+                                      class={{ 'active': this.selectedPaymentType === METHODS.INSTALLMENT }} >Ratenkauf</button>
+                                    <button onClick={() => this.switchPaymentType(METHODS.BILL)}
+                                      class={{ 'active': this.selectedPaymentType === METHODS.BILL }}>Rechnungskauf</button>
+                                </div>
+                              }
+
+                              {this.selectedPaymentType === METHODS.INSTALLMENT &&
+                              !this.paymentTypesEmpty &&
+                                  <easycredit-checkout-installments installments={JSON.stringify(this.installmentPlans.plans)} rows={3} />
+                              }
+                              {this.selectedPaymentType === METHODS.BILL &&
+                                  <easycredit-checkout-bill-payment-timeline></easycredit-checkout-bill-payment-timeline>
+                              }
+
+                              {!this.paymentTypesEmpty &&
+                                  <easycredit-checkout-totals amount={this.amount} selectedInstallment={this.selectedInstallment} installmentPlans={this.installmentPlans}></easycredit-checkout-totals>
+                              }
+
+                              {this.paymentTypesEmpty &&
+                                  this.getInstallmentUspFragment()
+                              }
+                          </div>
+
+                          <div class="ec-background">
+                            <div class="ec-circle"></div>
+                            <div class="ec-circle ec-circle-secondary"></div>
+                          </div>
+                      </div>
+
+                      <div class="ec-col ec-col-agreement">
+                          <div class="ec-container">
+                              {this.selectedPaymentType === METHODS.INSTALLMENT &&
+                                  <span slot="heading">Weiter zum Ratenkauf</span>
+                              }
+                              {this.selectedPaymentType === METHODS.BILL &&
+                                  <span slot="heading">Weiter zum Rechnungskauf</span>
+                              }
+
+                              <p><strong>Mit Klick auf Akzeptieren stimmen Sie der Datenübermittlung zu:</strong></p>
+                              <easycredit-checkout-privacy-approval webshop-id={this.webshopId} />
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <span slot="button">Akzeptieren</span>
+          </easycredit-modal>
+      ])
   }
 
   modalSubmitHandler() {
-    sendFeedback(this, { component: 'EasycreditExpressButton', action: 'submit' })
-    if (this.redirectUrl) {
-      this.paymentModal.open();
-      this.checkoutModal.close();
-    } else {
-      addErrorHandler(this, () => {
-        alert('Leider ist eine Zahlung mit easyCredit derzeit nicht möglich. Bitte verwenden Sie eine andere Zahlungsart oder wenden Sie sich an den Händler.')
-        this.checkoutModal.close()
-      })
-      this.el.dispatchEvent(new CustomEvent('submit', {
-        bubbles    : true,
-        cancelable : true,
-        composed: true,
-        detail: {
-          numberOfInstallments: null
-        }
-      }))
-    }
+      sendFeedback(this, { component: 'EasycreditExpressButton', action: 'submit' })
+      if (this.redirectUrl) {
+          this.paymentModal.open();
+          this.checkoutModal.close();
+      } else {
+          addErrorHandler(this, () => {
+              alert('Leider ist eine Zahlung mit easyCredit derzeit nicht möglich. Bitte verwenden Sie eine andere Zahlungsart oder wenden Sie sich an den Händler.')
+              this.checkoutModal.close()
+          })
+          this.el.dispatchEvent(new CustomEvent('submit', {
+              bubbles: true,
+              cancelable: true,
+              composed: true,
+              detail: {
+                paymentType: this.selectedPaymentType,
+                ...(this.selectedInstallment?.numberOfInstallments && { numberOfInstallments: this.selectedInstallment?.numberOfInstallments })
+              }
+          }))
+      }
   }
 
-  getCheckoutModalFragment () {
-    return ([
-      <easycredit-modal class={{ "ec-express-button__modal__checkout": true }}
-          ref={(el) => this.checkoutModal = el as HTMLEasycreditModalElement}
-          onModalSubmit={() => this.modalSubmitHandler()}
-          size="small"
-      >
-        <span slot="heading">Weiter zum Ratenkauf</span>
-        <div slot="content">
-          <p><strong>Mit Klick auf Akzeptieren stimmen Sie der Datenübermittlung zu:</strong></p>
-          <easycredit-checkout-privacy-approval slot="content" webshop-id={this.webshopId} />
-        </div>
-        <span slot="button">Akzeptieren</span>
-      </easycredit-modal>
-    ])
+  getPaymentModalFragment() {
+      if (!this.redirectUrl) {
+          return;
+      }
+
+      return ([
+          <easycredit-modal class={{ "ec-express-button__modal__payment": true }} ref={(el) => this.paymentModal = el as HTMLEasycreditModalElement} size="full">
+              <iframe src={this.redirectUrl} slot="content" class="iframe-full"></iframe>
+          </easycredit-modal>
+      ])
   }
 
-  getPaymentModalFragment () {
-    if (!this.redirectUrl) {
+  clickHandler = (event: CustomEvent) => {
+      event.preventDefault();
+      event.stopPropagation();
+
+      if ( event.detail !== this.selectedPaymentType ) {
+        this.switchPaymentType(event.detail as METHODS)
+      }
+      this.checkoutModal.open()
+  }
+
+  switchPaymentType (paymentType: METHODS) {
+      this.selectedPaymentType = paymentType
+      this.selectedInstallment = null
+      sendFeedback(this, { component: 'EasycreditExpressButton', action:'switchPaymentType', paymentType: this.selectedPaymentType })
+  }
+
+  render () {
+    if (!this.isValid(METHODS.INSTALLMENT) && !this.isValid(METHODS.BILL)) {
       return;
     }
+    return [
+      <div class="ec-express-button">
+        {this.isEnabled(METHODS.INSTALLMENT) &&
+          <easycredit-express-button-single 
+            onButtonClicked={this.clickHandler.bind(this)} 
+            payment-type={METHODS.INSTALLMENT} 
+            webshop-id={this.webshopId} 
+            amount={this.amount}
+            full-width={this.fullWidth}
+          ></easycredit-express-button-single>
+        }
+        {this.isEnabled(METHODS.BILL) &&
+          <easycredit-express-button-single 
+            onButtonClicked={this.clickHandler.bind(this)} 
+            payment-type={METHODS.BILL} 
+            webshop-id={this.webshopId} 
+            amount={this.amount}
+            full-width={this.fullWidth}
+          ></easycredit-express-button-single>
+        }
 
-    return ([
-      <easycredit-modal class={{ "ec-express-button__modal__payment": true }} ref={(el) => this.paymentModal = el as HTMLEasycreditModalElement} size="full">
-        <iframe src={this.redirectUrl} slot="content" class="iframe-full"></iframe>
-      </easycredit-modal>
-    ])
-  }
-
-  openInfopageModal () {
-    this.infopageModal.open()
-    sendFeedback(this, { component: 'EasycreditExpressButton', action: 'openInfopageModal' })
-
-  }
-
-  render() {
-    if (this.alert) {
-        return;
-    }
-    if (
-        this.installments && (
-          this.amount < this.installments.minFinancingAmount ||
-          this.amount > this.installments.maxFinancingAmount
-        )
-    ) {
-        return;
-    }
-
-    return ([
-      <div class="ec-express-button" style={{ opacity: this.buttonOpacity }}>
-        <div class={{ "ec-express-button__btn": true, "blue": this.bgBlue, "full-width": this.fullWidth }} style={{ width: this.buttonWidth }}>
-          <a class="ec-express-button__btn__main"
-            onClick={() => this.openModalHandler()}
-            onMouseEnter={() => this.onMouseEnter()}
-            onMouseLeave={() => this.onMouseLeave()}
-          >
-            <div class="logo"></div>
-            <div class="ec-express-button__btn__main__inner" style={{ flexBasis: this.buttonTextWidth, width: this.buttonTextWidth }}>
-              <span class="financing">{ this.buttonText }</span>
-            </div>
-          </a>
-
-          { this.getCheckoutModalFragment() }
-          { this.getPaymentModalFragment() }
-        </div>
-
-        <a class="ec-express-button__link" target="_blank" style={{ width: this.buttonWidth }} onClick={() => this.openInfopageModal() }>
+        <a class="ec-express-button__link" target="_blank" style={{ width: this.buttonWidth }} onClick={() => this.openInfopageModal()}>
           <div class="icon"></div>
-          <div>Mehr zu <strong>easyCredit-Ratenkauf</strong></div>
+          <div>Mehr zum <strong>Bezahlen mit easyCredit</strong></div>
         </a>
+
+        {this.getCheckoutModalFragment()}
+        {this.getPaymentModalFragment()}
 
         <easycredit-modal class={{ "ec-express-button__modal__infopage": true }} ref={(el) => this.infopageModal = el as HTMLEasycreditModalElement} size="infopage">
           <easycredit-infopage slot="content" />
         </easycredit-modal>
       </div>
-    ])
+    ]
   }
 }

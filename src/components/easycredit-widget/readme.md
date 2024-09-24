@@ -7,13 +7,14 @@
 
 ## Properties
 
-| Property           | Attribute           | Description                                 | Type      | Default     |
-| ------------------ | ------------------- | ------------------------------------------- | --------- | ----------- |
-| `amount`           | `amount`            | Financing Amount                            | `number`  | `undefined` |
-| `disableFlexprice` | `disable-flexprice` | Disable Flexprice in calculation            | `boolean` | `false`     |
-| `displayType`      | `display-type`      | Display Type (e.g. clean -> without shadow) | `string`  | `undefined` |
-| `extended`         | `extended`          | Show if out of range                        | `boolean` | `true`      |
-| `webshopId`        | `webshop-id`        | Webshop Id                                  | `string`  | `undefined` |
+| Property           | Attribute           | Description | Type      | Default               |
+| ------------------ | ------------------- | ----------- | --------- | --------------------- |
+| `amount`           | `amount`            |             | `number`  | `undefined`           |
+| `disableFlexprice` | `disable-flexprice` |             | `boolean` | `false`               |
+| `displayType`      | `display-type`      |             | `string`  | `undefined`           |
+| `extended`         | `extended`          |             | `boolean` | `true`                |
+| `paymentTypes`     | `payment-types`     |             | `string`  | `METHODS.INSTALLMENT` |
+| `webshopId`        | `webshop-id`        |             | `string`  | `undefined`           |
 
 
 ## Dependencies

@@ -14,7 +14,7 @@ Um die Transaktionen abrufen zu können, müssen für den Merchant Manager die E
   },
   argTypes: {
     txId: {
-      description: 'die Transaktions-ID der easyCredit-Ratenkauf Zahlung'
+      description: 'die Transaktions-ID der easyCredit-Zahlung'
     },
     date: {
       description: 'Bestelldatum, verwendet zur Unterscheidung zwischen "nicht verfügbar" und "noch nicht verfügbar". Der Wert muss von Date.parse() geparst werden können.'

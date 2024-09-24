@@ -15,9 +15,11 @@ $ec-backdrop: rgba(0,0,0,.3);
 $white: #fff;
 $black: #000;
 $error: #e90202;
+$success: #77D400;
 
 $ec-primary-btn-hover: darken($ec-primary, 10%);
 $ec-secondary-btn-hover: darken($ec-secondary, 10%);
+$ec-darkblue-btn-hover: lighten($ec-darkblue, 10%);
 
 $overlay-orange: rgba($ec-primary, 0.1);
 $overlay-blue: rgba($ec-secondary, 0.1);
@@ -47,15 +49,15 @@ $font-size-heading-xxl: 46px;
 $font-size-heading-xl: 30px;
 $font-size-heading-lg: 25px;
 $font-size-heading: 20px;
-$font-size-heading-sm: 16px;
+$font-size-heading-sm: 18px;
 
 $font-size-xl: 18px;
 $font-size-lg: 16px;
-$font-size-md: 15px; 
+$font-size-md: 15px;
 $font-size: 14px;
 $font-size-sm: 13px;
 $font-size-xs: 12px;
-$font-size-xxs: 10px;
+$font-size-xxs: 11px;
 $font-size-xxxs: 7px;
 $font-size-running: 13px;
 
@@ -68,9 +70,10 @@ $line-height-heading-lg: 1.25;
 // - Border
 $border-radius: 3px;
 $border-radius-lg: 5px;
-$border-radius-lg-xl: 8px;
+$border-radius-lg-xl: 7.5px;
 $border-radius-xl: 10px;
 $border-radius-xxl: 15px;
+$border-radius-xxxl: 30px;
 
 // - Transitions
 $transition-slow: all .35s ease;
@@ -78,7 +81,7 @@ $transition: all 0.15s ease-in-out;
 $transition-timing: cubic-bezier(0.73, 0.32, 0.14, 0.99);
 
 // - Box shadows
-$box-shadow: 0 0 25px rgba(0,0,0,.1);
+$box-shadow: 0 1px 2.5px rgba($ec-darkblue,0.2);
 
 // - Circles
 $circle-width-100: 100%;
@@ -92,8 +95,13 @@ $circle-width-33-secondary: calc(100% * 0.33 * 0.33);
 $ratenkauf-icon: '<svg id="easyCredit" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><defs><style>.cls-1{fill:#0066b3;}.cls-2{fill:#fff;}</style></defs><circle class="cls-1" cx="60" cy="60" r="60"/><path class="cls-2" d="M96.1094,50.91c-2.3081-.7851-6.5437-1.6761-13.6446-1.6761a26.2577,26.2577,0,0,0-17.5583,6.6105,5.791,5.791,0,0,1-1.7742,1.0521,38.9812,38.9812,0,0,1-13.86,2.03h-.1375c-4.679,0-7.6152-.7852-9.3306-2.19-1.57-1.2995-2.2179-3.2308-2.1-5.9551H68.6121l.0982-.4476a48.708,48.708,0,0,0,1.209-8.1926c0-6.3634-2.1274-11.3173-5.8136-14.6737s-8.8437-5.0718-14.8142-5.0718c-10.0883,0-16.9222,4.0747-21.22,9.5078A28.96,28.96,0,0,0,22.05,49.34,20.1865,20.1865,0,0,0,28.11,64.1984c3.9959,3.8235,9.8606,6.171,17.4285,6.171A90.6105,90.6105,0,0,0,56.4,69.7412,28.2979,28.2979,0,0,0,55.4346,77c0,6.0491,2.0414,11.1916,5.888,14.87,3.9256,3.7528,9.5544,5.7352,16.2512,5.7352A42.613,42.613,0,0,0,87.36,96.3683l1.311-.3376,2.9323-14.1321L87.6777,83.72a20.3115,20.3115,0,0,1-8.479,1.7272,9.2547,9.2547,0,0,1-6.28-1.9629c-1.5232-1.3621-2.2965-3.4388-2.2965-6.1789a18.9209,18.9209,0,0,1,3.4621-10.587,12.1231,12.1231,0,0,1,10.0175-5.3152A27.9356,27.9356,0,0,1,93.13,62.64l2.3119.7851L97.95,51.5267ZM38.8618,41.5518a10.7482,10.7482,0,0,1,10.6259-7.7137,6.2237,6.2237,0,0,1,5.4092,2.3868,9.5837,9.5837,0,0,1,1.5191,5.3269Z"/></svg>';
 $icon-close-blue: '<svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L10 10M1 10L10 1" stroke="#002C5A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 $icon-close-white: '<svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L10 10M1 10L10 1" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-$icon-checkmark: '<svg width="41" height="41" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="20.78" cy="20.42" r="20" fill="#0066B3"/><path d="M29.5 15.45c-.11-.08-.39-.31-.83-.7-.42-.4-.69-.64-.82-.75a.42.42 0 00-.39-.11.53.53 0 00-.4.15l-1.32 1.49A815.49 815.49 0 0020 21.86l-1.29 1.4-.78-.62a97.04 97.04 0 01-3.6-2.9L13.4 19a.52.52 0 00-.43-.11.37.37 0 00-.31.15l-.75.82-.54.63c-.1.1-.16.23-.16.39.03.16.1.27.2.35l.93.98c.63.62 1.32 1.33 2.07 2.1.78.76 1.5 1.48 2.15 2.15.65.66 1.02 1 1.1 1.06.13.13.3.25.54.35.24.08.48.1.74.08.3-.03.53-.08.7-.16.19-.08.35-.18.48-.3l1.56-1.85a1050.07 1050.07 0 007.85-9.45c.1-.13.14-.26.12-.39a.63.63 0 00-.16-.35z" fill="#fff"/></svg>';
+$icon-checkmark: '<svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.1 0.200028C11.5418 0.531399 11.6314 1.1582 11.3 1.60003L5.3 9.60003C5.12607 9.83194 4.86005 9.97696 4.57089 9.99751C4.28173 10.0181 3.99788 9.91212 3.79289 9.70714L1.29289 7.20713C0.902369 6.81661 0.902369 6.18345 1.29289 5.79292C1.68342 5.4024 2.31658 5.4024 2.70711 5.79292L4.39181 7.47762L9.7 0.400028C10.0314 -0.0417994 10.6582 -0.131343 11.1 0.200028Z" fill="#002C5A"/></svg>';
+$icon-checkmark-circle: '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 8C16 12.4183 12.4183 16 8 16C3.58172 16 0 12.4183 0 8C0 3.58172 3.58172 0 8 0C12.4183 0 16 3.58172 16 8Z" fill="#002C5A"/><path fill-rule="evenodd" clip-rule="evenodd" d="M11.5547 4.16795C12.0142 4.4743 12.1384 5.09517 11.8321 5.5547L7.83205 11.5547C7.66587 11.804 7.39667 11.9656 7.09854 11.9951C6.8004 12.0247 6.50474 11.919 6.29289 11.7071L4.29289 9.70711C3.90237 9.31658 3.90237 8.68342 4.29289 8.29289C4.68342 7.90237 5.31658 7.90237 5.70711 8.29289L6.84457 9.43036L10.1679 4.4453C10.4743 3.98577 11.0952 3.8616 11.5547 4.16795Z" fill="white"/></svg>';
+$icon-checkmark-circle-white: '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 8C16 12.4183 12.4183 16 8 16C3.58172 16 0 12.4183 0 8C0 3.58172 3.58172 0 8 0C12.4183 0 16 3.58172 16 8Z" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M11.5547 4.16795C12.0142 4.4743 12.1384 5.09517 11.8321 5.5547L7.83205 11.5547C7.66587 11.804 7.39667 11.9656 7.09854 11.9951C6.8004 12.0247 6.50474 11.919 6.29289 11.7071L4.29289 9.70711C3.90237 9.31658 3.90237 8.68342 4.29289 8.29289C4.68342 7.90237 5.31658 7.90237 5.70711 8.29289L6.84457 9.43036L10.1679 4.4453C10.4743 3.98577 11.0952 3.8616 11.5547 4.16795Z" fill="#002C5A"/></svg>';
+$icon-checkmark-circle-lg: '<svg width="41" height="41" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="20.78" cy="20.42" r="20" fill="#0066B3"/><path d="M29.5 15.45c-.11-.08-.39-.31-.83-.7-.42-.4-.69-.64-.82-.75a.42.42 0 00-.39-.11.53.53 0 00-.4.15l-1.32 1.49A815.49 815.49 0 0020 21.86l-1.29 1.4-.78-.62a97.04 97.04 0 01-3.6-2.9L13.4 19a.52.52 0 00-.43-.11.37.37 0 00-.31.15l-.75.82-.54.63c-.1.1-.16.23-.16.39.03.16.1.27.2.35l.93.98c.63.62 1.32 1.33 2.07 2.1.78.76 1.5 1.48 2.15 2.15.65.66 1.02 1 1.1 1.06.13.13.3.25.54.35.24.08.48.1.74.08.3-.03.53-.08.7-.16.19-.08.35-.18.48-.3l1.56-1.85a1050.07 1050.07 0 007.85-9.45c.1-.13.14-.26.12-.39a.63.63 0 00-.16-.35z" fill="#fff"/></svg>';
 $icon-arrow-down: '<svg width="10" height="5" viewBox="0 0 10 5" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.08124 0.186267C1.63183 -0.134742 1.00728 -0.0306508 0.686267 0.418762C0.365258 0.868174 0.469349 1.49272 0.918762 1.81373L2.08124 0.186267ZM9.08124 1.81373C9.53065 1.49272 9.63474 0.868174 9.31373 0.418762C8.99272 -0.0306508 8.36817 -0.134742 7.91876 0.186267L9.08124 1.81373ZM4.85469 3.39621L4.27345 4.20994L4.85469 3.39621ZM0.918762 1.81373L4.27345 4.20994L5.43593 2.58247L2.08124 0.186267L0.918762 1.81373ZM5.72655 4.20994L9.08124 1.81373L7.91876 0.186267L4.56407 2.58247L5.72655 4.20994ZM4.27345 4.20994C4.70808 4.52039 5.29193 4.52038 5.72655 4.20994L4.56407 2.58247C4.82484 2.39621 5.17515 2.39621 5.43593 2.58247L4.27345 4.20994Z" fill="black"/></svg>';
+$icon-shipping: '<svg width="24" height="23" viewBox="0 0 24 23" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1.25 6.88045V16.0109L11.25 21.2283M1.25 6.88045L11.25 12.0978M1.25 6.88045L6.46739 4.05436M11.25 21.2283V12.0978M11.25 21.2283L21.6848 15.5761V6.44566M11.25 12.0978L16.4674 9.27175M21.6848 6.44566L11.6848 1.22827L6.46739 4.05436M21.6848 6.44566L16.4674 9.27175M16.4674 9.27175L6.46739 4.05436" stroke="white" stroke-width="2" stroke-linejoin="round"/><path d="M15.5 10.832L17.5 9.75V12.601C17.5 12.6928 17.4497 12.7772 17.369 12.8209L15.7214 13.7123C15.6214 13.7663 15.5 13.694 15.5 13.5803V10.832Z" fill="white"/></svg>';
+$icon-info: '<svg width="13" height="14" viewBox="0 0 13 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12.25 7C12.25 10.1756 9.67564 12.75 6.5 12.75C3.32436 12.75 0.75 10.1756 0.75 7C0.75 3.82436 3.32436 1.25 6.5 1.25C9.67564 1.25 12.25 3.82436 12.25 7Z" stroke="white" stroke-width="1.5" stroke-linecap="round"/><rect x="5.75" y="5.7" width="1.5" height="4.75" rx="0.75" fill="white"/><circle cx="6.5" cy="4.3" r="0.75" fill="white"/></svg>';
 
 // - Circle Images
 $circle-primary: '<svg width="330" height="331" viewBox="0 0 330 331" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M165 330.846C256.127 330.846 330 256.973 330 165.846C330 74.7186 256.127 0.845581 165 0.845581C73.873 0.845581 0 74.7186 0 165.846C0 256.973 73.873 330.846 165 330.846ZM165 248.346C210.563 248.346 247.5 211.409 247.5 165.846C247.5 120.282 210.563 83.3456 165 83.3456C119.437 83.3456 82.5 120.282 82.5 165.846C82.5 211.409 119.437 248.346 165 248.346Z" fill="#{$ec-primary}"/></svg>';
@@ -203,10 +211,17 @@ $circle-secondary: '<svg width="330" height="331" viewBox="0 0 330 331" fill="no
 
   // Typo
   h1, h2, h3,
+  .h1, .h2, .h3, .h4,
   .heading {
     margin-top: 0;
     margin-bottom: 20px;
     font-size: $font-size-heading;
+  }
+  .h4 {
+    font-size: $font-size-heading;
+  }
+  .h1, .h2, .h3, .h4 {
+    font-weight: bold;
   }
   small {
     font-size: $font-size-xs;
@@ -318,9 +333,16 @@ $circle-secondary: '<svg width="330" height="331" viewBox="0 0 330 331" fill="no
   }
 }
 
+// Headings
+.h3 {
+  font-size: $font-size-heading-xl;
+  line-height: $line-height-heading;
+  font-weight: bold;
+}
+
 // Logos
-.logo-ratenkauf {
-  background-image: url(#{$ec-base-url}/easycredit-components/assets/ratenkauf-logo.svg);
+.logo-easycredit {
+  background-image: url(#{$ec-base-url}/easycredit-components/assets/easycredit-logo.svg);
   background-position: left center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -328,9 +350,17 @@ $circle-secondary: '<svg width="330" height="331" viewBox="0 0 330 331" fill="no
   height: 40px;
   max-width: 100%;
 }
+.logo-ratenkauf {
+  @extend .logo-easycredit;
+  background-image: url(#{$ec-base-url}/easycredit-components/assets/ratenkauf-logo.svg);
+}
 .logo-ratenkauf-white {
-  @extend .logo-ratenkauf;
+  @extend .logo-easycredit;
   background-image: url(#{$ec-base-url}/easycredit-components/assets/ratenkauf-logo-white.svg);
+}
+.logo-rechnungskauf {
+  @extend .logo-easycredit;
+  background-image: url(#{$ec-base-url}/easycredit-components/assets/rechnungskauf-logo.svg);
 }
 
 .logo-finanzgruppe {
@@ -388,7 +418,7 @@ $circle-secondary: '<svg width="330" height="331" viewBox="0 0 330 331" fill="no
     opacity: 0;
   }
 }
-.circle {
+.ec-circle {
   position: absolute;
   z-index: 1;
   box-sizing: border-box;
@@ -429,7 +459,7 @@ $circle-secondary: '<svg width="330" height="331" viewBox="0 0 330 331" fill="no
     background-size: contain;
   }
 
-  &.circle-secondary {
+  &.ec-circle-secondary {
     width: $circle-width-66-secondary;
     bottom: auto;
     left: auto;
@@ -516,6 +546,202 @@ $circle-secondary: '<svg width="330" height="331" viewBox="0 0 330 331" fill="no
 
     span {
       font-size: $font-size-xl;
+    }
+  }
+}
+
+// Cols
+.ec-row {
+  display: block;
+
+  .ec-col {
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  @media (min-width: $breakpoint-sm-up) {
+    display: flex;
+
+    .ec-col {
+      flex: 0 0 50%;
+      width: 50%;
+    }
+  }
+}
+
+// Express Buttons
+easycredit-express-button {
+  overflow: hidden;
+}
+
+// Express Buttons Checkout Modal
+.ec-express-button__modal__checkout {
+  .checkout-modal-wrapper,
+  [slot="content"] {
+    height: 100%;
+  }
+
+  .checkout-modal-wrapper {
+    @media (max-width: $breakpoint-sm-down) {
+      overflow: hidden auto;
+    }
+  }
+
+  .ec-col {
+    @media (min-width: $breakpoint-sm-up) {
+      overflow: hidden auto;
+    }
+
+    .ec-container {
+      padding: 40px 40px 60px;
+    }
+
+    &.ec-col-method {
+      color: $white;
+
+      > :not(.background) {
+        position: relative;
+        z-index: 1;
+      }
+      @media (max-width: $breakpoint-sm-down) {
+        position: relative;
+        z-index: 1;
+      }
+
+      .ec-background {
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 0;
+        width: 100%;
+        height: 100%;
+
+        @media (min-width: $breakpoint-sm-up) {
+          width: 50%;
+        }
+
+        overflow: hidden;
+        background-color: $ec-darkblue;
+
+        .ec-circle {
+          width: $circle-width-66;
+  
+          &:after {
+            @include background-svg($circle-secondary);
+          }
+        }
+        .ec-circle-secondary {
+          width: $circle-width-66-secondary;
+  
+          &:after {
+            @include background-svg($circle-primary);
+          }
+        }
+      }
+
+      .ec-logo-wrapper {
+        display: block;
+        margin-bottom: 40px;
+      }
+
+      .ec-switch {
+        display: inline-flex;
+        flex-wrap: nowrap;
+        margin-bottom: 20px;
+
+        border: 3px solid $ec-gray;
+        border-radius: $border-radius-xxxl;
+        background-color: $ec-gray;
+
+        max-width: 100%;
+        overflow: hidden;
+
+        button {
+          flex: 1 1 auto;
+          padding: 6px 15px;
+
+          border: 0;
+          border-radius: $border-radius-xxxl;
+          background-color: $ec-gray;
+          cursor: pointer;
+
+          text-overflow: ellipsis;
+          overflow: hidden;
+
+          font-size: $font-size-xs;
+          line-height: normal;
+          font-weight: bold;
+          color: $font-color;
+
+          &.active {
+            background-color: $ec-darkblue;
+            color: $white;
+          }
+        }
+      }
+
+      .h4 {
+        margin-bottom: 10px;
+        font-size: $font-size-heading;
+        font-weight: bold;
+        color: $white;
+      }
+
+      .ec-usp {
+        list-style: none;
+        margin-top: 0;
+        margin-bottom: 20px;
+        padding: 0;
+
+        @media (min-width: $breakpoint-sm-up) {
+          padding-bottom: 160px;
+        }
+
+        li {
+          margin-bottom: 5px;
+          padding-left: 26px;
+
+          @include background-svg($icon-checkmark-circle-white);
+          background-position: left center;
+          background-repeat: no-repeat;
+          background-size: 16px 16px;
+
+          font-size: $font-size;
+          line-height: $line-height;
+          color: $white;
+        }
+      }
+    }
+    &.ec-col-agreement {
+      .ec-container {
+        padding: 60px 50px 100px;
+      }
+
+      span[slot="heading"] {
+        @extend .h3;
+      }
+
+      p {
+        margin-top: 1em;
+        margin-bottom: 1em;
+      }
+    }
+  }
+
+  &::part(submit) {
+    position: absolute;
+    right: 60px;
+    bottom: 40px;
+  }
+}
+:host(.ec-express-button__modal__checkout) {
+  .ec-modal {
+    height: 0;
+    min-height: 0;
+    overflow: hidden;
+
+    .content {
+      height: 100%;
     }
   }
 }

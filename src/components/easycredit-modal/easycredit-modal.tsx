@@ -18,6 +18,7 @@ export class EasycreditModal {
   @State() hasHeadingSlot: boolean = false
   @State() submittable: boolean = false
   @State() submitButtonClicked: boolean = false
+  @State() elementHeight: number = null
 
   @Event() modalOpened: EventEmitter;
   @Event() modalClosed: EventEmitter;
@@ -38,6 +39,23 @@ export class EasycreditModal {
     }
   }
 
+  setElementHeight(): void {
+    if ( this.size === 'checkout' ) {
+      if ( this.elementHeight === null ) {
+        this.elementHeight = 0;
+      }
+      var checkoutModalContentContainer = this.element.querySelector<HTMLElement>('[slot="content"] .ec-col-method .ec-container');
+
+      setTimeout(() => {
+        this.elementHeight = checkoutModalContentContainer.offsetHeight;
+      }, 100)
+      setTimeout(() => {
+        this.elementHeight = checkoutModalContentContainer.offsetHeight;
+      }, 500)
+      console.log('Set height: ' + this.elementHeight);
+    }
+  }
+
   handleKeydown (e) {
     if (e.key == "Escape") {
       this.close()
@@ -51,6 +69,8 @@ export class EasycreditModal {
     this.element.querySelectorAll('[data-src]').forEach((el) => {
       (el as any).src = (el as any).dataset.src
     })
+
+    this.setElementHeight();
   }
 
   @Method() async close() {
@@ -59,6 +79,8 @@ export class EasycreditModal {
     this.isOpen = false
     this.submitButtonClicked = false
     this.modalClosed.emit();
+
+    this.setElementHeight();
   }
 
   @Method() async toggle () {
@@ -83,7 +105,7 @@ export class EasycreditModal {
       return
     }
     return ([
-      <div class="form-submit">
+      <div class="form-submit" part="submit">
         <button class={{ "btn": true, "btn-primary": true, "loading": this.submitButtonClicked }} type="button" onClick={() => { this.submit() }} disabled={this.submitButtonClicked}>
           <slot name="button">Absenden</slot>
         </button>
@@ -108,11 +130,13 @@ export class EasycreditModal {
           'ec-modal': true,
           'show': this.isOpen,
           ['size-' + this.size]: this.size !== ''
+        }} style={{
+          'height': this.elementHeight + 'px'
         }}>
             <div class="close" onClick={() => this.close()}></div>
 
             { this.getHeadingFragment() }
-            <div class="content">
+            <div class="content" onClick={() => this.setElementHeight()}>
               <slot name="content" />
             </div>
 

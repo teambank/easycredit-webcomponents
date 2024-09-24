@@ -3,7 +3,6 @@ import { sass } from '@stencil/sass';
 
 export const config: Config = {
   namespace: 'easycredit-components',
-  buildEs5: true, //'prod',
   extras: {
     scriptDataOpts: true,
     appendChildSlotFix: false,
@@ -19,8 +18,8 @@ export const config: Config = {
   ],
   bundles: [
     { components: ['easycredit-infopage', 'easycredit-faq', 'easycredit-accordion-item', 'easycredit-accordion'] },
-    { components: ['easycredit-box-flash', 'easycredit-box-listing', 'easycredit-box-modal', 'easycredit-box-top'] }
-    { components: ['easycredit-widget', 'easycredit-checkout', 'easycredit-checkout-installments', 'easycredit-modal'] }
+    { components: ['easycredit-box-flash', 'easycredit-box-listing', 'easycredit-box-modal', 'easycredit-box-top'] },
+    { components: ['easycredit-widget', 'easycredit-checkout', 'easycredit-checkout-installments', 'easycredit-modal'] },
     { components: ['easycredit-merchant-manager', 'easycredit-merchant-status-widget'] }
   ],
   outputTargets: [

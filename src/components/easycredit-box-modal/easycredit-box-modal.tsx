@@ -60,8 +60,8 @@ export class EasycreditBoxModal {
           <div class="ec-box-modal__close" onClick={() => this.toggle()}></div>
 
           <div class="ec-box-modal__image" style={{backgroundImage: `url(${this.backgroundSrc()})`}}>
-            <div class="circle"></div>
-            <div class="circle circle-secondary"></div>
+            <div class="ec-circle"></div>
+            <div class="ec-circle ec-circle-secondary"></div>
 
             <div class="ec-box-modal__image-logo"></div>
           </div>
