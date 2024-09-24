@@ -10,6 +10,14 @@ log.txt
 *.sublime-project
 *.sublime-workspace
 
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
 .stencil/
 .idea/
 .vscode/

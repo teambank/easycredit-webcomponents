@@ -1,8 +1,8 @@
 {
-  "name": "@easycredit-ratenkauf/easycredit-components",
+  "name": "@easycredit/easycredit-components",
   "license": "MIT",
   "version": "1.2.10",
-  "description": "The easyCredit-Ratenkauf Web Components are a set of web components to be universally used in e-commerce platforms like Magento or Shopware. The web components ease integration of easyCredit-Ratenkauf installments payment solution by providing versatile web frontend elements for marketing and checkout.",
+  "description": "The easyCredit Web Components are a set of StencilJS based web components to be universally used in e-commerce platforms like Magento or Shopware. The web components ease integration of easyCredit-Rechnung & easyCredit-Ratenkauf payment solution by providing versatile web frontend elements for marketing, checkout and merchant processes.",
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",
   "es2015": "dist/esm/index.mjs",
@@ -13,7 +13,7 @@
   "unpkg": "dist/easycredit-components/easycredit-components.esm.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/teambank/easycredit-ratenkauf-webcomponents"
+    "url": "git+https://github.com/teambank/easycredit-webcomponents"
   },
   "files": [
     "dist/",
@@ -29,7 +29,7 @@
     "storybook:build": "storybook build ./dist",
     "storybook:deploy": "bash -c \"source .env && rsync -rvz storybook-static/ $STORYBOOK_DEPLOY_DST\"",
     "storybook:deploy:clear-cache": "bash -c \"source .env && env && curl -X DELETE \"https://api.cloudflare.com/client/v4/zones/708da8a58a29a3e65af33fa56a1bf7d9/purge_cache\" -H \"Authorization: Bearer $CF_BEARER\" -H \"Content-Type: application/json\" --data '{\"purge_everything\":true}\"",
-    "release": "yarn build && (cd dist; tar czvf ../easycredit-ratenkauf-webcomponents-$(npm pkg get version | sed 's/\"//g').tar.gz .)"
+    "release": "yarn build && (cd dist; tar czvf ../easycredit-webcomponents-$(npm pkg get version | sed 's/\"//g').tar.gz .)"
   },
   "dependencies": {
     "@babel/plugin-transform-optional-chaining": "^7.23.4",
