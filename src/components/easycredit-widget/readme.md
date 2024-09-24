@@ -7,14 +7,14 @@
 
 ## Properties
 
-| Property           | Attribute           | Description | Type      | Default         |
-| ------------------ | ------------------- | ----------- | --------- | --------------- |
-| `amount`           | `amount`            |             | `number`  | `undefined`     |
-| `disableFlexprice` | `disable-flexprice` |             | `boolean` | `false`         |
-| `displayType`      | `display-type`      |             | `string`  | `undefined`     |
-| `extended`         | `extended`          |             | `boolean` | `true`          |
-| `paymentTypes`     | `payment-types`     |             | `string`  | `'INSTALLMENT'` |
-| `webshopId`        | `webshop-id`        |             | `string`  | `undefined`     |
+| Property           | Attribute           | Description | Type      | Default               |
+| ------------------ | ------------------- | ----------- | --------- | --------------------- |
+| `amount`           | `amount`            |             | `number`  | `undefined`           |
+| `disableFlexprice` | `disable-flexprice` |             | `boolean` | `false`               |
+| `displayType`      | `display-type`      |             | `string`  | `undefined`           |
+| `extended`         | `extended`          |             | `boolean` | `true`                |
+| `paymentTypes`     | `payment-types`     |             | `string`  | `METHODS.INSTALLMENT` |
+| `webshopId`        | `webshop-id`        |             | `string`  | `undefined`           |
 
 
 ## Dependencies

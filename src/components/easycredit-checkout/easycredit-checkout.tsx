@@ -168,6 +168,32 @@ export class EasycreditCheckout {
     ])
   }
 
+  getCheckoutInstallmentUspFragment () {
+    if (this.alert) {
+      return
+    }
+
+    return ([<div class="ec-checkout__body">
+        <div class="h4">Ihre Vorteile</div>
+        <ul class="ec-checkout__usp" >
+          <li>Frühestens <strong>30 Tage</strong> nach Lieferung zahlen</li>
+          <li>Flexible monatliche Wunschrate</li>
+          <li>Kostenfreie Ratenanpassung & Sondertilgung</li>
+        </ul>
+
+        <div class="ec-checkout__actions form-submit">
+          <button type="button" class={{ 'btn': true, 'btn-primary': true, "loading": this.submitButtonClicked }} disabled={this.submitButtonClicked} onClick={() => this.submitHandler()}>
+            Weiter zu easyCredit-Ratenkauf
+          </button>
+        </div>
+
+        <p class="ec-checkout__small-print">
+          {this.getPrivacyFragment({intro: false})}
+        </p>
+      </div>
+    ])
+  }
+
   getCheckoutBillPaymentFragment () {
     if (this.alert) {
       return
@@ -180,14 +206,21 @@ export class EasycreditCheckout {
           </div>
         </easycredit-checkout-totals>
 
-        {this.getPrivacyFragment({intro: false})}
+        <div class="h4">Ihre Vorteile</div>
+        <ul class="ec-checkout__usp" >
+          <li>Frühestens <strong>30 Tage</strong> nach Lieferung zahlen</li>
+          <li>Keine zusätzlichen Kosten</li>
+        </ul>
 
         <div class="ec-checkout__actions form-submit">
-        <button type="button" class={{ 'btn': true, 'btn-primary': true, "loading": this.submitButtonClicked }} disabled={this.submitButtonClicked} onClick={() => this.submitHandler()}>
-            Weiter zum Rechnungskauf
+          <button type="button" class={{ 'btn': true, 'btn-primary': true, "loading": this.submitButtonClicked }} disabled={this.submitButtonClicked} onClick={() => this.submitHandler()}>
+            Weiter zu easyCredit-Rechnung
           </button>
         </div>
 
+        <p class="ec-checkout__small-print">
+          {this.getPrivacyFragment({intro: false})}
+        </p>
     </div>])
   }
 
@@ -238,7 +271,7 @@ export class EasycreditCheckout {
                   { this.alert }
                 </div>
               }
-              { this.isEnabled(METHODS.INSTALLMENT) && this.getCheckoutInstallmentFragment() }
+              { this.isEnabled(METHODS.INSTALLMENT) && this.getCheckoutInstallmentUspFragment() }
               { this.isEnabled(METHODS.BILL) && this.getCheckoutBillPaymentFragment() }
             </div>
           }

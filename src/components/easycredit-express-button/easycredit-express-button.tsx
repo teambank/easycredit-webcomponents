@@ -13,7 +13,7 @@ import { validateAmount } from '../../utils/validation';
 export class EasycreditExpressButton {
   @Prop() webshopId: string
   @Prop({ mutable: true }) amount: number
-  @Prop({ mutable: true }) paymentTypes: string = METHODS.INSTALLMENT
+  @Prop({ mutable: true }) paymentTypes: string
   @Prop() fullWidth: boolean = false
   @Prop() redirectUrl: string
 
@@ -21,6 +21,7 @@ export class EasycreditExpressButton {
   @State() selectedPaymentType: METHODS
   @State() installmentPlans: InstallmentPlans = null
   @State() selectedInstallment: InstallmentPlan = null
+  @State() paymentTypesEmpty: boolean = false
 
   infopageModal!: HTMLEasycreditModalElement
   checkoutModal!: HTMLEasycreditModalElement
@@ -79,6 +80,11 @@ export class EasycreditExpressButton {
   }
 
   async componentWillLoad() {
+    if (!this.paymentTypes) {
+      this.paymentTypes = METHODS.INSTALLMENT
+      this.paymentTypesEmpty = true
+    }
+
     this.caps = new Caps(this.paymentTypes)
     
     try {
@@ -91,6 +97,18 @@ export class EasycreditExpressButton {
     }
 
     this.onAmountChanged(this.amount, null);
+  }
+
+  getInstallmentUspFragment () {
+    return ([<div class="ec-checkout__body">
+        <div class="h4">Ihre Vorteile</div>
+        <ul class="ec-usp" >
+          <li>Frühestens <strong>30 Tage</strong> nach Lieferung zahlen</li>
+          <li>Flexible monatliche Wunschrate</li>
+          <li>Kostenfreie Ratenanpassung & Sondertilgung</li>
+        </ul>
+      </div>
+    ])
   }
 
   getCheckoutModalFragment() {
@@ -120,13 +138,20 @@ export class EasycreditExpressButton {
                               }
 
                               {this.selectedPaymentType === METHODS.INSTALLMENT &&
+                              !this.paymentTypesEmpty &&
                                   <easycredit-checkout-installments installments={JSON.stringify(this.installmentPlans.plans)} rows={3} />
                               }
                               {this.selectedPaymentType === METHODS.BILL &&
                                   <easycredit-checkout-bill-payment-timeline></easycredit-checkout-bill-payment-timeline>
                               }
 
-                              <easycredit-checkout-totals amount={this.amount} selectedInstallment={this.selectedInstallment} installmentPlans={this.installmentPlans}></easycredit-checkout-totals>
+                              {!this.paymentTypesEmpty &&
+                                  <easycredit-checkout-totals amount={this.amount} selectedInstallment={this.selectedInstallment} installmentPlans={this.installmentPlans}></easycredit-checkout-totals>
+                              }
+
+                              {this.paymentTypesEmpty &&
+                                  this.getInstallmentUspFragment()
+                              }
                           </div>
 
                           <div class="ec-background">
