@@ -10,6 +10,7 @@
 | Property      | Attribute      | Description | Type                                  | Default                                                    |
 | ------------- | -------------- | ----------- | ------------------------------------- | ---------------------------------------------------------- |
 | `alt`         | `alt`          |             | `string`                              | `'easyCredit-Ratenkauf - Einfach. Fair. In Raten zahlen.'` |
+| `color`       | `color`        |             | `string`                              | `'blue'`                                                   |
 | `paymentType` | `payment-type` |             | `METHODS.BILL \| METHODS.INSTALLMENT` | `METHODS.INSTALLMENT`                                      |
 
 

@@ -123,7 +123,8 @@ export class EasycreditExpressButton {
                       <div class="ec-col ec-col-method">
                           <div class="ec-container">
                               <easycredit-logo
-                                payment-type={METHODS.INSTALLMENT}
+                                payment-type={this.selectedPaymentType}
+                                color="white"
                               ></easycredit-logo>
 
                               {

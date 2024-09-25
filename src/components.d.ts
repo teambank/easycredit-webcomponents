@@ -111,6 +111,7 @@ export namespace Components {
     }
     interface EasycreditLogo {
         "alt": string;
+        "color": string;
         "paymentType": METHODS;
     }
     interface EasycreditMerchantManager {
@@ -456,6 +457,7 @@ declare namespace LocalJSX {
     }
     interface EasycreditLogo {
         "alt"?: string;
+        "color"?: string;
         "paymentType"?: METHODS;
     }
     interface EasycreditMerchantManager {
