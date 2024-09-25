@@ -26,9 +26,12 @@ export class EasycreditCheckout {
   @State() selectedInstallment: InstallmentPlan = null
   @State() submitDisabled = false
 
+  @Element() el: HTMLElement;
+  
   modal!: HTMLEasycreditModalElement;
 
   caps: Caps
+  errorHandlerTimeout: number
 
   @Listen('selectedInstallment')
   selectedInstallmentHandler(e) {
@@ -43,6 +46,7 @@ export class EasycreditCheckout {
   @Listen('closeModal')
   closeModalHandler () {
     this.modal.close()
+    clearTimeout(this.errorHandlerTimeout);
   }
 
   isEnabled(type: METHODS) {
@@ -79,13 +83,11 @@ export class EasycreditCheckout {
     }
   }
 
-  @Element() el: HTMLElement;
-
   submitHandler() {
     sendFeedback(this, { component: 'EasycreditCheckout', action: 'submit' })
 
     this.submitButtonClicked = true
-    addErrorHandler(this, () => {
+    this.errorHandlerTimeout = addErrorHandler(this, () => {
       this.alert = 'Leider ist eine Zahlung mit easyCredit derzeit nicht möglich. Bitte verwenden Sie eine andere Zahlungsart oder wenden Sie sich an den Händler.'
       this.modal.close()
     })

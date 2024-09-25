@@ -1,10 +1,10 @@
 import { Loader } from './loader'
 import { InstallmentPlans, InstallmentPlansContainer } from '../types'
 
-export function addErrorHandler(component, callback) {
+export function addErrorHandler(component, callback): number {
   let time = 10
 
-  let timeout = window.setTimeout(() => {
+  const timeout: number = window.setTimeout(() => {
     console.error('No event handler handled the submit event of <easycredit-checkout> within ' + time + ' seconds. Please check the integration.')
     sendFeedback(component, { component: 'EasycreditCheckout', action: 'error' })
 
