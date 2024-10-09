@@ -192,7 +192,7 @@ export class EasycreditWidget {
 
     const params = {
       bestellwert: this.amount,
-      shopKennung: '2.de.7387.2', //this.webshopId,
+      shopKennung: this.webshopId,
       paymentSwitchPossible: this.paymentTypes.split(',').length > 1,
       ohneZinsflex: this.disableFlexprice 
     }

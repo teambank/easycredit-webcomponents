@@ -98,7 +98,7 @@ export class EasycreditCheckout {
       composed: true,
       detail: {
         paymentType: this.paymentType,
-        ...(this.selectedInstallment?.numberOfInstallments && { numberOfInstallments: this.selectedInstallment?.numberOfInstallments })
+        numberOfInstallments: this.selectedInstallment?.numberOfInstallments ?? null
       }
     }))
   }
