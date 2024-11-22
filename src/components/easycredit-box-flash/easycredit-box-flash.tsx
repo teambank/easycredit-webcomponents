@@ -50,7 +50,7 @@ export class EasycreditBoxFlash {
                     Der easyCredit-Ratenkauf bietet Ihnen die Möglichkeit hier im Online-Shop bequem und einfach in Raten zu zahlen. Direkt von zu Hause und ganz ohne Risiko. Denn zuerst erhalten Sie Ihre Bestellung und bezahlen später in Ihren Wunschraten. 
                 </div>
                 <div class="ec-box-flash__content-button">
-                  <a class="btn btn-primary" href="https://www.easycredit-ratenkauf.de/" target="_blank">Mehr erfahren</a>
+                  <a class="btn btn-primary" href="https://www.easycredit.de/ratenkauf" target="_blank">Mehr erfahren</a>
                 </div>
 
                 <div class="ec-box-flash__content-logo-finanzgruppe"></div>

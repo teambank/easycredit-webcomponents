@@ -77,7 +77,7 @@ export class EasycreditBoxModal {
             </div>
 
             <div class="ec-box-modal__content-button">
-                <a class="btn btn-primary" href="https://www.easycredit-ratenkauf.de/" target="_blank">Mehr erfahren</a>
+                <a class="btn btn-primary" href="https://www.easycredit.de/ratenkauf" target="_blank">Mehr erfahren</a>
             </div>
 
             <div class="ec-box-modal__content-logo-finanzgruppe"></div>
