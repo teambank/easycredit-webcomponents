@@ -205,14 +205,16 @@ export class EasycreditWidget {
       const info = state.webshopInfo
       paymentType = this.amount >= info.minInstallmentValue && this.amount <= info.maxInstallmentValue ? METHODS.INSTALLMENT : METHODS.BILL;
     }
-    if (this.isEnabled(paymentType)) {
-      url.searchParams.append('paymentType', paymentType + '_PAYMENT');
+    if (!this.isEnabled(paymentType)) {
+      paymentType = paymentType === METHODS.INSTALLMENT ? METHODS.BILL : METHODS.INSTALLMENT;
     }
+
+    url.searchParams.append('paymentType', paymentType + '_PAYMENT');
+
     return url.origin + url.pathname + url.hash + url.search;
   }
 
   getModalFragment () {
-    //const url = this.getInstallmentPlan()?.url ?? this.getDefaultModalUrl()
     return ([
       <easycredit-modal ref={(el) => this.modal = el as HTMLEasycreditModalElement} size="payment">
           <iframe slot="content"></iframe>
