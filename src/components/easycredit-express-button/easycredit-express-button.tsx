@@ -191,7 +191,8 @@ export class EasycreditExpressButton {
               alert('Leider ist eine Zahlung mit easyCredit derzeit nicht möglich. Bitte verwenden Sie eine andere Zahlungsart oder wenden Sie sich an den Händler.')
               this.checkoutModal.close()
           })
-          this.el.dispatchEvent(new CustomEvent('submit', {
+
+          const eventParams = {
               bubbles: true,
               cancelable: true,
               composed: true,
@@ -199,7 +200,10 @@ export class EasycreditExpressButton {
                 paymentType: this.selectedPaymentType,
                 ...(this.selectedInstallment?.numberOfInstallments && { numberOfInstallments: this.selectedInstallment?.numberOfInstallments })
               }
-          }))
+          };
+
+          this.el.dispatchEvent(new CustomEvent('submit', eventParams)); // deprecated, bubbles only until form when using event delegation, kept for backwards compat
+          this.el.dispatchEvent(new CustomEvent('easycredit-submit', eventParams));
       }
   }
 

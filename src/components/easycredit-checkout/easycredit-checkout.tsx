@@ -92,15 +92,18 @@ export class EasycreditCheckout {
       this.modal.close()
     })
 
-    this.el.dispatchEvent(new CustomEvent('submit', {
-      bubbles    : true,
-      cancelable : true,
+    const eventParams = {
+      bubbles: true,
+      cancelable: true,
       composed: true,
       detail: {
         paymentType: this.paymentType,
         numberOfInstallments: this.selectedInstallment?.numberOfInstallments ?? null
       }
-    }))
+    };
+
+    this.el.dispatchEvent(new CustomEvent('submit', eventParams)); // deprecated, bubbles only until form when using event delegation, kept for backwards compat
+    this.el.dispatchEvent(new CustomEvent('easycredit-submit', eventParams));
   }
 
   getPaymentPlan () {

@@ -33,7 +33,8 @@ export default {
             description: "Zeigt den Button über 100% der zur Verfügung stehenden Breite an."
         },
         submit: {
-            action: 'submit',
+            name: 'easycredit-submit',
+            action: 'easycredit-submit',
             table: {
                 category: "Events",
             },
@@ -55,7 +56,10 @@ const Template = (args) => {
     return `<easycredit-express-button ${buildAttributes(args).join(' ')} />
 
   <script>
-  document.querySelector('easycredit-express-button').addEventListener('submit', (e) => {
+  document.addEventListener('easycredit-submit', (e) => {
+    if (!e.target.matches('easycredit-express-button')) {
+      return;
+    }
     // window.location.href = 'https://shopurl/easycredit/express';
     // or
     // document.querySelector('form.my-form').submit();

@@ -37,7 +37,8 @@ Sobald der Kunde die PaymentPage durchlaufen hat, zeigt das Widget die vom Kunde
       description: "erwartet das JSON-formatierte TransactionSummary-Objekt (siehe GET /api/payment/v3/transaction/{technicalTransactionId}))'",
     },
     submit: {
-      action: 'submit',
+      name: 'easycredit-submit',
+      action: 'easycredit-submit',
       table: {
         category: "Events",
       },
@@ -65,7 +66,11 @@ const Template = (args) => {
 const TemplateExample = (args) => {
   return Template(args) + `
   <script>
-  document.querySelector('easycredit-checkout').addEventListener('submit', (e) => {
+  document.addEventListener('easycredit-submit', (e) => {
+    if (!e.target.matches('easycredit-checkout')) {
+      return;
+    }
+
     // window.location.href = 'https://shopurl/easycredit/start';
     // or
     // document.querySelector('form.my-form').submit();
