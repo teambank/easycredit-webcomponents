@@ -173,6 +173,22 @@ export class EasycreditWidget {
     </span>
   }
 
+  private getFlexpriceBadge(): string {
+    if (
+      !this.isEnabled(METHODS.INSTALLMENT) ||
+      state.webshopInfo['interestRateFlexibilisation']?.interestRate === null ||
+      this.disableFlexprice === true
+    ) {
+      return;
+    }
+
+    const flex = state.webshopInfo['interestRateFlexibilisation']
+
+    return <span class="badges">
+        <span class="badge">{ flex.interestRate }% bei Laufzeiten bis { flex.maxInstallments } Monate</span>
+    </span>
+  }
+
   openModal (paymentType?: METHODS): void {
     sendFeedback(this, { component: 'EasycreditWidget', action: 'openModal' }); 
 
@@ -236,6 +252,7 @@ export class EasycreditWidget {
           {this.getLogo()}
 
           <span>
+            {this.getFlexpriceBadge()}
             {this.getInstallmentText()}
             {
               this.getInstallmentText() && 
