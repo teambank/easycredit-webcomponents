@@ -44,7 +44,7 @@ export default {
 }
 
 let args = {
-    webshopId: '2.de.7387.2',
+    webshopId: '2.de.9999.9999',
     amount: 299,
     fullWidth: false,
     // redirectUrl: 'https://easycredit-ratenkauf.de/'
