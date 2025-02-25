@@ -146,7 +146,7 @@ export class EasycreditMerchantManager {
     }
     return ([
       <div class="transaction-info">
-        <easycredit-merchant-status-widget tx-id={this.txId} is-manager="true" />
+        <easycredit-merchant-status-widget tx-id={this.txId} is-manager={true} />
         <p>
           <strong>Kunde:</strong> { this.tx.customer.firstName } { this.tx.customer.lastName }<br />
           <strong>Kundennummer:</strong> { this.tx.customer.customerNumber }<br />
