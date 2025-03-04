@@ -4,6 +4,23 @@ import { Meta } from "@storybook/blocks";
 
 <h1>Hinweise für Entwickler</h1>
 
+<h2>Benutzen von Event Delegation</h2>
+
+Normalerweise können den Komponenten Event-Handler hinzugefügt werden, sobald Sie `hydriert` sind. In vielen Szenarien werden Elemente aber auch durch JavaScript dynamisch ersetzt oder erst später eingefügt, z.B. wenn Elemente auf der Seite nachladen. Um Event-Handler zuverlässig an die Events zu binden, empfiehlt sich die Verwendung von Event Delegation. Dabei wird der Event-Listener nicht direkt auf das Element registriert, sondern auf Ebene des `document`'s oder eines spezifischeren Nodes. Der Vorteil ist, dass das Element zu diesem Zeitpunkt noch gar nicht vorhanden sein muss. Es muss also auch nicht auf Hydrierung oder das Element an sich gewartet werden. Durch das CustomEvent mit Prefix `easycredit-` wird eine Kollision mit anderen Komponenten oder Funktionen vermieden.
+
+```html
+<script>
+(async () => {
+    document.addEventListener('easycredit-submit', (e) => {
+        if (!e.target.matches('easycredit-checkout')) {
+          return;
+        }
+        
+        console.log('submit!');
+    })
+})();
+</script>
+```
 
 <h2>Warten auf Komponenten-Initialisierung mit `whenDefined`</h2>
 
@@ -15,45 +32,8 @@ Um die Komponenten und deren Methoden ansprechen zu können, muss das jeweilige 
     await customElements.whenDefined('easycredit-checkout');
     const checkoutComponent = document.querySelector('easycredit-checkout')
     if (checkoutComponent) {
-        checkoutComponent.addEventListener('submit',() => {
-            console.log('submit!');
-        })
+        checkoutComponent.dispatchEvent( new Event( 'openModal' ) );
     }
 })();
-</script>
-```
-
-<h2>dynamisches Hinzufügen von EventHandlern</h2>
-
-Möglicherweise wird die Komponente nicht bereits beim Laden der Seite, sondern erst später durch JavaScript der Seite hinzugefügt oder aktualisiert. Um auf Veränderungen im DOM reagieren zu können, kann die folgende Funktion hilfreich sein:
-
-```html
-<script>
-const watchForSelector = function (selector, cb) {
-    const observer = new MutationObserver(function(mutations) { 
-        mutations.forEach(function(mutation) {
-            mutation.addedNodes.forEach(function(node) {  
-                if (node.nodeType !== Node.ELEMENT_NODE) {
-                    return;
-                }
-                if (node.tagName === selector.toUpperCase()) {
-                    return cb(node);
-                }
-                
-                const el = node.querySelector(selector);
-                if (el) {
-                    return cb(el);
-                }
-            });
-        });
-    });
-    observer.observe(document, { subtree: true, childList: true });
-}
-
-watchForSelector('easycredit-checkout', function(component) {
-    component.addEventListener('submit',() => {
-        console.log('submit!');
-    })
-})
 </script>
 ```
