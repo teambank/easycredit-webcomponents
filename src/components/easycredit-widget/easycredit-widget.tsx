@@ -22,7 +22,7 @@ export class EasycreditWidget {
 
   @State() installmentPlans: InstallmentPlans
   @State() isValid: boolean = false
-  @State() widgetLayout: string = ''
+  @State() widgetLayout: string = null
   @State() webshopInfo: WebshopInfo = null
 
   modal!: HTMLEasycreditModalElement;
@@ -200,7 +200,12 @@ export class EasycreditWidget {
     if ( !this.widgetElement ) {
       return;
     }
-    this.widgetLayout = this.widgetElement.getBoundingClientRect().width < 251 ? 'small' : '';
+    if (this.widgetLayout !== null) {
+      return;
+    }
+    if (this.widgetElement.getBoundingClientRect().width < 251) {
+      this.widgetLayout = 'small';
+    }
   }
 
   getModalUrl (paymentType?: METHODS) {
@@ -245,7 +250,7 @@ export class EasycreditWidget {
       <div class="ec-widget-container">
         <div class={{
           'ec-widget': true,
-          ['layout-' + this.widgetLayout]: this.widgetLayout !== '',
+          ['layout-' + this.widgetLayout]: this.widgetLayout !== null,
           'clean': this.displayType === 'clean',
           'minimal': this.displayType === 'minimal'
         }} ref={(el) => this.widgetElement = el as HTMLElement} onClick={this.clickHandler}>
