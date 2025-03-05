@@ -46,10 +46,6 @@ export namespace Components {
     }
     interface EasycreditBoxFlash {
         "isOpen": boolean;
-        /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
-         */
-        "is-open"?: boolean;
         "src": string;
         "toggle": () => Promise<void>;
     }
@@ -60,15 +56,7 @@ export namespace Components {
     interface EasycreditBoxModal {
         "delay": number;
         "isOpen": boolean;
-        /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
-         */
-        "is-open"?: boolean;
         "snoozeFor": number;
-        /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
-         */
-        "snooze-for"?: number;
         "src": string;
         "toggle": () => Promise<void>;
     }
@@ -78,30 +66,10 @@ export namespace Components {
         "alert": string;
         "amount": number;
         "disableFlexprice": boolean;
-        /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
-         */
-        "disable-flexprice"?: boolean;
         "isActive": boolean;
-        /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
-         */
-        "is-active"?: boolean;
         "paymentPlan": string;
-        /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
-         */
-        "payment-plan"?: string;
         "paymentType": METHODS;
-        /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
-         */
-        "payment-type"?: METHODS;
         "webshopId": string;
-        /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
-         */
-        "webshop-id"?: string;
     }
     interface EasycreditCheckoutBillPaymentTimeline {
     }
@@ -109,26 +77,14 @@ export namespace Components {
         "installments": any;
         "rows": number;
         "showMoreButtonText": string;
-        /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
-         */
-        "show-more-button-text"?: string;
     }
     interface EasycreditCheckoutLabel {
         "label": string;
         "paymentType": METHODS;
-        /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
-         */
-        "payment-type"?: METHODS;
         "slogan": string;
     }
     interface EasycreditCheckoutPrivacyApproval {
         "webshopId": string;
-        /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
-         */
-        "webshop-id"?: string;
     }
     interface EasycreditCheckoutTotals {
         "amount": number;
@@ -138,48 +94,16 @@ export namespace Components {
     interface EasycreditExpressButton {
         "amount": number;
         "fullWidth": boolean;
-        /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
-         */
-        "full-width"?: boolean;
         "paymentTypes": string;
-        /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
-         */
-        "payment-types"?: string;
         "redirectUrl": string;
-        /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
-         */
-        "redirect-url"?: string;
         "webshopId": string;
-        /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
-         */
-        "webshop-id"?: string;
     }
     interface EasycreditExpressButtonSingle {
         "amount": number;
         "bgBlue": boolean;
-        /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
-         */
-        "bg-blue"?: boolean;
         "fullWidth": boolean;
-        /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
-         */
-        "full-width"?: boolean;
         "paymentType": METHODS;
-        /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
-         */
-        "payment-type"?: METHODS;
         "webshopId": string;
-        /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
-         */
-        "webshop-id"?: string;
     }
     interface EasycreditFaq {
     }
@@ -189,45 +113,21 @@ export namespace Components {
         "alt": string;
         "color": string;
         "paymentType": METHODS;
-        /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
-         */
-        "payment-type"?: METHODS;
     }
     interface EasycreditMerchantManager {
         "date": string;
         "txId": string;
-        /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
-         */
-        "tx-id"?: string;
     }
     interface EasycreditMerchantStatusWidget {
         "date": string;
         "isManager": boolean;
-        /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
-         */
-        "is-manager"?: boolean;
         "txId": string;
-        /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
-         */
-        "tx-id"?: string;
     }
     interface EasycreditModal {
         "close": () => Promise<void>;
         "isOpen": boolean;
-        /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
-         */
-        "is-open"?: boolean;
         "loading": boolean;
         "loadingMessage": string;
-        /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
-         */
-        "loading-message"?: string;
         "open": () => Promise<void>;
         "show": boolean;
         "size": string;
@@ -237,26 +137,10 @@ export namespace Components {
     interface EasycreditWidget {
         "amount": number;
         "disableFlexprice": boolean;
-        /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
-         */
-        "disable-flexprice"?: boolean;
         "displayType": string;
-        /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
-         */
-        "display-type"?: string;
         "extended": boolean;
         "paymentTypes": string;
-        /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
-         */
-        "payment-types"?: string;
         "webshopId": string;
-        /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
-         */
-        "webshop-id"?: string;
     }
 }
 export interface EasycreditAccordionItemCustomEvent<T> extends CustomEvent<T> {
@@ -509,10 +393,6 @@ declare namespace LocalJSX {
     }
     interface EasycreditBoxFlash {
         "isOpen"?: boolean;
-        /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
-         */
-        "is-open"?: boolean;
         "src"?: string;
     }
     interface EasycreditBoxListing {
@@ -521,15 +401,7 @@ declare namespace LocalJSX {
     interface EasycreditBoxModal {
         "delay"?: number;
         "isOpen"?: boolean;
-        /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
-         */
-        "is-open"?: boolean;
         "snoozeFor"?: number;
-        /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
-         */
-        "snooze-for"?: number;
         "src"?: string;
     }
     interface EasycreditBoxTop {
@@ -538,30 +410,10 @@ declare namespace LocalJSX {
         "alert"?: string;
         "amount"?: number;
         "disableFlexprice"?: boolean;
-        /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
-         */
-        "disable-flexprice"?: boolean;
         "isActive"?: boolean;
-        /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
-         */
-        "is-active"?: boolean;
         "paymentPlan"?: string;
-        /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
-         */
-        "payment-plan"?: string;
         "paymentType"?: METHODS;
-        /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
-         */
-        "payment-type"?: METHODS;
         "webshopId"?: string;
-        /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
-         */
-        "webshop-id"?: string;
     }
     interface EasycreditCheckoutBillPaymentTimeline {
     }
@@ -570,26 +422,14 @@ declare namespace LocalJSX {
         "onSelectedInstallment"?: (event: EasycreditCheckoutInstallmentsCustomEvent<string>) => void;
         "rows"?: number;
         "showMoreButtonText"?: string;
-        /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
-         */
-        "show-more-button-text"?: string;
     }
     interface EasycreditCheckoutLabel {
         "label"?: string;
         "paymentType"?: METHODS;
-        /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
-         */
-        "payment-type"?: METHODS;
         "slogan"?: string;
     }
     interface EasycreditCheckoutPrivacyApproval {
         "webshopId"?: string;
-        /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
-         */
-        "webshop-id"?: string;
     }
     interface EasycreditCheckoutTotals {
         "amount"?: number;
@@ -599,49 +439,17 @@ declare namespace LocalJSX {
     interface EasycreditExpressButton {
         "amount"?: number;
         "fullWidth"?: boolean;
-        /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
-         */
-        "full-width"?: boolean;
         "paymentTypes"?: string;
-        /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
-         */
-        "payment-types"?: string;
         "redirectUrl"?: string;
-        /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
-         */
-        "redirect-url"?: string;
         "webshopId"?: string;
-        /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
-         */
-        "webshop-id"?: string;
     }
     interface EasycreditExpressButtonSingle {
         "amount"?: number;
         "bgBlue"?: boolean;
-        /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
-         */
-        "bg-blue"?: boolean;
         "fullWidth"?: boolean;
-        /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
-         */
-        "full-width"?: boolean;
         "onButtonClicked"?: (event: EasycreditExpressButtonSingleCustomEvent<string>) => void;
         "paymentType"?: METHODS;
-        /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
-         */
-        "payment-type"?: METHODS;
         "webshopId"?: string;
-        /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
-         */
-        "webshop-id"?: string;
     }
     interface EasycreditFaq {
     }
@@ -651,44 +459,20 @@ declare namespace LocalJSX {
         "alt"?: string;
         "color"?: string;
         "paymentType"?: METHODS;
-        /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
-         */
-        "payment-type"?: METHODS;
     }
     interface EasycreditMerchantManager {
         "date"?: string;
         "txId"?: string;
-        /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
-         */
-        "tx-id"?: string;
     }
     interface EasycreditMerchantStatusWidget {
         "date"?: string;
         "isManager"?: boolean;
-        /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
-         */
-        "is-manager"?: boolean;
         "txId"?: string;
-        /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
-         */
-        "tx-id"?: string;
     }
     interface EasycreditModal {
         "isOpen"?: boolean;
-        /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
-         */
-        "is-open"?: boolean;
         "loading"?: boolean;
         "loadingMessage"?: string;
-        /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
-         */
-        "loading-message"?: string;
         "onModalClosed"?: (event: EasycreditModalCustomEvent<any>) => void;
         "onModalOpened"?: (event: EasycreditModalCustomEvent<any>) => void;
         "onModalSubmit"?: (event: EasycreditModalCustomEvent<any>) => void;
@@ -698,26 +482,10 @@ declare namespace LocalJSX {
     interface EasycreditWidget {
         "amount"?: number;
         "disableFlexprice"?: boolean;
-        /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
-         */
-        "disable-flexprice"?: boolean;
         "displayType"?: string;
-        /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
-         */
-        "display-type"?: string;
         "extended"?: boolean;
         "paymentTypes"?: string;
-        /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
-         */
-        "payment-types"?: string;
         "webshopId"?: string;
-        /**
-         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
-         */
-        "webshop-id"?: string;
     }
     interface IntrinsicElements {
         "easycredit-accordion": EasycreditAccordion;

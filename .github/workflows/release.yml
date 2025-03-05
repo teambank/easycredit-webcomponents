@@ -13,11 +13,9 @@ jobs:
     - name: Run script file
       id: build-release
       run: |
-         corepack enable
-         yarn set version berry
-         yarn
-         yarn release
-         
+         npm ci
+         npm run release
+
          echo "::set-output name=filepath::$(ls *.tar.gz | head -1)"
          echo "::set-output name=filename::$(basename `ls *.tar.gz | head -1`)"
       shell: bash

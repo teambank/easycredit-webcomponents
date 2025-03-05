@@ -29,13 +29,13 @@
     "storybook:build": "storybook build ./dist",
     "storybook:deploy": "bash -c \"source .env && rsync -rvz storybook-static/ $STORYBOOK_DEPLOY_DST\"",
     "storybook:deploy:clear-cache": "bash -c \"source .env && env && curl -X DELETE \"https://api.cloudflare.com/client/v4/zones/708da8a58a29a3e65af33fa56a1bf7d9/purge_cache\" -H \"Authorization: Bearer $CF_BEARER\" -H \"Content-Type: application/json\" --data '{\"purge_everything\":true}\"",
-    "release": "yarn build && (cd dist; tar czvf ../easycredit-webcomponents-$(npm pkg get version | sed 's/\"//g').tar.gz .)"
+    "release": "npm run build && (cd dist; tar czvf ../easycredit-webcomponents-$(npm pkg get version | sed 's/\"//g').tar.gz .)"
   },
   "dependencies": {
     "@babel/plugin-transform-optional-chaining": "^7.25.9",
     "@open-wc/webpack-import-meta-loader": "^0.4.7",
     "@stencil/core": "^4.27.0",
-    "@stencil/sass": "^3.0.12",
+    "@stencil/sass": "3.0.12",
     "@stencil/store": "^2.0.16",
     "@storybook/addon-essentials": "^8.6.0",
     "@storybook/addon-interactions": "^8.6.0",
@@ -66,6 +66,5 @@
     "jest-cli": "^29.7.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
-  },
-  "packageManager": "yarn@4.2.1"
+  }
 }
