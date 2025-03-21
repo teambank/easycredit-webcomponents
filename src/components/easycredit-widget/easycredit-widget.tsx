@@ -1,9 +1,8 @@
 import { Component, Prop, State, Watch, h } from '@stencil/core';
 import { formatAmount, getWebshopInfo, fetchInstallmentPlans } from '../../utils/utils';
 import { applyAssetsUrl, sendFeedback } from '../../utils/utils';
-import { Caps, validateAmount } from '../../utils/validation';
+import { Caps } from '../../utils/validation';
 import { WebshopInfo, InstallmentPlans, METHODS } from '../../types';
-import state from '../../stores/general'
 
 @Component({
   tag: 'easycredit-widget',
@@ -11,7 +10,6 @@ import state from '../../stores/general'
   shadow: true,
 })
 export class EasycreditWidget {
-
 
   @Prop() webshopId: string
   @Prop({ mutable: true }) amount: number
@@ -36,7 +34,7 @@ export class EasycreditWidget {
       return
     }
     try {
-      validateAmount(this.amount, METHODS.INSTALLMENT)
+      this.caps.validateAmount(this.amount, METHODS.INSTALLMENT)
     } catch (e) {
       return;
     }
@@ -63,11 +61,11 @@ export class EasycreditWidget {
   }
   
   async componentWillLoad() {
-    this.caps = new Caps(this.paymentTypes)
-    this.onAmountChanged(this.amount, 0);
-
     try {
-      await getWebshopInfo(this.webshopId)
+      this.webshopInfo = await getWebshopInfo(this.webshopId)
+      this.caps = new Caps(this.paymentTypes, this.webshopInfo);
+      this.onAmountChanged(this.amount, 0);
+
       this.isValid = true
     } catch(e) {
       console.error(e)
@@ -111,7 +109,7 @@ export class EasycreditWidget {
       return
     }
     
-    let info = state.webshopInfo
+    let info = this.webshopInfo
     if (this.amount < info.minInstallmentValue) {
       if (!this.extended) {
         return
@@ -144,7 +142,7 @@ export class EasycreditWidget {
       return
     }
 
-    const info = state.webshopInfo
+    const info = this.webshopInfo
     if (!info) {
       return
     }
@@ -176,13 +174,13 @@ export class EasycreditWidget {
   private getFlexpriceBadge(): string {
     if (
       !this.isEnabled(METHODS.INSTALLMENT) ||
-      state.webshopInfo['interestRateFlexibilisation']?.interestRate === null ||
+      this.webshopInfo['interestRateFlexibilisation']?.interestRate === null ||
       this.disableFlexprice === true
     ) {
       return;
     }
 
-    const flex = state.webshopInfo['interestRateFlexibilisation']
+    const flex = this.webshopInfo['interestRateFlexibilisation']
 
     return <span class="badges">
         <span class="badge">{ flex.interestRate }% bei Laufzeiten bis { flex.maxInstallments } Monate</span>
@@ -223,7 +221,7 @@ export class EasycreditWidget {
     });
 
     if (!paymentType) {
-      const info = state.webshopInfo
+      const info = this.webshopInfo
       paymentType = this.amount >= info.minInstallmentValue && this.amount <= info.maxInstallmentValue ? METHODS.INSTALLMENT : METHODS.BILL;
     }
     if (!this.isEnabled(paymentType)) {

@@ -18,10 +18,10 @@ If you still want to build the project yourself use the following commands:
 
 ```
 # install dependencies
-yarn
+npm install 
 
 # build the components
-yarn build
+npm run build
 ```
 
 The components can be found in the `dist` directory after a successful build.

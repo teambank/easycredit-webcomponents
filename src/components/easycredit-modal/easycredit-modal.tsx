@@ -45,14 +45,18 @@ export class EasycreditModal {
         this.elementHeight = 0;
       }
       var checkoutModalContentContainer = this.element.querySelector<HTMLElement>('[slot="content"] .ec-col-method .ec-container');
+      var checkoutModalContentContainerAgreement = this.element.querySelector<HTMLElement>('[slot="content"] .ec-col-agreement .ec-container');
 
-      setTimeout(() => {
-        this.elementHeight = checkoutModalContentContainer.offsetHeight;
-      }, 100)
-      setTimeout(() => {
-        this.elementHeight = checkoutModalContentContainer.offsetHeight;
-      }, 500)
-      console.log('Set height: ' + this.elementHeight);
+      if ( this.elementHeight === 0 ) {
+        setTimeout(() => {
+          this.elementHeight = checkoutModalContentContainer.offsetHeight > checkoutModalContentContainerAgreement.offsetHeight ? checkoutModalContentContainer.offsetHeight : checkoutModalContentContainerAgreement.offsetHeight;
+        }, 100)
+      } else {
+        setTimeout(() => {
+          this.elementHeight = checkoutModalContentContainer.offsetHeight > checkoutModalContentContainerAgreement.offsetHeight ? checkoutModalContentContainer.offsetHeight : checkoutModalContentContainerAgreement.offsetHeight;
+        }, 500)
+      }
+      // console.log('Set height: ' + this.elementHeight);
     }
   }
 

@@ -1,7 +1,6 @@
 import { Component, Prop, State, Element, h, EventEmitter, Event } from '@stencil/core';
 import { applyAssetsUrl } from '../../utils/utils';
 import { METHODS } from '../../types';
-import { validateAmount } from '../../utils/validation';
 
 @Component({
   tag: 'easycredit-express-button-single',
@@ -68,12 +67,6 @@ export class EasycreditExpressButtonSingle {
   }
 
   render() {
-    try {
-      validateAmount(this.amount, this.paymentType)
-    } catch (e) {
-      return
-    }
-
     return ([
       <div class="ec-express-button" style={{ opacity: this.buttonOpacity }}>
         <div class={{ "ec-express-button__btn": true, "blue": this.bgBlue, "full-width": this.fullWidth }}>

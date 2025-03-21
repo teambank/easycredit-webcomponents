@@ -96,6 +96,7 @@ $circle-width-33-secondary: calc(100% * 0.33 * 0.33);
 $ratenkauf-icon: '<svg id="easyCredit" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><defs><style>.cls-1{fill:#0066b3;}.cls-2{fill:#fff;}</style></defs><circle class="cls-1" cx="60" cy="60" r="60"/><path class="cls-2" d="M96.1094,50.91c-2.3081-.7851-6.5437-1.6761-13.6446-1.6761a26.2577,26.2577,0,0,0-17.5583,6.6105,5.791,5.791,0,0,1-1.7742,1.0521,38.9812,38.9812,0,0,1-13.86,2.03h-.1375c-4.679,0-7.6152-.7852-9.3306-2.19-1.57-1.2995-2.2179-3.2308-2.1-5.9551H68.6121l.0982-.4476a48.708,48.708,0,0,0,1.209-8.1926c0-6.3634-2.1274-11.3173-5.8136-14.6737s-8.8437-5.0718-14.8142-5.0718c-10.0883,0-16.9222,4.0747-21.22,9.5078A28.96,28.96,0,0,0,22.05,49.34,20.1865,20.1865,0,0,0,28.11,64.1984c3.9959,3.8235,9.8606,6.171,17.4285,6.171A90.6105,90.6105,0,0,0,56.4,69.7412,28.2979,28.2979,0,0,0,55.4346,77c0,6.0491,2.0414,11.1916,5.888,14.87,3.9256,3.7528,9.5544,5.7352,16.2512,5.7352A42.613,42.613,0,0,0,87.36,96.3683l1.311-.3376,2.9323-14.1321L87.6777,83.72a20.3115,20.3115,0,0,1-8.479,1.7272,9.2547,9.2547,0,0,1-6.28-1.9629c-1.5232-1.3621-2.2965-3.4388-2.2965-6.1789a18.9209,18.9209,0,0,1,3.4621-10.587,12.1231,12.1231,0,0,1,10.0175-5.3152A27.9356,27.9356,0,0,1,93.13,62.64l2.3119.7851L97.95,51.5267ZM38.8618,41.5518a10.7482,10.7482,0,0,1,10.6259-7.7137,6.2237,6.2237,0,0,1,5.4092,2.3868,9.5837,9.5837,0,0,1,1.5191,5.3269Z"/></svg>';
 $icon-close-blue: '<svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L10 10M1 10L10 1" stroke="#002C5A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 $icon-close-white: '<svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L10 10M1 10L10 1" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+$icon-arrow-down-white: '<svg width="10" height="12" viewBox="0 0 10 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M5.00008 0.75C5.55236 0.75 6.00008 1.19772 6.00008 1.75V8.30681L7.91884 6.93627C8.36825 6.61526 8.9928 6.71935 9.31381 7.16876C9.63482 7.61817 9.53073 8.24272 9.08132 8.56373L5.58132 11.0637C5.23362 11.3121 4.76654 11.3121 4.41884 11.0637L0.918839 8.56373C0.469427 8.24272 0.365335 7.61817 0.686344 7.16876C1.00735 6.71935 1.6319 6.61526 2.08132 6.93627L4.00008 8.30681V1.75C4.00008 1.19772 4.44779 0.75 5.00008 0.75Z" fill="#fff"/></svg>';
 $icon-checkmark: '<svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.1 0.200028C11.5418 0.531399 11.6314 1.1582 11.3 1.60003L5.3 9.60003C5.12607 9.83194 4.86005 9.97696 4.57089 9.99751C4.28173 10.0181 3.99788 9.91212 3.79289 9.70714L1.29289 7.20713C0.902369 6.81661 0.902369 6.18345 1.29289 5.79292C1.68342 5.4024 2.31658 5.4024 2.70711 5.79292L4.39181 7.47762L9.7 0.400028C10.0314 -0.0417994 10.6582 -0.131343 11.1 0.200028Z" fill="#002C5A"/></svg>';
 $icon-checkmark-circle: '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 8C16 12.4183 12.4183 16 8 16C3.58172 16 0 12.4183 0 8C0 3.58172 3.58172 0 8 0C12.4183 0 16 3.58172 16 8Z" fill="#002C5A"/><path fill-rule="evenodd" clip-rule="evenodd" d="M11.5547 4.16795C12.0142 4.4743 12.1384 5.09517 11.8321 5.5547L7.83205 11.5547C7.66587 11.804 7.39667 11.9656 7.09854 11.9951C6.8004 12.0247 6.50474 11.919 6.29289 11.7071L4.29289 9.70711C3.90237 9.31658 3.90237 8.68342 4.29289 8.29289C4.68342 7.90237 5.31658 7.90237 5.70711 8.29289L6.84457 9.43036L10.1679 4.4453C10.4743 3.98577 11.0952 3.8616 11.5547 4.16795Z" fill="white"/></svg>';
 $icon-checkmark-circle-white: '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 8C16 12.4183 12.4183 16 8 16C3.58172 16 0 12.4183 0 8C0 3.58172 3.58172 0 8 0C12.4183 0 16 3.58172 16 8Z" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M11.5547 4.16795C12.0142 4.4743 12.1384 5.09517 11.8321 5.5547L7.83205 11.5547C7.66587 11.804 7.39667 11.9656 7.09854 11.9951C6.8004 12.0247 6.50474 11.919 6.29289 11.7071L4.29289 9.70711C3.90237 9.31658 3.90237 8.68342 4.29289 8.29289C4.68342 7.90237 5.31658 7.90237 5.70711 8.29289L6.84457 9.43036L10.1679 4.4453C10.4743 3.98577 11.0952 3.8616 11.5547 4.16795Z" fill="#002C5A"/></svg>';
@@ -107,6 +108,74 @@ $icon-info: '<svg width="13" height="14" viewBox="0 0 13 14" fill="none" xmlns="
 // - Circle Images
 $circle-primary: '<svg width="330" height="331" viewBox="0 0 330 331" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M165 330.846C256.127 330.846 330 256.973 330 165.846C330 74.7186 256.127 0.845581 165 0.845581C73.873 0.845581 0 74.7186 0 165.846C0 256.973 73.873 330.846 165 330.846ZM165 248.346C210.563 248.346 247.5 211.409 247.5 165.846C247.5 120.282 210.563 83.3456 165 83.3456C119.437 83.3456 82.5 120.282 82.5 165.846C82.5 211.409 119.437 248.346 165 248.346Z" fill="#{$ec-primary}"/></svg>';
 $circle-secondary: '<svg width="330" height="331" viewBox="0 0 330 331" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M165 330.846C256.127 330.846 330 256.973 330 165.846C330 74.7186 256.127 0.845581 165 0.845581C73.873 0.845581 0 74.7186 0 165.846C0 256.973 73.873 330.846 165 330.846ZM165 248.346C210.563 248.346 247.5 211.409 247.5 165.846C247.5 120.282 210.563 83.3456 165 83.3456C119.437 83.3456 82.5 120.282 82.5 165.846C82.5 211.409 119.437 248.346 165 248.346Z" fill="#{$ec-secondary}"/></svg>';
+
+%btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: $ec-secondary;
+  border: 0;
+  border-radius: 20px;
+  transition: all 0.1s $transition-timing;
+  cursor: pointer;
+  font-weight: bold;
+  color: $white;
+  line-height: 1.4;
+
+  &.btn-primary {
+    background-color: $ec-primary;
+  }
+
+  &:hover,
+  &:active,
+  &:focus,
+  &:visited {
+    background-color: $ec-secondary !important;
+    color: $white !important;
+
+    &.btn-primary {
+      background-color: $ec-primary !important;
+    }
+  }
+  &:hover {
+    &.btn-primary {
+      background-color: darken($ec-primary,5%) !important;
+    }
+  }
+  &:active,
+  &:focus {
+    box-shadow: 0 0 0 0.2rem rgba($ec-primary, .4) !important;
+  }
+
+  &:disabled, &.disabled {
+    cursor: default;
+    pointer-events: none;
+    background-color: rgba($ec-primary, .5) !important;
+    color: $white;
+  }
+
+  &.loading {
+    display: inline-flex;
+    align-items: center;
+
+    @keyframes spinner-border {
+      to { transform: rotate(360deg); }
+    }
+
+    &:before {
+      content: '';
+      margin-top: -1px;
+      margin-right: 6px;
+      display: block;
+      width: 10px;
+      height: 10px;
+      border: 3px solid $white;
+      border-right-color: transparent !important;
+      border-radius: 50%;
+      -webkit-animation: spinner-border 1s linear infinite;
+      animation: spinner-border 1s linear infinite;
+    }
+  }
+}
 
 // App
 :host {
@@ -143,71 +212,7 @@ $circle-secondary: '<svg width="330" height="331" viewBox="0 0 330 331" fill="no
 
   // Buttons
   .btn {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: $ec-secondary;
-    border: 0;
-    border-radius: 20px;
-    transition: all 0.1s $transition-timing;
-    cursor: pointer;
-    font-weight: bold;
-    color: $white;
-    line-height: 1.4;
-
-    &.btn-primary {
-      background-color: $ec-primary;
-    }
-
-    &:hover,
-    &:active,
-    &:focus,
-    &:visited {
-      background-color: $ec-secondary !important;
-      color: $white !important;
-
-      &.btn-primary {
-        background-color: $ec-primary !important;
-      }
-    }
-    &:hover {
-      &.btn-primary {
-        background-color: darken($ec-primary,5%) !important;
-      }
-    }
-    &:active,
-    &:focus {
-      box-shadow: 0 0 0 0.2rem rgba($ec-primary, .4) !important;
-    }
-
-    &:disabled, &.disabled {
-      cursor: default;
-      pointer-events: none;
-      background-color: rgba($ec-primary, .5) !important;
-      color: $white;
-    }
-
-    &.loading {
-      display: inline-flex;
-      align-items: center;
-
-      @keyframes spinner-border {
-        to { transform: rotate(360deg); }
-      }
-
-      &:before {
-        content: '';
-        margin-top: -1px;
-        margin-right: 6px;
-        display: block;
-        width: 10px;
-        height: 10px;
-        border: 3px solid $white;
-        border-right-color: transparent !important;
-        border-radius: 50%;
-        -webkit-animation: spinner-border 1s linear infinite;
-        animation: spinner-border 1s linear infinite;
-      }
-    }
+    @extend %btn;
   }
 
   // Typo
@@ -577,6 +582,8 @@ easycredit-express-button {
 
 // Express Buttons Checkout Modal
 .ec-express-button__modal__checkout {
+  scroll-behavior: smooth;
+
   .checkout-modal-wrapper,
   [slot="content"] {
     height: 100%;
@@ -586,11 +593,23 @@ easycredit-express-button {
     @media (max-width: $breakpoint-sm-down) {
       overflow: hidden auto;
     }
+
+    @media (max-width: $breakpoint-sm-down) {
+      &.scrolled {
+        .skip-link-container {
+          display: none;
+        }
+      }
+    }
   }
 
   .ec-col {
     @media (min-width: $breakpoint-sm-up) {
       overflow: hidden auto;
+    }
+
+    .btn {
+      @extend %btn;
     }
 
     .ec-container {
@@ -681,6 +700,39 @@ easycredit-express-button {
         }
       }
 
+      .skip-link-container {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 30px;
+
+        text-align: center;
+
+        @media (min-width: $breakpoint-sm-up) {
+          display: none;
+        }
+
+        .skip-link {
+          /*
+          display: inline-block;
+          padding-right: 15px;
+
+          cursor: pointer;
+          font-weight: bold;
+          color: $white;
+          text-decoration: none;
+          */
+
+          padding-right: 35px;
+
+          @include background-svg($icon-arrow-down-white);
+          background-position: right 20px center;
+          background-repeat: no-repeat;
+          background-size: 10px 12px;
+          box-shadow: 0 5px 10px rgba($black, 0.3);
+        }
+      }
+
       .h4 {
         margin-bottom: 10px;
         font-size: $font-size-heading;
@@ -733,6 +785,13 @@ easycredit-express-button {
     position: absolute;
     right: 60px;
     bottom: 40px;
+
+    @media (max-width: $breakpoint-sm-down) {
+      right: auto;
+      left: 50%;
+      transform: translate(-50%,0);
+      bottom: 30px;
+    }
   }
 }
 :host(.ec-express-button__modal__checkout) {

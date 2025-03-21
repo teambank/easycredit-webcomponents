@@ -1,5 +1,6 @@
 import { Loader } from './loader'
 import { InstallmentPlans, InstallmentPlansContainer } from '../types'
+import { getFromCache, setToCache } from './cache'
 
 export function addErrorHandler(component, callback): number {
   let time = 10
@@ -31,20 +32,22 @@ export function formatCurrency(amount: number): string {
   return formatAmount(amount) + ' €'
 }
 
-export function formatDate (dateString) {
+export function formatDate (dateString: string): string | undefined {
   if (dateString) {
     return new Date(dateString).toLocaleDateString('de-DE', {year: 'numeric', month: '2-digit', day: '2-digit'})
   }
+  return undefined;
 }
 
-export function formatDatetime(dateString) {
+export function formatDatetime(dateString: string): string | undefined {
   if (!dateString) {
-    return
+    return undefined;
   }
 
-  var params: Intl.DateTimeFormatOptions = {year: "numeric", month: '2-digit', day: '2-digit'};
-  if (dateString.match( /^\d{4}-\d{2}-\d{2}Z/ )) {
-    params = {...params, ... {hour: '2-digit', minute: '2-digit'}}
+  const params: Intl.DateTimeFormatOptions = {year: "numeric", month: '2-digit', day: '2-digit'};
+  if (dateString.match(/^\d{4}-\d{2}-\d{2}Z/)) {
+    params.hour = '2-digit';
+    params.minute = '2-digit';
   }
   return new Date(dateString).toLocaleDateString('de-DE', params)
 }
@@ -122,13 +125,23 @@ export function fetchSingleInstallmentPlan (webshopId: string, amount: number, o
     })
 }
 
-import state from '../stores/general';
+var webshopInfoLoader: Loader;
 
 export async function getWebshopInfo(webshopId: string) {
-  if (!state.webshopInfo) {
-    state.webshopInfo = await fetchWebshopInfo(webshopId)
+  const cacheKey = `easycredit-webshop-info-${webshopId}`;
+  const cachedData = getFromCache(cacheKey);
+  if (cachedData) {
+    return cachedData;
   }
-  return state.webshopInfo
+
+  if (webshopInfoLoader == null) {
+    var webshopInfoStore: { [key: string]: any } = {};
+    webshopInfoLoader = new Loader(fetchWebshopInfo, webshopInfoStore);
+  }
+  const result = await webshopInfoLoader.load(webshopId);
+
+  setToCache(cacheKey, result);
+  return result;
 }
 
 export function fetchWebshopInfo (webshopId: string) {
@@ -136,19 +149,21 @@ export function fetchWebshopInfo (webshopId: string) {
     .replace('{{webshopId}}', webshopId)
   return fetch(url, getOptions({})).then((response) => {
     if (response.ok) { 
-     return response.json();
+     return {
+      [webshopId]: response.json()
+     }
     }
     return Promise.reject(response); 
   })
 }
 
-export const validateInstallmentPlans = (data): InstallmentPlans => {
-    if (!data) {
-      throw new Error()
+export const validateInstallmentPlans = (data: any): InstallmentPlans => {
+    if (!data || !data.installmentPlans) {
+      throw new Error('Invalid installment plans data');
     }
     const installmentPlans: InstallmentPlans = data.installmentPlans.find(() => true)
     if (installmentPlans.errors) {
-      let alert = installmentPlans.errors.violations.find(() => true).message
+      let alert = installmentPlans.errors.violations?.find(() => true)?.message || 'Unknown error';
       if (installmentPlans.errors.title === 'INVALID_PRICE') {
         alert = `Der Finanzierungbetrag liegt außerhalb der zulässigen Beträge (${data.minFinancingAmount} € - ${data.maxFinancingAmount} €)`
       }
@@ -269,16 +284,16 @@ const fetchTransactions = async (txIds: Array<Number>) => {
     method: 'GET'
   }))
   .then((response) => {
-      if (response.ok) {
-        return response.json().then((json) => {
-          return Object.fromEntries(json.TransactionList.map(tx => [tx.transactionId, tx]))
-        })
-      }
-      return Promise.reject(response)
-    })
-    .then((response) => {
-      return response
-    })
+    if (response.ok) {
+      return response.json().then((json) => {
+        return Object.fromEntries(json.TransactionList.map(tx => [tx.transactionId, tx]))
+      })
+    }
+    return Promise.reject(response)
+  })
+  .then((response) => {
+    return response
+  })
 }
 
 export async function fetchTransaction (txId: string, reload: Boolean = false) {
@@ -302,9 +317,9 @@ export async function fetchTransaction (txId: string, reload: Boolean = false) {
 export async function captureTransaction (txId: string, data) {
   let url = getConfig().endpoints.capture.replace('{transactionId}', txId)
   return fetch(url, getOptions({
-      method: 'POST', 
-      body: JSON.stringify(data)
-    }))
+    method: 'POST', 
+    body: JSON.stringify(data)
+  }))
   .then((response) => {
     if (response.ok) { 
       return true
@@ -327,9 +342,9 @@ export async function refundTransaction (txId: string, data) {
   })
 }
 
-export function youngerThanOneDay (date) {
+export function youngerThanOneDay (date: string): boolean {
   const oneDay = 24 * 60 * 60 * 1000 // in ms
-  let parsed = Date.parse(date)
+  const parsed = Date.parse(date)
   return !isNaN(parsed) && parsed > (Date.now() - oneDay)
 }
 

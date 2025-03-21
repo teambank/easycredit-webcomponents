@@ -45,10 +45,6 @@ export class EasycreditCheckoutBillPaymentTimeline {
                     </span>
                     <span class="ec-checkout__animation-end"></span>
                 </div>
-
-                <div class="ec-checkout__information">
-                    <div class="icon"></div> Ihre Ware wird direkt versandt.
-                </div>
             </div>
         ]
     }

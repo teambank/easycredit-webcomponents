@@ -22,17 +22,15 @@
 
 ### Depends on
 
-- [easycredit-checkout-bill-payment-timeline](../easycredit-checkout-bill-payment-timeline)
-- [easycredit-checkout-installments](../easycredit-checkout-installments)
 - [easycredit-checkout-totals](../easycredit-checkout-totals)
+- [easycredit-checkout-installments](../easycredit-checkout-installments)
 - [easycredit-modal](../easycredit-modal)
 
 ### Graph
 ```mermaid
 graph TD;
-  easycredit-checkout --> easycredit-checkout-bill-payment-timeline
-  easycredit-checkout --> easycredit-checkout-installments
   easycredit-checkout --> easycredit-checkout-totals
+  easycredit-checkout --> easycredit-checkout-installments
   easycredit-checkout --> easycredit-modal
   style easycredit-checkout fill:#f9f,stroke:#333,stroke-width:4px
 ```

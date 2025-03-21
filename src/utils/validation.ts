@@ -1,24 +1,27 @@
-import state from '../stores/general';
 import { METHODS } from '../types';
+import { WebshopInfo } from '../types';
 
 export class Caps {
   paymentTypes: string;
- 
-  constructor(paymentTypes: string) {
-    this.paymentTypes = paymentTypes;
-  }
- 
-  isEnabled(type): boolean {
-    return this.paymentTypes.split(',').map(s => s.replace('_PAYMENT', '').trim()).includes(type)
-        && (!state.webshopInfo || (
-        (state.webshopInfo.billPaymentActive && type === 'BILL') ||
-        (state.webshopInfo.installmentPaymentActive && type === 'INSTALLMENT')
-        ))
-  }
-}
+  webshopInfo: WebshopInfo;
 
-export function validateAmount(amount: number, method: METHODS) {
-    const info = state.webshopInfo
+  constructor(paymentTypes: string, webshopInfo: WebshopInfo) {
+    this.paymentTypes = paymentTypes;
+    this.webshopInfo = webshopInfo;
+  }
+
+  isEnabled(type): boolean {
+    return (
+      this.paymentTypes
+        .split(',')
+        .map(s => s.replace('_PAYMENT', '').trim())
+        .includes(type) &&
+      (!this.webshopInfo || (this.webshopInfo.billPaymentActive && type === 'BILL') || (this.webshopInfo.installmentPaymentActive && type === 'INSTALLMENT'))
+    );
+  }
+
+  validateAmount(amount: number, method: METHODS) {
+    const info = this.webshopInfo
     if (!info) {
         return
     }
@@ -38,4 +41,5 @@ export function validateAmount(amount: number, method: METHODS) {
             throw new Error(`Der Bestellwert liegt außerhalb der zulässigen Beträge (${info.minBillingValue} € - ${info.maxBillingValue} €)`)
         }
     }
+  }
 }
