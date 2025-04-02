@@ -59,7 +59,7 @@ export function fetchMultiInstallmentPlans (webshopId: string, amount: number) {
     var installmentsStore: {[key: number]: any} = []
     installmentsLoader = new Loader(fetchAllInstallmentPlans.bind(this, webshopId), installmentsStore)
   }
-  return installmentsLoader.load(amount)
+  return installmentsLoader.load(amount.toString())
 }
 
 export function fetchAllInstallmentPlans (webshopId: string, amounts: number[]) {
