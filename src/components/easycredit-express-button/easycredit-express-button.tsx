@@ -42,7 +42,7 @@ export class EasycreditExpressButton {
     this.checkoutModal.open();
 
     setTimeout(() => {
-      const container = document.querySelector('.ec-express-button__modal__checkout .checkout-modal-wrapper');
+      const container = this.checkoutModal?.querySelector('.checkout-modal-wrapper');
       if (container) {
         container.addEventListener('scroll', () => {
           this.agreementInView = container.scrollTop >= 150;
