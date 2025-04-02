@@ -151,7 +151,7 @@ export class EasycreditCheckout {
       return null;
     }
     return [
-      <easycredit-checkout-totals amount={this.amount}>
+      <easycredit-checkout-totals amount={this.getPaymentPlan().orderValue}>
         <div slot="actions"></div>
       </easycredit-checkout-totals>
     ];
