@@ -1,7 +1,7 @@
 {
   "name": "@easycredit/easycredit-components",
   "license": "MIT",
-  "version": "1.3.7",
+  "version": "1.3.8",
   "description": "The easyCredit Web Components are a set of StencilJS based web components to be universally used in e-commerce platforms like Magento or Shopware. The web components ease integration of easyCredit-Rechnung & easyCredit-Ratenkauf payment solution by providing versatile web frontend elements for marketing, checkout and merchant processes.",
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",
