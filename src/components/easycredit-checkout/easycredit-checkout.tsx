@@ -73,6 +73,10 @@ export class EasycreditCheckout {
   }
 
   @Watch('amount') watchAmountHandler() {
+    if (!this.caps) {
+      return; // watch only after initialization
+    }
+
     try {
       this.caps.validateAmount(this.amount, this.paymentType);
     } catch (error) {
