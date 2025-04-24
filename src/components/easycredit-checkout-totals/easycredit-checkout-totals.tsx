@@ -41,6 +41,9 @@ export class EasycreditCheckoutTotals {
   }*/
 
   render () {
+      if (!this.amount || isNaN(this.amount)) {
+        return; // do not show if no amount isset (can occur during initialization)
+      }
       return <div>
         <ul class="ec-checkout__totals">
           {this.amount !== this.selectedInstallment.totalValue &&
