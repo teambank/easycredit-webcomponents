@@ -140,7 +140,7 @@ export class EasycreditExpressButton {
               <div class="ec-container">
                 <easycredit-logo payment-type={this.selectedPaymentType} color="white"></easycredit-logo>
 
-                {this.isEnabled(METHODS.INSTALLMENT) && this.isEnabled(METHODS.BILL) && (
+                {this.isValid(METHODS.INSTALLMENT) && this.isValid(METHODS.BILL) && (
                   <div class="ec-switch">
                     <button onClick={() => this.switchPaymentType(METHODS.INSTALLMENT)} class={{ active: this.selectedPaymentType === METHODS.INSTALLMENT }}>
                       Ratenkauf
