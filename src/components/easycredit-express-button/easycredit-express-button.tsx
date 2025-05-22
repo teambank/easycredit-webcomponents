@@ -158,13 +158,10 @@ export class EasycreditExpressButton {
                   </a></div>
                 )}
 
-                {this.selectedPaymentType === METHODS.INSTALLMENT && !this.paymentTypesEmpty && (
-                  <easycredit-checkout-installments installments={JSON.stringify(this.installmentPlans.plans)} rows={3} />
-                )}
-                {this.selectedPaymentType === METHODS.BILL &&
+                {this.selectedPaymentType === METHODS.BILL && (
                   <easycredit-checkout-bill-payment-timeline></easycredit-checkout-bill-payment-timeline>
-                }
-                {!this.paymentTypesEmpty && (
+                )}
+                {this.selectedPaymentType === METHODS.BILL && (
                   <easycredit-checkout-totals
                     amount={this.amount}
                     selectedInstallment={this.selectedInstallment}
@@ -172,7 +169,7 @@ export class EasycreditExpressButton {
                   ></easycredit-checkout-totals>
                 )}
 
-                {this.paymentTypesEmpty && this.getInstallmentUspFragment()}
+                {(this.paymentTypesEmpty || this.selectedPaymentType === METHODS.INSTALLMENT) && this.getInstallmentUspFragment()}
               </div>
 
               <div class="ec-background">
