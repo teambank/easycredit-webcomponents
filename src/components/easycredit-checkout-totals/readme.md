@@ -7,11 +7,11 @@
 
 ## Properties
 
-| Property              | Attribute | Description | Type               | Default     |
-| --------------------- | --------- | ----------- | ------------------ | ----------- |
-| `amount`              | `amount`  |             | `number`           | `undefined` |
-| `installmentPlans`    | --        |             | `InstallmentPlans` | `null`      |
-| `selectedInstallment` | --        |             | `InstallmentPlan`  | `null`      |
+| Property              | Attribute              | Description | Type               | Default     |
+| --------------------- | ---------------------- | ----------- | ------------------ | ----------- |
+| `amount`              | `amount`               |             | `number`           | `undefined` |
+| `installmentPlans`    | `installment-plans`    |             | `InstallmentPlans` | `null`      |
+| `selectedInstallment` | `selected-installment` |             | `InstallmentPlan`  | `null`      |
 
 
 ## Dependencies

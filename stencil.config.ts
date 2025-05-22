@@ -12,7 +12,7 @@ export const config: Config = {
   plugins: [
     sass({
       injectGlobalPaths: [
-        'src/globals/base.scss'
+        `${__dirname}/src/globals/base.scss`
       ]
     })
   ],
