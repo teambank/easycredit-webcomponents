@@ -1,4 +1,5 @@
 import { buildAttributes } from '../../../.storybook/helpers'
+import { METHODS } from '../../types';
 
 export default {
   title: "Marketing/Faq",
@@ -10,7 +11,17 @@ export default {
       }
     }    
   },
-  argTypes: {},
+  argTypes: {
+    paymentType: {
+      table: {
+        defaultValue: { summary: "INSTALLMENT" },
+        category: "optional",
+      },
+      description: 'Zahlungsart',
+      options: [METHODS.INSTALLMENT, METHODS.BILL],
+      control: { type: 'radio' },
+    },
+  },
 };
 
 const Template = (args) => `<easycredit-faq ${buildAttributes(args).join(' ')} />`;

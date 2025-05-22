@@ -1,6 +1,7 @@
 // Setup
 .ec-infopage {
   padding: 30px;
+  color: $font-color;
 
   // Typo
   h1, h2, h3,
@@ -15,14 +16,31 @@
     font-size: $font-size-heading-lg;
     line-height: $line-height-heading;
   }
+
+  &.enhanced {
+    padding: 30px;
+
+    @media (max-width: $breakpoint-md-down) {
+      padding: 20px;
+    }
+  }
+
+  @media (max-width: $breakpoint-md-down) {
+    padding: 15px;
+
+    h1 {
+      font-size: $font-size-heading-xl;
+    }
+  }
 }
 
-$infpage-max-width: 650px;
+$infopage-max-width: 650px;
+$infopage-max-width-wide: 1260px;
 
 // Sections
 .ec-infopage {
   section {
-    margin: 80px auto;
+    margin: 60px auto;
     width: 100%;
 
     &:first-child {
@@ -33,24 +51,124 @@ $infpage-max-width: 650px;
     }
   }
 
-  &__logo {
-    margin: 0 auto 40px;
+  &__intro.enhanced {
+    display: flex;
+    margin: 0 auto;
+    max-width: $infopage-max-width-wide;
+    overflow: hidden;
+    border-radius: $border-radius-xxxl;
+    color: $white;
 
-    @extend .logo-ratenkauf;
-    width: 100%;
-    height: 60px;
-    max-width: $infpage-max-width;
-    background-position: right center;
+    a {
+      color: $white;
+    }
+
+    .col {
+      flex: 0 0 50%;
+      width: 50%;
+
+      position: relative;
+      padding: 40px 60px 80px;
+      box-sizing: border-box;
+      background-color: $ec-darkblue;
+
+      &.image {
+        background-color: $ec-gray;
+      }
+
+      > :not(.ec-background) {
+        position: relative;
+        z-index: 1;
+        max-width: none;
+      }
+    }
+
+    .ec-infopage__header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 40px;
+
+      .ec-switch {
+        order: 1;
+      }
+      easycredit-logo {
+        order: 0;
+      }
+    }
+
+    .ec-infopage__text {
+      margin: 0;
+
+      p {
+        margin: 25px 0;
+      }
+    }
+
+    @media (max-width: $breakpoint-md-down) {
+      flex-direction: column;
+
+      .col {
+        flex-basis: 100%;
+        width: 100%;
+
+        padding: 40px 35px 60px;
+
+        &.image {
+          aspect-ratio: 1;
+        }
+      }
+
+      .ec-infopage__header {
+        gap: 30px;
+      }
+    }
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    max-width: $infopage-max-width;
+
+    .ec-switch {
+      margin-bottom: 0;
+    }
+
+    easycredit-logo {
+      height: 50px;
+      width: auto;
+    }
   }
 
   &__text {
-    max-width: $infpage-max-width;
+    max-width: $infopage-max-width;
     text-align: left;
     font-size: $font-size-xl;
+
+    p {
+      margin: 20px 0;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 20px;
+
+      font-size: $font-size;
+
+      @media (max-width: $breakpoint-md-down) {
+        flex-wrap: wrap;
+
+        > * {
+          white-space: nowrap;
+        }
+      }
+    }
   }
 
   &__video {
-    max-width: $infpage-max-width;
+    max-width: $infopage-max-width;
 
     iframe {
       display: block;
@@ -59,9 +177,18 @@ $infpage-max-width: 650px;
   }
 
   &__usp {
-    max-width: $infpage-max-width;
+    padding: 50px;
+    max-width: $infopage-max-width;
+    box-sizing: border-box;
+    background-color: $ec-gray;
+    border-radius: $border-radius-xxxl;
+
+    h2 {
+      margin-bottom: 30px;
+    }
 
     ul {
+      margin-bottom: 0;
       padding-left: 0;
       list-style-type: none;
     }
@@ -69,16 +196,23 @@ $infpage-max-width: 650px;
     li {
       display: flex;
       justify-content: flex-start;
-      align-items: center;
-      margin-bottom: 15px;
-      font-size: $font-size-lg;
+      align-items: flex-start;
+      margin-bottom: 5px;
+      font-size: $font-size-xl;
 
       &::before {
-        @include content-svg($icon-checkmark-circle-lg);
+        @include content-svg($icon-checkmark-circle);
+        display: flex;
+        align-items: center;
         margin-right: 20px;
-        width: 41px;
-        height: 41px;
+        width: 16px;
+        height: 27px;
+        line-height: 0;
       }
+    }
+
+    @media (max-width: $breakpoint-md-down) {
+      padding: 40px 35px;
     }
   }
 
@@ -88,12 +222,33 @@ $infpage-max-width: 650px;
     @extend .logo-finanzgruppe;
     width: 100%;
     height: 25px;
-    max-width: $infpage-max-width;
+    max-width: $infopage-max-width;
     background-position: right center;
     background-size: 195px auto;
   }
 
   &__faq {
-    max-width: $infpage-max-width;
+    max-width: $infopage-max-width;
+  }
+
+  &__logos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+
+    .ec-infopage__logo-secondary {
+      margin: 0;
+      width: 195px;
+    }
+
+    easycredit-logo {
+      height: 50px;
+      width: auto;
+    }
+
+    @media (max-width: $breakpoint-md-down) {
+      gap: 30px;
+    }
   }
 }

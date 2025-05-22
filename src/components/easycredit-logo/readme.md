@@ -19,11 +19,13 @@
 ### Used by
 
  - [easycredit-express-button](../easycredit-express-button)
+ - [easycredit-infopage](../easycredit-infopage)
 
 ### Graph
 ```mermaid
 graph TD;
   easycredit-express-button --> easycredit-logo
+  easycredit-infopage --> easycredit-logo
   style easycredit-logo fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

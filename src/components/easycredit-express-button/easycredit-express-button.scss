@@ -12,6 +12,7 @@
         font-size: $font-size-xxs;
         line-height: $line-height;
         color: $font-color !important;
+        text-decoration: none !important;
 
         &:hover {
             color: rgba($font-color, .7) !important;

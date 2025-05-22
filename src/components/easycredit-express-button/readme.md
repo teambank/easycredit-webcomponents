@@ -40,6 +40,7 @@ graph TD;
   easycredit-express-button --> easycredit-checkout-privacy-approval
   easycredit-express-button --> easycredit-express-button-single
   easycredit-express-button --> easycredit-infopage
+  easycredit-infopage --> easycredit-logo
   easycredit-infopage --> easycredit-faq
   easycredit-faq --> easycredit-accordion
   easycredit-faq --> easycredit-accordion-item

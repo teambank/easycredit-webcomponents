@@ -30,13 +30,15 @@ $font-color: $ec-darkblue;
 $font-color-disabled: rgba($font-color,0.4);
 // $font-color-label: #4B4B4B;
 $font-color-label-secondary: #8096AD; // equal to rgba($font-color,.5)
-$link-color: $ec-secondary;
+$link-color: $ec-darkblue;
 
 // - Breakpoints
 $breakpoint-xs-down: 499px;
 $breakpoint-xs-up: 500px;
 $breakpoint-sm-down: 767px;
 $breakpoint-sm-up: 768px;
+$breakpoint-md-down: 991px;
+$breakpoint-md-up: 992px;
 
 // - Widths
 $desktop-max-width: 400px;
@@ -112,7 +114,7 @@ $circle-secondary: '<svg width="330" height="331" viewBox="0 0 330 331" fill="no
 %btn {
   display: inline-block;
   padding: 10px 20px;
-  background-color: $ec-secondary;
+  background-color: $ec-darkblue;
   border: 0;
   border-radius: 20px;
   transition: all 0.1s $transition-timing;
@@ -120,6 +122,7 @@ $circle-secondary: '<svg width="330" height="331" viewBox="0 0 330 331" fill="no
   font-weight: bold;
   color: $white;
   line-height: 1.4;
+  text-decoration: none;
 
   &.btn-primary {
     background-color: $ec-primary;
@@ -129,7 +132,7 @@ $circle-secondary: '<svg width="330" height="331" viewBox="0 0 330 331" fill="no
   &:active,
   &:focus,
   &:visited {
-    background-color: $ec-secondary !important;
+    background-color: $ec-darkblue !important;
     color: $white !important;
 
     &.btn-primary {
@@ -143,7 +146,11 @@ $circle-secondary: '<svg width="330" height="331" viewBox="0 0 330 331" fill="no
   }
   &:active,
   &:focus {
-    box-shadow: 0 0 0 0.2rem rgba($ec-primary, .4) !important;
+    box-shadow: 0 0 0 0.2rem rgba($ec-darkblue, .4) !important;
+
+    &.btn-primary {
+      box-shadow: 0 0 0 0.2rem rgba($ec-primary, .4) !important;
+    }
   }
 
   &:disabled, &.disabled {
@@ -202,11 +209,12 @@ $circle-secondary: '<svg width="330" height="331" viewBox="0 0 330 331" fill="no
   // Links
   a {
     color: $link-color;
-    text-decoration: none;
+    text-decoration: underline;
     transition: color 0.2s $transition-timing;
 
     &:hover {
       color: rgba($link-color,.7);
+      text-decoration: none;
     }
   }
 
@@ -395,12 +403,22 @@ $circle-secondary: '<svg width="330" height="331" viewBox="0 0 330 331" fill="no
 }
 
 // Content Images
-.image-default {
+.image-default,
+.image-ratenkauf,
+.image-rechnung {
   background-color: $ec-gray;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+}
+.image-default {
   background-image: url(#{$ec-base-url}/easycredit-components/assets/motiv-leyla.jpg);
+}
+.image-ratenkauf {
+  background-image: url(/*#{$ec-base-url}*//easycredit-components/assets/motiv-ratenkauf.webp);
+}
+.image-rechnung {
+  background-image: url(/*#{$ec-base-url}*//easycredit-components/assets/motiv-rechnung.webp);
 }
 
 // Circles
@@ -556,6 +574,71 @@ $circle-secondary: '<svg width="330" height="331" viewBox="0 0 330 331" fill="no
   }
 }
 
+// Circle Background Class
+.ec-background {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+  background-color: $ec-darkblue;
+
+  .ec-circle {
+    width: $circle-width-66;
+
+    &:after {
+      @include background-svg($circle-secondary);
+    }
+  }
+  .ec-circle-secondary {
+    width: $circle-width-66-secondary;
+
+    &:after {
+      @include background-svg($circle-primary);
+    }
+  }
+}
+
+// Switch
+.ec-switch {
+  display: inline-flex;
+  flex-wrap: nowrap;
+  margin-bottom: 20px;
+
+  border: 3px solid $ec-gray;
+  border-radius: $border-radius-xxxl;
+  background-color: $ec-gray;
+
+  max-width: 100%;
+  overflow: hidden;
+
+  button {
+    flex: 1 1 auto;
+    padding: 6px 15px;
+
+    border: 0;
+    border-radius: $border-radius-xxxl;
+    background-color: $ec-gray;
+    cursor: pointer;
+
+    text-overflow: ellipsis;
+    overflow: hidden;
+
+    font-size: $font-size-xs;
+    line-height: normal;
+    font-weight: bold;
+    color: $font-color;
+
+    &.active {
+      background-color: $ec-darkblue;
+      color: $white;
+    }
+  }
+}
+
 // Cols
 .ec-row {
   display: block;
@@ -619,7 +702,7 @@ easycredit-express-button {
     &.ec-col-method {
       color: $white;
 
-      > :not(.background) {
+      > :not(.ec-background) {
         position: relative;
         z-index: 1;
       }
@@ -629,75 +712,14 @@ easycredit-express-button {
       }
 
       .ec-background {
-        position: absolute;
-        left: 0;
-        top: 0;
-        z-index: 0;
-        width: 100%;
-        height: 100%;
-
         @media (min-width: $breakpoint-sm-up) {
           width: 50%;
-        }
-
-        overflow: hidden;
-        background-color: $ec-darkblue;
-
-        .ec-circle {
-          width: $circle-width-66;
-  
-          &:after {
-            @include background-svg($circle-secondary);
-          }
-        }
-        .ec-circle-secondary {
-          width: $circle-width-66-secondary;
-  
-          &:after {
-            @include background-svg($circle-primary);
-          }
         }
       }
 
       .ec-logo-wrapper {
         display: block;
         margin-bottom: 40px;
-      }
-
-      .ec-switch {
-        display: inline-flex;
-        flex-wrap: nowrap;
-        margin-bottom: 20px;
-
-        border: 3px solid $ec-gray;
-        border-radius: $border-radius-xxxl;
-        background-color: $ec-gray;
-
-        max-width: 100%;
-        overflow: hidden;
-
-        button {
-          flex: 1 1 auto;
-          padding: 6px 15px;
-
-          border: 0;
-          border-radius: $border-radius-xxxl;
-          background-color: $ec-gray;
-          cursor: pointer;
-
-          text-overflow: ellipsis;
-          overflow: hidden;
-
-          font-size: $font-size-xs;
-          line-height: normal;
-          font-weight: bold;
-          color: $font-color;
-
-          &.active {
-            background-color: $ec-darkblue;
-            color: $white;
-          }
-        }
       }
 
       .skip-link-container {

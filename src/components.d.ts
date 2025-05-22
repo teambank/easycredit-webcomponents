@@ -106,8 +106,11 @@ export namespace Components {
         "webshopId": string;
     }
     interface EasycreditFaq {
+        "paymentType": string;
     }
     interface EasycreditInfopage {
+        "paymentTypes": string;
+        "variant": 'default' | 'enhanced';
     }
     interface EasycreditLogo {
         "alt": string;
@@ -452,8 +455,11 @@ declare namespace LocalJSX {
         "webshopId"?: string;
     }
     interface EasycreditFaq {
+        "paymentType"?: string;
     }
     interface EasycreditInfopage {
+        "paymentTypes"?: string;
+        "variant"?: 'default' | 'enhanced';
     }
     interface EasycreditLogo {
         "alt"?: string;

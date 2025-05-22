@@ -294,8 +294,11 @@ export class EasycreditExpressButton {
         {this.getCheckoutModalFragment()}
         {this.getPaymentModalFragment()}
 
-        <easycredit-modal class={{ 'ec-express-button__modal__infopage': true }} ref={el => (this.infopageModal = el as HTMLEasycreditModalElement)} size="infopage">
-          <easycredit-infopage slot="content" />
+        <easycredit-modal class={{ 'ec-express-button__modal__infopage': true }} ref={el => (this.infopageModal = el as HTMLEasycreditModalElement)} size="infopage" >
+          <easycredit-infopage slot="content" paymentTypes={this.paymentTypes.split(',')
+            .map(type => type.trim() as METHODS)
+            .filter(type => this.isValid(type))
+            .join(',')} variant="enhanced" />
         </easycredit-modal>
       </div>,
     ];

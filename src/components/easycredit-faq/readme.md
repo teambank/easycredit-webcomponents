@@ -5,6 +5,13 @@
 <!-- Auto Generated Below -->
 
 
+## Properties
+
+| Property      | Attribute      | Description | Type     | Default               |
+| ------------- | -------------- | ----------- | -------- | --------------------- |
+| `paymentType` | `payment-type` |             | `string` | `METHODS.INSTALLMENT` |
+
+
 ## Dependencies
 
 ### Used by
