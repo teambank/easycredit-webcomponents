@@ -124,8 +124,25 @@ export class EasycreditAccordionItem {
   render() {
     return (
       <Host>
-        <header onClick={() => this.toggle()}><slot name="title"></slot></header>
-        <section onTransitionEnd={() => this.handleTransitionEnd()} class={{"transitioning":this.transitioning}} style={this.style}><slot /></section>
+        <button
+          onClick={() => this.toggle()}
+          id={`accordion-header-${this.index}`}
+          aria-expanded={this.open}
+          aria-controls={`accordion-panel-${this.index}`}
+          tabindex="0"
+        >
+          <slot name="title"></slot>
+        </button>
+        <section
+          onTransitionEnd={() => this.handleTransitionEnd()}
+          class={{ transitioning: this.transitioning }}
+          style={this.style}
+          id={`accordion-panel-${this.index}`}
+          role="region"
+          aria-labelledby={`accordion-header-${this.index}`}
+        >
+          <slot />
+        </section>
       </Host>
     );
   }

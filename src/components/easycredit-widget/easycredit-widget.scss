@@ -5,168 +5,169 @@
   display: inline-block;
   vertical-align: middle;
 }
-
-.ec-widget {
-  position: relative;
-  display: flex;
-  padding: 0 0 0 10px;
-  width: 300px;
-  max-width: 100%;
-  box-sizing: border-box;
-
-  &:has(.badges) {
-    width: 400px;
-  }
-
-  >svg {
-    flex: 0 0 22.5px;
-
-    align-self: center;
-    margin-right: 7.5px;
-    width: 22.5px;
-    height: 22.5px;
-  }
-
-  >span {
-    flex: 0 0 calc(100% - 30px - 33px);
-
-    display: inline-block;
-    width: calc(100% - 30px - 33px);
-    padding: 6.5px 0;
-  }
-
-  .badges {
+:host {
+  .ec-widget {
+    position: relative;
     display: flex;
-    margin-top: 1px;
-    margin-bottom: 3.5px;
+    padding: 0 0 0 10px;
+    width: 300px;
+    max-width: 100%;
+    box-sizing: border-box;
 
-    .badge {
-      display: inline-block;
-      padding: 1px 8px .5px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      max-width: 100%;
-
-      background-color: $ec-lightblue;
-      border-radius: 20px;
-
-      font-size: $font-size-xs;
-      font-weight: bold;
-      color: $font-color;
-    }
-  }
-
-  &__cta {
-    flex: 0 0 23px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: 10px;
-    width: 23px;
-
-    border-left: 1px solid rgba($ec-darkblue,0.1);
-    cursor: pointer;
-
-    &:hover {
-      margin-bottom: -1px;
-      margin-right: -0.5px;
-      background: $white linear-gradient(to right, rgba($ec-darkblue,0.05)0%, rgba($ec-darkblue,0) 10%, $white 100%);
-      border-top-right-radius: $border-radius-xl;
-      border-bottom-right-radius: $border-radius-xl;
+    &:has(.badges) {
+      width: 400px;
     }
 
-    svg {
-      flex: 0 0 9px;
-      width: 9px;
-      height: 9px;
+    >img {
+      flex: 0 0 22.5px;
+
+      align-self: center;
+      margin-right: 7.5px;
+      width: 22.5px;
+      height: 22.5px;
     }
-  }
-
-  background-color: $white;
-
-  text-align: left;
-  font-family: $font-family;
-  font-size: $font-size-xs;
-  line-height: $line-height-sm;
-  color: $font-color;
-  text-decoration: none;
-  -webkit-text-size-adjust: none;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
-  border-radius: $border-radius-xl;
-  -webkit-box-shadow: $box-shadow;
-  box-shadow: $box-shadow;
-
-  &.clean {
-    -webkit-box-shadow: none;
-    box-shadow: none;
-  }
-
-  &.minimal {
-    align-items: flex-start;
-    padding: 0;
-    width: auto;
-
-    -webkit-box-shadow: none;
-    box-shadow: none;
 
     >span {
-      flex: 0 0 calc(100% - 30px);
-      width: calc(100% - 30px);
+      flex: 0 0 calc(100% - 30px - 33px);
+
+      display: inline-block;
+      width: calc(100% - 30px - 33px);
+      padding: 6.5px 0;
     }
 
-    svg {
-      flex: 0 0 20px;
-      width: 20px;
-      height: 20px;
+    .badges {
+      display: flex;
+      margin-top: 1px;
+      margin-bottom: 3.5px;
+
+      .badge {
+        display: inline-block;
+        padding: 1px 8px .5px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        max-width: 100%;
+
+        background-color: $ec-lightblue;
+        border-radius: 20px;
+
+        font-size: $font-size-xs;
+        font-weight: bold;
+        color: $font-color;
+      }
+    }
+
+    &__cta {
+      flex: 0 0 23px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 10px;
+      width: 23px;
+
+      border-left: 1px solid rgba($ec-darkblue,0.1);
+      cursor: pointer;
+
+      &:hover {
+        margin-bottom: -1px;
+        margin-right: -0.5px;
+        background: $white linear-gradient(to right, rgba($ec-darkblue,0.05)0%, rgba($ec-darkblue,0) 10%, $white 100%);
+        border-top-right-radius: $border-radius-xl;
+        border-bottom-right-radius: $border-radius-xl;
+      }
+
+      img {
+        flex: 0 0 9px;
+        width: 9px;
+        height: 9px;
+      }
+    }
+
+    background-color: $white;
+
+    text-align: left;
+    font-family: $font-family;
+    font-size: $font-size-xs;
+    line-height: $line-height-sm;
+    color: $font-color;
+    text-decoration: none;
+    -webkit-text-size-adjust: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    border-radius: $border-radius-xl;
+    -webkit-box-shadow: $box-shadow;
+    box-shadow: $box-shadow;
+
+    &.clean {
+      -webkit-box-shadow: none;
+      box-shadow: none;
+    }
+
+    &.minimal {
+      align-items: flex-start;
+      padding: 0;
+      width: auto;
+
+      -webkit-box-shadow: none;
+      box-shadow: none;
+
+      >span {
+        flex: 0 0 calc(100% - 30px);
+        width: calc(100% - 30px);
+      }
+
+      img {
+        flex: 0 0 20px;
+        width: 20px;
+        height: 20px;
+      }
+
+      span {
+        em {
+          color: inherit;
+        }
+      }
+
+      .ec-widget__brand-name {
+        display: none;
+      }
+    }
+
+    &.layout-small {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      padding-right: 10px;
+
+      .ec-widget__brand-name {
+        display: none;
+      }
     }
 
     span {
       em {
-        color: inherit;
+        font-weight: bold;
+        font-style: normal;
       }
-    }
 
-    .ec-widget__brand-name {
-      display: none;
-    }
-  }
+      button {
+        display: inline-block;
 
-  &.layout-small {
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-right: 10px;
+        cursor: pointer;
+        text-decoration: underline !important;
+        font-weight: bold;
+        color: $font-color;
 
-    .ec-widget__brand-name {
-      display: none;
-    }
-  }
-
-  span {
-    em {
-      font-weight: bold;
-      font-style: normal;
-    }
-
-    a {
-      display: inline-block;
-
-      cursor: pointer;
-      text-decoration: underline !important;
-      font-weight: bold;
-      color: $font-color;
-
-      &:hover {
-        color: $font-color !important;
-        text-decoration: none !important;
+        &:hover {
+          color: $font-color !important;
+          text-decoration: none !important;
+        }
       }
-    }
 
-    &.ec-widget__separator {
-      // color: rgba($font-color,0.4);
+      &.ec-widget__separator {
+        // color: rgba($font-color,0.4);
+      }
     }
   }
 }

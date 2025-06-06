@@ -3,7 +3,8 @@
 $ec-base-url: 'https://ratenkauf.easycredit.de/api/resource/webcomponents/v3';
 // Variables
 // - Colors
-$ec-primary: #F37122;
+$ec-primary: #f46b18;
+$ec-primary-btn-bg: darken($ec-primary, 1.75%); // darker button bg for contrast purposes
 $ec-secondary: #0066B3;
 $ec-darkblue: #002C5A;
 $ec-lightblue: #e5f0f7;
@@ -29,7 +30,7 @@ $overlay-darken: rgba($black, 0.2);
 $font-color: $ec-darkblue;
 $font-color-disabled: rgba($font-color,0.4);
 // $font-color-label: #4B4B4B;
-$font-color-label-secondary: #8096AD; // equal to rgba($font-color,.5)
+$font-color-label-secondary: #597694; // equal to rgba($font-color,.65)
 $link-color: $ec-darkblue;
 
 // - Breakpoints
@@ -111,21 +112,24 @@ $icon-info: '<svg width="13" height="14" viewBox="0 0 13 14" fill="none" xmlns="
 $circle-primary: '<svg width="330" height="331" viewBox="0 0 330 331" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M165 330.846C256.127 330.846 330 256.973 330 165.846C330 74.7186 256.127 0.845581 165 0.845581C73.873 0.845581 0 74.7186 0 165.846C0 256.973 73.873 330.846 165 330.846ZM165 248.346C210.563 248.346 247.5 211.409 247.5 165.846C247.5 120.282 210.563 83.3456 165 83.3456C119.437 83.3456 82.5 120.282 82.5 165.846C82.5 211.409 119.437 248.346 165 248.346Z" fill="#{$ec-primary}"/></svg>';
 $circle-secondary: '<svg width="330" height="331" viewBox="0 0 330 331" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M165 330.846C256.127 330.846 330 256.973 330 165.846C330 74.7186 256.127 0.845581 165 0.845581C73.873 0.845581 0 74.7186 0 165.846C0 256.973 73.873 330.846 165 330.846ZM165 248.346C210.563 248.346 247.5 211.409 247.5 165.846C247.5 120.282 210.563 83.3456 165 83.3456C119.437 83.3456 82.5 120.282 82.5 165.846C82.5 211.409 119.437 248.346 165 248.346Z" fill="#{$ec-secondary}"/></svg>';
 
+// Button styles
 %btn {
   display: inline-block;
-  padding: 10px 20px;
+  padding: 8px 20px;
   background-color: $ec-darkblue;
   border: 0;
-  border-radius: 20px;
+  border-radius: 30px;
   transition: all 0.1s $transition-timing;
   cursor: pointer;
   font-weight: bold;
   color: $white;
+  font-size: 14pt;
   line-height: 1.4;
   text-decoration: none;
 
   &.btn-primary {
-    background-color: $ec-primary;
+    background-color: $ec-primary-btn-bg;
+    // text-shadow: 0 0 1.5em darken($ec-primary, 25%);
   }
 
   &:hover,
@@ -136,12 +140,12 @@ $circle-secondary: '<svg width="330" height="331" viewBox="0 0 330 331" fill="no
     color: $white !important;
 
     &.btn-primary {
-      background-color: $ec-primary !important;
+      background-color: $ec-primary-btn-bg !important;
     }
   }
   &:hover {
     &.btn-primary {
-      background-color: darken($ec-primary,5%) !important;
+      background-color: darken($ec-primary-btn-bg,5%) !important;
     }
   }
   &:active,
@@ -156,7 +160,7 @@ $circle-secondary: '<svg width="330" height="331" viewBox="0 0 330 331" fill="no
   &:disabled, &.disabled {
     cursor: default;
     pointer-events: none;
-    background-color: rgba($ec-primary, .5) !important;
+    background-color: rgba($ec-primary-btn-bg, .5) !important;
     color: $white;
   }
 
@@ -206,8 +210,7 @@ $circle-secondary: '<svg width="330" height="331" viewBox="0 0 330 331" fill="no
   }
   */
 
-  // Links
-  a {
+  a, button.link {
     color: $link-color;
     text-decoration: underline;
     transition: color 0.2s $transition-timing;
@@ -216,6 +219,19 @@ $circle-secondary: '<svg width="330" height="331" viewBox="0 0 330 331" fill="no
       color: rgba($link-color,.7);
       text-decoration: none;
     }
+  }
+
+  // Links
+  button {
+
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+
+    color: $link-color;
+    cursor: pointer;
   }
 
   // Buttons

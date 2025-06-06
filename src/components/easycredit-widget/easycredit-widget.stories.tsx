@@ -62,12 +62,14 @@ let args = {
 const Template = (args) => `<easycredit-widget ${buildAttributes(args).join(' ')} />`;
 
 const TemplateFirst = (args) => {
-  return `
-  <label>Finanzierungsbetrag:</label>
-  <input type="number" onKeyup="this.parentElement.querySelector('easycredit-widget').setAttribute('amount', this.value);" />
+  return (
+    `
+  <label for="financingAmount">Finanzierungsbetrag:</label>
+  <input id="financingAmount"  type="number" onKeyup="this.parentElement.querySelector('easycredit-widget').setAttribute('amount', this.value);" />
   <br /><br />
 
   ` + Template(args)
+  );
 }
 
 export const WidgetNormal = TemplateFirst.bind({});

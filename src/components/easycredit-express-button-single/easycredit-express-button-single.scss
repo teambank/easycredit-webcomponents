@@ -1,128 +1,134 @@
-.ec-express-button {
-    --bg-color: #{$ec-primary};
-    --bg-color-hover: #{$ec-primary-btn-hover};
+:host {
+    .ec-express-button {
+        --bg-color: #{$ec-primary};
+        --bg-color-hover: #{$ec-primary-btn-hover};
 
-    display: flex;
-    flex-flow: column;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 10px;
+        display: flex;
+        flex-flow: column;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 10px;
 
-    transition: opacity 0.35s ease;
+        transition: opacity 0.35s ease;
 
-    &__btn {
-        position: relative;
-        display: block;
-        padding: 0 36px;
-        width: 350px;
-        max-width: 100%;
-        height: 45px;
-        box-sizing: border-box;
+        &__btn {
+            position: relative;
+            display: block;
+            padding: 0 36px;
+            width: 350px;
+            max-width: 100%;
+            height: 45px;
+            box-sizing: border-box;
+            border: 0;
 
-        background-color: var(--bg-color);
-        transition: background-color 0.35s ease;
-        border-radius: $border-radius-xxxl;
-        cursor: pointer;
+            background-color: var(--bg-color);
+            transition: background-color 0.35s ease;
+            border-radius: $border-radius-xxxl;
+            cursor: pointer;
 
-        &:hover {
-            background-color: var(--bg-color-hover);
-            color: $white; 
+            &:hover {
+                background-color: var(--bg-color-hover);
+                color: $white; 
+            }
+
+            // Props
+            &.blue {
+                --bg-color: #{$ec-darkblue};
+                --bg-color-hover: #{$ec-darkblue-btn-hover};
+            }
+            &.full-width {
+                width: 100% !important;
+            }
+            &.small-padding {
+                padding: 0 24px;
+            }
+
+            a {
+                color: $white;
+                text-decoration: none;
+            }
+
+            &__main {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                height: 100%;
+
+                font-size: 14pt;
+                font-weight: bold;
+                color: $white;
+
+                svg, img {
+                    flex: 0 0 auto;
+                    margin-right: 10px;
+
+                    &.installment {
+                        flex-basis: 50px;
+                        width: 50px;
+                        height: 25px;
+                    }
+
+                    &.bill {
+                        flex-basis: 16px;
+                        width: 16px;
+                        height: 20px;
+                    }
+                }
+
+                .long {
+                    display: block;
+                    max-width: max(0px, calc((100% - 249.5px)*999));
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+
+                    white-space: nowrap;
+                    color: $white;
+                }
+                .short {
+                    display: block;
+                    max-width: max(0px, calc(-100% + 250px)*999);
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+
+                    white-space: nowrap;
+                    color: $white;
+                }
+            }
         }
 
-        // Props
-        &.blue {
-            --bg-color: #{$ec-darkblue};
-            --bg-color-hover: #{$ec-darkblue-btn-hover};
-        }
-        &.full-width {
-            width: 100% !important;
-        }
-
-        a {
-            color: $white;
-            text-decoration: none;
-        }
-
-        &__main {
+        &__link {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 100%;
-            height: 100%;
+            margin-top: 10px;
+            width: auto;
+            max-width: 100%;
 
-            font-size: $font-size;
-            font-weight: bold;
-            color: $white;
+            cursor: pointer;
 
-            svg {
-                flex: 0 0 auto;
-                margin-right: 10px;
+            text-align: center;
+            font-size: $font-size-xxs;
+            line-height: $line-height;
+            color: $font-color !important;
 
-                &.installment {
-                    flex-basis: 59px;
-                    width: 59px;
-                    height: 28px;
-                }
-
-                &.bill {
-                    flex-basis: 16px;
-                    width: 16px;
-                    height: 20px;
-                }
+            &:hover {
+                color: rgba($font-color,.7) !important;
             }
 
-            .long {
-                display: block;
-                max-width: max(0px, calc((100% - 249.5px)*999));
-                overflow: hidden;
-                text-overflow: ellipsis;
+            .icon {
+                flex: 21.5px 0 0;
+                width: 21.5px;
+                max-width: 21.5px;
 
-                white-space: nowrap;
-                color: $white;
+                @extend .logo-finanzgruppe-icon;
+                display: inline-block;
+                margin-right: 9px;
+                height: 15px;
+
+                position: relative;
+                top: -.5px;
             }
-            .short {
-                display: block;
-                max-width: max(0px, calc(-100% + 250px)*999);
-                overflow: hidden;
-                text-overflow: ellipsis;
-
-                white-space: nowrap;
-                color: $white;
-            }
-        }
-    }
-
-    &__link {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-top: 10px;
-        width: auto;
-        max-width: 100%;
-
-        cursor: pointer;
-
-        text-align: center;
-        font-size: $font-size-xxs;
-        line-height: $line-height;
-        color: $font-color !important;
-
-        &:hover {
-            color: rgba($font-color,.7) !important;
-        }
-
-        .icon {
-            flex: 21.5px 0 0;
-            width: 21.5px;
-            max-width: 21.5px;
-
-            @extend .logo-finanzgruppe-icon;
-            display: inline-block;
-            margin-right: 9px;
-            height: 15px;
-
-            position: relative;
-            top: -.5px;
         }
     }
 }

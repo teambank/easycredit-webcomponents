@@ -1,6 +1,11 @@
 section {  
-    overflow: hidden;
-  }
-  .transitioning {
-    transition:height .35s ease;  
-  }
+  overflow: hidden;
+}
+.transitioning {
+  transition:height .35s ease;
+}
+
+button {
+  text-align: left;
+  width: 100%;
+}

@@ -1,4 +1,4 @@
-import { Component, Prop, h, State, Listen, Element, Watch } from '@stencil/core'
+import { Component, Prop, h, State, Listen, Element, Watch, Host } from '@stencil/core'
 import { fetchInstallmentPlans,validateInstallmentPlans, getWebshopInfo, sendFeedback, addErrorHandler } from '../../utils/utils'
 import { Caps } from '../../utils/validation';
 import { InstallmentPlan, InstallmentPlans, METHODS } from '../../types';
@@ -7,7 +7,9 @@ import { WebshopInfo } from '../../types';
 @Component({
   tag: 'easycredit-express-button',
   styleUrl: 'easycredit-express-button.scss',
-  shadow: true,
+  shadow: {
+    delegatesFocus: true
+  },
 })
 export class EasycreditExpressButton {
   @Prop() webshopId: string;
@@ -133,10 +135,8 @@ export class EasycreditExpressButton {
         size="checkout"
       >
         <div slot="content">
-          <div
-            class={{ 'checkout-modal-wrapper': true, 'ec-row': true, 'scrolled': this.agreementInView }}
-            >
-            <div class="ec-col ec-col-method">
+          <div class={{ 'checkout-modal-wrapper': true, 'ec-row': true, 'scrolled': this.agreementInView }}>
+            <div class="ec-col ec-col-method" tabindex="0">
               <div class="ec-container">
                 <easycredit-logo payment-type={this.selectedPaymentType} color="white"></easycredit-logo>
 
@@ -152,15 +152,15 @@ export class EasycreditExpressButton {
                 )}
 
                 {!this.paymentTypesEmpty && (
-                  <div class="skip-link-container"><a class="skip-link btn btn-primary" onClick={() => this.scrollToAgreement()}>
-                    {this.selectedPaymentType === METHODS.INSTALLMENT && <span>Weiter zum Ratenkauf</span>}
-                    {this.selectedPaymentType === METHODS.BILL && <span>Weiter zum Rechnungskauf</span>}
-                  </a></div>
+                  <div class="skip-link-container">
+                    <a class="skip-link btn btn-primary" onClick={() => this.scrollToAgreement()}>
+                      {this.selectedPaymentType === METHODS.INSTALLMENT && <span>Weiter zum Ratenkauf</span>}
+                      {this.selectedPaymentType === METHODS.BILL && <span>Weiter zum Rechnungskauf</span>}
+                    </a>
+                  </div>
                 )}
 
-                {this.selectedPaymentType === METHODS.BILL && (
-                  <easycredit-checkout-bill-payment-timeline></easycredit-checkout-bill-payment-timeline>
-                )}
+                {this.selectedPaymentType === METHODS.BILL && <easycredit-checkout-bill-payment-timeline></easycredit-checkout-bill-payment-timeline>}
                 {this.selectedPaymentType === METHODS.BILL && (
                   <easycredit-checkout-totals
                     amount={this.amount}
@@ -178,7 +178,7 @@ export class EasycreditExpressButton {
               </div>
             </div>
 
-            <div class="ec-col ec-col-agreement" id="agreement">
+            <div class="ec-col ec-col-agreement" tabindex="0"  id="agreement">
               <div class="ec-container">
                 {this.selectedPaymentType === METHODS.INSTALLMENT && <span slot="heading">Weiter zum Ratenkauf</span>}
                 {this.selectedPaymentType === METHODS.BILL && <span slot="heading">Weiter zum Rechnungskauf</span>}
@@ -253,51 +253,58 @@ export class EasycreditExpressButton {
 
   scrollToAgreement() {
     const element = this.checkoutModal.querySelector<HTMLElement>('.ec-col-agreement .ec-container');
-    element.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });    
+    element.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
   }
 
   render() {
     if (!this.isValid(METHODS.INSTALLMENT) && !this.isValid(METHODS.BILL)) {
       return;
     }
-    return [
-      <div class="ec-express-button">
-        {this.isValid(METHODS.INSTALLMENT) && (
-          <easycredit-express-button-single
-            onButtonClicked={this.clickHandler.bind(this)}
-            payment-type={METHODS.INSTALLMENT}
-            webshop-id={this.webshopId}
-            amount={this.amount}
-            full-width={this.fullWidth}
-          ></easycredit-express-button-single>
-        )}
-        {this.isValid(METHODS.BILL) && (
-          <easycredit-express-button-single
-            onButtonClicked={this.clickHandler.bind(this)}
-            payment-type={METHODS.BILL}
-            webshop-id={this.webshopId}
-            amount={this.amount}
-            full-width={this.fullWidth}
-          ></easycredit-express-button-single>
-        )}
+    return (
+      <Host tabindex="0">
+        <div class="ec-express-button">
+          {this.isValid(METHODS.INSTALLMENT) && (
+            <easycredit-express-button-single
+              onButtonClicked={this.clickHandler.bind(this)}
+              payment-type={METHODS.INSTALLMENT}
+              webshop-id={this.webshopId}
+              amount={this.amount}
+              full-width={this.fullWidth}
+            ></easycredit-express-button-single>
+          )}
+          {this.isValid(METHODS.BILL) && (
+            <easycredit-express-button-single
+              onButtonClicked={this.clickHandler.bind(this)}
+              payment-type={METHODS.BILL}
+              webshop-id={this.webshopId}
+              amount={this.amount}
+              full-width={this.fullWidth}
+            ></easycredit-express-button-single>
+          )}
 
-        <a class="ec-express-button__link" target="_blank" style={{ width: this.buttonWidth }} onClick={() => this.openInfopageModal()}>
-          <div class="icon"></div>
-          <div>
-            Mehr zum <strong>Bezahlen mit easyCredit</strong>
-          </div>
-        </a>
+          <button class="ec-express-button__link" style={{ width: this.buttonWidth }} onClick={() => this.openInfopageModal()}>
+            <div class="icon"></div>
+            <div>
+              Mehr zum <strong>Bezahlen mit easyCredit</strong>
+            </div>
+          </button>
 
-        {this.getCheckoutModalFragment()}
-        {this.getPaymentModalFragment()}
+          {this.getCheckoutModalFragment()}
+          {this.getPaymentModalFragment()}
 
-        <easycredit-modal class={{ 'ec-express-button__modal__infopage': true }} ref={el => (this.infopageModal = el as HTMLEasycreditModalElement)} size="infopage" >
-          <easycredit-infopage slot="content" paymentTypes={this.paymentTypes.split(',')
-            .map(type => type.trim() as METHODS)
-            .filter(type => this.isValid(type))
-            .join(',')} variant="enhanced" />
-        </easycredit-modal>
-      </div>,
-    ];
+          <easycredit-modal class={{ 'ec-express-button__modal__infopage': true }} ref={el => (this.infopageModal = el as HTMLEasycreditModalElement)} size="infopage">
+            <easycredit-infopage
+              slot="content"
+              paymentTypes={this.paymentTypes
+                .split(',')
+                .map(type => type.trim() as METHODS)
+                .filter(type => this.isValid(type))
+                .join(',')}
+              variant="enhanced"
+            />
+          </easycredit-modal>
+        </div>
+      </Host>
+    );
   }
 }

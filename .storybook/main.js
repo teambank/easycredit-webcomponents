@@ -10,7 +10,8 @@ module.exports = {
     "@storybook/addon-interactions",
     "@chromatic-com/storybook",
     "@storybook/addon-mdx-gfm",
-    "@storybook/addon-webpack5-compiler-swc"
+    "@storybook/addon-webpack5-compiler-swc",
+    "@storybook/addon-a11y"
   ],
   "framework": {
     name: "@storybook/html-webpack5",
