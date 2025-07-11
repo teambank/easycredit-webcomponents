@@ -431,10 +431,10 @@ $circle-secondary: '<svg width="330" height="331" viewBox="0 0 330 331" fill="no
   background-image: url(#{$ec-base-url}/easycredit-components/assets/motiv-leyla.jpg);
 }
 .image-ratenkauf {
-  background-image: url(/*#{$ec-base-url}*//easycredit-components/assets/motiv-ratenkauf.webp);
+  background-image: url(#{$ec-base-url}/easycredit-components/assets/motiv-ratenkauf.webp);
 }
 .image-rechnung {
-  background-image: url(/*#{$ec-base-url}*//easycredit-components/assets/motiv-rechnung.webp);
+  background-image: url(#{$ec-base-url}/easycredit-components/assets/motiv-rechnung.webp);
 }
 
 // Circles
