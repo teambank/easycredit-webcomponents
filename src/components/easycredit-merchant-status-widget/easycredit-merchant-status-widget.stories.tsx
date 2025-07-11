@@ -6,18 +6,18 @@ export default {
     docs: {
       description: {
         component:
-          `Das StatusWidget ermöglicht die Anzeige des Transaktionsstatus im Backend eines Online-Shops. Der Händler erhält über das StatusWidget einen schnellen Einblick in den Transaktionsstatus einer Bestellung. Das StatusWidget kann auf der Seite integriert werden, auf der die Bestelldetails angezeigt werden, aber auch in der Listenansicht um auf einen Blick den Status aller angezeigten Bestellungen einzusehen.
+          `The StatusWidget enables the display of transaction status in the backend of an online shop. The merchant gets a quick overview of the transaction status of an order via the StatusWidget. The StatusWidget can be integrated on the page where order details are displayed, but also in the list view to see the status of all displayed orders at a glance.
           
-Das Merchant StatusWidget benötigt eine initale Konfiguration zum Abruf der Transaktionsdaten, siehe MerchantManager`,
+The Merchant StatusWidget requires initial configuration to retrieve transaction data, see MerchantManager`,
       }
     }    
   },
   argTypes: {
     txId: {
-      description: 'die Transaktions-ID der easyCredit-Zahlung'
+      description: 'the transaction ID of the easyCredit payment'
     },
     date: {
-      description: 'Bestelldatum, verwendet zur Unterscheidung zwischen "nicht verfügbar" und "noch nicht verfügbar". Der Wert muss von Date.parse() geparst werden können.'
+      description: 'Order date, used to distinguish between "not available" and "not yet available". The value must be parsable by Date.parse()'
     }
   }
 };
@@ -33,13 +33,13 @@ StatusWidgetNormal.storyName = 'Standard'
 StatusWidgetNormal.args = { ... args }
 
 export const StatusWidgetNotAvailable = Template.bind({});
-StatusWidgetNotAvailable.storyName = 'nicht verfügbar'
+StatusWidgetNotAvailable.storyName = 'Not available'
 StatusWidgetNotAvailable.args = { ... args, ... {
     txId: 'xyz'
 }}
 
 export const StatusWidgetNotYetAvailable = Template.bind({});
-StatusWidgetNotYetAvailable.storyName = 'nicht verfügbar (< 1 Tag)'
+StatusWidgetNotYetAvailable.storyName = 'Not yet available (< 1 day)'
 StatusWidgetNotYetAvailable.args = { ... args, ... {
     date: new Date().toISOString()
 }}

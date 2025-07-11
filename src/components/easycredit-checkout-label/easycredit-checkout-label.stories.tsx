@@ -7,7 +7,7 @@ export default {
     docs: {
       description: {
         component:
-          "Das Checkout-Label kann in der Zahlartenauswahl des Shops integriert werden. Typischerweise wird es neben einem Radio-Button gezeigt, der die Auswahl der Zahlungsart ermöglicht. In Verbindung mit der Checkout-Komponente kann es zur CD-konformen Implementierung des Ratenkaufs im Checkout eingesetzt werden.",
+          "The checkout label can be integrated into the payment method selection of the shop. Typically, it is shown next to a radio button that allows the selection of the payment method. In conjunction with the checkout component, it can be used for a CI-compliant implementation of installment purchase in the checkout.",
       }
     }    
   },
@@ -17,7 +17,7 @@ export default {
         defaultValue: { summary: "INSTALLMENT" },
         category: "optional",
       },
-      description: 'Zahlungsart',
+      description: 'Payment type',
       options: [METHODS.INSTALLMENT, METHODS.BILL],
       control: { type: 'radio' },
     },
@@ -25,13 +25,13 @@ export default {
       table: {
         category: "optional",
       },
-      description: 'Titel'
+      description: 'Title'
     },
     slogan: {
       table: {
         category: "optional",
       },
-      description: 'Untertitel'
+      description: 'Subtitle'
     }
   },
 };

@@ -1,26 +1,25 @@
 import { Meta } from "@storybook/blocks";
 
-<Meta title="Getting Started/Konfiguration" />
+<Meta title="Getting Started/Configuration" />
 
-<h1>Konfiguration</h1>
+<h1>Configuration</h1>
 
-Die Komponenten können für Integrations- und Testzwecke über eine globale Variable konfiguriert werden. 
-Dies ist hilfreich, um Authorisierungsdetails an die API zu übergeben oder bestimmte andere benötigte 
-Header für die Anfragen zu setzen. Auch die Basis-URL der API kann hier zu Testzwecken verändert werden. 
+The components can be configured via a global variable for integration and testing purposes. 
+This is helpful for passing authorization details to the API or setting certain other required 
+headers for the requests. The base URL of the API can also be changed here for testing purposes. 
 
-<h2>Endpunkte für Merchant-Komponenten</h2>
+<h2>Endpoints for Merchant Components</h2>
 
-Typischerweise interagieren die Merchant-Komponenten mit einer (zu erstellenden) API des Shop-Systems, 
-die als Proxy fungiert und die easyCredit-API anspricht. Dies ist sinnvoll, damit Zugangsdaten im Backend 
-nicht offengelegt werden. Moderne Shop-Systeme kommunizieren ohnehin bereits über eine API mit dem Backend-System, 
-so dass ein entsprechender Auth-Token oft auch für die erweiterte API verwendet werden kann. Die Endpunkte hierfür 
-können mit der folgenden Konfiguration festgelegt werden:
+Typically, the merchant components interact with an (to be created) API of the shop system, 
+which acts as a proxy and addresses the easyCredit API. This is useful so that access data is not disclosed in the backend. Modern shop systems already communicate 
+via an API with the backend system, so a corresponding auth token can often also be used for the extended API. The endpoints for this 
+can be set with the following configuration:
 
 ```html
 <script>
 window.easycreditRatenkaufWebComponentsConfig = {
 
-    // definierte Proxy-Endpoints für Merchant-API, Authentifizierung i.V.m. request_config
+    // defined proxy endpoints for merchant API, authentication in conjunction with request_config
 
     endpoints: {  // {transactionId} is automatically replaced with the tx-id or tx-id's (list)
         list: 'api/transactions/{transactionId}',
@@ -34,16 +33,16 @@ window.easycreditRatenkaufWebComponentsConfig = {
 </script>
 ```
 
-<h2>Anpassung des Anfrage-Headers</h2>
+<h2>Customizing the Request Header</h2>
 
-Im folgenden Beispiel ist gezeigt, wie der Anfrage-Header beeinflusst werden kann. In diesem Fall wird ein bereits existierender Bearer token vewrwendet um gegen die API zu authentifizieren:
+The following example shows how the request header can be influenced. In this case, an already existing bearer token is used to authenticate against the API:
 
 ```html
 <script>
 window.easycreditRatenkaufWebComponentsConfig = {
 
-    // Das Objekt `request_config` entspricht dem `options`-Parameter von `fetch(resource [, options])`, 
-    // siehe https://developer.mozilla.org/en-US/docs/Web/API/fetch
+    // The object `request_config` corresponds to the `options` parameter of `fetch(resource [, options])`, 
+    // see https://developer.mozilla.org/en-US/docs/Web/API/fetch
 
     request_config: {
         headers: {
@@ -56,15 +55,15 @@ window.easycreditRatenkaufWebComponentsConfig = {
 }
 </script>
 ```
-<h2>Anpassung der Basis-URL zu Testzwecken</h2>
+<h2>Adjusting the Base URL for Testing Purposes</h2>
 
-Zu Testzwecken kann die Basis-URL für API-Anfragen angepasst werden. Dies ist für die Benutzung der Komponenten im Normalfall aber nicht notwendig.
+For testing purposes, the base URL for API requests can be adjusted. However, this is not necessary for normal use of the components.
 
 ```html
 <script>
 window.easycreditRatenkaufWebComponentsConfig = {
 
-    // Basis-URL für API-Aufrufe
+    // Base URL for API calls
 
     apiBaseUrl: 'https://ratenkauf.easycredit.de',
 
@@ -73,12 +72,12 @@ window.easycreditRatenkaufWebComponentsConfig = {
 </script>
 ```
 
-<h2>Implementierungsbeispiele</h2>
+<h2>Implementation Examples</h2>
 
-Unter den folgenden Links sind einige Implementierungsbeispiele der Konfiguration und der 
-Interaktion der Merchant-Komponenten zu finden:
+The following links provide some implementation examples of the configuration and 
+interaction of the merchant components:
 
-* [Implementierung in wooCommerce](https://github.com/teambank/ratenkaufbyeasycredit-plugin-woocommerce/blob/68f05a8c715af1ed557264ed926c3810944ed5c5/src/woocommerce-gateway-ratenkaufbyeasycredit/includes/order-management.php#L65C21-L65C38)
-* [Implementierung in Shopware 5](https://github.com/teambank/ratenkaufbyeasycredit-plugin-shopware-5/blob/2f511d8983180dd9e4d95b10440858ce450c6944/src/Frontend/NetzkollektivEasyCredit/Subscriber/BackendMerchant.php#L41)
-* [Implementierung in Shopware 6](https://github.com/teambank/ratenkaufbyeasycredit-plugin-shopware-6/blob/54a995bff40ac324fc047fa67002df6cb07d73a8/src/Resources/app/administration/src/module/easycredit-payment/component/easycredit-tx-widget/index.js#L37)
-* [Implementierung in Magento 2](https://github.com/teambank/ratenkaufbyeasycredit-plugin-magento-2/blob/d38f12f1d2dd4e14f5bc9dae2de922c3c28ecf03/Block/Adminhtml/Merchant/Config.php#L43)
+* [Implementation in wooCommerce](https://github.com/teambank/ratenkaufbyeasycredit-plugin-woocommerce/blob/68f05a8c715af1ed557264ed926c3810944ed5c5/src/woocommerce-gateway-ratenkaufbyeasycredit/includes/order-management.php#L65C21-L65C38)
+* [Implementation in Shopware 5](https://github.com/teambank/ratenkaufbyeasycredit-plugin-shopware-5/blob/2f511d8983180dd9e4d95b10440858ce450c6944/src/Frontend/NetzkollektivEasyCredit/Subscriber/BackendMerchant.php#L41)
+* [Implementation in Shopware 6](https://github.com/teambank/ratenkaufbyeasycredit-plugin-shopware-6/blob/54a995bff40ac324fc047fa67002df6cb07d73a8/src/Resources/app/administration/src/module/easycredit-payment/component/easycredit-tx-widget/index.js#L37)
+* [Implementation in Magento 2](https://github.com/teambank/ratenkaufbyeasycredit-plugin-magento-2/blob/d38f12f1d2dd4e14f5bc9dae2de922c3c28ecf03/Block/Adminhtml/Merchant/Config.php#L43)

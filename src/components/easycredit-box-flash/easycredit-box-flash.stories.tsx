@@ -6,13 +6,13 @@ export default {
     docs: {
       description: {
         component:
-          "Mit dieser Marketing-Komponente lässt sich ein Banner zur Bewerbung des Ratenkaufs am unteren Bildschirmrand einblenden. Der Banner zeigt ein Standardbild, das sich über das src-Attribut überschreiben lässt. So können Händler ein zu ihrem Produktangebot passendes Bild verwenden.",
+          "This marketing component allows a banner to be displayed at the bottom of the screen to promote installment purchase. The banner shows a default image, which can be overridden via the src attribute. This allows merchants to use an image that matches their product offering.",
       },
     }    
   },
   argTypes: {
     src: {
-      description: 'ersetzt das Standard-Bild durch eine benutzerdefinierte Grafik (Format Retina: mind. 240 x 360)'
+      description: 'replaces the default image with a custom graphic (Retina format: at least 240 x 360)'
     }
   }
 }

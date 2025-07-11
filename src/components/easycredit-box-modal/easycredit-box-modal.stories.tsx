@@ -6,22 +6,22 @@ export default {
     docs: {
       description: {
         component:
-          "Die Modal-Komponente kann eingesetzt werden, um einen Kunden an einer bestimmten Stelle im Shop aktiv auf den Ratenkauf hinzuweisen. Ein zeitgesteuertes Einblenden des Modals ist möglich. Schliesst der Kunde das Modal, merkt die Komponente sich dies und verhindert ein weiteres Anzeigen.",
+          "The modal component can be used to actively draw a customer's attention to installment purchase at a specific point in the shop. Timed display of the modal is possible. If the customer closes the modal, the component remembers this and prevents it from being shown again.",
       }
     }    
   },
   argTypes: {
     src: {
-      description: 'ersetzt das Standard-Bild durch eine benutzerdefinierte Grafik (Format Retina: mind. 700 x 460)'
+      description: 'replaces the default image with a custom graphic (Retina format: at least 700 x 460)'
     },
     isOpen: {
-      description: 'mit dieser Option kann das Modal geöffnet und geschlossen werden'
+      description: 'this option can be used to open and close the modal'
     },
     delay: {
-      description: 'sofern hier ein Wert angegeben ist, wird das Modal nach Ablauf dieser Zeit automatisch geöffnet (Angabe in Millisekunden). Ist der Wert nicht angegeben, öffnet sich das Modal nicht automatisch.'
+      description: 'if a value is specified here, the modal will automatically open after this time (in milliseconds). If the value is not specified, the modal does not open automatically.'
     },
     snoozeFor: {
-      description: 'nach Ablauf dieser Zeit wird das Modal beim Laden der Seite erneut eingeblendet, wenn der Nutzer es bereits geschlossen hat (Angabe in Sekunden), nur in Verbindung mit openDelay'
+      description: 'after this time, the modal will be displayed again when the page is loaded if the user has already closed it (in seconds), only in conjunction with openDelay'
     }
   },
 };

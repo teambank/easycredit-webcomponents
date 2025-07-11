@@ -6,19 +6,19 @@ export default {
     parameters: {
         docs: {
             description: {
-                component: 'Der Express Button für easyCredit kann auf Produktseiten oder im Warenkorb integriert werden, um direkt von dort aus aus den Bezahlvorgang zu starten.',
+                component: 'The express button for easyCredit can be integrated on product pages or in the shopping cart to start the payment process directly from there.',
             }
         }
     },
     argTypes: {
         webshopId: {
-            description: 'die Kennung des Webshops'
+            description: 'the identifier of the webshop'
         },
         amount: {
-            description: 'der zu finanzierende Betrag, für den der Express-Button angezeigt werden soll. Ist der Betrag außerhalb der erlaubten Betragsgrenzen, wird der Button ausgeblendet.'
+            description: 'the amount to be financed for which the express button should be displayed. If the amount is outside the allowed limits, the button is hidden.'
         },
         paymentTypes: {
-            description: 'die zu berücksichtigenden Zahlungsmethoden, als komma-getrennte Liste',
+            description: 'the payment methods to be considered, as a comma-separated list',
             table: {
                 defaultValue: { summary: [] },
                 category: "optional",
@@ -30,7 +30,7 @@ export default {
                 defaultValue: { summary: "false" },
                 category: "optional",
             },
-            description: "Zeigt den Button über 100% der zur Verfügung stehenden Breite an."
+            description: "Displays the button across 100% of the available width."
         },
         submit: {
             name: 'easycredit-submit',
@@ -38,7 +38,7 @@ export default {
             table: {
                 category: "Events",
             },
-            description: "Wird ausgelöst bei Klick auf 'Akzeptieren'",
+            description: "Triggered when 'Accept' is clicked",
         }
     },
 }
@@ -67,7 +67,7 @@ const Template = (args) => {
     alert([
       'submitted successfully!',
       JSON.stringify(e.detail, null, 2)
-    ].join("\\n\\n"));
+    ].join("\n\n"));
   });
   </script>
   `;
@@ -78,7 +78,7 @@ ExpressButtonNormal.storyName = 'Standard'
 ExpressButtonNormal.args = args
 
 export const ExpressButtonBoth = Template.bind({});
-ExpressButtonBoth.storyName = 'beide Zahlarten'
+ExpressButtonBoth.storyName = 'both payment types'
 ExpressButtonBoth.args = {
   ...args, ... {
     paymentTypes: [METHODS.BILL,METHODS.INSTALLMENT].join(',')
@@ -86,7 +86,7 @@ ExpressButtonBoth.args = {
 }
 
 export const ExpressButtonInstallment = Template.bind({});
-ExpressButtonInstallment.storyName = 'nur Ratenkauf'
+ExpressButtonInstallment.storyName = 'installment only'
 ExpressButtonInstallment.args = args
 ExpressButtonInstallment.args = {
   ...args, ... {
@@ -95,7 +95,7 @@ ExpressButtonInstallment.args = {
 }
 
 export const ExpressButtonBill = Template.bind({});
-ExpressButtonBill.storyName = 'nur Rechnung'
+ExpressButtonBill.storyName = 'bill only'
 ExpressButtonBill.args = {
   ...args, ... {
     paymentTypes: METHODS.BILL

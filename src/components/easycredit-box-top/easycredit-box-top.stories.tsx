@@ -6,7 +6,7 @@ export default {
     docs: {
       description: {
         component:
-          "Die Slider-Komponente kann am oberen Bildschirmrand oder am oberen Rand eines Containers angezeigt werden und bewirbt den Ratenkauf mit kurzen Slogans. Die Slogans sind vorgegeben und können nicht angepasst werden.",
+          "The slider component can be displayed at the top of the screen or at the top edge of a container and promotes installment purchase with short slogans. The slogans are predefined and cannot be customized.",
       }
     }    
   },

@@ -6,259 +6,244 @@ import { Meta } from "@storybook/blocks";
 
 ## 1.3.9
 
-* StencilJS wurde auf v4.31.0 aktualisiert
-* Storybook wurde auf ^8.6.14 aktualisiert
-* die Komponenten wurden für Barrierefreiheit optimiert
+* StencilJS updated to v4.31.0
+* Storybook updated to ^8.6.14
+* Components optimized for accessibility
 
 #### `<easycredit-infopage />`, `<easycredit-faq />`
 
-* die Info-Seite und FAQ wurde um Informationen zum Rechnungskauf erweitert
+* Info page and FAQ extended with information about invoice purchase
 
 #### `<easycredit-express-button />`
 
-* das Info-Modal wird nun abhängig von den zur Verfügung stehenden Zahlungsarten angezeigt
-* der Wechsel der Zahlungsart ist nur noch möglich, wenn der Betrag innerhalb der Betragsgrenzen für die jeweilige Zahlungsart liegt
-* die Ratenauswahl wurde entfernt
+* The info modal is now displayed depending on the available payment methods
+* Switching payment methods is only possible if the amount is within the limits for the respective payment method
+* The installment selection has been removed
 
 ## 1.3.8
 
 #### `<easycredit-checkout />`
 
-* behebt einen internen Fehler, wenn amountHandler vor Komponent-Initialisierung aufgerufen wird
+* Fixes an internal error when amountHandler is called before component initialization
 
 ## 1.3.7
 
-* fix: verhindert, dass der "Loader" doppelte Einträge lädt
+* fix: prevents the "Loader" from loading duplicate entries
 
 #### `<easycredit-express-button />`
 
-* korrigiert das Verhalten der Akzeptieren-Buttons, wenn mehrere Buttons auf der Seite vorhanden sind
+* Corrects the behavior of the accept buttons when multiple buttons are present on the page
 
 #### `<easycredit-checkout />`
 
-* verwendet den Betrag aus dem Zahlungsplan statt des `amount`-Attributs, um das berechnete Checkout-Widget anzuzeigen
+* Uses the amount from the payment plan instead of the `amount` attribute to display the calculated checkout widget
 
 ## 1.3.6
 
-* Performance: der webshop-Endpunkt wird nur noch einmal aufgerufen und gecacht
+* Performance: the webshop endpoint is now called only once and cached
 
 #### `<easycredit-checkout />`
 
-* Überarbeitung der Komponentendarstellung: "Ihre Ware wird direkt versandt" & Animation wurden entfernt
+* Component display revised: "Your goods will be shipped directly" & animation removed
 
 #### `<easycredit-express-button />`
 
-* Überarbeitung der Komponentendarstellung: "Ihre Ware wird direkt versandt"
-* UX: die mobile Darstellung wurde angepasst, so dass der Button ohne scrollen erreichbar ist
+* Component display revised: "Your goods will be shipped directly"
+* UX: the mobile view has been adjusted so that the button is accessible without scrolling
 
 ## 1.3.5
 
-* es wird nun `npm` statt `yarn` verwendet
-* `stenciljs/sass` locked auf Version 3.0.12 wegen https://github.com/stenciljs/sass/issues/49.
+* Now uses `npm` instead of `yarn`
+* `stenciljs/sass` locked to version 3.0.12 due to https://github.com/stenciljs/sass/issues/49.
 
 ## 1.3.4
 
 #### `<easycredit-widget />`
 
-* behebt ein Problem, das unter bestimmten Bedingungen zu einer Endlosschleife führen konnte.
+* Fixes an issue that could lead to an infinite loop under certain conditions.
 
 ## 1.3.3
 
-* Upgrade auf StencilJS v4.27.0
+* Upgrade to StencilJS v4.27.0
 
-#### `<easycredit-checkout />`, `<easycredit-express-button />`,
+#### `<easycredit-checkout />`, `<easycredit-express-button />`
 
-* das `submit`-Event wurde umbenannt zu `easycredit-submit` (Rückwärtskompatibilität bleibt erhalten)
+* The `submit` event has been renamed to `easycredit-submit` (backward compatibility remains)
 
 #### `<easycredit-widget />`
 
-* bei aktiver Zinsflex-Aktion zeigt das Widget ein Badge für Zinsen und Laufzeit (`disable-flexprice` deaktiviert das Badge und die Anzeige im Ratenrechner)
+* With active Zinsflex promotion, the widget shows a badge for interest and term (`disable-flexprice` disables the badge and the display in the installment calculator)
 
 ## 1.3.2
 
-* Upgrade auf StencilJS v4.22.3
+* Upgrade to StencilJS v4.22.3
 
 #### `<easycredit-widget />`
 
-* das + Icon linkt nun immer auf die aktive Zahlungsart
+* The + icon now always links to the active payment method
 
 #### `<easycredit-box-modal />`, `<easycredit-box-flash />`, `<easycredit-box-listing />`
 
-* Austausch der Verlinkung
+* Link exchange
 
 ## 1.3.1
 
 #### `<easycredit-widget />`
 
-* die webshop-Id ist nun wieder dynamisch
+* The webshop ID is now dynamic again
 
 #### `<easycredit-checkout />`
 
-* `numberOfInstallments` wird nun mit `null` übergeben, wenn nicht gesetzt
+* `numberOfInstallments` is now passed as `null` if not set
 
 ## 1.3.0
 
-* die Web-Komponenten wurden für easyCredit-Rechnung überarbeitet
+* The web components have been revised for easyCredit invoice
 
 ## 1.2.10
 
 #### `<easycredit-widget />`
 
-* die Größe des Modals wurde an die neue Gestaltung des Ratenrechners angepasst
+* The modal size has been adjusted to the new design of the installment calculator
 
 #### `<easycredit-checkout />`, `<easycredit-express-button />`
 
-* der Error-Timeout wurde auf 10 Sekunden erhöht
-* der Performance-Observer wurde entfernt, weil er durch die Same-Origin-Policy keine Wirkung hatte
-=======
+* The error timeout has been increased to 10 seconds
+* The performance observer has been removed because it had no effect due to the same-origin policy
 
 ## 1.2.9
 
-* Upgrade auf Storybook v8 & StencilJs v4.17
-* das Tracking für `componentDidLoad` wurde entfernt
+* Upgrade to Storybook v8 & StencilJs v4.17
+* Tracking for `componentDidLoad` has been removed
 
 #### `<easycredit-widget />`
 
-* es wurde eine neue Darstellungvariante `minimal` hinzugefügt
+* A new display variant `minimal` has been added
 
 #### `<easycredit-checkout />`, `<easycredit-express-button />`
 
-* das Fehlerverhalten der Komponente wurde verbessert
-* im Fehlerfall sendet die Komponente nun Feedback zur Erkennung von Problemen
+* The error behavior of the component has been improved
+* In case of error, the component now sends feedback to detect problems
 
 ## 1.2.8
 
-* Funktionen zum Tracking der Komponenten wurde hinzugefügt
-* die Basis-URL für API-Aufrufe kann nun konfiguriert werden
-* die globale Konfigurationsvariable wurde umbenannt zu `easycreditRatenkaufWebComponentsConfig`
+* Functions for tracking the components have been added
+* The base URL for API calls can now be configured
+* The global configuration variable has been renamed to `easycreditRatenkaufWebComponentsConfig`
 
 ## 1.2.7
 
-* Upgrade auf Storybook v7 & StencilJs v4.0.4
+* Upgrade to Storybook v7 & StencilJs v4.0.4
 
 #### `<easycredit-checkout />`, `<easycredit-express-button />`
 
-* für das submit-Event werden nun JSX-Events statt des globalen Body-Listeners verwendet um doppelte Events zu vermeiden
+* For the submit event, JSX events are now used instead of the global body listener to avoid duplicate events
 
 #### `<easycredit-express-button />`
 
-* der Express-Button wird nun nur noch innerhalb der Betragsgrenzen angezeigt, wenn das Attribut `amount` angegeben ist
+* The express button is now only displayed within the amount limits if the `amount` attribute is specified
 
 ## 1.2.6
 
 #### `<easycredit-widget />`, `<easycredit-checkout />`
 
-* die beiden Komponenten wurden um die Option `disable-flexprice` erweitert
+* Both components have been extended with the `disable-flexprice` option
 
 ## 1.2.5
 
-* Update von StencilJs auf v3.1.0
-* der Support für ältere Browser wurde aus der Dokumentation entfernt und wird in Zukunft vollständig entfernt werden (nomodule, deprecated)
-* die Dokumentation wurde um die Komponenten-Events und Beispiele deren Nutzung erweitert
+* Update of StencilJs to v3.1.0
+* Support for older browsers has been removed from the documentation and will be completely removed in the future (nomodule, deprecated)
+* The documentation has been extended with component events and usage examples
 
 #### `<easycredit-modal />`
 
-* das Modal wird automatisch auf Ebene des `body` verschoben um Seiteneffekte mit Sidebars o.Ä zu vermeiden
+* The modal is automatically moved to the `body` level to avoid side effects with sidebars, etc.
 
 #### `<easycredit-box-listing />`
 
-* die Listing Box passt sich nun automatisch an den verfügbaren Platz an und zeigt bei geringen Platzverhältnissen einen verkürzten Text an
+* The listing box now automatically adapts to the available space and shows a shortened text in case of limited space
 
 #### `<easycredit-widget />`
 
-* das Widget reagiert nicht mehr auf Klick-Events, um das Öffnen des Linkziels zu vermeiden, wenn es innerhalb eines Elements verwendet wird
-* das Widget reagiert nun auf Betragsänderungen mit setAttribute, ein damit in Zusammenhang stehender Fehler wurde behoben
+* The widget no longer reacts to click events to avoid opening the link target when used inside an element
+* The widget now reacts to amount changes with setAttribute, a related bug has been fixed
 
 ## 1.2.4
 
 #### `<easycredit-modal />`, `<easycredit-box-flash />`, `<easycredit-box-listing  />`
 
-* das Standard-Bild wurde gegen eine aktuellere Variante ausgetauscht
+* The default image has been replaced with a more up-to-date version
 
 #### `<easycredit-widget />`
 
-* das Widget wurde um das Attribute displayType erweitert
-* der neue displayType="clean" wird ohne Schatten dargestellt
+* The widget has been extended with the attribute displayType
+* The new displayType="clean" is displayed without shadow
 
 ## 1.2.3
 
 #### `<easycredit-checkout />`
 
-* Bugfix: fehlende Styles wurden hinzugefügt
+* Bugfix: missing styles have been added
 
 ## 1.2.2
 
 #### `<easycredit-express-button />`
 
-* der Express-Button zur Implementierung des Express-Checkouts wurde hinzugefügt
+* The express button for implementing express checkout has been added
 
 #### `<easycredit-box-top />`
 
-* der Kreis ist nun als SVG implementiert und wird in allen Browsern scharf angezeigt
+* The circle is now implemented as SVG and is displayed sharply in all browsers
 
 #### `<easycredit-widget />`
 
-* das Widget kann nun mit dem Attribut `extended` außerhalb der finanzierbaren Betragsgrenzen ausgeblendet werden
-* das Widget reagiert nun auf Änderung des Attributs `amount` und berechnet die Rate automatisch neu
-* der Text im Widget wird nun linksbündig dargestellt
-* das Modal wurde farblich an den Ratenrechner angepasst
+* The widget can now be hidden with the `extended` attribute outside the financeable amount limits
+* The widget now reacts to changes of the `amount` attribute and automatically recalculates the rate
+* The text in the widget is now left-aligned
+* The modal has been color-adjusted to the installment calculator
 
 ## 1.2.1
 
-* die Basis-URL für Assets wird nun korrekt ermittelt
-* der "Backdrop" des Modals erhält einen höheren z-index, um mit höherer Wahrscheinlichkeit andere Element zu überlagern
+* The base URL for assets is now determined correctly
+* The "backdrop" of the modal receives a higher z-index to more likely overlay other elements
 
 ## 1.2.0
 
-* alle Komponenten wurden im Rahmen der Markenumstellung grafisch und textlich angepasst auf "easyCredit-Ratenkauf"
-* Update von StencilJs auf v2.17.1
+* All components have been graphically and textually adapted to "easyCredit Installment Purchase" as part of the brand change
+* Update of StencilJs to v2.17.1
 
 #### `<easycredit-logo />`
 
-* die Komponente wurde hinzugefügt
+* The component has been added
 
 #### `<easycredit-checkout />`
 
-* die Komponente reagiert nun auf das Event `closeModal`
-* das Submit-Event wird nun über den ShadowDOM hinaus propagiert
+* The component now reacts to the `closeModal` event
+* The submit event now propagates beyond the ShadowDOM
 
 #### `<easycredit-modal />`
 
-* das Modal triggert das Event `modalClosed`, wenn es geschlossen wird
+* The modal triggers the `modalClosed` event when closed
 
 #### `<easycredit-merchant-manager />`
 
-* das Verhalten des Formulars zum Melden der Lieferung / Rückabwicklung wurde optimiert
-* die minimale Breite wurde reduziert
+* The behavior of the form for reporting delivery/returns has been optimized
+* The minimum width has been reduced
 
 ## 1.1.0
 
-* Update von StencilJs auf v2.16.1
+* Update of StencilJs to v2.16.1
 
 #### `<easycredit-checkout />`
 
-* bei Klick auf Akzeptieren erhält der Nutzer visuelles Feedback
-* die Auswahl der Anrede wurde entfernt
-* die Zustimmungserklärung muss nun nicht mehr aktiv bestätigt werden (Checkbox entfernt)
+* On click of accept, the user receives visual feedback
+* The selection of salutation has been removed
+* The declaration of consent no longer needs to be actively confirmed (checkbox removed)
 
 #### `<easycredit-merchant-manager />`
 
-* der Betrag wird mit zwei Dezimalstellen angezeigt
-* Datumsangaben ohne Zeit werden nun als reines Datum formatiert dargestellt
-* zwischen nicht verfügbar & noch nicht verfügbar wird nun korrekt unterschieden
+* The amount is now displayed with two decimal places
+* Dates without time are now displayed as pure dates
+* The distinction between not available & not yet available is now made correctly
 
 #### `<easycredit-modal />`
-
-* das Modal erhielt einen höheren z-index, damit es andere Elemente leichter überlagert
-
-#### `<easycredit-widget />`, `<easycredit-merchant-manager />`, `<easycredit-merchant-status-widget />`
-
-* die Komponenten  unterstützen nun automatisches Batch-Loading und können so bei guter Performance auch mehrfach innerhalb einer Seite eingesetzt werden.
-
-### Upgrade Notes
-
-* für das Batch-Loading muss in <em>window.ratenkaufbyeasycreditOrderManagementConfig</em> die Eigenschaft <em>list</em> mit entsprechendem Endpunkt gesetzt werden.
-
-## 1.0.0
-
-* erstes Release

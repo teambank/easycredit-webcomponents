@@ -5,19 +5,19 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: `Der Merchant Manager ermöglicht dem Händler eine einfache Transaktionsverarbeitung über sein Shop-Backend. Typischerweise wird er im Shop-System in der Bestelldetailansicht angezeigt oder im Bereich der Transaktionen einer Bestellung.
+        component: `The Merchant Manager enables the merchant to easily process transactions via their shop backend. Typically, it is displayed in the shop system in the order detail view or in the area of transactions for an order.
         
-Um die Transaktionen abrufen zu können, müssen für den Merchant Manager die Endpunkte und die Authentifizerung angegeben werden. Dies kann z.B. global in der Seite über ein Skript-Tag passieren, siehe [Konfiguration über globale Variable](?path=/docs/getting-started-configuration--docs).
+To be able to retrieve transactions, the endpoints and authentication must be specified for the Merchant Manager. This can be done, for example, globally on the page via a script tag, see [Configuration via global variable](?path=/docs/getting-started-configuration--docs).
         `,
       }
     }    
   },
   argTypes: {
     txId: {
-      description: 'die Transaktions-ID der easyCredit-Zahlung'
+      description: 'the transaction ID of the easyCredit payment'
     },
     date: {
-      description: 'Bestelldatum, verwendet zur Unterscheidung zwischen "nicht verfügbar" und "noch nicht verfügbar". Der Wert muss von Date.parse() geparst werden können.'
+      description: 'Order date, used to distinguish between "not available" and "not yet available". The value must be parsable by Date.parse()'
     }
   },
 };
@@ -34,13 +34,13 @@ ManagerNormal.storyName = 'Standard'
 ManagerNormal.args = { ... args }
 
 export const ManagerNotAvailable = Template.bind({})
-ManagerNotAvailable.storyName = 'nicht verfügbar'
+ManagerNotAvailable.storyName = 'Not available'
 ManagerNotAvailable.args = { ... args, ... {
     txId: 'xyz'
 }}
 
 export const ManagerNotYetAvailable =  Template.bind({})
-ManagerNotYetAvailable.storyName = 'nicht verfügbar (< 1 Tag)'
+ManagerNotYetAvailable.storyName = 'Not yet available (< 1 day)'
 ManagerNotYetAvailable.args = { ... args, ... {
   txId: 'xyz',
   date: new Date().toISOString()

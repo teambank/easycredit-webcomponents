@@ -7,13 +7,13 @@ export default {
     docs: {
       description: {
         component:
-          "Das Logo vereinfacht die Einbindung der easyCredit-Logos und kann statt eines img-Tags eingesetzt werden",
+          "The logo simplifies the integration of easyCredit logos and can be used instead of an img tag.",
       }
     }    
   },
   argTypes: {
     webshopId: {
-      description: "die Kennung des Webshops",
+      description: "the identifier of the webshop",
     },
     paymentType: {
       options: [METHODS.INSTALLMENT, METHODS.BILL],
@@ -24,7 +24,7 @@ export default {
       control: { type: 'radio' },
     },
     alt: {
-      description: "Alternativtext des Logos",
+      description: "Alternative text for the logo",
     },  
   },
 };

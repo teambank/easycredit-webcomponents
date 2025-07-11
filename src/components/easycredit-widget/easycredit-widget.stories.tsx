@@ -7,26 +7,26 @@ export default {
     docs: {
       description: {
         component:
-          "Die Widget-Komponente wird typischerweise auf der Produktdetailseite gezeigt, kann aber auch im Warenkorb oder in der Produktübersicht integriert werden. Sie berechnet die günstigstmögliche Rate mit der ein Produkt mit einem bestimmten Preis finanziert werden kann. Bei Klick auf \"mehr Infos\" öffnet sich der Ratenrechner mit weiteren Details zur Finanzierung. Liegt der Produktpreis außerhalb der möglichen Finanzierungsbeträge weist das Widget auf Wunsch auf den minimal oder maximal möglichen Finanzierungsbetrag hin.",
+          "The widget component is typically shown on the product detail page, but can also be integrated in the cart or product overview. It calculates the lowest possible installment with which a product at a certain price can be financed. When clicking on \"more info\", the installment calculator opens with further details about the financing. If the product price is outside the possible financing amounts, the widget can optionally indicate the minimum or maximum possible financing amount.",
       }
     }    
   },
   argTypes: {
     webshopId: {
-      description: 'die Kennung des Webshops'
+      description: 'the identifier of the webshop'
     },
     amount: {
-      description: 'der zu finanzierende Betrag für den die Rate angezeigt werden soll, üblicherweise der Produktpreis'
+      description: 'the amount to be financed for which the installment is to be displayed, usually the product price'
     },
     paymentTypes: {
-      description: 'die zu berücksichtigenden Zahlungsmethoden, als komma-getrennte Liste',
+      description: 'the payment methods to be considered, as a comma-separated list',
       table: {
         defaultValue: { summary: 'INSTALLMENT,BILL' },
       },
        control: 'check', options: [METHODS.INSTALLMENT, METHODS.BILL]
     },
     extended: {
-      description: 'bestimmt, ob das Widget außerhalb der Betragsgrenzen angezeigt wird (optional)',
+      description: 'determines whether the widget is displayed outside the amount limits (optional)',
       defaultValue: 'false',
       table: {
         category: 'optional',
@@ -34,7 +34,7 @@ export default {
       }
     },
     displayType: {
-      description: 'mit dieser Option kann eine alternative Darstellungsvariante gewählt werden',
+      description: 'this option allows an alternative display variant to be selected',
       control: 'radio',
       options: ['normal', 'clean', 'minimal'],
       table: {
@@ -43,7 +43,7 @@ export default {
       }
     },
     disableFlexprice: {
-      description: 'wenn diese Option gesetzt ist, wird die Zins-Flexibilisierung bei der Berechnung nicht berücksichtigt',
+      description: 'if this option is set, interest flexibility is not considered in the calculation',
       table: {
         category: 'optional',
         defaultValue: { summary: 'false' },
@@ -64,7 +64,7 @@ const Template = (args) => `<easycredit-widget ${buildAttributes(args).join(' ')
 const TemplateFirst = (args) => {
   return (
     `
-  <label for="financingAmount">Finanzierungsbetrag:</label>
+  <label for="financingAmount">Financing amount:</label>
   <input id="financingAmount"  type="number" onKeyup="this.parentElement.querySelector('easycredit-widget').setAttribute('amount', this.value);" />
   <br /><br />
 
@@ -77,28 +77,28 @@ WidgetNormal.storyName = 'Standard'
 WidgetNormal.args = args
 
 export const WidgetFull = Template.bind({});
-WidgetFull.storyName = 'beide Zahlarten';
+WidgetFull.storyName = 'both payment types';
 WidgetFull.args = {
   ...args,
   paymentTypes: `${METHODS.BILL},${METHODS.INSTALLMENT}`
 };
 
 export const WidgetBillPayment = Template.bind({});
-WidgetBillPayment.storyName = 'nur Rechnungskauf';
+WidgetBillPayment.storyName = 'invoice purchase only';
 WidgetBillPayment.args = {
   ...args,
   paymentTypes: METHODS.BILL,
 };
 
 export const WidgetInstallmentPayment = Template.bind({});
-WidgetInstallmentPayment.storyName = 'nur Ratenkauf';
+WidgetInstallmentPayment.storyName = 'installment purchase only';
 WidgetInstallmentPayment.args = {
   ...args,
   paymentTypes: METHODS.INSTALLMENT,
 };
 
 export const WidgetBelowInstallments = Template.bind({});
-WidgetBelowInstallments.storyName = 'Grenzdarstellung (50 - 199 EUR)';
+WidgetBelowInstallments.storyName = 'Boundary display (50 - 199 EUR)';
 WidgetBelowInstallments.args = {
   ...args,
   ...{
@@ -108,7 +108,7 @@ WidgetBelowInstallments.args = {
 };
 
 export const WidgetAboveBill = Template.bind({});
-WidgetAboveBill.storyName = 'Grenzdarstellung (5001 - 9999 EUR)';
+WidgetAboveBill.storyName = 'Boundary display (5001 - 9999 EUR)';
 WidgetAboveBill.args = {
   ...args,
   ...{
@@ -118,7 +118,7 @@ WidgetAboveBill.args = {
 };
 
 export const WidgetBelow = Template.bind({});
-WidgetBelow.storyName = 'Grenzdarstellung (< 50 EUR)';
+WidgetBelow.storyName = 'Boundary display (< 50 EUR)';
 WidgetBelow.args = {
   ...args,
   ...{
@@ -128,14 +128,14 @@ WidgetBelow.args = {
 };
 
 export const WidgetAbove = Template.bind({});
-WidgetAbove.storyName = 'Grenzdarstellung (> 10.000 EUR)';
+WidgetAbove.storyName = 'Boundary display (> 10,000 EUR)';
 WidgetAbove.args = { ... args, ... {
   amount: 12000,
   paymentTypes: `${METHODS.BILL},${METHODS.INSTALLMENT}`
 }}
 
 export const WidgetExtended = Template.bind({});
-WidgetExtended.storyName = 'außerhalb Betragsgrenze, nicht anzeigen'
+WidgetExtended.storyName = 'outside amount limit, do not display'
 WidgetExtended.args = { ... args, ... {
   amount: 12000,
   paymentTypes: `${METHODS.BILL},${METHODS.INSTALLMENT}`,
@@ -159,7 +159,7 @@ WidgetDisplayTypeMinimal.args = { ... args, ... {
 }}
 
 export const WidgetWithoutFlexprice = Template.bind({});
-WidgetWithoutFlexprice.storyName = 'ohne Zins-Flex'
+WidgetWithoutFlexprice.storyName = 'without interest flex'
 WidgetWithoutFlexprice.args = { ... args, ... {
   amount: 500,
   disableFlexprice: true,

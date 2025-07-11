@@ -7,7 +7,7 @@ export default {
     docs: {
       description: {
         component:
-          "Die FAQ-Komponente ist zur Integration in den Inhaltsbereich gedacht. Die enthaltenen Einträge sind vorgegeben und können nicht verändert werden.",
+          "The FAQ component is intended for integration into the content area. The included entries are predefined and cannot be changed.",
       }
     }    
   },
@@ -17,7 +17,7 @@ export default {
         defaultValue: { summary: "INSTALLMENT" },
         category: "optional",
       },
-      description: 'Zahlungsart',
+      description: 'Payment type',
       options: [METHODS.INSTALLMENT, METHODS.BILL],
       control: { type: 'radio' },
     },

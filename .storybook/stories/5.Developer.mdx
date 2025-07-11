@@ -1,12 +1,12 @@
 import { Meta } from "@storybook/blocks";
 
-<Meta title="Getting Started/Hinweise für Entwickler" />
+<Meta title="Getting Started/Notes for Developers" />
 
-<h1>Hinweise für Entwickler</h1>
+<h1>Notes for Developers</h1>
 
-<h2>Benutzen von Event Delegation</h2>
+<h2>Using Event Delegation</h2>
 
-Normalerweise können den Komponenten Event-Handler hinzugefügt werden, sobald Sie `hydriert` sind. In vielen Szenarien werden Elemente aber auch durch JavaScript dynamisch ersetzt oder erst später eingefügt, z.B. wenn Elemente auf der Seite nachladen. Um Event-Handler zuverlässig an die Events zu binden, empfiehlt sich die Verwendung von Event Delegation. Dabei wird der Event-Listener nicht direkt auf das Element registriert, sondern auf Ebene des `document`'s oder eines spezifischeren Nodes. Der Vorteil ist, dass das Element zu diesem Zeitpunkt noch gar nicht vorhanden sein muss. Es muss also auch nicht auf Hydrierung oder das Element an sich gewartet werden. Durch das CustomEvent mit Prefix `easycredit-` wird eine Kollision mit anderen Komponenten oder Funktionen vermieden.
+Normally, event handlers can be added to the components as soon as they are `hydrated`. In many scenarios, however, elements are dynamically replaced by JavaScript or inserted later, e.g., when elements are loaded on the page. To reliably bind event handlers to the events, it is recommended to use event delegation. In this approach, the event listener is not registered directly on the element, but at the `document` level or a more specific node. The advantage is that the element does not have to exist at this point. So you do not have to wait for hydration or the element itself. The custom event with the prefix `easycredit-` avoids collisions with other components or functions.
 
 ```html
 <script>
@@ -22,9 +22,9 @@ Normalerweise können den Komponenten Event-Handler hinzugefügt werden, sobald 
 </script>
 ```
 
-<h2>Warten auf Komponenten-Initialisierung mit `whenDefined`</h2>
+<h2>Waiting for Component Initialization with `whenDefined`</h2>
 
-Um die Komponenten und deren Methoden ansprechen zu können, muss das jeweilige Element definiert sein. Um festzustellen, ob eine Komponente bereits angesprochen werden kann, kann die Funktion `whenDefined` verwendet werden:
+To be able to address the components and their methods, the respective element must be defined. To determine whether a component can already be addressed, the `whenDefined` function can be used:
 
 ```html
 <script>

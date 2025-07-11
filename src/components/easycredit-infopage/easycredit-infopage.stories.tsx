@@ -7,7 +7,7 @@ export default {
     docs: {
       description: {
         component:
-          "Die Infopage-Komponente ermöglicht die einfache Integration einer Zahlungsartenseite für den Ratenkauf im Frontend des Shops. Sie erklärt den Ratenkauf im Detail und enthält alle Informationen, die für Ihre Kunden interessant sind.",
+          "The Infopage component enables easy integration of a payment method page for installment purchase in the shop's frontend. It explains installment purchase in detail and contains all information that is interesting for your customers.",
       }
     }    
   },
@@ -15,7 +15,7 @@ export default {
     variant: {
       control: 'select',
       options: ['default', 'enhanced'],
-      description: 'Die visuelle Variante der Infopage-Komponente',
+      description: 'The visual variant of the Infopage component',
       table: {
         defaultValue: { summary: 'enhanced' }
       }
@@ -23,7 +23,7 @@ export default {
     paymentTypes: {
       control: 'select',
       options: [METHODS.INSTALLMENT, METHODS.BILL, `${METHODS.INSTALLMENT},${METHODS.BILL}`],
-      description: 'Verfügbare Zahlungsarten',
+      description: 'Available payment types',
       table: {
         defaultValue: { summary: `${METHODS.INSTALLMENT},${METHODS.BILL}` }
       }
@@ -41,14 +41,14 @@ const Template = (args) => {
 };
 
 export const Default = Template.bind({});
-Default.storyName = 'Standard-Variante';
+Default.storyName = 'Standard variant';
 Default.args = {
 //  variant: 'default',
 //  paymentTypes: `${METHODS.INSTALLMENT},${METHODS.BILL}`
 };
 
 export const Enhanced = Template.bind({});
-Enhanced.storyName = 'Erweiterte Variante';
+Enhanced.storyName = 'Enhanced variant';
 Enhanced.args = {
   variant: 'enhanced',
   paymentTypes: `${METHODS.INSTALLMENT},${METHODS.BILL}`
@@ -56,14 +56,14 @@ Enhanced.args = {
 
 // Add specific stories for single payment type scenarios
 export const InstallmentOnly = Template.bind({});
-InstallmentOnly.storyName = 'Nur Ratenkauf';
+InstallmentOnly.storyName = 'Installment only';
 InstallmentOnly.args = {
   variant: 'enhanced',
   paymentTypes: METHODS.INSTALLMENT
 };
 
 export const BillOnly = Template.bind({});
-BillOnly.storyName = 'Nur Rechnung';
+BillOnly.storyName = 'Bill only';
 BillOnly.args = {
   variant: 'enhanced',
   paymentTypes: METHODS.BILL

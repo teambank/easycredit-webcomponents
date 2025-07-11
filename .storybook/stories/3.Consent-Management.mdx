@@ -2,13 +2,13 @@ import { Meta } from "@storybook/blocks";
 
 <Meta title="Getting Started/Consent-Management" />
 
-<h1>Integration der easyCredit Web Components mit einem Consent-Management Tool</h1>
+<h1>Integrating easyCredit Web Components with a Consent Management Tool</h1>
 
-Sollen die Web Components vorbehaltlich der Zustimmung des Kunden eingefügt werden, muss darauf geachtet werden, dass die Komponenten als ESM-Modul eingebunden werden. Im folgenden zeigen wir eine Möglichkeit, wie die Komponenten in Verbindung mit Usercentrics dynamisch eingebunden werden. Bestimmte Komponenten werden im Checkout verwendet. Stimmt der Nutzer nicht zu, werden auch diese Komponenten nicht angezeigt und ein Bezahlung mit easyCredit ist nicht möglich.
+If the web components are to be inserted subject to the customer's consent, it is important to ensure that the components are included as an ESM module. Below we show one way to dynamically include the components in conjunction with Usercentrics. Certain components are used in the checkout. If the user does not consent, these components will not be displayed and payment with easyCredit will not be possible.
 
-<h2>Beispiel Usercentrics</h2>
+<h2>Usercentrics Example</h2>
 
-In diesem Fall behelfen wir uns mit einem normalen Skript-Tag der konditional ausgeführt wird, und wiederum das ESM-Modul einfügt:
+In this case, we use a regular script tag that is executed conditionally and in turn inserts the ESM module:
 
 ```html
 <script type="text/plain" data-usercentrics="EasyCredit Web Components">
@@ -21,5 +21,5 @@ In diesem Fall behelfen wir uns mit einem normalen Skript-Tag der konditional au
 </script>
 ```
 
-Weitere Informationen zur konditionalen Einbindung mit Usercentrics sind hier zu finden:
+Further information on conditional integration with Usercentrics can be found here:
 https://usercentrics.atlassian.net/wiki/spaces/SKB/pages/699465736/Direct+Implementation#Change-script-type-%E2%80%93-%E2%80%9Ctext-%2F-javascript%E2%80%9D-to-%E2%80%9Ctext-%2F-plain%E2%80%9D

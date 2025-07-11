@@ -4,36 +4,20 @@ import { Meta } from '@storybook/blocks';
 
 <h1>easyCredit Web Components</h1>
 
-<p>Die easyCredit Web Components sind ein Set von Web-Komponenten, die universell in E-Commerce-Plattformen, wie z.B. Magento, Shopware oder wooCommerce eingesetzt werden können. Die Webkomponenten erleichtern die Integration der easyCredit-Zahlungslösung durch vielseitige Web-Frontend-Elemente für Marketing, Checkout und Händlerverwaltung.</p>
+<p>The easyCredit Web Components are a set of web components that can be universally used in e-commerce platforms such as Magento, Shopware, or WooCommerce. The web components simplify the integration of the easyCredit payment solution through versatile web frontend elements for marketing, checkout, and merchant management.</p>
 
 <h2>Installation</h2>
 
-Zur Integration der Web Components in ein beliebiges System fügen Sie die folgenden Zeilen in den `<head>` Ihres Shops ein:
+To integrate the Web Components into any system, add the following lines to the `<head>` of your shop:
 
 ```html
 <script type="module" src="https://ratenkauf.easycredit.de/api/resource/webcomponents/v3/easycredit-components/easycredit-components.esm.js"></script>
 ```
 
-Jetzt können Sie jede der Komponenten innerhalb der Website verwenden:
+Now you can use any of the components within your website:
 
 ```html
 <easycredit-widget amount="500" webshop-id="1.de.1234" />
 ```
 
-Die Komponenten werden bei Einbindung nicht vollständig geladen, sondern erst bei Einfügen in die Seite asynchron nachgeladen. Dadurch ist der entstehende Overhead durch die Einbindung zu vernachlässigen.
-
-<h3>In ein bestehendes JavaScript-Projekt installieren</h3>
-
-<p>Um die Komponenten in einem JavaScript-Projekt zu verwenden, installieren Sie das NPM-Package:</p>
-
-```bash
-npm install --save @easycredit/web-components
-# or
-yarn add @easycredit/web-components
-```
-
-Sie können die Komponenten nun importieren:
-
-```js
-import { EasyCreditWidget } from "@easycredit/web-components";
-```
+The components are not fully loaded upon inclusion, but are instead loaded asynchronously when inserted into the page. This means the overhead caused by the inclusion is negligible.
