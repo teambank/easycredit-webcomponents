@@ -240,7 +240,7 @@ export class EasycreditCheckout {
             disabled={this.submitButtonClicked}
             onClick={() => this.submitHandler()}
           >
-            Weiter zu easyCredit-Rechnung
+            auf Rechnung zahlen
           </button>
         </div>
 
@@ -297,6 +297,7 @@ export class EasycreditCheckout {
               {this.alert && <div class="ec-checkout__alert">{this.alert}</div>}
               {this.isEnabled(METHODS.INSTALLMENT) && this.getCheckoutInstallmentUspFragment()}
               {this.isEnabled(METHODS.BILL) && this.getCheckoutBillPaymentFragment()}
+              {!this.isEnabled(METHODS.INSTALLMENT) && !this.isEnabled(METHODS.BILL) && <div class="ec-checkout__alert">Die gewählte Zahlungsart ist derzeit nicht verfügbar.</div>}
             </div>
           )}
         </div>

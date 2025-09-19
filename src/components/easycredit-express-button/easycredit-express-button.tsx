@@ -285,7 +285,7 @@ export class EasycreditExpressButton {
           <button class="ec-express-button__link" style={{ width: this.buttonWidth }} onClick={() => this.openInfopageModal()}>
             <div class="icon"></div>
             <div>
-              Mehr zum <strong>Bezahlen mit easyCredit</strong>
+            <strong>Mehr Informationen</strong>
             </div>
           </button>
 

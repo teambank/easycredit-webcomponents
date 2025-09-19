@@ -16,8 +16,8 @@ export class EasycreditExpressButtonSingle {
   @Prop() fullWidth: boolean = false;
   @Prop() paymentType: METHODS = METHODS.INSTALLMENT;
 
-  buttonTextDefault: string = 'Jetzt direkt in Raten zahlen';
-  buttonTextDefaultShort: string = 'Direkt in Raten zahlen';
+  buttonTextDefault: string = 'in Raten zahlen';
+  buttonTextDefaultShort: string = 'in Raten zahlen';
 
   @State() buttonOpacity: string = '0';
   @State() buttonText: string = this.buttonTextDefault;
@@ -53,7 +53,7 @@ export class EasycreditExpressButtonSingle {
 
   private getLogo(): string {
     if (this.paymentType === METHODS.BILL) {
-      return <img alt="easyCredit-Rechnung" class="bill" src={getAssetUrl('/easycredit-components/assets/rechnungskauf-icon.svg')} />;
+      return null;
     } else {
       return <img alt="easyCredit-Ratenkauf" class="installment" src={getAssetUrl('/easycredit-components/assets/easycredit-logo-white.svg')} />;
     }
@@ -61,8 +61,8 @@ export class EasycreditExpressButtonSingle {
 
   setButtonText() {
     if (this.paymentType === METHODS.BILL) {
-      this.buttonText = 'Heute bestellen - in 30 Tagen zahlen';
-      this.buttonTextShort = 'In 30 Tagen zahlen';
+      this.buttonText = 'auf Rechnung zahlen';
+      this.buttonTextShort = 'auf Rechnung zahlen';
     }
   }
 

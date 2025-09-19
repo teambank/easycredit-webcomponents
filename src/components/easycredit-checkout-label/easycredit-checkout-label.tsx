@@ -23,8 +23,8 @@ export class EasycreditCheckoutLabel {
       this.label ??= 'easyCredit-Ratenkauf'
       this.slogan ??= 'Ganz entspannt in Raten zahlen.'
     } else if (this.paymentType === METHODS.BILL) {
-      this.label ??= 'easyCredit-Rechnung'
-      this.slogan ??= 'Erst kaufen, in 30 Tagen bezahlen.'
+      this.label ??= 'Rechnung'
+      this.slogan ??= 'Jetzt kaufen, in 30 Tagen bezahlen.'
     }
   }
 
