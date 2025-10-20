@@ -48,12 +48,13 @@ As soon as the customer has completed the PaymentPage, the widget displays the c
 };
 
 let args = {
-    webshopId: '2.de.9999.9999',
-    amount: 820.31,
-    isActive: true,
-    alert: '',
-    paymentPlan: '',
-    paymentType: METHODS.INSTALLMENT
+  alert: '',
+  amount: 820.31,
+  isActive: true,
+  noInteraction: false,
+  paymentPlan: '',
+  paymentType: METHODS.INSTALLMENT,
+  webshopId: '2.de.9999.9999'
 }
 
 const Template = (args) => {
@@ -111,6 +112,13 @@ CheckoutCalculatedBillPayment.args = {
     paymentPlan: '{"orderValue":7702.06,"interest":1803.42,"totalValue":9505.48,"decisionOutcome":"POSITIVE","numberOfInstallments":60,"installment":159,"lastInstallment":124.48,"mtan":{"required":false,"successful":false},"bankAccountCheck":{"required":false}}'
   }
 }
+
+export const CheckoutNoInteraction = Template.bind({})
+CheckoutNoInteraction.storyName = 'No interaction'
+CheckoutNoInteraction.args = args
+CheckoutNoInteraction.args = { ... args, ... {
+  noInteraction: true
+}}
 
 export const CheckoutError = Template.bind({})
 CheckoutError.storyName = 'Error'

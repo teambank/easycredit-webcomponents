@@ -13,6 +13,7 @@
 | `amount`           | `amount`            |             | `number`                              | `undefined`           |
 | `disableFlexprice` | `disable-flexprice` |             | `boolean`                             | `false`               |
 | `isActive`         | `is-active`         |             | `boolean`                             | `true`                |
+| `noInteraction`    | `no-interaction`    |             | `boolean`                             | `false`               |
 | `paymentPlan`      | `payment-plan`      |             | `string`                              | `undefined`           |
 | `paymentType`      | `payment-type`      |             | `METHODS.BILL \| METHODS.INSTALLMENT` | `METHODS.INSTALLMENT` |
 | `webshopId`        | `webshop-id`        |             | `string`                              | `undefined`           |

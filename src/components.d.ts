@@ -67,6 +67,7 @@ export namespace Components {
         "amount": number;
         "disableFlexprice": boolean;
         "isActive": boolean;
+        "noInteraction": boolean;
         "paymentPlan": string;
         "paymentType": METHODS;
         "webshopId": string;
@@ -414,6 +415,7 @@ declare namespace LocalJSX {
         "amount"?: number;
         "disableFlexprice"?: boolean;
         "isActive"?: boolean;
+        "noInteraction"?: boolean;
         "paymentPlan"?: string;
         "paymentType"?: METHODS;
         "webshopId"?: string;

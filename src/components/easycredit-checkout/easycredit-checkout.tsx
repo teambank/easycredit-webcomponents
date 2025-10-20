@@ -17,6 +17,7 @@ export class EasycreditCheckout {
   @Prop() paymentPlan: string;
   @Prop() paymentType: METHODS = METHODS.INSTALLMENT;
   @Prop() disableFlexprice: boolean = false;
+  @Prop() noInteraction: boolean = false;
 
   @State() isInitialized: boolean = false;
   @State() submitButtonClicked: boolean = false;
@@ -198,16 +199,19 @@ export class EasycreditCheckout {
           <li>Kostenfreie Ratenanpassung & Sondertilgung</li>
         </ul>
 
-        <div class="ec-checkout__actions form-submit">
-          <button
-            type="button"
-            class={{ 'btn': true, 'btn-primary': true, 'loading': this.submitButtonClicked }}
-            disabled={this.submitButtonClicked}
-            onClick={() => this.submitHandler()}
-          >
-            Weiter zu easyCredit-Ratenkauf
-          </button>
-        </div>
+        {
+            this.noInteraction ||
+            <div class="ec-checkout__actions form-submit">
+              <button
+                type="button"
+                class={{ 'btn': true, 'btn-primary': true, 'loading': this.submitButtonClicked }}
+                disabled={this.submitButtonClicked}
+                onClick={() => this.submitHandler()}
+              >
+                Weiter zu easyCredit-Ratenkauf
+              </button>
+            </div>
+        }
 
         <p class="ec-checkout__small-print">{this.getPrivacyFragment({ intro: false })}</p>
       </div>,
@@ -233,17 +237,19 @@ export class EasycreditCheckout {
           <div slot="actions"></div>
         </easycredit-checkout-totals>
 
-        <div class="ec-checkout__actions form-submit">
-          <button
-            type="button"
-            class={{ 'btn': true, 'btn-primary': true, 'loading': this.submitButtonClicked }}
-            disabled={this.submitButtonClicked}
-            onClick={() => this.submitHandler()}
-          >
-            auf Rechnung zahlen
-          </button>
-        </div>
-
+        {
+            this.noInteraction ||
+            <div class="ec-checkout__actions form-submit">
+              <button
+                type="button"
+                class={{ 'btn': true, 'btn-primary': true, 'loading': this.submitButtonClicked }}
+                disabled={this.submitButtonClicked}
+                onClick={() => this.submitHandler()}
+              >
+                auf Rechnung zahlen
+              </button>
+            </div>
+        }
         <p class="ec-checkout__small-print">{this.getPrivacyFragment({ intro: false })}</p>
       </div>,
     ];
