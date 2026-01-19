@@ -54,7 +54,7 @@ export class EasycreditAccordionItem {
     const children = this.element.parentElement.querySelectorAll('easycredit-accordion-item');
     for (let i = 0; i < children.length; i++) {
       const child = children[i];
-      if (child == this.element) {
+      if (child instanceof HTMLElement && child == this.element) {
         this.index = i;
       }
     } 

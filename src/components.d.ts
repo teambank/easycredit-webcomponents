@@ -27,14 +27,17 @@ export namespace Components {
         "closeItem": () => Promise<void>;
         /**
           * index of accordion item from top to bottom
+          * @default -1
          */
         "index": number;
         /**
           * The mutation observer config to listen for content changes in the accordion item
+          * @default { childList: true, subtree: true }
          */
         "mutationObserverConfig": { childList: boolean; subtree: boolean; };
         /**
           * accordion item is open or opening (css transition)
+          * @default false
          */
         "open": boolean;
         /**
@@ -45,6 +48,9 @@ export namespace Components {
     interface EasycreditBase {
     }
     interface EasycreditBoxFlash {
+        /**
+          * @default false
+         */
         "isOpen": boolean;
         "src": string;
         "toggle": () => Promise<void>;
@@ -55,6 +61,9 @@ export namespace Components {
     }
     interface EasycreditBoxModal {
         "delay": number;
+        /**
+          * @default false
+         */
         "isOpen": boolean;
         "snoozeFor": number;
         "src": string;
@@ -65,10 +74,22 @@ export namespace Components {
     interface EasycreditCheckout {
         "alert": string;
         "amount": number;
+        /**
+          * @default false
+         */
         "disableFlexprice": boolean;
+        /**
+          * @default true
+         */
         "isActive": boolean;
+        /**
+          * @default false
+         */
         "noInteraction": boolean;
         "paymentPlan": string;
+        /**
+          * @default METHODS.INSTALLMENT
+         */
         "paymentType": METHODS;
         "webshopId": string;
     }
@@ -76,11 +97,20 @@ export namespace Components {
     }
     interface EasycreditCheckoutInstallments {
         "installments": any;
+        /**
+          * @default 5
+         */
         "rows": number;
+        /**
+          * @default 'Weitere Raten anzeigen +'
+         */
         "showMoreButtonText": string;
     }
     interface EasycreditCheckoutLabel {
         "label": string;
+        /**
+          * @default METHODS.INSTALLMENT
+         */
         "paymentType": METHODS;
         "slogan": string;
     }
@@ -89,11 +119,20 @@ export namespace Components {
     }
     interface EasycreditCheckoutTotals {
         "amount": number;
+        /**
+          * @default null
+         */
         "installmentPlans": InstallmentPlans;
+        /**
+          * @default null
+         */
         "selectedInstallment": InstallmentPlan;
     }
     interface EasycreditExpressButton {
         "amount": number;
+        /**
+          * @default false
+         */
         "fullWidth": boolean;
         "paymentTypes": string;
         "redirectUrl": string;
@@ -101,21 +140,45 @@ export namespace Components {
     }
     interface EasycreditExpressButtonSingle {
         "amount": number;
+        /**
+          * @default false
+         */
         "bgBlue": boolean;
+        /**
+          * @default false
+         */
         "fullWidth": boolean;
+        /**
+          * @default METHODS.INSTALLMENT
+         */
         "paymentType": METHODS;
         "webshopId": string;
     }
     interface EasycreditFaq {
+        /**
+          * @default METHODS.INSTALLMENT
+         */
         "paymentType": string;
     }
     interface EasycreditInfopage {
         "paymentTypes": string;
+        /**
+          * @default 'default'
+         */
         "variant": 'default' | 'enhanced';
     }
     interface EasycreditLogo {
+        /**
+          * @default 'easyCredit-Ratenkauf - Einfach. Fair. In Raten zahlen.'
+         */
         "alt": string;
+        /**
+          * @default 'blue'
+         */
         "color": string;
+        /**
+          * @default METHODS.INSTALLMENT
+         */
         "paymentType": METHODS;
     }
     interface EasycreditMerchantManager {
@@ -129,20 +192,41 @@ export namespace Components {
     }
     interface EasycreditModal {
         "close": () => Promise<void>;
+        /**
+          * @default false
+         */
         "isOpen": boolean;
+        /**
+          * @default false
+         */
         "loading": boolean;
+        /**
+          * @default 'Loading...'
+         */
         "loadingMessage": string;
         "open": () => Promise<void>;
         "show": boolean;
+        /**
+          * @default ''
+         */
         "size": string;
         "submit": () => Promise<void>;
         "toggle": () => Promise<void>;
     }
     interface EasycreditWidget {
         "amount": number;
+        /**
+          * @default false
+         */
         "disableFlexprice": boolean;
         "displayType": string;
+        /**
+          * @default true
+         */
         "extended": boolean;
+        /**
+          * @default METHODS.INSTALLMENT
+         */
         "paymentTypes": string;
         "webshopId": string;
     }
@@ -374,10 +458,12 @@ declare namespace LocalJSX {
     interface EasycreditAccordionItem {
         /**
           * index of accordion item from top to bottom
+          * @default -1
          */
         "index"?: number;
         /**
           * The mutation observer config to listen for content changes in the accordion item
+          * @default { childList: true, subtree: true }
          */
         "mutationObserverConfig"?: { childList: boolean; subtree: boolean; };
         /**
@@ -390,12 +476,16 @@ declare namespace LocalJSX {
         "onOpenEvent"?: (event: EasycreditAccordionItemCustomEvent<any>) => void;
         /**
           * accordion item is open or opening (css transition)
+          * @default false
          */
         "open"?: boolean;
     }
     interface EasycreditBase {
     }
     interface EasycreditBoxFlash {
+        /**
+          * @default false
+         */
         "isOpen"?: boolean;
         "src"?: string;
     }
@@ -404,6 +494,9 @@ declare namespace LocalJSX {
     }
     interface EasycreditBoxModal {
         "delay"?: number;
+        /**
+          * @default false
+         */
         "isOpen"?: boolean;
         "snoozeFor"?: number;
         "src"?: string;
@@ -413,10 +506,22 @@ declare namespace LocalJSX {
     interface EasycreditCheckout {
         "alert"?: string;
         "amount"?: number;
+        /**
+          * @default false
+         */
         "disableFlexprice"?: boolean;
+        /**
+          * @default true
+         */
         "isActive"?: boolean;
+        /**
+          * @default false
+         */
         "noInteraction"?: boolean;
         "paymentPlan"?: string;
+        /**
+          * @default METHODS.INSTALLMENT
+         */
         "paymentType"?: METHODS;
         "webshopId"?: string;
     }
@@ -425,11 +530,20 @@ declare namespace LocalJSX {
     interface EasycreditCheckoutInstallments {
         "installments"?: any;
         "onSelectedInstallment"?: (event: EasycreditCheckoutInstallmentsCustomEvent<string>) => void;
+        /**
+          * @default 5
+         */
         "rows"?: number;
+        /**
+          * @default 'Weitere Raten anzeigen +'
+         */
         "showMoreButtonText"?: string;
     }
     interface EasycreditCheckoutLabel {
         "label"?: string;
+        /**
+          * @default METHODS.INSTALLMENT
+         */
         "paymentType"?: METHODS;
         "slogan"?: string;
     }
@@ -438,11 +552,20 @@ declare namespace LocalJSX {
     }
     interface EasycreditCheckoutTotals {
         "amount"?: number;
+        /**
+          * @default null
+         */
         "installmentPlans"?: InstallmentPlans;
+        /**
+          * @default null
+         */
         "selectedInstallment"?: InstallmentPlan;
     }
     interface EasycreditExpressButton {
         "amount"?: number;
+        /**
+          * @default false
+         */
         "fullWidth"?: boolean;
         "paymentTypes"?: string;
         "redirectUrl"?: string;
@@ -450,22 +573,46 @@ declare namespace LocalJSX {
     }
     interface EasycreditExpressButtonSingle {
         "amount"?: number;
+        /**
+          * @default false
+         */
         "bgBlue"?: boolean;
+        /**
+          * @default false
+         */
         "fullWidth"?: boolean;
         "onButtonClicked"?: (event: EasycreditExpressButtonSingleCustomEvent<string>) => void;
+        /**
+          * @default METHODS.INSTALLMENT
+         */
         "paymentType"?: METHODS;
         "webshopId"?: string;
     }
     interface EasycreditFaq {
+        /**
+          * @default METHODS.INSTALLMENT
+         */
         "paymentType"?: string;
     }
     interface EasycreditInfopage {
         "paymentTypes"?: string;
+        /**
+          * @default 'default'
+         */
         "variant"?: 'default' | 'enhanced';
     }
     interface EasycreditLogo {
+        /**
+          * @default 'easyCredit-Ratenkauf - Einfach. Fair. In Raten zahlen.'
+         */
         "alt"?: string;
+        /**
+          * @default 'blue'
+         */
         "color"?: string;
+        /**
+          * @default METHODS.INSTALLMENT
+         */
         "paymentType"?: METHODS;
     }
     interface EasycreditMerchantManager {
@@ -478,20 +625,41 @@ declare namespace LocalJSX {
         "txId"?: string;
     }
     interface EasycreditModal {
+        /**
+          * @default false
+         */
         "isOpen"?: boolean;
+        /**
+          * @default false
+         */
         "loading"?: boolean;
+        /**
+          * @default 'Loading...'
+         */
         "loadingMessage"?: string;
         "onModalClosed"?: (event: EasycreditModalCustomEvent<any>) => void;
         "onModalOpened"?: (event: EasycreditModalCustomEvent<any>) => void;
         "onModalSubmit"?: (event: EasycreditModalCustomEvent<any>) => void;
         "show"?: boolean;
+        /**
+          * @default ''
+         */
         "size"?: string;
     }
     interface EasycreditWidget {
         "amount"?: number;
+        /**
+          * @default false
+         */
         "disableFlexprice"?: boolean;
         "displayType"?: string;
+        /**
+          * @default true
+         */
         "extended"?: boolean;
+        /**
+          * @default METHODS.INSTALLMENT
+         */
         "paymentTypes"?: string;
         "webshopId"?: string;
     }
