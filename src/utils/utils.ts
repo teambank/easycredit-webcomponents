@@ -6,8 +6,8 @@ export function addErrorHandler(component, callback): number {
   let time = 10
 
   const timeout: number = window.setTimeout(() => {
-    console.error('No event handler handled the submit event of <easycredit-checkout> within ' + time + ' seconds. Please check the integration.')
-    sendFeedback(component, { component: 'EasycreditCheckout', action: 'error' })
+    console.error('No event handler handled the submit event of <'+ component.el.localName +'> within ' + time + ' seconds. Please check the integration.')
+    sendFeedback(component, { component: Object.getPrototypeOf(component).constructor.name, action: 'error' })
 
     callback()
   }, time * 1000)
