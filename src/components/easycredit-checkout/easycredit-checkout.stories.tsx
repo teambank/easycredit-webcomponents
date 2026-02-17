@@ -79,7 +79,7 @@ const TemplateExample = (args) => {
     alert([
       'submitted successfully!',
       JSON.stringify(e.detail, null, 2)
-    ].join("\n\n"));
+    ].join(""));
 
   });
   </script>
