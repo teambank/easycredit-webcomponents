@@ -1,6 +1,6 @@
 import path from 'path';
 import Case from 'case';
-import { storiesOf } from '@storybook/html';
+import { storiesOf } from '@storybook/html-vite';
 import * as KNOBS from '@storybook/addon-knobs';
 
 /*******************************************************************************
