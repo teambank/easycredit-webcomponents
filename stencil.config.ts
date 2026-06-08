@@ -27,6 +27,13 @@ export const config: Config = {
       type: 'dist',
       esmLoaderPath: '../loader',
     },
+    /**
+     * Node hydrate bundle for server-side HTML (e.g. scripts/prerender-server + PHP).
+     */
+    {
+      type: 'dist-hydrate-script',
+      dir: 'hydrate',
+    },
     {
       type: 'docs-readme',
     }

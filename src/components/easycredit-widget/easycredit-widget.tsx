@@ -35,6 +35,9 @@ export class EasycreditWidget {
     if (!this.isEnabled(METHODS.INSTALLMENT)){
       return
     }
+    if (amount === undefined || amount === null) {
+      return
+    }
     try {
       this.caps.validateAmount(this.amount, METHODS.INSTALLMENT)
     } catch (e) {
@@ -66,7 +69,7 @@ export class EasycreditWidget {
     try {
       this.webshopInfo = await getWebshopInfo(this.webshopId)
       this.caps = new Caps(this.paymentTypes, this.webshopInfo);
-      this.onAmountChanged(this.amount, 0);
+      await this.onAmountChanged(this.amount, 0);
 
       this.isValid = true
     } catch(e) {
@@ -110,8 +113,12 @@ export class EasycreditWidget {
     if (!this.isEnabled(METHODS.INSTALLMENT)) {
       return
     }
-    
-    let info = this.webshopInfo
+
+    const info = this.webshopInfo
+    if (!info) {
+      return
+    }
+
     if (this.amount < info.minInstallmentValue) {
       if (!this.extended) {
         return

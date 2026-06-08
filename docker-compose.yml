@@ -1,0 +1,32 @@
+# Prerender demo behind Traefik — no host port published; Traefik reaches the service on the Docker network.
+#
+# Prerequisites:
+#   - External network Traefik uses (create if needed): docker network create traefik
+#   - Host / routing is configured in Traefik (not via Host() labels here).
+#
+#   docker compose up --build
+#
+# Local run without Traefik (binds 8088 on the host):
+#   docker compose -f docker-compose.yml -f docker-compose.direct.yml up --build
+
+services:
+  prerender:
+    build: .
+    init: true
+    environment:
+      WEB_PORT: "8088"
+      PRERENDER_HOST: "127.0.0.1"
+      PRERENDER_PORT: "4711"
+      EASYCREDIT_PRERENDER_URL: "http://127.0.0.1:4711"
+      PRERENDER_HYDRATE_URL: "${PRERENDER_HYDRATE_URL:-}"
+    networks:
+      - web
+      - default
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.easycredit-prerender.tls.certresolver=default'
+      - 'traefik.http.services.easycredit-prerender.loadbalancer.server.port=8088'
+
+networks:
+  web:
+    external: true

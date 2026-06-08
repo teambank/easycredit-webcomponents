@@ -55,11 +55,14 @@ export function formatDatetime(dateString: string): string | undefined {
 var installmentsLoader: Loader
 
 export function fetchMultiInstallmentPlans (webshopId: string, amount: number) {
+  if (amount === undefined || amount === null || (typeof amount === 'number' && Number.isNaN(amount))) {
+    return Promise.reject(new Error('amount is required for installment plans'))
+  }
   if (installmentsLoader == null) {
     var installmentsStore: {[key: number]: any} = []
     installmentsLoader = new Loader(fetchAllInstallmentPlans.bind(this, webshopId), installmentsStore)
   }
-  return installmentsLoader.load(amount.toString())
+  return installmentsLoader.load(String(amount))
 }
 
 export function fetchAllInstallmentPlans (webshopId: string, amounts: number[]) {
@@ -100,6 +103,9 @@ export function fetchAllInstallmentPlans (webshopId: string, amounts: number[]) 
 }
 
 export function fetchSingleInstallmentPlan (webshopId: string, amount: number, opts: object = {}) {
+  if (amount === undefined || amount === null || (typeof amount === 'number' && Number.isNaN(amount))) {
+    return Promise.reject(new Error('amount is required for installment plans'))
+  }
   let url = getApiUrl('/api/ratenrechner/v3/webshop/{{webshopId}}/installmentplans')
     .replace('{{webshopId}}', webshopId)
 
@@ -147,13 +153,14 @@ export async function getWebshopInfo(webshopId: string) {
 export function fetchWebshopInfo (webshopId: string) {
   const url = getApiUrl('/api/payment/v3/webshop/{{webshopId}}')
     .replace('{{webshopId}}', webshopId)
-  return fetch(url, getOptions({})).then((response) => {
-    if (response.ok) { 
-     return {
-      [webshopId]: response.json()
-     }
+  return fetch(url, getOptions({})).then(async (response) => {
+    if (response.ok) {
+      const data = await response.json()
+      return {
+        [webshopId]: data,
+      }
     }
-    return Promise.reject(response); 
+    return Promise.reject(new Error(`Webshop info HTTP ${response.status}`))
   })
 }
 
@@ -173,6 +180,9 @@ export const validateInstallmentPlans = (data: any): InstallmentPlans => {
 }
 
 export async function fetchInstallmentPlans(webshopId: string, amount: number, opts: object = {}): Promise<InstallmentPlansContainer> {
+  if (amount === undefined || amount === null || (typeof amount === 'number' && Number.isNaN(amount))) {
+    return Promise.reject(new Error('amount is required for installment plans'))
+  }
 
   const fetchPlans = (opts) ?
       fetchSingleInstallmentPlan.bind(this, webshopId, amount, opts) :
@@ -402,8 +412,28 @@ export function applyAssetsUrl (component) {
     return
   }
 
-  (component as any).style = (component as any)
-    .style
-    .split(defaultUrl.href)
-    .join((getConfiguredBaseUrl()) ? getConfiguredBaseUrl() : baseUrl.origin)
+  const replacement = (getConfiguredBaseUrl()) ? getConfiguredBaseUrl() : baseUrl.origin
+  const styleVal = (component as any).style
+  if (typeof styleVal !== 'string') {
+    return
+  }
+  const updated = styleVal.split(defaultUrl.href).join(replacement)
+  if (updated === styleVal) {
+    return
+  }
+
+  try {
+    (component as any).style = updated
+  } catch {
+    try {
+      Object.defineProperty(component, 'style', {
+        value: updated,
+        writable: true,
+        configurable: true,
+        enumerable: true,
+      })
+    } catch {
+      /* Stencil / hydrate may expose style as getter-only; skip URL rewrite */
+    }
+  }
 }

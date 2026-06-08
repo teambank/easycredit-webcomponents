@@ -17,8 +17,30 @@
   },
   "files": [
     "dist/",
+    "hydrate/",
     "loader/"
   ],
+  "exports": {
+    ".": {
+      "types": "./dist/types/components.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs.js",
+      "default": "./dist/index.js"
+    },
+    "./hydrate": {
+      "types": "./hydrate/index.d.ts",
+      "import": "./hydrate/index.mjs",
+      "require": "./hydrate/index.js",
+      "default": "./hydrate/index.js"
+    },
+    "./loader": {
+      "types": "./loader/index.d.ts",
+      "import": "./loader/index.js",
+      "require": "./loader/index.cjs.js",
+      "default": "./loader/index.js"
+    },
+    "./package.json": "./package.json"
+  },
   "scripts": {
     "build": "stencil build --docs",
     "start": "stencil build --dev --watch --serve",
@@ -29,6 +51,10 @@
     "storybook:build": "storybook build",
     "storybook:deploy": "bash scripts/deploy-storybook.sh",
     "storybook:deploy:clear-cache": "bash scripts/storybook-deploy-clear-cache.sh",
+    "prerender:serve": "node scripts/prerender-server/server.cjs",
+    "prerender:php": "php -S 127.0.0.1:8088 -t scripts/prerender-server scripts/prerender-server/router.php",
+    "docker:build": "docker build -t easycredit-prerender:local .",
+    "docker:up": "docker compose up --build",
     "release": "npm run build && (cd dist; tar czvf ../easycredit-webcomponents-$(npm pkg get version | sed 's/\"//g').tar.gz .)"
   },
   "dependencies": {
