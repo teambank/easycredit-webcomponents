@@ -280,7 +280,7 @@ export class EasycreditCheckout {
         onModalClosed={() => (this.submitButtonClicked = false)}
         onModalSubmit={() => this.submitHandler()}
       >
-        <div slot="heading">Weiter zum Ratenkauf</div>
+        <div slot="heading">{this.paymentType === METHODS.BILL ? 'Weiter zum Rechnungskauf' : 'Weiter zum Ratenkauf'}</div>
         <div slot="content">{this.getPrivacyFragment({})}</div>
         <span slot="button">Akzeptieren</span>
       </easycredit-modal>,
