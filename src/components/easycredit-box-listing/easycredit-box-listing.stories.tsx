@@ -13,6 +13,9 @@ export default {
   argTypes: {
     src: {
       description: 'replaces the default image with a custom graphic (Retina format: at least 600 x 574)'
+    },
+    href: {
+      description: 'target URL for the "Mehr erfahren" link (defaults to https://www.easycredit.de/ratenkauf)'
     }
   }
 }

@@ -7,9 +7,10 @@
 
 ## Properties
 
-| Property | Attribute | Description | Type     | Default     |
-| -------- | --------- | ----------- | -------- | ----------- |
-| `src`    | `src`     |             | `string` | `undefined` |
+| Property | Attribute | Description | Type     | Default                                 |
+| -------- | --------- | ----------- | -------- | --------------------------------------- |
+| `href`   | `href`    |             | `string` | `'https://www.easycredit.de/ratenkauf'` |
+| `src`    | `src`     |             | `string` | `undefined`                             |
 
 
 ## Methods

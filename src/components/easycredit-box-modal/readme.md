@@ -7,12 +7,13 @@
 
 ## Properties
 
-| Property    | Attribute    | Description | Type      | Default     |
-| ----------- | ------------ | ----------- | --------- | ----------- |
-| `delay`     | `delay`      |             | `number`  | `undefined` |
-| `isOpen`    | `is-open`    |             | `boolean` | `false`     |
-| `snoozeFor` | `snooze-for` |             | `number`  | `undefined` |
-| `src`       | `src`        |             | `string`  | `undefined` |
+| Property    | Attribute    | Description | Type      | Default                                 |
+| ----------- | ------------ | ----------- | --------- | --------------------------------------- |
+| `delay`     | `delay`      |             | `number`  | `undefined`                             |
+| `href`      | `href`       |             | `string`  | `'https://www.easycredit.de/ratenkauf'` |
+| `isOpen`    | `is-open`    |             | `boolean` | `false`                                 |
+| `snoozeFor` | `snooze-for` |             | `number`  | `undefined`                             |
+| `src`       | `src`        |             | `string`  | `undefined`                             |
 
 
 ## Methods

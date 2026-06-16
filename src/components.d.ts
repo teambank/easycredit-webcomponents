@@ -49,6 +49,10 @@ export namespace Components {
     }
     interface EasycreditBoxFlash {
         /**
+          * @default 'https://www.easycredit.de/ratenkauf'
+         */
+        "href": string;
+        /**
           * @default false
          */
         "isOpen": boolean;
@@ -56,11 +60,19 @@ export namespace Components {
         "toggle": () => Promise<void>;
     }
     interface EasycreditBoxListing {
+        /**
+          * @default 'https://www.easycredit.de/ratenkauf'
+         */
+        "href": string;
         "src": string;
         "toggle": () => Promise<void>;
     }
     interface EasycreditBoxModal {
         "delay": number;
+        /**
+          * @default 'https://www.easycredit.de/ratenkauf'
+         */
+        "href": string;
         /**
           * @default false
          */
@@ -484,16 +496,28 @@ declare namespace LocalJSX {
     }
     interface EasycreditBoxFlash {
         /**
+          * @default 'https://www.easycredit.de/ratenkauf'
+         */
+        "href"?: string;
+        /**
           * @default false
          */
         "isOpen"?: boolean;
         "src"?: string;
     }
     interface EasycreditBoxListing {
+        /**
+          * @default 'https://www.easycredit.de/ratenkauf'
+         */
+        "href"?: string;
         "src"?: string;
     }
     interface EasycreditBoxModal {
         "delay"?: number;
+        /**
+          * @default 'https://www.easycredit.de/ratenkauf'
+         */
+        "href"?: string;
         /**
           * @default false
          */
@@ -670,13 +694,16 @@ declare namespace LocalJSX {
     }
     interface EasycreditBoxFlashAttributes {
         "src": string;
+        "href": string;
         "isOpen": boolean;
     }
     interface EasycreditBoxListingAttributes {
         "src": string;
+        "href": string;
     }
     interface EasycreditBoxModalAttributes {
         "src": string;
+        "href": string;
         "snoozeFor": number;
         "delay": number;
         "isOpen": boolean;

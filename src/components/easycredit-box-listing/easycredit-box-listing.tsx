@@ -10,6 +10,7 @@ import { applyAssetsUrl, getAssetUrl } from '../../utils/utils';
 export class EasycreditBoxListing {
 
   @Prop() src: string
+  @Prop() href: string = 'https://www.easycredit.de/ratenkauf'
 
   listingElement!: HTMLElement
   descTextDefault: string = 'Der easyCredit-Ratenkauf bietet Ihnen die Möglichkeit hier im Online-Shop bequem und einfach in Raten zu zahlen. Direkt von zu Hause und ganz ohne Risiko. Denn zuerst erhalten Sie Ihre Bestellung und bezahlen später in Ihren Wunschraten.'
@@ -88,7 +89,7 @@ export class EasycreditBoxListing {
                 </div>
 
                 <div class="ec-box-listing__content-button">
-                    <a class="btn btn-primary" href="https://www.easycredit.de/ratenkauf" target="_blank">Mehr erfahren</a>
+                    <a class="btn btn-primary" href={this.href} target="_blank">Mehr erfahren</a>
                 </div>
 
                 <div class="ec-box-listing__content-logo-finanzgruppe"></div>

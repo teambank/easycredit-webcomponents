@@ -10,6 +10,7 @@ import { applyAssetsUrl, getAssetUrl } from '../../utils/utils';
 export class EasycreditBoxModal {
 
   @Prop({mutable: true}) src: string
+  @Prop() href: string = 'https://www.easycredit.de/ratenkauf'
   @Prop({mutable: true}) snoozeFor: number
   @Prop({mutable: true}) delay: number
   @Prop({mutable: true}) isOpen: boolean = false
@@ -77,7 +78,7 @@ export class EasycreditBoxModal {
             </div>
 
             <div class="ec-box-modal__content-button">
-                <a class="btn btn-primary" href="https://www.easycredit.de/ratenkauf" target="_blank">Mehr erfahren</a>
+                <a class="btn btn-primary" href={this.href} target="_blank">Mehr erfahren</a>
             </div>
 
             <div class="ec-box-modal__content-logo-finanzgruppe"></div>

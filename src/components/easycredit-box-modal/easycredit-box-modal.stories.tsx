@@ -14,6 +14,9 @@ export default {
     src: {
       description: 'replaces the default image with a custom graphic (Retina format: at least 700 x 460)'
     },
+    href: {
+      description: 'target URL for the "Mehr erfahren" link (defaults to https://www.easycredit.de/ratenkauf)'
+    },
     isOpen: {
       description: 'this option can be used to open and close the modal'
     },
