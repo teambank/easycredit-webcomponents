@@ -32,6 +32,7 @@ export class EasycreditCheckout {
 
   caps: Caps;
   errorHandlerTimeout: number;
+  private selectedEventSent: boolean = false;
 
   @Listen('selectedInstallment')
   selectedInstallmentHandler(e) {
@@ -71,6 +72,19 @@ export class EasycreditCheckout {
       }
     }
     this.isInitialized = true;
+  }
+
+  async componentDidRender() {
+    if (!this.isInitialized || !this.isActive || !this.getPaymentPlan() || this.selectedEventSent) {
+      return null;
+    }
+
+    this.selectedEventSent = true;
+    sendFeedback(this, {
+      component: 'EasycreditCheckout',
+      action: 'selected',
+      paymentType: this.paymentType,
+    });
   }
 
   @Watch('amount') watchAmountHandler() {
