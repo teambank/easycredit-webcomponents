@@ -11,6 +11,10 @@
     width: $desktop-max-width;
   }
 
+  &--no-logo {
+    padding-right: 0;
+  }
+
   &__logo {
     position: absolute;
     right: 0;

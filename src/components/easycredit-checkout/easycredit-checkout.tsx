@@ -1,5 +1,6 @@
 import { Component, Prop, State, Listen, Element, Watch, h } from '@stencil/core';
 import { formatCurrency, fetchInstallmentPlans, validateInstallmentPlans, getWebshopInfo, sendFeedback, addErrorHandler } from '../../utils/utils';
+import { initInvoiceBrandingExperiment, shouldShowCheckoutLogo, trackInvoiceBrandingView } from '../../experiments/invoice-branding';
 import { Caps } from '../../utils/validation';
 import { InstallmentPlan, InstallmentPlans, METHODS } from '../../types';
 import { WebshopInfo } from '../../types';
@@ -32,6 +33,7 @@ export class EasycreditCheckout {
 
   caps: Caps;
   errorHandlerTimeout: number;
+  private viewEventSent: boolean = false;
   private selectedEventSent: boolean = false;
 
   @Listen('selectedInstallment')
@@ -58,6 +60,8 @@ export class EasycreditCheckout {
     this.webshopInfo = await getWebshopInfo(this.webshopId);
     this.caps = new Caps(this.paymentType, this.webshopInfo);
 
+    initInvoiceBrandingExperiment();
+
     if (this.amount > 0 && !this.alert && !this.paymentPlan) {
       try {
         this.caps.validateAmount(this.amount, this.paymentType);
@@ -75,16 +79,26 @@ export class EasycreditCheckout {
   }
 
   async componentDidRender() {
-    if (!this.isInitialized || !this.isActive || !this.getPaymentPlan() || this.selectedEventSent) {
+    if (!this.isInitialized || !this.isActive) {
       return null;
     }
 
-    this.selectedEventSent = true;
-    sendFeedback(this, {
-      component: 'EasycreditCheckout',
-      action: 'selected',
-      paymentType: this.paymentType,
-    });
+    if (this.getPaymentPlan()) {
+      if (!this.selectedEventSent) {
+        this.selectedEventSent = true;
+        sendFeedback(this, {
+          component: 'EasycreditCheckout',
+          action: 'selected',
+          paymentType: this.paymentType,
+        });
+      }
+      return;
+    }
+
+    if (!this.viewEventSent) {
+      this.viewEventSent = true;
+      trackInvoiceBrandingView(this, 'EasycreditCheckout', this.paymentType);
+    }
   }
 
   @Watch('amount') watchAmountHandler() {
@@ -100,7 +114,11 @@ export class EasycreditCheckout {
   }
 
   submitHandler() {
-    sendFeedback(this, { component: 'EasycreditCheckout', action: 'submit' });
+    sendFeedback(this, { 
+      component: 'EasycreditCheckout', 
+      action: 'submit',
+      paymentType: this.paymentType
+    });
 
     this.submitButtonClicked = true;
     this.errorHandlerTimeout = addErrorHandler(this, () => {
@@ -237,8 +255,17 @@ export class EasycreditCheckout {
       return;
     }
 
+    const showLogo = shouldShowCheckoutLogo(this.paymentType);
+
     return [
       <div class="ec-checkout__body">
+        {showLogo && (
+          <div class={{
+            'ec-checkout__logo' : true,
+            'ec-checkout__logo-installment': this.paymentType === METHODS.INSTALLMENT,
+            'ec-checkout__logo-bill': this.paymentType === METHODS.BILL
+          }}></div>
+        )}
         <div class="h4">Ihre Vorteile</div>
         <ul class="ec-checkout__usp">
           <li>

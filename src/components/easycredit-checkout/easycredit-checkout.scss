@@ -85,6 +85,24 @@
     color: $font-color;
   }
 
+  &__logo {
+    display: block;
+    width: 60px;
+    height: 40px;
+    margin-bottom: 20px;
+    background-position: left center;
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    float: right;
+    
+    &-installment {
+      @extend .logo-ratenkauf;
+    }
+    &-bill {
+      @extend .logo-rechnungskauf;
+    }
+  }
+
   &__usp {
     list-style: none;
     margin-top: 0;
