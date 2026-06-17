@@ -1,6 +1,6 @@
 import { Component, Prop, State, h } from '@stencil/core';
-import { applyAssetsUrl, sendFeedback } from '../../utils/utils';
-import { getVariant } from '../../utils/split-test';
+import { applyAssetsUrl } from '../../utils/utils';
+import { applyInvoiceBranding, trackInvoiceBrandingView } from '../../experiments/invoice-branding';
 import { METHODS } from '../../types';
 
 @Component({
@@ -32,44 +32,22 @@ export class EasycreditCheckoutLabel {
       this.slogan ??= 'Jetzt kaufen, in 30 Tagen bezahlen.'
     }
 
-    this.applyAbTestVariant();
+    const branding = applyInvoiceBranding(this.paymentType, {
+      label: this.label,
+      slogan: this.slogan,
+    });
+    this.label = branding.label;
+    this.slogan = branding.slogan;
+    this.showLogo = branding.showLogoOnLabel;
   }
 
   async componentDidRender() {
-    if (this.paymentType !== METHODS.BILL) {
-      return
+    if (this.viewEventSent) {
+      return;
     }
 
-    // Track view event only once per initialization
-    if (!this.viewEventSent) {
-      this.viewEventSent = true;
-      sendFeedback(this, { 
-        component: 'EasycreditCheckoutLabel', 
-        action: 'view',
-        paymentType: this.paymentType
-      });
-    }
-  }
-
-  applyAbTestVariant() {
-    if (this.paymentType !== METHODS.BILL) {
-      return
-    }
-
-    // force overwrite label and slogan only for bill payment type
-    const variant = getVariant();
-    switch (variant) {
-      case 'a':
-        this.label = 'Rechnung'
-        this.slogan = 'mit easyCredit-Rechnung'
-        break
-      case 'b':
-      case 'c':
-        this.label = 'Rechnung'
-        this.slogan = 'Jetzt kaufen, in 30 Tagen bezahlen.'
-        this.showLogo = false;
-        break
-    }
+    this.viewEventSent = true;
+    trackInvoiceBrandingView(this, 'EasycreditCheckoutLabel', this.paymentType);
   }
 
   render() { 

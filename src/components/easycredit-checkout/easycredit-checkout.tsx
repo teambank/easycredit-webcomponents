@@ -1,6 +1,6 @@
 import { Component, Prop, State, Listen, Element, Watch, h } from '@stencil/core';
 import { formatCurrency, fetchInstallmentPlans, validateInstallmentPlans, getWebshopInfo, sendFeedback, addErrorHandler } from '../../utils/utils';
-import { getVariant } from '../../utils/split-test';
+import { initInvoiceBrandingExperiment, shouldShowCheckoutLogo, trackInvoiceBrandingView } from '../../experiments/invoice-branding';
 import { Caps } from '../../utils/validation';
 import { InstallmentPlan, InstallmentPlans, METHODS } from '../../types';
 import { WebshopInfo } from '../../types';
@@ -34,6 +34,7 @@ export class EasycreditCheckout {
   caps: Caps;
   errorHandlerTimeout: number;
   private viewEventSent: boolean = false;
+  private selectedEventSent: boolean = false;
 
   @Listen('selectedInstallment')
   selectedInstallmentHandler(e) {
@@ -59,8 +60,7 @@ export class EasycreditCheckout {
     this.webshopInfo = await getWebshopInfo(this.webshopId);
     this.caps = new Caps(this.paymentType, this.webshopInfo);
 
-    // Get A/B/C test variant (this will also initialize it if needed)
-    getVariant();
+    initInvoiceBrandingExperiment();
 
     if (this.amount > 0 && !this.alert && !this.paymentPlan) {
       try {
@@ -82,18 +82,22 @@ export class EasycreditCheckout {
     if (!this.isInitialized || !this.isActive) {
       return null;
     }
-    if (this.paymentType !== METHODS.BILL) {
-      return
+
+    if (this.getPaymentPlan()) {
+      if (!this.selectedEventSent) {
+        this.selectedEventSent = true;
+        sendFeedback(this, {
+          component: 'EasycreditCheckout',
+          action: 'selected',
+          paymentType: this.paymentType,
+        });
+      }
+      return;
     }
 
-    // Track view event only once per initialization (variant is included via getPersistentOptions in sendFeedback)
     if (!this.viewEventSent) {
       this.viewEventSent = true;
-      sendFeedback(this, { 
-        component: 'EasycreditCheckout', 
-        action: 'view',
-        paymentType: this.paymentType
-      });
+      trackInvoiceBrandingView(this, 'EasycreditCheckout', this.paymentType);
     }
   }
 
@@ -251,8 +255,7 @@ export class EasycreditCheckout {
       return;
     }
 
-    // Show logo for variant B (reduced branding - logo moved to checkout)
-    const showLogo = getVariant() === 'b' && this.paymentType === METHODS.BILL;
+    const showLogo = shouldShowCheckoutLogo(this.paymentType);
 
     return [
       <div class="ec-checkout__body">

@@ -663,57 +663,152 @@ declare namespace LocalJSX {
         "paymentTypes"?: string;
         "webshopId"?: string;
     }
+
+    interface EasycreditAccordionItemAttributes {
+        "index": number;
+        "open": boolean;
+    }
+    interface EasycreditBoxFlashAttributes {
+        "src": string;
+        "isOpen": boolean;
+    }
+    interface EasycreditBoxListingAttributes {
+        "src": string;
+    }
+    interface EasycreditBoxModalAttributes {
+        "src": string;
+        "snoozeFor": number;
+        "delay": number;
+        "isOpen": boolean;
+    }
+    interface EasycreditCheckoutAttributes {
+        "isActive": boolean;
+        "amount": number;
+        "webshopId": string;
+        "alert": string;
+        "paymentPlan": string;
+        "paymentType": METHODS;
+        "disableFlexprice": boolean;
+        "noInteraction": boolean;
+    }
+    interface EasycreditCheckoutInstallmentsAttributes {
+        "showMoreButtonText": string;
+        "installments": string;
+        "rows": number;
+    }
+    interface EasycreditCheckoutLabelAttributes {
+        "label": string;
+        "slogan": string;
+        "paymentType": METHODS;
+    }
+    interface EasycreditCheckoutPrivacyApprovalAttributes {
+        "webshopId": string;
+    }
+    interface EasycreditCheckoutTotalsAttributes {
+        "amount": number;
+    }
+    interface EasycreditExpressButtonAttributes {
+        "webshopId": string;
+        "amount": number;
+        "paymentTypes": string;
+        "fullWidth": boolean;
+        "redirectUrl": string;
+    }
+    interface EasycreditExpressButtonSingleAttributes {
+        "webshopId": string;
+        "amount": number;
+        "bgBlue": boolean;
+        "fullWidth": boolean;
+        "paymentType": METHODS;
+    }
+    interface EasycreditFaqAttributes {
+        "paymentType": string;
+    }
+    interface EasycreditInfopageAttributes {
+        "paymentTypes": string;
+        "variant": 'default' | 'enhanced';
+    }
+    interface EasycreditLogoAttributes {
+        "paymentType": METHODS;
+        "color": string;
+        "alt": string;
+    }
+    interface EasycreditMerchantManagerAttributes {
+        "txId": string;
+        "date": string;
+    }
+    interface EasycreditMerchantStatusWidgetAttributes {
+        "txId": string;
+        "date": string;
+        "isManager": boolean;
+    }
+    interface EasycreditModalAttributes {
+        "loading": boolean;
+        "loadingMessage": string;
+        "show": boolean;
+        "isOpen": boolean;
+        "size": string;
+    }
+    interface EasycreditWidgetAttributes {
+        "webshopId": string;
+        "amount": number;
+        "displayType": string;
+        "paymentTypes": string;
+        "extended": boolean;
+        "disableFlexprice": boolean;
+    }
+
     interface IntrinsicElements {
         "easycredit-accordion": EasycreditAccordion;
-        "easycredit-accordion-item": EasycreditAccordionItem;
+        "easycredit-accordion-item": Omit<EasycreditAccordionItem, keyof EasycreditAccordionItemAttributes> & { [K in keyof EasycreditAccordionItem & keyof EasycreditAccordionItemAttributes]?: EasycreditAccordionItem[K] } & { [K in keyof EasycreditAccordionItem & keyof EasycreditAccordionItemAttributes as `attr:${K}`]?: EasycreditAccordionItemAttributes[K] } & { [K in keyof EasycreditAccordionItem & keyof EasycreditAccordionItemAttributes as `prop:${K}`]?: EasycreditAccordionItem[K] };
         "easycredit-base": EasycreditBase;
-        "easycredit-box-flash": EasycreditBoxFlash;
-        "easycredit-box-listing": EasycreditBoxListing;
-        "easycredit-box-modal": EasycreditBoxModal;
+        "easycredit-box-flash": Omit<EasycreditBoxFlash, keyof EasycreditBoxFlashAttributes> & { [K in keyof EasycreditBoxFlash & keyof EasycreditBoxFlashAttributes]?: EasycreditBoxFlash[K] } & { [K in keyof EasycreditBoxFlash & keyof EasycreditBoxFlashAttributes as `attr:${K}`]?: EasycreditBoxFlashAttributes[K] } & { [K in keyof EasycreditBoxFlash & keyof EasycreditBoxFlashAttributes as `prop:${K}`]?: EasycreditBoxFlash[K] };
+        "easycredit-box-listing": Omit<EasycreditBoxListing, keyof EasycreditBoxListingAttributes> & { [K in keyof EasycreditBoxListing & keyof EasycreditBoxListingAttributes]?: EasycreditBoxListing[K] } & { [K in keyof EasycreditBoxListing & keyof EasycreditBoxListingAttributes as `attr:${K}`]?: EasycreditBoxListingAttributes[K] } & { [K in keyof EasycreditBoxListing & keyof EasycreditBoxListingAttributes as `prop:${K}`]?: EasycreditBoxListing[K] };
+        "easycredit-box-modal": Omit<EasycreditBoxModal, keyof EasycreditBoxModalAttributes> & { [K in keyof EasycreditBoxModal & keyof EasycreditBoxModalAttributes]?: EasycreditBoxModal[K] } & { [K in keyof EasycreditBoxModal & keyof EasycreditBoxModalAttributes as `attr:${K}`]?: EasycreditBoxModalAttributes[K] } & { [K in keyof EasycreditBoxModal & keyof EasycreditBoxModalAttributes as `prop:${K}`]?: EasycreditBoxModal[K] };
         "easycredit-box-top": EasycreditBoxTop;
-        "easycredit-checkout": EasycreditCheckout;
+        "easycredit-checkout": Omit<EasycreditCheckout, keyof EasycreditCheckoutAttributes> & { [K in keyof EasycreditCheckout & keyof EasycreditCheckoutAttributes]?: EasycreditCheckout[K] } & { [K in keyof EasycreditCheckout & keyof EasycreditCheckoutAttributes as `attr:${K}`]?: EasycreditCheckoutAttributes[K] } & { [K in keyof EasycreditCheckout & keyof EasycreditCheckoutAttributes as `prop:${K}`]?: EasycreditCheckout[K] };
         "easycredit-checkout-bill-payment-timeline": EasycreditCheckoutBillPaymentTimeline;
-        "easycredit-checkout-installments": EasycreditCheckoutInstallments;
-        "easycredit-checkout-label": EasycreditCheckoutLabel;
-        "easycredit-checkout-privacy-approval": EasycreditCheckoutPrivacyApproval;
-        "easycredit-checkout-totals": EasycreditCheckoutTotals;
-        "easycredit-express-button": EasycreditExpressButton;
-        "easycredit-express-button-single": EasycreditExpressButtonSingle;
-        "easycredit-faq": EasycreditFaq;
-        "easycredit-infopage": EasycreditInfopage;
-        "easycredit-logo": EasycreditLogo;
-        "easycredit-merchant-manager": EasycreditMerchantManager;
-        "easycredit-merchant-status-widget": EasycreditMerchantStatusWidget;
-        "easycredit-modal": EasycreditModal;
-        "easycredit-widget": EasycreditWidget;
+        "easycredit-checkout-installments": Omit<EasycreditCheckoutInstallments, keyof EasycreditCheckoutInstallmentsAttributes> & { [K in keyof EasycreditCheckoutInstallments & keyof EasycreditCheckoutInstallmentsAttributes]?: EasycreditCheckoutInstallments[K] } & { [K in keyof EasycreditCheckoutInstallments & keyof EasycreditCheckoutInstallmentsAttributes as `attr:${K}`]?: EasycreditCheckoutInstallmentsAttributes[K] } & { [K in keyof EasycreditCheckoutInstallments & keyof EasycreditCheckoutInstallmentsAttributes as `prop:${K}`]?: EasycreditCheckoutInstallments[K] };
+        "easycredit-checkout-label": Omit<EasycreditCheckoutLabel, keyof EasycreditCheckoutLabelAttributes> & { [K in keyof EasycreditCheckoutLabel & keyof EasycreditCheckoutLabelAttributes]?: EasycreditCheckoutLabel[K] } & { [K in keyof EasycreditCheckoutLabel & keyof EasycreditCheckoutLabelAttributes as `attr:${K}`]?: EasycreditCheckoutLabelAttributes[K] } & { [K in keyof EasycreditCheckoutLabel & keyof EasycreditCheckoutLabelAttributes as `prop:${K}`]?: EasycreditCheckoutLabel[K] };
+        "easycredit-checkout-privacy-approval": Omit<EasycreditCheckoutPrivacyApproval, keyof EasycreditCheckoutPrivacyApprovalAttributes> & { [K in keyof EasycreditCheckoutPrivacyApproval & keyof EasycreditCheckoutPrivacyApprovalAttributes]?: EasycreditCheckoutPrivacyApproval[K] } & { [K in keyof EasycreditCheckoutPrivacyApproval & keyof EasycreditCheckoutPrivacyApprovalAttributes as `attr:${K}`]?: EasycreditCheckoutPrivacyApprovalAttributes[K] } & { [K in keyof EasycreditCheckoutPrivacyApproval & keyof EasycreditCheckoutPrivacyApprovalAttributes as `prop:${K}`]?: EasycreditCheckoutPrivacyApproval[K] };
+        "easycredit-checkout-totals": Omit<EasycreditCheckoutTotals, keyof EasycreditCheckoutTotalsAttributes> & { [K in keyof EasycreditCheckoutTotals & keyof EasycreditCheckoutTotalsAttributes]?: EasycreditCheckoutTotals[K] } & { [K in keyof EasycreditCheckoutTotals & keyof EasycreditCheckoutTotalsAttributes as `attr:${K}`]?: EasycreditCheckoutTotalsAttributes[K] } & { [K in keyof EasycreditCheckoutTotals & keyof EasycreditCheckoutTotalsAttributes as `prop:${K}`]?: EasycreditCheckoutTotals[K] };
+        "easycredit-express-button": Omit<EasycreditExpressButton, keyof EasycreditExpressButtonAttributes> & { [K in keyof EasycreditExpressButton & keyof EasycreditExpressButtonAttributes]?: EasycreditExpressButton[K] } & { [K in keyof EasycreditExpressButton & keyof EasycreditExpressButtonAttributes as `attr:${K}`]?: EasycreditExpressButtonAttributes[K] } & { [K in keyof EasycreditExpressButton & keyof EasycreditExpressButtonAttributes as `prop:${K}`]?: EasycreditExpressButton[K] };
+        "easycredit-express-button-single": Omit<EasycreditExpressButtonSingle, keyof EasycreditExpressButtonSingleAttributes> & { [K in keyof EasycreditExpressButtonSingle & keyof EasycreditExpressButtonSingleAttributes]?: EasycreditExpressButtonSingle[K] } & { [K in keyof EasycreditExpressButtonSingle & keyof EasycreditExpressButtonSingleAttributes as `attr:${K}`]?: EasycreditExpressButtonSingleAttributes[K] } & { [K in keyof EasycreditExpressButtonSingle & keyof EasycreditExpressButtonSingleAttributes as `prop:${K}`]?: EasycreditExpressButtonSingle[K] };
+        "easycredit-faq": Omit<EasycreditFaq, keyof EasycreditFaqAttributes> & { [K in keyof EasycreditFaq & keyof EasycreditFaqAttributes]?: EasycreditFaq[K] } & { [K in keyof EasycreditFaq & keyof EasycreditFaqAttributes as `attr:${K}`]?: EasycreditFaqAttributes[K] } & { [K in keyof EasycreditFaq & keyof EasycreditFaqAttributes as `prop:${K}`]?: EasycreditFaq[K] };
+        "easycredit-infopage": Omit<EasycreditInfopage, keyof EasycreditInfopageAttributes> & { [K in keyof EasycreditInfopage & keyof EasycreditInfopageAttributes]?: EasycreditInfopage[K] } & { [K in keyof EasycreditInfopage & keyof EasycreditInfopageAttributes as `attr:${K}`]?: EasycreditInfopageAttributes[K] } & { [K in keyof EasycreditInfopage & keyof EasycreditInfopageAttributes as `prop:${K}`]?: EasycreditInfopage[K] };
+        "easycredit-logo": Omit<EasycreditLogo, keyof EasycreditLogoAttributes> & { [K in keyof EasycreditLogo & keyof EasycreditLogoAttributes]?: EasycreditLogo[K] } & { [K in keyof EasycreditLogo & keyof EasycreditLogoAttributes as `attr:${K}`]?: EasycreditLogoAttributes[K] } & { [K in keyof EasycreditLogo & keyof EasycreditLogoAttributes as `prop:${K}`]?: EasycreditLogo[K] };
+        "easycredit-merchant-manager": Omit<EasycreditMerchantManager, keyof EasycreditMerchantManagerAttributes> & { [K in keyof EasycreditMerchantManager & keyof EasycreditMerchantManagerAttributes]?: EasycreditMerchantManager[K] } & { [K in keyof EasycreditMerchantManager & keyof EasycreditMerchantManagerAttributes as `attr:${K}`]?: EasycreditMerchantManagerAttributes[K] } & { [K in keyof EasycreditMerchantManager & keyof EasycreditMerchantManagerAttributes as `prop:${K}`]?: EasycreditMerchantManager[K] };
+        "easycredit-merchant-status-widget": Omit<EasycreditMerchantStatusWidget, keyof EasycreditMerchantStatusWidgetAttributes> & { [K in keyof EasycreditMerchantStatusWidget & keyof EasycreditMerchantStatusWidgetAttributes]?: EasycreditMerchantStatusWidget[K] } & { [K in keyof EasycreditMerchantStatusWidget & keyof EasycreditMerchantStatusWidgetAttributes as `attr:${K}`]?: EasycreditMerchantStatusWidgetAttributes[K] } & { [K in keyof EasycreditMerchantStatusWidget & keyof EasycreditMerchantStatusWidgetAttributes as `prop:${K}`]?: EasycreditMerchantStatusWidget[K] };
+        "easycredit-modal": Omit<EasycreditModal, keyof EasycreditModalAttributes> & { [K in keyof EasycreditModal & keyof EasycreditModalAttributes]?: EasycreditModal[K] } & { [K in keyof EasycreditModal & keyof EasycreditModalAttributes as `attr:${K}`]?: EasycreditModalAttributes[K] } & { [K in keyof EasycreditModal & keyof EasycreditModalAttributes as `prop:${K}`]?: EasycreditModal[K] };
+        "easycredit-widget": Omit<EasycreditWidget, keyof EasycreditWidgetAttributes> & { [K in keyof EasycreditWidget & keyof EasycreditWidgetAttributes]?: EasycreditWidget[K] } & { [K in keyof EasycreditWidget & keyof EasycreditWidgetAttributes as `attr:${K}`]?: EasycreditWidgetAttributes[K] } & { [K in keyof EasycreditWidget & keyof EasycreditWidgetAttributes as `prop:${K}`]?: EasycreditWidget[K] };
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "easycredit-accordion": LocalJSX.EasycreditAccordion & JSXBase.HTMLAttributes<HTMLEasycreditAccordionElement>;
-            "easycredit-accordion-item": LocalJSX.EasycreditAccordionItem & JSXBase.HTMLAttributes<HTMLEasycreditAccordionItemElement>;
-            "easycredit-base": LocalJSX.EasycreditBase & JSXBase.HTMLAttributes<HTMLEasycreditBaseElement>;
-            "easycredit-box-flash": LocalJSX.EasycreditBoxFlash & JSXBase.HTMLAttributes<HTMLEasycreditBoxFlashElement>;
-            "easycredit-box-listing": LocalJSX.EasycreditBoxListing & JSXBase.HTMLAttributes<HTMLEasycreditBoxListingElement>;
-            "easycredit-box-modal": LocalJSX.EasycreditBoxModal & JSXBase.HTMLAttributes<HTMLEasycreditBoxModalElement>;
-            "easycredit-box-top": LocalJSX.EasycreditBoxTop & JSXBase.HTMLAttributes<HTMLEasycreditBoxTopElement>;
-            "easycredit-checkout": LocalJSX.EasycreditCheckout & JSXBase.HTMLAttributes<HTMLEasycreditCheckoutElement>;
-            "easycredit-checkout-bill-payment-timeline": LocalJSX.EasycreditCheckoutBillPaymentTimeline & JSXBase.HTMLAttributes<HTMLEasycreditCheckoutBillPaymentTimelineElement>;
-            "easycredit-checkout-installments": LocalJSX.EasycreditCheckoutInstallments & JSXBase.HTMLAttributes<HTMLEasycreditCheckoutInstallmentsElement>;
-            "easycredit-checkout-label": LocalJSX.EasycreditCheckoutLabel & JSXBase.HTMLAttributes<HTMLEasycreditCheckoutLabelElement>;
-            "easycredit-checkout-privacy-approval": LocalJSX.EasycreditCheckoutPrivacyApproval & JSXBase.HTMLAttributes<HTMLEasycreditCheckoutPrivacyApprovalElement>;
-            "easycredit-checkout-totals": LocalJSX.EasycreditCheckoutTotals & JSXBase.HTMLAttributes<HTMLEasycreditCheckoutTotalsElement>;
-            "easycredit-express-button": LocalJSX.EasycreditExpressButton & JSXBase.HTMLAttributes<HTMLEasycreditExpressButtonElement>;
-            "easycredit-express-button-single": LocalJSX.EasycreditExpressButtonSingle & JSXBase.HTMLAttributes<HTMLEasycreditExpressButtonSingleElement>;
-            "easycredit-faq": LocalJSX.EasycreditFaq & JSXBase.HTMLAttributes<HTMLEasycreditFaqElement>;
-            "easycredit-infopage": LocalJSX.EasycreditInfopage & JSXBase.HTMLAttributes<HTMLEasycreditInfopageElement>;
-            "easycredit-logo": LocalJSX.EasycreditLogo & JSXBase.HTMLAttributes<HTMLEasycreditLogoElement>;
-            "easycredit-merchant-manager": LocalJSX.EasycreditMerchantManager & JSXBase.HTMLAttributes<HTMLEasycreditMerchantManagerElement>;
-            "easycredit-merchant-status-widget": LocalJSX.EasycreditMerchantStatusWidget & JSXBase.HTMLAttributes<HTMLEasycreditMerchantStatusWidgetElement>;
-            "easycredit-modal": LocalJSX.EasycreditModal & JSXBase.HTMLAttributes<HTMLEasycreditModalElement>;
-            "easycredit-widget": LocalJSX.EasycreditWidget & JSXBase.HTMLAttributes<HTMLEasycreditWidgetElement>;
+            "easycredit-accordion": LocalJSX.IntrinsicElements["easycredit-accordion"] & JSXBase.HTMLAttributes<HTMLEasycreditAccordionElement>;
+            "easycredit-accordion-item": LocalJSX.IntrinsicElements["easycredit-accordion-item"] & JSXBase.HTMLAttributes<HTMLEasycreditAccordionItemElement>;
+            "easycredit-base": LocalJSX.IntrinsicElements["easycredit-base"] & JSXBase.HTMLAttributes<HTMLEasycreditBaseElement>;
+            "easycredit-box-flash": LocalJSX.IntrinsicElements["easycredit-box-flash"] & JSXBase.HTMLAttributes<HTMLEasycreditBoxFlashElement>;
+            "easycredit-box-listing": LocalJSX.IntrinsicElements["easycredit-box-listing"] & JSXBase.HTMLAttributes<HTMLEasycreditBoxListingElement>;
+            "easycredit-box-modal": LocalJSX.IntrinsicElements["easycredit-box-modal"] & JSXBase.HTMLAttributes<HTMLEasycreditBoxModalElement>;
+            "easycredit-box-top": LocalJSX.IntrinsicElements["easycredit-box-top"] & JSXBase.HTMLAttributes<HTMLEasycreditBoxTopElement>;
+            "easycredit-checkout": LocalJSX.IntrinsicElements["easycredit-checkout"] & JSXBase.HTMLAttributes<HTMLEasycreditCheckoutElement>;
+            "easycredit-checkout-bill-payment-timeline": LocalJSX.IntrinsicElements["easycredit-checkout-bill-payment-timeline"] & JSXBase.HTMLAttributes<HTMLEasycreditCheckoutBillPaymentTimelineElement>;
+            "easycredit-checkout-installments": LocalJSX.IntrinsicElements["easycredit-checkout-installments"] & JSXBase.HTMLAttributes<HTMLEasycreditCheckoutInstallmentsElement>;
+            "easycredit-checkout-label": LocalJSX.IntrinsicElements["easycredit-checkout-label"] & JSXBase.HTMLAttributes<HTMLEasycreditCheckoutLabelElement>;
+            "easycredit-checkout-privacy-approval": LocalJSX.IntrinsicElements["easycredit-checkout-privacy-approval"] & JSXBase.HTMLAttributes<HTMLEasycreditCheckoutPrivacyApprovalElement>;
+            "easycredit-checkout-totals": LocalJSX.IntrinsicElements["easycredit-checkout-totals"] & JSXBase.HTMLAttributes<HTMLEasycreditCheckoutTotalsElement>;
+            "easycredit-express-button": LocalJSX.IntrinsicElements["easycredit-express-button"] & JSXBase.HTMLAttributes<HTMLEasycreditExpressButtonElement>;
+            "easycredit-express-button-single": LocalJSX.IntrinsicElements["easycredit-express-button-single"] & JSXBase.HTMLAttributes<HTMLEasycreditExpressButtonSingleElement>;
+            "easycredit-faq": LocalJSX.IntrinsicElements["easycredit-faq"] & JSXBase.HTMLAttributes<HTMLEasycreditFaqElement>;
+            "easycredit-infopage": LocalJSX.IntrinsicElements["easycredit-infopage"] & JSXBase.HTMLAttributes<HTMLEasycreditInfopageElement>;
+            "easycredit-logo": LocalJSX.IntrinsicElements["easycredit-logo"] & JSXBase.HTMLAttributes<HTMLEasycreditLogoElement>;
+            "easycredit-merchant-manager": LocalJSX.IntrinsicElements["easycredit-merchant-manager"] & JSXBase.HTMLAttributes<HTMLEasycreditMerchantManagerElement>;
+            "easycredit-merchant-status-widget": LocalJSX.IntrinsicElements["easycredit-merchant-status-widget"] & JSXBase.HTMLAttributes<HTMLEasycreditMerchantStatusWidgetElement>;
+            "easycredit-modal": LocalJSX.IntrinsicElements["easycredit-modal"] & JSXBase.HTMLAttributes<HTMLEasycreditModalElement>;
+            "easycredit-widget": LocalJSX.IntrinsicElements["easycredit-widget"] & JSXBase.HTMLAttributes<HTMLEasycreditWidgetElement>;
         }
     }
 }
