@@ -4,6 +4,23 @@ import { Meta } from "@storybook/addon-docs/blocks";
 
 # Changelog
 
+## 1.3.13
+
+* StencilJS updated to v4.43.3
+* Storybook updated to v10
+* Fix: send correct component name in error handler
+
+#### `<easycredit-box-flash />`, `<easycredit-box-listing />`, `<easycredit-box-modal />`
+
+* New configurable `href` attribute for the call-to-action link
+
+#### `<easycredit-checkout />`, `<easycredit-checkout-label />`
+
+* A/B test for invoice branding with different label copy and logo placement
+* Feedback tracking for checkout views and completion (`selected` event when returning with a payment plan)
+* `paymentType` included in submit feedback
+* Modal heading now differentiates between invoice and installment payment
+
 ## 1.3.12
 
 #### `<easycredit-checkout />`
