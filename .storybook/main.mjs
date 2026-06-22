@@ -15,4 +15,10 @@ export default {
   },
   staticDirs: ['../dist'],
   docs: {},
+  async viteFinal(config, { configType }) {
+    if (configType === 'PRODUCTION') {
+      config.base = '/docs/easycredit-components/';
+    }
+    return config;
+  },
 };

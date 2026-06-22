@@ -4,3 +4,10 @@ if (window.location.port === "6006") {
   easycreditRatenkaufWebComponentsBaseUrl = window.location.origin + '/';
 }
 </script>
+<script type="module">
+  const base = window.easycreditRatenkaufWebComponentsBaseUrl;
+  const loaderUrl = new URL('esm/loader.js', base).href;
+  const resourcesUrl = new URL('esm/', base).href;
+  const { defineCustomElements } = await import(loaderUrl);
+  defineCustomElements(undefined, { resourcesUrl });
+</script>
