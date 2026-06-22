@@ -1,12 +1,18 @@
 import { buildAttributes } from '../../../.storybook/helpers'
 
+const STORYBOOK_MIN_HEIGHT = 520;
+
 export default {
   title: "Marketing/BoxFlash",
   parameters: {
+    layout: 'fullscreen',
     docs: {
       description: {
         component:
           "This marketing component allows a banner to be displayed at the bottom of the screen to promote installment purchase. The banner shows a default image, which can be overridden via the src attribute. This allows merchants to use an image that matches their product offering.",
+      },
+      story: {
+        height: `${STORYBOOK_MIN_HEIGHT}px`,
       },
     }    
   },
@@ -22,10 +28,15 @@ export default {
 
 let args = {
     src: '',
-    isOpen: false
+    isOpen: true
 }
 
 const Template = (args) => `
+  <style>
+    html, body, #storybook-root {
+      min-height: ${STORYBOOK_MIN_HEIGHT}px;
+    }
+  </style>
   <button onClick="this.parentElement.querySelector('easycredit-box-flash').setAttribute('is-open',true);">Open Flashbox</button>
   
   <easycredit-box-flash ${buildAttributes(args).join(' ')} />
