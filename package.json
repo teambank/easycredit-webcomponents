@@ -27,7 +27,7 @@
     "generate": "stencil generate",
     "storybook": "storybook dev -p 6006",
     "storybook:build": "storybook build",
-    "storybook:deploy": "bash -c \"source .env && rsync -rvz storybook-static/ $STORYBOOK_DEPLOY_DST\"",
+    "storybook:deploy": "bash scripts/deploy-storybook.sh",
     "storybook:deploy:clear-cache": "bash scripts/storybook-deploy-clear-cache.sh",
     "release": "npm run build && (cd dist; tar czvf ../easycredit-webcomponents-$(npm pkg get version | sed 's/\"//g').tar.gz .)"
   },
