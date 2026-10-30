@@ -9,7 +9,11 @@
  *
  * POST /render  Content-Type: application/json
  *   { "html": "<easycredit-logo webshop-id=\"…\"></easycredit-logo>", "options": { ... } }
- * Stencil hydrate options.url is set at server start (not overridable per request).
+ * Stencil hydrate options.url and options.timeout are set at server start
+ * (not overridable per request). timeout aborts a stuck componentWillLoad
+ * and its in-flight fetch (Stencil >= 4.45).
+ *
+ *   PRERENDER_TIMEOUT=15000   milliseconds, default 15000
  *
  * GET /health → "ok"
  */
@@ -20,6 +24,23 @@ const { renderToString } = require(path.join(__dirname, '../../hydrate/index.js'
 
 const HOST = process.env.PRERENDER_HOST || '127.0.0.1';
 const PORT = parseInt(process.env.PRERENDER_PORT || '4711', 10);
+const DEFAULT_HYDRATE_TIMEOUT_MS = 15000;
+
+function resolveHydrateTimeoutMs(env) {
+  const raw = env.PRERENDER_TIMEOUT;
+  if (typeof raw !== 'string' || raw.trim() === '') {
+    return DEFAULT_HYDRATE_TIMEOUT_MS;
+  }
+  const ms = parseInt(raw, 10);
+  if (!Number.isFinite(ms) || ms <= 0) {
+    // eslint-disable-next-line no-console
+    console.error('Invalid PRERENDER_TIMEOUT (positive milliseconds):', raw);
+    process.exit(1);
+  }
+  return ms;
+}
+
+const HYDRATE_TIMEOUT_MS = resolveHydrateTimeoutMs(process.env);
 
 const DEFAULT_HYDRATE_PAGE_URL = 'https://ratenkauf.easycredit.de/';
 
@@ -121,6 +142,7 @@ const server = http.createServer(async (req, res) => {
         ...userOpts,
       };
       options.url = HYDRATE_PAGE_URL;
+      options.timeout = HYDRATE_TIMEOUT_MS;
 
       const result = await renderToString(fragment, options);
       const diagnostics = (result.diagnostics || []).map((d) => ({
@@ -160,6 +182,8 @@ server.listen(PORT, HOST, () => {
   console.log(`easycredit prerender listening on http://${HOST}:${PORT}`);
   // eslint-disable-next-line no-console
   console.log(`hydrate page URL: ${HYDRATE_PAGE_URL}`);
+  // eslint-disable-next-line no-console
+  console.log(`hydrate timeout: ${HYDRATE_TIMEOUT_MS}ms`);
 });
 
 function shutdown() {

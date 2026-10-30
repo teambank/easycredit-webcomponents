@@ -33,6 +33,10 @@ export class EasycreditModal {
     this.moveModal();
   }
 
+  componentDidLoad() {
+    this.publishCheckoutLightStyles();
+  }
+
   componentDidRender() {
     if (this.updateFocus) {
       requestAnimationFrame(() => {
@@ -48,6 +52,37 @@ export class EasycreditModal {
     if (target && this.element) {
       target.insertBefore(this.element, target.lastChild);
     }
+    this.publishCheckoutLightStyles();
+  }
+
+  /**
+   * Slot content moves to document.body with the host, outside the
+   * express-button shadow root. The checkout rules are compiled into the
+   * shared global stylesheet (attached to shadow roots); copy them into
+   * the document so the light DOM keeps its layout.
+   */
+  publishCheckoutLightStyles(): void {
+    if (!this.element.classList.contains('ec-express-button__modal__checkout')) {
+      return;
+    }
+    if (document.getElementById('easycredit-express-checkout-light')) {
+      return;
+    }
+    const sheets = this.element.shadowRoot?.adoptedStyleSheets ?? [];
+    const sheet = [...sheets].find(candidate => {
+      try {
+        return Array.from(candidate.cssRules).some(rule => rule.cssText.includes('.ec-express-button__modal__checkout .ec-row'));
+      } catch {
+        return false;
+      }
+    });
+    if (!sheet) {
+      return;
+    }
+    const style = document.createElement('style');
+    style.id = 'easycredit-express-checkout-light';
+    style.textContent = Array.from(sheet.cssRules).map(rule => rule.cssText).join('\n');
+    document.head.appendChild(style);
   }
 
   setElementHeight(): void {

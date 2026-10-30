@@ -41,6 +41,7 @@ function serve_dist_static(string $distRoot, string $candidatePath): bool
         'ico' => 'image/x-icon',
     ][$ext] ?? 'application/octet-stream';
 
+    header('Access-Control-Allow-Origin: *');
     header('Content-Type: ' . $mime);
     readfile($realFile);
     return true;

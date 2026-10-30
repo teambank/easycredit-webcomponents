@@ -1,3 +1,6 @@
+@import '../../globals/chrome';
+@import '../../globals/express-modal-host';
+
 @keyframes modal-mobile {
     0% {
         transform: translateY(100%);

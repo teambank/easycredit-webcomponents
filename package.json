@@ -59,7 +59,7 @@
   },
   "dependencies": {
     "@babel/plugin-transform-optional-chaining": "^7.25.9",
-    "@stencil/core": "^4.31.0",
+    "@stencil/core": "^4.45.2",
     "@stencil/sass": "^3.0.12",
     "@stencil/store": "^2.0.16",
     "@storybook/addon-docs": "10.3.3",

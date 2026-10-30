@@ -22,6 +22,7 @@ export const config: Config = {
     { components: ['easycredit-widget', 'easycredit-checkout', 'easycredit-checkout-installments', 'easycredit-modal'] },
     { components: ['easycredit-merchant-manager', 'easycredit-merchant-status-widget'] }
   ],
+  globalStyle: 'src/globals/express-checkout-light.scss',
   outputTargets: [
     {
       type: 'dist',

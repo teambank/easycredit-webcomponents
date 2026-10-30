@@ -1,0 +1,34 @@
+# Replaces the manually started easycredit-prerender container.
+# Stop that container before opening this devcontainer; both publish 4711 and 8088.
+
+name: easycredit-webcomponents
+
+services:
+  easycredit-prerender:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    init: true
+    command: sleep infinity
+    environment:
+      PRERENDER_HOST: 0.0.0.0
+      PRERENDER_PORT: "4711"
+      WEB_PORT: "8088"
+      EASYCREDIT_PRERENDER_URL: http://127.0.0.1:4711
+    ports:
+      - "127.0.0.1:4711:4711"
+      - "127.0.0.1:8088:8088"
+    volumes:
+      - ..:/workspaces/easycredit-webcomponents:cached
+      - node_modules:/workspaces/easycredit-webcomponents/node_modules
+    networks:
+      - default
+      - shopware
+
+networks:
+  shopware:
+    external: true
+    name: ${SHOPWARE_NETWORK:-easycredit-plugin-shopware-6_web}
+
+volumes:
+  node_modules:

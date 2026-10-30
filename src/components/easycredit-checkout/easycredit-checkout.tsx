@@ -247,7 +247,7 @@ export class EasycreditCheckout {
             </div>
         }
 
-        <p class="ec-checkout__small-print">{this.getPrivacyFragment({ intro: false })}</p>
+        <div class="ec-checkout__small-print">{this.getPrivacyFragment({ intro: false })}</div>
       </div>,
     ];
   }
@@ -293,7 +293,7 @@ export class EasycreditCheckout {
               </button>
             </div>
         }
-        <p class="ec-checkout__small-print">{this.getPrivacyFragment({ intro: false })}</p>
+        <div class="ec-checkout__small-print">{this.getPrivacyFragment({ intro: false })}</div>
       </div>,
     ];
   }

@@ -1,0 +1,66 @@
+// Logos
+.logo-easycredit {
+  background-image: url(#{$ec-base-url}/easycredit-components/assets/easycredit-logo.svg);
+  background-position: left center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 84px;
+  height: 40px;
+  max-width: 100%;
+}
+.logo-ratenkauf {
+  @extend .logo-easycredit;
+  background-image: url(#{$ec-base-url}/easycredit-components/assets/ratenkauf-logo.svg);
+}
+.logo-ratenkauf-white {
+  @extend .logo-easycredit;
+  background-image: url(#{$ec-base-url}/easycredit-components/assets/ratenkauf-logo-white.svg);
+}
+.logo-rechnungskauf {
+  @extend .logo-easycredit;
+  background-image: url(#{$ec-base-url}/easycredit-components/assets/rechnungskauf-logo.svg);
+}
+
+.logo-finanzgruppe {
+  background-image: url(#{$ec-base-url}/easycredit-components/assets/logo-finanzgruppe.svg);
+  background-position: left center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 120px;
+  height: 14px;
+  max-width: 100%;
+}
+.logo-finanzgruppe-white {
+  @extend .logo-finanzgruppe;
+  background-image: url(#{$ec-base-url}/easycredit-components/assets/logo-finanzgruppe-white.svg);
+}
+
+// Logo Icons
+.logo-finanzgruppe-icon {
+  background-image: url(#{$ec-base-url}/easycredit-components/assets/logo-finanzgruppe-icon.svg);
+  background-position: left center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 21.5px;
+  height: 15px;
+  max-width: 100%;
+}
+
+// Content Images
+.image-default,
+.image-ratenkauf,
+.image-rechnung {
+  background-color: $ec-gray;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.image-default {
+  background-image: url(#{$ec-base-url}/easycredit-components/assets/motiv-leyla.jpg);
+}
+.image-ratenkauf {
+  background-image: url(#{$ec-base-url}/easycredit-components/assets/motiv-ratenkauf.webp);
+}
+.image-rechnung {
+  background-image: url(#{$ec-base-url}/easycredit-components/assets/motiv-rechnung.webp);
+}

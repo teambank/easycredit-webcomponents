@@ -51,16 +51,22 @@ export class EasycreditAccordionItem {
   @Event() contentChanged:EventEmitter;
 
   componentWillLoad() {
-    const children = this.element.parentElement.querySelectorAll('easycredit-accordion-item');
-    for (let i = 0; i < children.length; i++) {
-      const child = children[i];
-      if (child instanceof HTMLElement && child == this.element) {
-        this.index = i;
+    const parent = this.element.parentElement;
+    if (parent) {
+      const children = parent.querySelectorAll('easycredit-accordion-item');
+      for (let i = 0; i < children.length; i++) {
+        const child = children[i];
+        if (child instanceof HTMLElement && child == this.element) {
+          this.index = i;
+        }
       }
-    } 
-    
-    this.mutationObserver = new MutationObserver(() => this.contentChanged.emit());
-    this.mutationObserver.observe(this.element, this.mutationObserverConfig);
+    }
+
+    // Node's prerender DOM has no MutationObserver. The client still watches content changes.
+    if (typeof MutationObserver !== 'undefined') {
+      this.mutationObserver = new MutationObserver(() => this.contentChanged.emit());
+      this.mutationObserver.observe(this.element, this.mutationObserverConfig);
+    }
   }
 
   componentDidRender() {
@@ -117,7 +123,11 @@ export class EasycreditAccordionItem {
   }
 
   calculateHeight() {
-    this.calculatedHeight = this.element.querySelector('easycredit-accordion-item > :not([slot="title"])').clientHeight;
+    const content = this.element.querySelector('easycredit-accordion-item > :not([slot="title"])');
+    if (!content) {
+      return this.calculatedHeight;
+    }
+    this.calculatedHeight = content.clientHeight;
     return this.calculatedHeight;
   }
 

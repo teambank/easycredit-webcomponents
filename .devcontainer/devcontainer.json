@@ -1,0 +1,11 @@
+{
+  "name": "easyCredit web components",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "easycredit-prerender",
+  "workspaceFolder": "/workspaces/easycredit-webcomponents",
+  "shutdownAction": "none",
+  "initializeCommand": "docker network inspect \"${SHOPWARE_NETWORK:-easycredit-plugin-shopware-6_web}\" >/dev/null 2>&1 || { echo \"Shopware network not found. Start the Shopware stack first (network easycredit-plugin-shopware-6_web).\" >&2; exit 1; }",
+  "postCreateCommand": "npm ci",
+  "postStartCommand": "bash .devcontainer/post-start.sh",
+  "forwardPorts": [4711, 8088]
+}

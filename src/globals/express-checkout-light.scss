@@ -1,0 +1,9 @@
+// The express checkout modal is moved to document.body, so its slot content
+// leaves the express-button shadow root. These rules style that light DOM.
+@import 'base';
+@import 'decor-rules';
+@import 'express-modal';
+
+.ec-express-button__modal__checkout {
+  @include ec-decor-rules;
+}

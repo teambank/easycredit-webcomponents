@@ -1,0 +1,156 @@
+// Express Buttons Checkout Modal
+.ec-express-button__modal__checkout {
+  scroll-behavior: smooth;
+
+  .checkout-modal-wrapper,
+  [slot="content"] {
+    height: 100%;
+  }
+
+  .checkout-modal-wrapper {
+    @media (max-width: $breakpoint-sm-down) {
+      overflow: hidden auto;
+    }
+
+    @media (max-width: $breakpoint-sm-down) {
+      &.scrolled {
+        .skip-link-container {
+          display: none;
+        }
+      }
+    }
+  }
+
+  .ec-col {
+    @media (min-width: $breakpoint-sm-up) {
+      overflow: hidden auto;
+    }
+
+    .btn {
+      @extend %btn;
+    }
+
+    .ec-container {
+      padding: 40px 40px 60px;
+    }
+
+    &.ec-col-method {
+      color: $white;
+
+      > :not(.ec-background) {
+        position: relative;
+        z-index: 1;
+      }
+      @media (max-width: $breakpoint-sm-down) {
+        position: relative;
+        z-index: 1;
+      }
+
+      .ec-background {
+        @media (min-width: $breakpoint-sm-up) {
+          width: 50%;
+        }
+      }
+
+      .ec-logo-wrapper {
+        display: block;
+        margin-bottom: 40px;
+      }
+
+      .skip-link-container {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 30px;
+
+        text-align: center;
+
+        @media (min-width: $breakpoint-sm-up) {
+          display: none;
+        }
+
+        .skip-link {
+          /*
+          display: inline-block;
+          padding-right: 15px;
+
+          cursor: pointer;
+          font-weight: bold;
+          color: $white;
+          text-decoration: none;
+          */
+
+          padding-right: 35px;
+
+          @include background-svg($icon-arrow-down-white);
+          background-position: right 20px center;
+          background-repeat: no-repeat;
+          background-size: 10px 12px;
+          box-shadow: 0 5px 10px rgba($black, 0.3);
+        }
+      }
+
+      .h4 {
+        margin-bottom: 10px;
+        font-size: $font-size-heading;
+        font-weight: bold;
+        color: $white;
+      }
+
+      .ec-usp {
+        list-style: none;
+        margin-top: 0;
+        margin-bottom: 20px;
+        padding: 0;
+
+        @media (min-width: $breakpoint-sm-up) {
+          padding-bottom: 160px;
+        }
+
+        li {
+          margin-bottom: 5px;
+          padding-left: 26px;
+
+          @include background-svg($icon-checkmark-circle-white);
+          background-position: left center;
+          background-repeat: no-repeat;
+          background-size: 16px 16px;
+
+          font-size: $font-size;
+          line-height: $line-height;
+          color: $white;
+        }
+      }
+    }
+    &.ec-col-agreement {
+      .ec-container {
+        padding: 60px 50px 100px;
+      }
+
+      span[slot="heading"] {
+        font-size: $font-size-heading-xl;
+        line-height: $line-height-heading;
+        font-weight: bold;
+      }
+
+      p {
+        margin-top: 1em;
+        margin-bottom: 1em;
+      }
+    }
+  }
+
+  &::part(submit) {
+    position: absolute;
+    right: 60px;
+    bottom: 40px;
+
+    @media (max-width: $breakpoint-sm-down) {
+      right: auto;
+      left: 50%;
+      transform: translate(-50%,0);
+      bottom: 30px;
+    }
+  }
+}
+

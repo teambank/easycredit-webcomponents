@@ -1,4 +1,4 @@
-import { Component, Host, Prop, State, Watch, h } from '@stencil/core';
+import { Build, Component, Host, Prop, State, Watch, h } from '@stencil/core';
 import { formatAmount, getWebshopInfo, fetchInstallmentPlans, getAssetUrl } from '../../utils/utils';
 import { applyAssetsUrl, sendFeedback } from '../../utils/utils';
 import { Caps } from '../../utils/validation';
@@ -78,7 +78,10 @@ export class EasycreditWidget {
   }
 
   componentDidRender() {
-    this.setWidgetLayout();
+    // Prerender has no layout box, so the width is 0 and would always count as small.
+    if (Build.isBrowser) {
+      this.setWidgetLayout();
+    }
   }
 
   getInstallmentPlan() {
@@ -142,9 +145,9 @@ export class EasycreditWidget {
       return (
         <span>
           Finanzieren ab&nbsp;
-          <button class="ec-widget__link" onClick={() => this.openModal(METHODS.INSTALLMENT)}>
+          {this.modalLink(METHODS.INSTALLMENT, 'ec-widget__link',
             <em>{formatAmount(this.getMinimumInstallment().installment)} &euro; / Monat</em>
-          </button>
+          )}
         </span>
       );
     }
@@ -167,9 +170,7 @@ export class EasycreditWidget {
       return (
         <span>
           mit{' '}
-          <button class="ec-widget__link" onClick={() => this.openModal(METHODS.BILL)}>
-            Rechnung
-          </button>{' '}
+          {this.modalLink(METHODS.BILL, 'ec-widget__link', 'Rechnung')}{' '}
           bezahlen ab {info.minBillingValue.toLocaleString('de-DE', { maximumFractionDigits: 0 })} &euro;
         </span>
       );
@@ -182,9 +183,7 @@ export class EasycreditWidget {
       return (
         <span>
           mit{' '}
-          <button class="ec-widget__link" onClick={() => this.openModal(METHODS.BILL)}>
-            Rechnung
-          </button>{' '}
+          {this.modalLink(METHODS.BILL, 'ec-widget__link', 'Rechnung')}{' '}
           bezahlen bis {info.maxBillingValue.toLocaleString('de-DE', { maximumFractionDigits: 0 })} &euro;
         </span>
       );
@@ -194,9 +193,7 @@ export class EasycreditWidget {
     return (
       <span>
         {firstLetter}eute bestellen, in{' '}
-        <button class="ec-widget__link" onClick={() => this.openModal(METHODS.BILL)}>
-          30 Tagen
-        </button>{' '}
+        {this.modalLink(METHODS.BILL, 'ec-widget__link', '30 Tagen')}{' '}
         zahlen
       </span>
     );
@@ -216,6 +213,24 @@ export class EasycreditWidget {
     return <span class="badges">
         <span class="badge">{ flex.interestRate }% bei Laufzeiten bis { flex.maxInstallments } Monate</span>
     </span>
+  }
+
+  private modalLink(paymentType: METHODS | undefined, className: string, content: any, ariaLabel?: string) {
+    return (
+      <a
+        class={className}
+        href={this.getModalUrl(paymentType)}
+        target="_blank"
+        rel="noopener"
+        aria-label={ariaLabel}
+        onClick={(event: MouseEvent) => {
+          event.preventDefault();
+          this.openModal(paymentType);
+        }}
+      >
+        {content}
+      </a>
+    );
   }
 
   openModal (paymentType?: METHODS): void {
@@ -300,11 +315,9 @@ export class EasycreditWidget {
                 {!this.getInstallmentText() && <span class="ec-widget__brand-name"> mit easyCredit-Rechnung.</span>}
               </span>
 
-              {this.displayType !== 'clean' && this.displayType !== 'minimal' && (
-                <button class="ec-widget__cta" onClick={() => this.openModal()} aria-label="weitere Informationen">
-                  {this.getCtaIcon()}
-                </button>
-              )}
+              {this.displayType !== 'clean' && this.displayType !== 'minimal' &&
+                this.modalLink(undefined, 'ec-widget__cta', this.getCtaIcon(), 'weitere Informationen')
+              }
             </div>
 
             {this.getModalFragment()}

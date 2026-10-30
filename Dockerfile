@@ -1,6 +1,6 @@
 # Prerender demo: Stencil build → Node hydrate API + PHP static router + demo UI (single process tree via entrypoint).
 
-FROM node:20-bookworm AS builder
+FROM node:24-bookworm AS builder
 WORKDIR /app
 
 COPY package.json package-lock.json ./
@@ -9,7 +9,7 @@ RUN npm ci
 COPY . .
 RUN npm run build
 
-FROM node:20-bookworm-slim
+FROM node:24-bookworm-slim
 
 RUN apt-get update \
   && apt-get install -y --no-install-recommends php-cli ca-certificates curl \

@@ -1,0 +1,242 @@
+// Shared circle, switch and column rules. Included at the top level inside
+// shadow stylesheets, and nested under the express checkout modal for the
+// light DOM that is moved to document.body.
+@mixin ec-decor-rules {
+  // Circles
+  @keyframes circle-rotation {
+    from {
+      transform: rotate(240deg);
+      opacity: 0;
+    }
+    to {
+      transform: rotate(360deg);
+      opacity: 1;
+    }
+  }
+  @keyframes circle-rotation-out {
+    from {
+      transform: rotate(360deg);
+      opacity: 1;
+    }
+    to {
+      transform: rotate(240deg);
+      opacity: 0;
+    }
+  }
+  .ec-circle {
+    position: absolute;
+    z-index: 1;
+    box-sizing: border-box;
+    background: transparent;
+    overflow: hidden;
+    -webkit-animation-name: circle-rotation;
+    -webkit-animation-duration: 1s;
+    animation-name: circle-rotation;
+    animation-duration: 1s;
+
+    width: $circle-width-66;
+    bottom: 0;
+    left: 0;
+    -webkit-transform-origin: bottom left;
+    transform-origin: bottom left;
+
+    &:before {
+      content: '';
+      display: block;
+      width: 100%;
+      padding-bottom: 100%;
+    }
+
+    &:after {
+      content: '';
+      position: absolute;
+      display: block;
+      width: 200%;
+      height: 200%;
+      box-sizing: border-box;
+      border-radius: 100%;
+
+      top: 0;
+      right: 0;
+      @include background-svg($circle-primary);
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+
+    &.ec-circle-secondary {
+      width: $circle-width-66-secondary;
+      bottom: auto;
+      left: auto;
+      top: 0;
+      right: 0;
+      -webkit-transform-origin: top right;
+      transform-origin: top right;
+
+      &:after {
+        top: auto;
+        right: auto;
+        bottom: 0;
+        left: 0;
+        @include background-svg($circle-secondary);
+      }
+    }
+  }
+
+  // Circle Badges
+  .ec__circle-badge {
+    position: absolute;
+    bottom: 115px;
+    right: 25px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-content: center;
+    padding: 20px;
+    width: 100px;
+    height: 100px;
+    box-sizing: border-box;
+    // transform: rotate(10deg);
+
+    background-color: $ec-secondary;
+    background-image: url(#{$ec-base-url}/easycredit-components/assets/circle-badge-text.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    border-radius: 100%;
+
+    text-align: center;
+    font-size: 11px;
+    color: rgba(255,255,255,0) !important;
+    // color: $white;
+
+    span {
+        font-size: $font-size-heading-lg;
+        font-weight: bold;
+    }
+
+    &.ec__circle-badge-orange {
+      background-color: $ec-primary;
+      color: $font-color;
+
+      span {
+        color: $white,
+      }
+    }
+
+    &.ec__circle-badge-sm {
+      width: 80px;
+      height: 80px;
+      font-size: 9px;
+
+      span {
+        font-size: $font-size-heading;
+      }
+    }
+
+    &.ec__circle-badge-xs {
+      width: 65px;
+      height: 65px;
+      font-size: $font-size-xxxs;
+
+      span {
+        font-size: $font-size;
+      }
+    }
+
+    @media(max-width: 767px) {
+      width: 80px;
+      height: 80px;
+      font-size: 10px;
+
+      span {
+        font-size: $font-size-xl;
+      }
+    }
+  }
+
+  // Circle Background Class
+  .ec-background {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+    background-color: $ec-darkblue;
+
+    .ec-circle {
+      width: $circle-width-66;
+
+      &:after {
+        @include background-svg($circle-secondary);
+      }
+    }
+    .ec-circle-secondary {
+      width: $circle-width-66-secondary;
+
+      &:after {
+        @include background-svg($circle-primary);
+      }
+    }
+  }
+
+  // Switch
+  .ec-switch {
+    display: inline-flex;
+    flex-wrap: nowrap;
+    margin-bottom: 20px;
+
+    border: 3px solid $ec-gray;
+    border-radius: $border-radius-xxxl;
+    background-color: $ec-gray;
+
+    max-width: 100%;
+    overflow: hidden;
+
+    button {
+      flex: 1 1 auto;
+      padding: 6px 15px;
+
+      border: 0;
+      border-radius: $border-radius-xxxl;
+      background-color: $ec-gray;
+      cursor: pointer;
+
+      text-overflow: ellipsis;
+      overflow: hidden;
+
+      font-size: $font-size-xs;
+      line-height: normal;
+      font-weight: bold;
+      color: $font-color;
+
+      &.active {
+        background-color: $ec-darkblue;
+        color: $white;
+      }
+    }
+  }
+
+  // Cols
+  .ec-row {
+    display: block;
+
+    .ec-col {
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    @media (min-width: $breakpoint-sm-up) {
+      display: flex;
+
+      .ec-col {
+        flex: 0 0 50%;
+        width: 50%;
+      }
+    }
+  }
+
+}
