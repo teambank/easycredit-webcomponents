@@ -14,6 +14,13 @@
 | `selectedInstallment` | --        |             | `InstallmentPlan`  | `null`      |
 
 
+## Slots
+
+| Slot        | Description |
+| ----------- | ----------- |
+| `"actions"` |             |
+
+
 ## Dependencies
 
 ### Used by

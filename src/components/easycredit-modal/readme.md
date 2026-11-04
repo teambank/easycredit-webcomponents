@@ -68,6 +68,15 @@ Type: `Promise<void>`
 
 
 
+## Slots
+
+| Slot        | Description |
+| ----------- | ----------- |
+| `"button"`  |             |
+| `"content"` |             |
+| `"heading"` |             |
+
+
 ## Shadow Parts
 
 | Part       | Description |

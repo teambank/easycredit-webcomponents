@@ -45,6 +45,14 @@ Type: `Promise<void>`
 
 
 
+## Slots
+
+| Slot      | Description      |
+| --------- | ---------------- |
+|           | The default slot |
+| `"title"` |                  |
+
+
 ## Dependencies
 
 ### Used by
