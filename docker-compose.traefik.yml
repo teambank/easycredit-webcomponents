@@ -1,0 +1,17 @@
+# Optional Traefik route for the static files on WEB_PORT.
+# The external network must already exist: docker network create web
+#
+#   docker compose -f docker-compose.yml -f docker-compose.traefik.yml up --build
+
+services:
+  easycredit-prerender:
+    networks:
+      - web
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.easycredit-prerender.tls.certresolver=default
+      - traefik.http.services.easycredit-prerender.loadbalancer.server.port=${WEB_PORT:-8088}
+
+networks:
+  web:
+    external: true

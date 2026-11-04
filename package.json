@@ -51,10 +51,11 @@
     "storybook:build": "storybook build",
     "storybook:deploy": "bash scripts/deploy-storybook.sh",
     "storybook:deploy:clear-cache": "bash scripts/storybook-deploy-clear-cache.sh",
-    "prerender:serve": "node scripts/prerender-server/server.cjs",
+    "prerender:serve": "node scripts/prerender-server/master.cjs",
     "prerender:php": "php -S 127.0.0.1:8088 -t scripts/prerender-server scripts/prerender-server/router.php",
     "docker:build": "docker build -t easycredit-prerender:local .",
     "docker:up": "docker compose up --build",
+    "docker:up:network": "docker compose -f docker-compose.yml -f docker-compose.network.yml up --build",
     "release": "npm run build && (cd dist; tar czvf ../easycredit-webcomponents-$(npm pkg get version | sed 's/\"//g').tar.gz .)"
   },
   "dependencies": {

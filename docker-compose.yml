@@ -1,32 +1,35 @@
-# Prerender demo behind Traefik — no host port published; Traefik reaches the service on the Docker network.
-#
-# Prerequisites:
-#   - External network Traefik uses (create if needed): docker network create traefik
-#   - Host / routing is configured in Traefik (not via Host() labels here).
+# Prerender service for local use.
 #
 #   docker compose up --build
 #
-# Local run without Traefik (binds 8088 on the host):
-#   docker compose -f docker-compose.yml -f docker-compose.direct.yml up --build
+# On a shop plugin's Docker network:
+#   PLUGIN_NETWORK=your_stack_web docker compose -f docker-compose.yml -f docker-compose.network.yml up --build
+#
+# Traefik:
+#   docker compose -f docker-compose.yml -f docker-compose.traefik.yml up --build
+#
+# Settings come from the environment or a `.env` file next to this file.
+# See docs/prerender.md and `.env.example`.
+
+name: easycredit-webcomponents
 
 services:
-  prerender:
+  easycredit-prerender:
     build: .
+    image: easycredit-prerender:local
+    container_name: easycredit-prerender
     init: true
     environment:
-      WEB_PORT: "8088"
-      PRERENDER_HOST: "127.0.0.1"
-      PRERENDER_PORT: "4711"
-      EASYCREDIT_PRERENDER_URL: "http://127.0.0.1:4711"
-      PRERENDER_HYDRATE_URL: "${PRERENDER_HYDRATE_URL:-}"
-    networks:
-      - web
-      - default
-    labels:
-      - 'traefik.enable=true'
-      - 'traefik.http.routers.easycredit-prerender.tls.certresolver=default'
-      - 'traefik.http.services.easycredit-prerender.loadbalancer.server.port=8088'
-
-networks:
-  web:
-    external: true
+      WEB_PORT: ${WEB_PORT:-8088}
+      PRERENDER_HOST: ${PRERENDER_HOST:-0.0.0.0}
+      PRERENDER_PORT: ${PRERENDER_PORT:-4711}
+      PRERENDER_WORKERS: ${PRERENDER_WORKERS:-2}
+      PRERENDER_WORKER_CONCURRENCY: ${PRERENDER_WORKER_CONCURRENCY:-4}
+      PRERENDER_BUDGET_MS: ${PRERENDER_BUDGET_MS:-1000}
+      PRERENDER_WORKER_PORT_BASE: ${PRERENDER_WORKER_PORT_BASE:-4721}
+      PRERENDER_TIMEOUT: ${PRERENDER_TIMEOUT:-15000}
+      PRERENDER_MAX_BODY: ${PRERENDER_MAX_BODY:-1048576}
+      PRERENDER_HYDRATE_URL: ${PRERENDER_HYDRATE_URL:-}
+    ports:
+      - "127.0.0.1:${PRERENDER_PORT:-4711}:${PRERENDER_PORT:-4711}"
+      - "127.0.0.1:${WEB_PORT:-8088}:${WEB_PORT:-8088}"

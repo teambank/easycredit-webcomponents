@@ -5,30 +5,37 @@ name: easycredit-webcomponents
 
 services:
   easycredit-prerender:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    # No build: Dev Containers points Compose at a Dockerfile outside this
+    # folder, and current Buildx rejects that read. Packages are installed
+    # in post-create.sh from this image.
+    image: node:24-bookworm
     init: true
     command: sleep infinity
     environment:
-      PRERENDER_HOST: 0.0.0.0
-      PRERENDER_PORT: "4711"
-      WEB_PORT: "8088"
-      EASYCREDIT_PRERENDER_URL: http://127.0.0.1:4711
+      PRERENDER_HOST: ${PRERENDER_HOST:-0.0.0.0}
+      PRERENDER_PORT: ${PRERENDER_PORT:-4711}
+      WEB_PORT: ${WEB_PORT:-8088}
+      PRERENDER_WORKERS: ${PRERENDER_WORKERS:-2}
+      PRERENDER_WORKER_CONCURRENCY: ${PRERENDER_WORKER_CONCURRENCY:-4}
+      PRERENDER_BUDGET_MS: ${PRERENDER_BUDGET_MS:-1000}
+      PRERENDER_WORKER_PORT_BASE: ${PRERENDER_WORKER_PORT_BASE:-4721}
+      PRERENDER_TIMEOUT: ${PRERENDER_TIMEOUT:-15000}
+      PRERENDER_MAX_BODY: ${PRERENDER_MAX_BODY:-1048576}
+      PRERENDER_HYDRATE_URL: ${PRERENDER_HYDRATE_URL:-}
     ports:
-      - "127.0.0.1:4711:4711"
-      - "127.0.0.1:8088:8088"
+      - "127.0.0.1:${PRERENDER_PORT:-4711}:${PRERENDER_PORT:-4711}"
+      - "127.0.0.1:${WEB_PORT:-8088}:${WEB_PORT:-8088}"
     volumes:
       - ..:/workspaces/easycredit-webcomponents:cached
       - node_modules:/workspaces/easycredit-webcomponents/node_modules
     networks:
       - default
-      - shopware
+      - plugin
 
 networks:
-  shopware:
+  plugin:
     external: true
-    name: ${SHOPWARE_NETWORK:-easycredit-plugin-shopware-6_web}
+    name: ${PLUGIN_NETWORK:-easycredit-plugin-shopware-6_web}
 
 volumes:
   node_modules:

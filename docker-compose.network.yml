@@ -1,0 +1,16 @@
+# Join an existing Docker network so a shop plugin container can reach this service.
+#
+#   PLUGIN_NETWORK=your_stack_web \
+#     docker compose -f docker-compose.yml -f docker-compose.network.yml up --build
+#
+# Other containers on that network call http://easycredit-prerender:4711
+
+services:
+  easycredit-prerender:
+    networks:
+      - plugin
+
+networks:
+  plugin:
+    external: true
+    name: ${PLUGIN_NETWORK:?Set PLUGIN_NETWORK to the Docker network of the shop plugin}
