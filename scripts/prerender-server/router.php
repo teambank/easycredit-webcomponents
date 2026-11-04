@@ -10,8 +10,7 @@
 
 declare(strict_types=1);
 
-$prerenderDir = __DIR__;
-$repoRoot = dirname($prerenderDir, 2);
+$repoRoot = dirname(__DIR__, 2);
 $distRoot = $repoRoot . '/dist';
 
 /**
@@ -74,9 +73,7 @@ if (strpos($uri, '/easycredit-components/') === 0) {
     return true;
 }
 
-if ($uri === '/' || $uri === '/index.php') {
-    include $prerenderDir . '/index.php';
-    return true;
-}
-
-return false;
+http_response_code(404);
+header('Content-Type: text/plain; charset=utf-8');
+echo 'Not found';
+return true;
