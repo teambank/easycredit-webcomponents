@@ -1,11 +1,11 @@
 /**
  * HTTP service: Stencil hydrate (Node) for PHP or other backends.
  *
- * Run after `npm run build` (needs ../hydrate).
+ * One render worker. The public entrypoint is master.cjs, which starts several
+ * of these processes and routes each webshop id to the same worker.
  *
- *   PRERENDER_HOST=127.0.0.1 PRERENDER_PORT=4711 npm run prerender:serve
  *   node scripts/prerender-server/server.cjs --hydrate-url https://staging.example/
- *   PRERENDER_HYDRATE_URL=https://… npm run prerender:serve   (if no --hydrate-url)
+ *   PRERENDER_HYDRATE_URL=https://… node scripts/prerender-server/server.cjs
  *
  * POST /render  Content-Type: application/json
  *   { "html": "<easycredit-logo webshop-id=\"…\"></easycredit-logo>", "options": { ... } }
