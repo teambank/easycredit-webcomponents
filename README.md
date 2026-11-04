@@ -26,6 +26,10 @@ npm run build
 
 The components can be found in the `dist` directory after a successful build.
 
+## Prerender
+
+A Docker container can render the components on the server and serve the static bundle. Setup and environment variables are in [docs/prerender.md](docs/prerender.md).
+
 # License
 
 * [MIT](LICENSE.md)
