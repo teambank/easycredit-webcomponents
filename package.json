@@ -33,25 +33,25 @@
   },
   "dependencies": {
     "@babel/plugin-transform-optional-chaining": "^7.25.9",
-    "@stencil/core": "^4.31.0",
+    "@stencil/core": "^4.45.2",
     "@stencil/sass": "^3.0.12",
-    "@stencil/store": "^2.0.16",
-    "@storybook/addon-docs": "10.3.3",
-    "@storybook/addon-links": "10.3.3",
+    "@stencil/store": "^2.2.5",
+    "@storybook/addon-docs": "10.6.5",
+    "@storybook/addon-links": "10.6.5",
     "buffer": "^6.0.3",
     "case": "^1.6.3",
     "stencil-fragment": "^1.0.1",
-    "storybook": "10.3.3"
+    "storybook": "10.6.5"
   },
   "devDependencies": {
     "@babel/core": "^7.26.9",
     "@babel/preset-env": "^7.26.9",
     "@babel/preset-typescript": "^7.26.0",
-    "@chromatic-com/storybook": "^5.0.2",
-    "@storybook/addon-a11y": "10.3.3",
-    "@storybook/html-vite": "10.3.3",
+    "@chromatic-com/storybook": "5.6.0",
+    "@storybook/addon-a11y": "10.6.5",
+    "@storybook/html-vite": "10.6.5",
     "@types/jest": "^29.5.14",
-    "eslint-plugin-storybook": "10.3.3",
+    "eslint-plugin-storybook": "10.6.5",
     "jest": "^29.7.0",
     "jest-cli": "^29.7.0"
   }
