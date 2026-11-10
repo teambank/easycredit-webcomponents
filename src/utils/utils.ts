@@ -400,6 +400,9 @@ export function getPersistentOptions (data) {
 }
 
 export async function sendFeedback (_callee, feedback) {
+  if (!Build.isBrowser) {
+    return false
+  }
   let options = getOptions({
     method: 'POST',
     body: JSON.stringify({
