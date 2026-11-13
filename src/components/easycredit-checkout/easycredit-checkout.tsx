@@ -1,5 +1,6 @@
 import { Component, Prop, State, Listen, Element, Watch, h } from '@stencil/core';
 import { formatCurrency, fetchInstallmentPlans, validateInstallmentPlans, getWebshopInfo, sendFeedback, addErrorHandler } from '../../utils/utils';
+import { CostNotice, billCostNotice, installmentCostNotice } from '../../utils/cost-notice';
 import { initInvoiceBrandingExperiment, shouldShowCheckoutLogo, trackInvoiceBrandingView } from '../../experiments/invoice-branding';
 import { Caps } from '../../utils/validation';
 import { InstallmentPlan, InstallmentPlans, METHODS } from '../../types';
@@ -248,6 +249,7 @@ export class EasycreditCheckout {
         }
 
         <p class="ec-checkout__small-print">{this.getPrivacyFragment({ intro: false })}</p>
+        {this.getCostNotice()}
       </div>,
     ];
   }
@@ -294,8 +296,17 @@ export class EasycreditCheckout {
             </div>
         }
         <p class="ec-checkout__small-print">{this.getPrivacyFragment({ intro: false })}</p>
+        {this.getCostNotice()}
       </div>,
     ];
+  }
+
+  getCostNotice() {
+    const text = this.paymentType === METHODS.BILL
+      ? billCostNotice()
+      : installmentCostNotice();
+
+    return <CostNotice text={text} />;
   }
 
   getPrivacyFragment({ intro = true }) {

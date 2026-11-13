@@ -1,5 +1,6 @@
 import { Component, Method, Prop, State, h } from '@stencil/core';
 import { applyAssetsUrl, getAssetUrl } from '../../utils/utils';
+import { CostNotice } from '../../utils/cost-notice';
 
 @Component({
   tag: 'easycredit-box-listing',
@@ -11,7 +12,6 @@ export class EasycreditBoxListing {
 
   @Prop() src: string
   @Prop() href: string = 'https://www.easycredit.de/ratenkauf'
-
   listingElement!: HTMLElement
   descTextDefault: string = 'Der easyCredit-Ratenkauf bietet Ihnen die Möglichkeit hier im Online-Shop bequem und einfach in Raten zu zahlen. Direkt von zu Hause und ganz ohne Risiko. Denn zuerst erhalten Sie Ihre Bestellung und bezahlen später in Ihren Wunschraten.'
   descTextDefaultShort: string = 'Der easyCredit-Ratenkauf bietet Ihnen die Möglichkeit hier im Online-Shop bequem und einfach in Raten zu zahlen. Direkt von zu Hause und ganz ohne Risiko.'
@@ -22,6 +22,17 @@ export class EasycreditBoxListing {
   @State() isOpen = false
   @Method() async toggle () {
     this.isOpen = !this.isOpen
+  }
+
+  private onCardClick(event: MouseEvent) {
+    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      return
+    }
+    const target = event.target as HTMLElement | null
+    if (target?.closest('a')) {
+      return
+    }
+    this.toggle()
   }
 
   connectedCallback() {
@@ -58,8 +69,9 @@ export class EasycreditBoxListing {
     return ([
         <div class={{
           'ec-box-listing': true,
+          'is-open': this.isOpen,
           ['layout-' + this.listingLayout]: this.listingLayout !== '',
-        }} ref={(el) => this.listingElement = el as HTMLElement}>
+        }} ref={(el) => this.listingElement = el as HTMLElement} onClick={(event) => this.onCardClick(event)}>
             <div class="ec-box-listing__image" style={{backgroundImage: `url(${this.backgroundSrc()})`}}>
                 <div class="ec-circle"></div>
                 <div class="ec-circle ec-circle-secondary"></div>
@@ -77,6 +89,7 @@ export class EasycreditBoxListing {
                 <div class="ec-box-listing__image-description">
                     Einfach im Bezahlvorgang easyCredit-Ratenkauf wählen.
                 </div>
+                <CostNotice />
             </div>
 
             <div class="ec-box-listing__content">

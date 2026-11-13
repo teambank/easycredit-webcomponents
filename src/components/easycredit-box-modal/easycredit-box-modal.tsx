@@ -1,5 +1,6 @@
 import { Component, Method, Prop, h } from '@stencil/core';
 import { applyAssetsUrl, getAssetUrl } from '../../utils/utils';
+import { CostNotice } from '../../utils/cost-notice';
 
 @Component({
   tag: 'easycredit-box-modal',
@@ -82,6 +83,7 @@ export class EasycreditBoxModal {
             </div>
 
             <div class="ec-box-modal__content-logo-finanzgruppe"></div>
+            <CostNotice />
           </div>
         </div>
 

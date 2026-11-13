@@ -1,4 +1,7 @@
+@import '../../globals/cost-notice';
+
 .ec-box-flash {
+    container-type: inline-size;
     position: fixed;
     right: 30px;
     bottom: 0;
@@ -149,10 +152,26 @@
             background-color: $overlay-darken;
         }
     }
+    .ec-cost-notice {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 2;
+        margin: 0;
+        padding: 8px 8px;
+        background-color: $white;
+        color: $font-color;
+        font-size: 4.2cqw;
+        line-height: 1.2;
+        font-weight: 400;
+        text-align: center;
+        white-space: nowrap;
+    }
     &__image-logo {
         position: absolute;
         right: 25px;
-        bottom: 20px;
+        bottom: 48px;
         z-index: 1;
 
         @extend .logo-ratenkauf-white;

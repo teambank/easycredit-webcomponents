@@ -738,6 +738,19 @@ easycredit-express-button {
         margin-bottom: 40px;
       }
 
+      .ec-cost-notice {
+        position: absolute;
+        left: 40px;
+        right: 40px;
+        bottom: 20px;
+        z-index: 2;
+        margin: 0;
+        font-size: $font-size;
+        line-height: $line-height;
+        font-weight: 400;
+        color: $white;
+      }
+
       .skip-link-container {
         position: fixed;
         left: 0;

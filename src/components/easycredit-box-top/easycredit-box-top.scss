@@ -56,10 +56,38 @@
 
         span {
             &.secondary {
+                display: inline-grid;
                 font-size: $font-size-sm;
                 font-weight: normal;
                 color: $ec-primary;
+
+                > span {
+                    grid-area: 1 / 1;
+                    white-space: nowrap;
+                    text-align: center;
+                }
             }
+        }
+    }
+    .secondary-notice {
+        visibility: hidden;
+    }
+    @media (hover: hover) {
+        &:hover {
+            .secondary-default {
+                visibility: hidden;
+            }
+            .secondary-notice {
+                visibility: visible;
+            }
+        }
+    }
+    &.show-notice {
+        .secondary-default {
+            visibility: hidden;
+        }
+        .secondary-notice {
+            visibility: visible;
         }
     }
 

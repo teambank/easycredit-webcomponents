@@ -2,6 +2,7 @@ import { Component, Prop, h, State, Element } from '@stencil/core';
 import { sendFeedback } from '../../utils/utils'
 import { applyAssetsUrl } from '../../utils/utils';
 import { METHODS } from '../../types';
+import { CostNotice, billCostNotice } from '../../utils/cost-notice';
 
 @Component({
   tag: 'easycredit-infopage',
@@ -12,7 +13,6 @@ import { METHODS } from '../../types';
 export class EasycreditInfopage {
   @Prop({ mutable: true }) paymentTypes: string;
   @Prop() variant: 'default' | 'enhanced' = 'default';
-
   @State() selectedPaymentType: METHODS;
   @State() availablePaymentTypes: METHODS[] = [];
 
@@ -188,6 +188,12 @@ export class EasycreditInfopage {
                   this.scrollToSection('faq');
                 }}>Häufige Fragen (FAQ)</a>
               </div>
+              {this.selectedPaymentType === METHODS.INSTALLMENT && (
+                <CostNotice />
+              )}
+              {this.selectedPaymentType === METHODS.BILL && (
+                <CostNotice text={billCostNotice()} />
+              )}
             </section>
 
             {this.variant === 'enhanced' && (

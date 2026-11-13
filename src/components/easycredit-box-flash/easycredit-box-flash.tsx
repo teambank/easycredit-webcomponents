@@ -1,5 +1,6 @@
 import { Component, Method, Prop, h } from '@stencil/core';
 import { applyAssetsUrl, getAssetUrl, sendFeedback } from '../../utils/utils';
+import { CostNotice } from '../../utils/cost-notice';
 
 @Component({
   tag: 'easycredit-box-flash',
@@ -61,6 +62,7 @@ export class EasycreditBoxFlash {
 
             <div class="ec-box-flash__image" style={{backgroundImage: `url(${this.backgroundSrc()})`}}>
                 <div class="ec-box-flash__image-logo"></div>
+                <CostNotice />
             </div>
         </div>
       </div>
