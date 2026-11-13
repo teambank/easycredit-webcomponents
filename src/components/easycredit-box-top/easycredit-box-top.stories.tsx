@@ -10,10 +10,10 @@ export default {
       }
     }    
   },
-  argTypes: {},
 };
 
 const Template = (args) =>
     `<easycredit-box-top ${buildAttributes(args).join(' ')} />`;
 export const BoxTop = Template.bind({});
 BoxTop.storyName = 'BoxTop'
+BoxTop.args = {}

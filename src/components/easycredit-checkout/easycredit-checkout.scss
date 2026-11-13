@@ -1,3 +1,5 @@
+@import '../../globals/cost-notice';
+
 // Checkout
 .ec-checkout {
   margin-top: 20px;
@@ -256,6 +258,14 @@
         }
       }
     }
+  }
+
+  .ec-cost-notice {
+    margin-top: 8px;
+    font-size: $font-size-xxs;
+    line-height: $line-height;
+    font-weight: 400;
+    color: $font-color-label-secondary;
   }
 
   &__small-print {

@@ -1,3 +1,5 @@
+@import '../../globals/cost-notice';
+
 // Setup
 .ec-infopage {
   padding: 30px;
@@ -147,6 +149,13 @@ $infopage-max-width-wide: 1260px;
 
     p {
       margin: 20px 0;
+    }
+
+    .ec-cost-notice {
+      margin: 20px 0 0;
+      font-size: $font-size-lg;
+      line-height: $line-height;
+      font-weight: 400;
     }
 
     .actions {

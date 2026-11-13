@@ -1,5 +1,6 @@
 import { Component, Prop, h, State, Listen, Element, Watch, Host } from '@stencil/core'
 import { fetchInstallmentPlans,validateInstallmentPlans, getWebshopInfo, sendFeedback, addErrorHandler } from '../../utils/utils'
+import { CostNotice, billCostNotice, installmentCostNotice } from '../../utils/cost-notice'
 import { Caps } from '../../utils/validation';
 import { InstallmentPlan, InstallmentPlans, METHODS } from '../../types';
 import { WebshopInfo } from '../../types';
@@ -111,6 +112,14 @@ export class EasycreditExpressButton {
     this.onAmountChanged(this.amount, null);
   }
 
+  getCostNotice() {
+    const text = this.selectedPaymentType === METHODS.BILL
+      ? billCostNotice()
+      : installmentCostNotice();
+
+    return <CostNotice text={text} />;
+  }
+
   getInstallmentUspFragment() {
     return [
       <div class="ec-checkout__body">
@@ -170,6 +179,7 @@ export class EasycreditExpressButton {
                 )}
 
                 {(this.paymentTypesEmpty || this.selectedPaymentType === METHODS.INSTALLMENT) && this.getInstallmentUspFragment()}
+                {this.getCostNotice()}
               </div>
 
               <div class="ec-background">
