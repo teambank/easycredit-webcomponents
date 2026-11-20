@@ -68,7 +68,7 @@ export function fetchMultiInstallmentPlans (webshopId: string, amount: number) {
 
 export function fetchAllInstallmentPlans (webshopId: string, amounts: number[]) {
   let url = getApiUrl('/api/ratenrechner/v3/webshop/{{webshopId}}/installmentplans')
-    .replace('{{webshopId}}', webshopId)
+    .replace('{{webshopId}}', encodeWebshopId(webshopId))
 
   const articles = amounts.map(amount => {
     return {
@@ -108,7 +108,7 @@ export function fetchSingleInstallmentPlan (webshopId: string, amount: number, o
     return Promise.reject(new Error('amount is required for installment plans'))
   }
   let url = getApiUrl('/api/ratenrechner/v3/webshop/{{webshopId}}/installmentplans')
-    .replace('{{webshopId}}', webshopId)
+    .replace('{{webshopId}}', encodeWebshopId(webshopId))
 
   const options = getOptions({
     method: 'POST',
@@ -135,35 +135,65 @@ export function fetchSingleInstallmentPlan (webshopId: string, amount: number, o
 var webshopInfoLoader: Loader;
 
 // Stencil's hydrate runtime re-executes component code for every render and
-// gives that run a new localStorage. These maps live on the Node global, which
-// that runtime does not replace.
+// rebinds the identifier `globalThis` to the mock window inside hydrateFactory.
+// Function('return globalThis') escapes that scope and returns the real host
+// global (Node, GraalJS, and other embedders), which survives across renders.
 const SERVER_WEBSHOP_INFO_KEY = '__easycreditWebshopInfo';
 const SERVER_WEBSHOP_INFO_TTL_MS = 60 * 60 * 1000;
+const SERVER_WEBSHOP_INFO_NEGATIVE_TTL_MS = 30 * 1000;
 
 const SERVER_INSTALLMENT_PLANS_KEY = '__easycreditInstallmentPlans';
 const INSTALLMENT_PLANS_CACHE_MS = 10 * 1000;
+const INSTALLMENT_PLANS_NEGATIVE_TTL_MS = 5 * 1000;
 
 const SERVER_CACHE_SWEEP_KEY = '__easycreditCacheSweep';
+const WEBSHOP_ID_PATTERN = /^[A-Za-z0-9._-]{1,64}$/;
 
 interface ServerCacheEntry {
   storedAt: number;
   data?: string;
   pending?: Promise<any>;
+  negative?: boolean;
+  error?: string;
+  ttlMs?: number;
 }
 
-declare const global: {
-  setInterval: (callback: () => void, delay: number) => { unref?: () => void };
-};
-
-declare const process: {
+type ServerGlobal = {
+  setInterval?: (callback: () => void, delay: number) => { unref?: () => void };
   [SERVER_WEBSHOP_INFO_KEY]?: Map<string, ServerCacheEntry>;
   [SERVER_INSTALLMENT_PLANS_KEY]?: Map<string, ServerCacheEntry>;
   [SERVER_CACHE_SWEEP_KEY]?: { unref?: () => void };
 };
 
-function pruneExpired(cache: Map<string, ServerCacheEntry>, ttlMs: number) {
+function serverGlobal(): ServerGlobal | null {
+  if (!Build.isServer) {
+    return null;
+  }
+  try {
+    const root = Function('return globalThis')() as ServerGlobal | null;
+    if (!root || typeof root !== 'object') {
+      return null;
+    }
+    return root;
+  } catch {
+    return null;
+  }
+}
+
+function encodeWebshopId(webshopId: string | string[]): string {
+  // Loader.batchLoader passes missingIds as string[]; a single id is a string.
+  const raw = Array.isArray(webshopId) ? webshopId[0] : webshopId;
+  const id = typeof raw === 'string' ? raw.trim() : '';
+  if (!WEBSHOP_ID_PATTERN.test(id)) {
+    throw new Error('invalid webshop id');
+  }
+  return encodeURIComponent(id);
+}
+
+function pruneExpired(cache: Map<string, ServerCacheEntry>, defaultTtlMs: number) {
   const now = Date.now();
   cache.forEach((entry, key) => {
+    const ttlMs = entry.ttlMs ?? defaultTtlMs;
     if (now - entry.storedAt >= ttlMs) {
       cache.delete(key);
     }
@@ -171,40 +201,41 @@ function pruneExpired(cache: Map<string, ServerCacheEntry>, ttlMs: number) {
 }
 
 function ensureServerCacheSweep() {
-  if (!Build.isServer || typeof global === 'undefined' || typeof process === 'undefined' || process === null) {
+  const root = serverGlobal();
+  if (!root || typeof root.setInterval !== 'function') {
     return;
   }
-  if (process[SERVER_CACHE_SWEEP_KEY]) {
+  if (root[SERVER_CACHE_SWEEP_KEY]) {
     return;
   }
-  // hydrateFactory rebinds setInterval to the mock window, which is discarded
-  // after each render. global.setInterval is the Node timer.
-  const timer = global.setInterval(() => {
-    const webshops = process[SERVER_WEBSHOP_INFO_KEY];
+  // Use the host timer from the real globalThis, not the mock window timer.
+  const timer = root.setInterval(() => {
+    const webshops = root[SERVER_WEBSHOP_INFO_KEY];
     if (webshops) {
       pruneExpired(webshops, SERVER_WEBSHOP_INFO_TTL_MS);
     }
-    const plans = process[SERVER_INSTALLMENT_PLANS_KEY];
+    const plans = root[SERVER_INSTALLMENT_PLANS_KEY];
     if (plans) {
       pruneExpired(plans, INSTALLMENT_PLANS_CACHE_MS);
     }
-  }, INSTALLMENT_PLANS_CACHE_MS);
+  }, INSTALLMENT_PLANS_CACHE_MS) as { unref?: () => void };
   if (typeof timer.unref === 'function') {
     timer.unref();
   }
-  process[SERVER_CACHE_SWEEP_KEY] = timer;
+  root[SERVER_CACHE_SWEEP_KEY] = timer;
 }
 
 function serverWebshopInfoCache(): Map<string, ServerCacheEntry> | null {
-  if (!Build.isServer || typeof process === 'undefined' || process === null) {
+  const root = serverGlobal();
+  if (!root) {
     return null;
   }
-  if (!process[SERVER_WEBSHOP_INFO_KEY]) {
-    process[SERVER_WEBSHOP_INFO_KEY] = new Map();
+  if (!root[SERVER_WEBSHOP_INFO_KEY]) {
+    root[SERVER_WEBSHOP_INFO_KEY] = new Map();
   }
-  pruneExpired(process[SERVER_WEBSHOP_INFO_KEY], SERVER_WEBSHOP_INFO_TTL_MS);
+  pruneExpired(root[SERVER_WEBSHOP_INFO_KEY], SERVER_WEBSHOP_INFO_TTL_MS);
   ensureServerCacheSweep();
-  return process[SERVER_WEBSHOP_INFO_KEY];
+  return root[SERVER_WEBSHOP_INFO_KEY];
 }
 
 function readServerCacheEntry(cache: Map<string, ServerCacheEntry> | null, key: string): any | Promise<any> | undefined {
@@ -218,10 +249,34 @@ function readServerCacheEntry(cache: Map<string, ServerCacheEntry> | null, key: 
   if (entry.pending) {
     return entry.pending;
   }
+  if (entry.negative) {
+    return Promise.reject(new Error(entry.error || 'cached failure'));
+  }
   if (typeof entry.data === 'string') {
     return JSON.parse(entry.data);
   }
   return undefined;
+}
+
+function rememberNegative(
+  cache: Map<string, ServerCacheEntry> | null,
+  key: string,
+  pending: Promise<any>,
+  error: unknown,
+  ttlMs: number,
+) {
+  if (!cache || !key) {
+    return;
+  }
+  const current = cache.get(key);
+  if (current && current.pending === pending) {
+    cache.set(key, {
+      storedAt: Date.now(),
+      negative: true,
+      error: error instanceof Error ? error.message : String(error),
+      ttlMs,
+    });
+  }
 }
 
 function readServerWebshopInfo(webshopId: string): any | Promise<any> | undefined {
@@ -271,24 +326,20 @@ export async function getWebshopInfo(webshopId: string) {
     }
     return result;
   } catch (error) {
-    if (cache && webshopId) {
-      const current = cache.get(webshopId);
-      if (current && current.pending === pending) {
-        cache.delete(webshopId);
-      }
-    }
+    rememberNegative(cache, webshopId, pending, error, SERVER_WEBSHOP_INFO_NEGATIVE_TTL_MS);
     throw error;
   }
 }
 
-export function fetchWebshopInfo (webshopId: string) {
+export function fetchWebshopInfo (webshopId: string | string[]) {
+  const id = Array.isArray(webshopId) ? webshopId[0] : webshopId
   const url = getApiUrl('/api/payment/v3/webshop/{{webshopId}}')
-    .replace('{{webshopId}}', webshopId)
+    .replace('{{webshopId}}', encodeWebshopId(id))
   return fetch(url, getOptions({})).then(async (response) => {
     if (response.ok) {
       const data = await response.json()
       return {
-        [webshopId]: data,
+        [id]: data,
       }
     }
     return Promise.reject(new Error(`Webshop info HTTP ${response.status}`))
@@ -311,15 +362,16 @@ export const validateInstallmentPlans = (data: any): InstallmentPlans => {
 }
 
 function serverInstallmentPlansCache(): Map<string, ServerCacheEntry> | null {
-  if (!Build.isServer || typeof process === 'undefined' || process === null) {
+  const root = serverGlobal();
+  if (!root) {
     return null;
   }
-  if (!process[SERVER_INSTALLMENT_PLANS_KEY]) {
-    process[SERVER_INSTALLMENT_PLANS_KEY] = new Map();
+  if (!root[SERVER_INSTALLMENT_PLANS_KEY]) {
+    root[SERVER_INSTALLMENT_PLANS_KEY] = new Map();
   }
-  pruneExpired(process[SERVER_INSTALLMENT_PLANS_KEY], INSTALLMENT_PLANS_CACHE_MS);
+  pruneExpired(root[SERVER_INSTALLMENT_PLANS_KEY], INSTALLMENT_PLANS_CACHE_MS);
   ensureServerCacheSweep();
-  return process[SERVER_INSTALLMENT_PLANS_KEY];
+  return root[SERVER_INSTALLMENT_PLANS_KEY];
 }
 
 function installmentPlansCacheKey(webshopId: string, amount: number, opts: object): string {
@@ -366,12 +418,7 @@ export async function fetchInstallmentPlans(webshopId: string, amount: number, o
     }
     return result;
   } catch (error) {
-    if (cache) {
-      const current = cache.get(cacheKey);
-      if (current && current.pending === pending) {
-        cache.delete(cacheKey);
-      }
-    }
+    rememberNegative(cache, cacheKey, pending, error, INSTALLMENT_PLANS_NEGATIVE_TTL_MS);
     throw error;
   }
 }

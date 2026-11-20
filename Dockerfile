@@ -21,7 +21,8 @@ COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/hydrate ./hydrate
 COPY scripts/prerender-server ./scripts/prerender-server
 COPY scripts/docker/entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
+RUN chmod +x /entrypoint.sh \
+  && chown -R node:node /app
 
 # Defaults. Override any of these at runtime (`docker run -e`, Compose `environment`, or `.env`).
 ENV WEB_PORT=8088 \
@@ -32,7 +33,10 @@ ENV WEB_PORT=8088 \
   PRERENDER_BUDGET_MS=1000 \
   PRERENDER_WORKER_PORT_BASE=4721 \
   PRERENDER_TIMEOUT=15000 \
-  PRERENDER_MAX_BODY=1048576
+  PRERENDER_MAX_BODY=1048576 \
+  PRERENDER_MAX_COMPONENTS=32
+
+USER node
 
 EXPOSE 4711 8088
 

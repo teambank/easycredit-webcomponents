@@ -51,13 +51,18 @@ for (let i = 0; i < WORKER_COUNT; i++) {
   }
 }
 
+const WEBSHOP_ID_PATTERN = /^[A-Za-z0-9._-]{1,64}$/;
+
 function webshopIdFromFragment(html) {
   const match = /webshop-id\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'=<>`]+))/i.exec(html);
   if (!match) {
     return null;
   }
   const id = (match[1] || match[2] || match[3] || '').trim();
-  return id || null;
+  if (!id || !WEBSHOP_ID_PATTERN.test(id)) {
+    return null;
+  }
+  return id;
 }
 
 function hashString(value) {

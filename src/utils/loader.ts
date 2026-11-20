@@ -26,7 +26,12 @@ export class Loader {
         this.requestedIds.clear();
 
         if (missingIds.length > 0) {
-          this.batchRequest = this.batchLoader(missingIds);
+          try {
+            this.batchRequest = Promise.resolve(this.batchLoader(missingIds));
+          } catch (e) {
+            reject(e);
+            return;
+          }
           missingIds.forEach(id => this.queuedIds.add(id));
         }
 

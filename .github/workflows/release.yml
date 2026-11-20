@@ -16,8 +16,12 @@ jobs:
          npm ci
          npm run release
 
-         echo "::set-output name=filepath::$(ls *.tar.gz | head -1)"
-         echo "::set-output name=filename::$(basename `ls *.tar.gz | head -1`)"
+         VERSION=$(npm pkg get version | sed 's/"//g')
+         echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+         echo "filepath=easycredit-webcomponents-$VERSION.tar.gz" >> "$GITHUB_OUTPUT"
+         echo "filename=easycredit-webcomponents-$VERSION.tar.gz" >> "$GITHUB_OUTPUT"
+         echo "hydrate_filepath=easycredit-webcomponents-hydrate-$VERSION.tar.gz" >> "$GITHUB_OUTPUT"
+         echo "hydrate_filename=easycredit-webcomponents-hydrate-$VERSION.tar.gz" >> "$GITHUB_OUTPUT"
       shell: bash
     - name: Create Release
       id: create-release
@@ -39,7 +43,17 @@ jobs:
         upload_url: ${{ steps.create-release.outputs.upload_url }}
         asset_path: ${{ steps.build-release.outputs.filepath }}
         asset_name: ${{ steps.build-release.outputs.filename }}
-        asset_content_type: application/zip
+        asset_content_type: application/gzip
+    - name: Upload Hydrate Release Asset
+      id: upload-hydrate-release-asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create-release.outputs.upload_url }}
+        asset_path: ${{ steps.build-release.outputs.hydrate_filepath }}
+        asset_name: ${{ steps.build-release.outputs.hydrate_filename }}
+        asset_content_type: application/gzip
 
   deploy-storybook:
     runs-on: ubuntu-22.04

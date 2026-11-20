@@ -70,12 +70,17 @@ http://127.0.0.1:8088/easycredit-components/easycredit-components.esm.js
 | `PRERENDER_WORKER_PORT_BASE` | `4721` | First worker port. Workers listen on `127.0.0.1` only |
 | `PRERENDER_TIMEOUT` | `15000` | Aborts a render whose component data fetch is stuck |
 | `PRERENDER_MAX_BODY` | `1048576` | Maximum JSON body in bytes |
+| `PRERENDER_MAX_COMPONENTS` | `32` | Maximum `easycredit-*` tags accepted in one fragment |
 | `PRERENDER_HYDRATE_URL` | `https://ratenkauf.easycredit.de/` | Page URL seen by components during render |
 | `PLUGIN_NETWORK` | | Docker network name for `docker-compose.network.yml` |
 
 `PRERENDER_WORKER_PORT_BASE` and the following worker ports must not be `PRERENDER_PORT`. Changing `PRERENDER_WORKERS` moves shops onto different processes, so the next render for each shop fetches again.
 
-Webshop info stays cached for one hour. Installment plans stay cached for 10 seconds. Both live in the worker process, not in a shared store.
+Webshop info stays cached for one hour. Installment plans stay cached for 10 seconds. Failed lookups stay in a short negative cache (30s / 5s). Caches live on the real host `globalThis` (escaped from Stencil's mock window), not in a shared store.
+
+`POST /render` accepts only `{ "html": "…" }`. Request `options` are ignored. Only known `easycredit-*` tags are rendered. `webshop-id` values must match `[A-Za-z0-9._-]{1,64}` and are encoded before API calls. Hydrate `s-id` / `c-id` counters are reset for each render; renders on one worker are serialized so concurrent jobs cannot share those counters.
+
+The container runs as the non-root `node` user. Port **8088** is only for local/dev static files. Production shops should keep loading the client bundle from the existing CDN and expose only the SSR API on **4711**.
 
 ## Traefik
 
@@ -85,3 +90,18 @@ docker compose -f docker-compose.yml -f docker-compose.traefik.yml up --build
 ```
 
 Traefik routes to the static file port (`WEB_PORT`). The Node API stays on `PRERENDER_PORT` inside the Docker network.
+
+## Hydrate artifacts
+
+Each release publishes:
+
+- `easycredit-webcomponents-<version>.tar.gz` — client `dist/`
+- `easycredit-webcomponents-hydrate-<version>.tar.gz` — Node hydrate (`hydrate/`)
+
+The npm package exports the Node hydrate entry:
+
+```js
+import { renderToString } from '@easycredit/easycredit-components/hydrate';
+```
+
+Do not run `master.cjs` / `server.cjs` on non-Node runtimes; those files are the Node HTTP service only. Stencil rebinds the identifier `globalThis` to a mock window; components resolve the real host global with `Function('return globalThis')()` so caches survive across renders.

@@ -56,7 +56,7 @@
     "docker:build": "docker build -t easycredit-prerender:local .",
     "docker:up": "docker compose up --build",
     "docker:up:network": "docker compose -f docker-compose.yml -f docker-compose.network.yml up --build",
-    "release": "npm run build && (cd dist; tar czvf ../easycredit-webcomponents-$(npm pkg get version | sed 's/\"//g').tar.gz .)"
+    "release": "npm run build && VERSION=$(npm pkg get version | sed 's/\\\"//g') && tar czvf easycredit-webcomponents-$VERSION.tar.gz -C dist . && tar czvf easycredit-webcomponents-hydrate-$VERSION.tar.gz -C hydrate ."
   },
   "dependencies": {
     "@babel/plugin-transform-optional-chaining": "^7.25.9",
