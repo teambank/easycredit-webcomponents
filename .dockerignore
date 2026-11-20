@@ -6,7 +6,9 @@ storybook-static
 docs/build
 dist
 hydrate
+hydrate-graal
 loader
+graal-prerender/target
 *.log
 .env
 .env.*

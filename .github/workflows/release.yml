@@ -22,6 +22,8 @@ jobs:
          echo "filename=easycredit-webcomponents-$VERSION.tar.gz" >> "$GITHUB_OUTPUT"
          echo "hydrate_filepath=easycredit-webcomponents-hydrate-$VERSION.tar.gz" >> "$GITHUB_OUTPUT"
          echo "hydrate_filename=easycredit-webcomponents-hydrate-$VERSION.tar.gz" >> "$GITHUB_OUTPUT"
+         echo "hydrate_graal_filepath=easycredit-webcomponents-hydrate-graal-$VERSION.tar.gz" >> "$GITHUB_OUTPUT"
+         echo "hydrate_graal_filename=easycredit-webcomponents-hydrate-graal-$VERSION.tar.gz" >> "$GITHUB_OUTPUT"
       shell: bash
     - name: Create Release
       id: create-release
@@ -53,6 +55,16 @@ jobs:
         upload_url: ${{ steps.create-release.outputs.upload_url }}
         asset_path: ${{ steps.build-release.outputs.hydrate_filepath }}
         asset_name: ${{ steps.build-release.outputs.hydrate_filename }}
+        asset_content_type: application/gzip
+    - name: Upload Graal Hydrate Release Asset
+      id: upload-hydrate-graal-release-asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create-release.outputs.upload_url }}
+        asset_path: ${{ steps.build-release.outputs.hydrate_graal_filepath }}
+        asset_name: ${{ steps.build-release.outputs.hydrate_graal_filename }}
         asset_content_type: application/gzip
 
   deploy-storybook:

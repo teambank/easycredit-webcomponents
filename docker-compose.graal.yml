@@ -1,0 +1,25 @@
+# Parallel GraalJS prerender next to the Node service.
+#
+#   docker compose -f docker-compose.yml -f docker-compose.graal.yml up --build
+#
+# Node API:  127.0.0.1:4711
+# Graal API: 127.0.0.1:4712
+
+services:
+  easycredit-prerender-graal:
+    build:
+      context: .
+      dockerfile: Dockerfile.graal
+    image: easycredit-prerender-graal:local
+    container_name: easycredit-prerender-graal
+    init: true
+    environment:
+      PRERENDER_HOST: ${PRERENDER_HOST:-0.0.0.0}
+      PRERENDER_PORT: 4711
+      PRERENDER_TIMEOUT: ${PRERENDER_TIMEOUT:-15000}
+      PRERENDER_MAX_BODY: ${PRERENDER_MAX_BODY:-1048576}
+      PRERENDER_MAX_COMPONENTS: ${PRERENDER_MAX_COMPONENTS:-32}
+      PRERENDER_HYDRATE_URL: ${PRERENDER_HYDRATE_URL:-}
+      PRERENDER_HYDRATE_BUNDLE: /app/hydrate-graal/index.js
+    ports:
+      - "127.0.0.1:4712:4711"

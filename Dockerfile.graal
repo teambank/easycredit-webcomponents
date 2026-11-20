@@ -1,0 +1,42 @@
+# GraalJS prerender: Stencil hydrate-graal bundle + Java HTTP service (Polyglot JS).
+
+FROM node:24-bookworm AS js-builder
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm ci
+COPY . .
+RUN npm run build && npm run build:hydrate-graal
+
+FROM maven:3.9-eclipse-temurin-21 AS java-builder
+WORKDIR /build
+COPY graal-prerender/pom.xml ./
+COPY graal-prerender/src ./src
+RUN mvn -q -DskipTests package
+
+FROM eclipse-temurin:21-jre
+WORKDIR /app
+
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends curl \
+  && rm -rf /var/lib/apt/lists/* \
+  && groupadd -r easycredit \
+  && useradd -r -g easycredit -u 10001 easycredit
+
+COPY --from=js-builder /app/hydrate-graal ./hydrate-graal
+COPY --from=java-builder /build/target/graal-prerender-1.0.0-SNAPSHOT.jar ./graal-prerender.jar
+
+ENV PRERENDER_HOST=0.0.0.0 \
+  PRERENDER_PORT=4711 \
+  PRERENDER_TIMEOUT=15000 \
+  PRERENDER_MAX_BODY=1048576 \
+  PRERENDER_MAX_COMPONENTS=32 \
+  PRERENDER_HYDRATE_BUNDLE=/app/hydrate-graal/index.js \
+  PRERENDER_HYDRATE_URL=https://ratenkauf.easycredit.de/
+
+USER easycredit
+EXPOSE 4711
+
+HEALTHCHECK --interval=30s --timeout=3s --start-period=25s --retries=3 \
+  CMD curl -fsS "http://127.0.0.1:${PRERENDER_PORT}/health" >/dev/null || exit 1
+
+ENTRYPOINT ["java", "-jar", "/app/graal-prerender.jar"]

@@ -1,6 +1,8 @@
 dist/
 hydrate/
+hydrate-graal/
 loader/
+graal-prerender/target/
 
 *~
 *.sw[mnpcod]

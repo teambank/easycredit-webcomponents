@@ -91,17 +91,48 @@ docker compose -f docker-compose.yml -f docker-compose.traefik.yml up --build
 
 Traefik routes to the static file port (`WEB_PORT`). The Node API stays on `PRERENDER_PORT` inside the Docker network.
 
+## GraalJS server (Java + Polyglot)
+
+Reference HTTP service that embeds the Graal-ready hydrate bundle in a JVM. Node remains on port **4711**; Graal publishes **4712** on the host.
+
+```bash
+docker compose -f docker-compose.yml -f docker-compose.graal.yml up --build
+curl -fsS http://127.0.0.1:4712/health
+curl -fsS -X POST http://127.0.0.1:4712/render \
+  -H 'content-type: application/json' \
+  -d '{"html":"<easycredit-logo></easycredit-logo>"}'
+```
+
+| Variable | Default | Effect |
+|---|---|---|
+| `PRERENDER_HOST` | `0.0.0.0` | Bind address |
+| `PRERENDER_PORT` | `4711` | Port inside the container (host maps `4712:4711`) |
+| `PRERENDER_TIMEOUT` | `15000` | Hydrate / fetch timeout in ms |
+| `PRERENDER_MAX_BODY` | `1048576` | Max JSON body bytes |
+| `PRERENDER_MAX_COMPONENTS` | `32` | Max `easycredit-*` tags per fragment |
+| `PRERENDER_HYDRATE_URL` | `https://ratenkauf.easycredit.de/` | Page URL seen during render |
+| `PRERENDER_HYDRATE_BUNDLE` | `/app/hydrate-graal/index.js` | Path to the Graal hydrate bundle |
+
+Guards match the Node worker: allowlist, body/component limits, webshop-id pattern, ignored `options`, serialized renders, hydrate id reset. `fetch` is provided by Java `HttpClient`.
+
+Source: `graal-prerender/` (Maven). Image: `Dockerfile.graal`.
+
 ## Hydrate artifacts
 
 Each release publishes:
 
 - `easycredit-webcomponents-<version>.tar.gz` — client `dist/`
 - `easycredit-webcomponents-hydrate-<version>.tar.gz` — Node hydrate (`hydrate/`)
+- `easycredit-webcomponents-hydrate-graal-<version>.tar.gz` — GraalJS bundle (`hydrate-graal/`)
 
-The npm package exports the Node hydrate entry:
+Build the Graal bundle locally with `npm run build && npm run build:hydrate-graal`.
+
+The npm package still exports the Node hydrate entry:
 
 ```js
 import { renderToString } from '@easycredit/easycredit-components/hydrate';
 ```
 
-Do not run `master.cjs` / `server.cjs` on non-Node runtimes; those files are the Node HTTP service only. Stencil rebinds the identifier `globalThis` to a mock window; components resolve the real host global with `Function('return globalThis')()` so caches survive across renders.
+For a custom JVM host, load `hydrate-graal/index.js` into a GraalJS `Context` (the bundle already polyfills `AbortController`, `URL`, `queueMicrotask`, and timers), install `fetch`, call `globalThis.renderToString(html, options)`, keep one warm realm, pump delayed timers while awaiting the Promise, and reset `_stencilDocData` host ids between concurrent renders. The Java service above is the reference implementation.
+
+Do not run `master.cjs` / `server.cjs` on GraalJS; those files are the Node HTTP service only. Stencil rebinds the identifier `globalThis` to a mock window; components resolve the real host global with `Function('return globalThis')()` so caches survive across renders.
